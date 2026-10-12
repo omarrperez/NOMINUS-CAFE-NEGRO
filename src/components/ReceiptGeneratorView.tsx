@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Receipt, Printer, QrCode, CheckCircle, RefreshCw, FileText, User, Scale, Plus, Save, FileDown } from 'lucide-react';
-import { exportToWord, exportToPdfPrint } from '../utils/exportUtils';
+import { Receipt, Printer, QrCode, CheckCircle, RefreshCw, FileText, User, Scale, Plus, Save, FileDown, Download } from 'lucide-react';
+import { exportToWord, exportToPdfPrint, downloadElementAsPdf } from '../utils/exportUtils';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { useAppData, CoffeeReceiptRecord } from '../context/AppDataContext';
 
@@ -98,12 +98,25 @@ export const ReceiptGeneratorView: React.FC<Props> = ({ company, currentRate }) 
             Word (.doc)
           </button>
           <button
+            onClick={async () => {
+              const receiptPaper = document.getElementById('recibo-cafe-live-preview');
+              if (receiptPaper) {
+                await downloadElementAsPdf('recibo-cafe-live-preview', `${receiptNumber}_Agricola_Oni.pdf`);
+              }
+            }}
+            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar recibo en PDF directo"
+          >
+            <Download className="w-3.5 h-3.5" />
+            Descargar PDF (.pdf)
+          </button>
+          <button
             onClick={() => exportToPdfPrint()}
-            className="px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5"
-            title="Imprimir o exportar como PDF"
+            className="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Imprimir recibo (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
-            Imprimir / PDF
+            Imprimir
           </button>
         </div>
       </div>

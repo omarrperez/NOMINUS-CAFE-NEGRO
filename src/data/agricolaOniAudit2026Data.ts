@@ -1,5 +1,8 @@
 export type BanescoAuditJustificationType =
   | 'ANTICIPO_CLIENTE'
+  | 'ANTICIPO_CLIENTE_PERSONA_NATURAL'
+  | 'CUENTAS_POR_PAGAR_SOCIOS'
+  | 'CUENTAS_POR_COBRAR_SOCIOS'
   | 'COMPRA_DIVISAS_BANESCO'
   | 'USO_DIVISAS_COLOMBIA'
   | 'PAGO_PROVEEDOR_COLOMBIA'
@@ -536,40 +539,40 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     notes: 'Cierre de ciclo de anticipos recibidos para despacho en octubre.'
   },
 
-  // 16. INGRESO PERSONA NATURAL - Productor Titular V-023997829
+  // 16. INGRESO PERSONA NATURAL - Socio Propietario V-23997829 (Cuentas por Pagar Socios)
   {
     id: 'BAN-MOV-2026-016',
     date: '31/07/2026',
     reference: 'TRF-CR-INMV-0239',
-    description: '21 ABONOS TRF CR INMV 023997829 ASOCIADO PRODUCTOR RECURRENTE',
+    description: '21 ABONOS TRF CR INMV 023997829 SOCIO PROPIETARIO AGRÍCOLA ONI C.A. (CUENTAS POR PAGAR SOCIOS)',
     debitVES: 0,
     creditVES: 7649975,
     balanceVES: 1443667067.62,
     countervalueUSD: 11266.93,
     bcvRate: 748.79,
-    justificationType: 'INGRESO_PERSONA_NATURAL',
-    supportDocType: 'Libro Auxiliar V-023997829 & Comprobantes Bancarios',
-    supportDocRef: 'COMP-ANT-NAT-2026-001',
+    justificationType: 'CUENTAS_POR_PAGAR_SOCIOS',
+    supportDocType: 'Libro Auxiliar V-23997829 & Comprobantes Bancarios',
+    supportDocRef: 'COMP-SOC-PAG-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Aportes recibidos de persona natural V-023997829 para operaciones de campo.'
+    notes: 'Ingreso de dinero del socio a la empresa (Cuentas por Pagar Socios). Salidas de Banesco a su cuenta constituyen Cuentas por Cobrar Socios (préstamos de la empresa al socio).'
   },
 
-  // 17. INGRESO PERSONA NATURAL - Productores y Titulares Naturales (14 Cédulas)
+  // 17. INGRESO PERSONA NATURAL - Anticipos de Clientes (Juan Lander V-24493340, Blanca Trías V-20105311 y Lote)
   {
     id: 'BAN-MOV-2026-017',
     date: '30/06/2026',
     reference: 'TRF-CR-INM-NAT',
-    description: '15 ABONOS TRF CR INM PERSONAS NATURALES TITULARES (14 CEDULAS)',
+    description: '15 ABONOS TRF CR INM PERSONAS NATURALES (JUAN LANDER V-24493340, BLANCA TRÍAS V-20105311 Y OTROS)',
     debitVES: 0,
     creditVES: 21845979.99,
     balanceVES: 1465513047.61,
     countervalueUSD: 36069.06,
     bcvRate: 633.36,
-    justificationType: 'INGRESO_PERSONA_NATURAL',
-    supportDocType: 'Comprobantes de Ingreso Bancario & Cédulas',
+    justificationType: 'ANTICIPO_CLIENTE_PERSONA_NATURAL',
+    supportDocType: 'Comprobantes de Ingreso Bancario & Cédulas V-',
     supportDocRef: 'COMP-ANT-NAT-2026-002',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Abonos directos de 14 titulares personas naturales verificados.'
+    notes: 'Anticipos de clientes personas naturales (Juan Lander V-24.493.340, Blanca Trías V-20.105.311 y otros) recibidos por la empresa por reserva y compra de café verde.'
   },
 
   // 18. Desembolsos Línea Becerra May-Jun
@@ -796,9 +799,9 @@ export const BANESCO_AUDIT_POINTS = [
   },
   {
     id: 4,
-    title: 'Ingresos Provenientes de Personas Naturales (Bs. 29.495.954,99)',
-    request: 'Identificación de personas naturales que efectuaron abonos en cuenta.',
-    response: 'Los abonos corresponden a aportes de campo del productor titular recurrente V-023997829 (Bs. 7.649.975,00) y de un lote de 14 titulares personas naturales debidamente identificadas con cédula (Bs. 21.845.979,99) por reserva de quintales de café para consumo regional.',
+    title: 'Clasificación y Sustento de Personas Naturales (Cuentas Socios y Anticipos Clientes)',
+    request: 'Revisión y reclasificación contable-bancaria de operaciones con personas naturales.',
+    response: '1) Cédula V-23.997.829 (Propietario / Socio de Agrícola Oni C.A.): Todos los ingresos de dinero en Banesco se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e ingresos del socio a la empresa) y todas las salidas de Banesco a su cuenta como CUENTAS POR COBRAR SOCIOS (préstamos de la empresa al socio). 2) Cédula V-24.493.340 (Juan Rafael Lander Ramírez) y Cédula V-20.105.311 (Blanca Cristina Trías Abreu) junto con las demás personas naturales: Justificados y reclasificados ante Banesco como ANTICIPOS DE CLIENTES PERSONAS NATURALES por reserva de quintales de café verde pergamino.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {

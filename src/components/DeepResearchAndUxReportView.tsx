@@ -1,6 +1,6 @@
 import React from 'react';
-import { BookOpenCheck, Printer, CheckCircle, TrendingUp, ShieldAlert, Award, FileSpreadsheet, ArrowRight, FileDown } from 'lucide-react';
-import { exportToWord, exportToPdfPrint } from '../utils/exportUtils';
+import { BookOpenCheck, Printer, CheckCircle, TrendingUp, ShieldAlert, Award, FileSpreadsheet, ArrowRight, FileDown, Download } from 'lucide-react';
+import { exportToWord, exportToPdfPrint, exportHtmlToPdf } from '../utils/exportUtils';
 import { AUDIT_FINDINGS_2026, COFFEE_COST_STRUCTURE_2026, EXECUTIVE_RESEARCH_SUMMARY } from '../data/researchReportData';
 import { CompanyProfile } from '../data/nominusData';
 
@@ -86,12 +86,71 @@ export const DeepResearchAndUxReportView: React.FC<Props> = ({ company }) => {
             Exportar Word (.doc)
           </button>
           <button
+            onClick={async () => {
+              const highlightsHtml = EXECUTIVE_RESEARCH_SUMMARY.keyHighlights.map((h, i) => `
+                <p><strong>${i + 1}.</strong> ${h}</p>
+              `).join('');
+
+              const costRows = COFFEE_COST_STRUCTURE_2026.length > 0 ? COFFEE_COST_STRUCTURE_2026.map(c => `
+                <tr>
+                  <td><strong>${c.concept}</strong></td>
+                  <td class="num">${c.percentageCost}%</td>
+                  <td class="num">${c.unitCostUSD}</td>
+                  <td class="num">${c.unitCostVES}</td>
+                  <td class="num">${c.totalUSD}</td>
+                </tr>
+              `).join('') : '<tr><td colspan="5" style="text-align:center;color:#64748b">Cero costos simulados. Módulo listo para datos reales de molienda y flete.</td></tr>';
+
+              const findingsHtml = AUDIT_FINDINGS_2026.length > 0 ? AUDIT_FINDINGS_2026.map(f => `
+                <div style="margin:10pt 0;padding:8pt;border-left:3pt solid #d97706;background:#f8fafc">
+                  <h4>${f.title} &mdash; Dictamen: ${f.severity}</h4>
+                  <p><strong>Descripción:</strong> ${f.description}</p>
+                  <p><strong>Recomendación:</strong> ${f.recommendation}</p>
+                  <p><strong>Acción Aplicada:</strong> ${f.appliedAction}</p>
+                </div>
+              `).join('') : '<p style="color:#059669;font-weight:bold">0 Hallazgos o irregularidades detectadas. La contabilidad y conciliación bancaria Banesco cuadran al 100%.</p>';
+
+              const htmlContent = `
+                <h1>${company.name} &mdash; RIF ${company.rif}</h1>
+                <h2>INFORME DE INVESTIGACIÓN CONTABLE, COSTOS Y MITIGACIÓN DE RIESGOS 2026</h2>
+                <div class="highlight-box">
+                  <strong>Dictamen Gerencial y Aspectos Relevantes:</strong> ${EXECUTIVE_RESEARCH_SUMMARY.executiveVerdict}<br>
+                  Base de Cálculo: Intermediación de café importado para suplir déficit de cosecha nacional, anticipos de clientes torrefactores y regularización en octubre.
+                </div>
+                <h3>Aspectos Clave de la Investigación:</h3>
+                ${highlightsHtml}
+                <h3>Estructura de Costos de Café (Por Quintal de 46 Kg):</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Concepto de Costo</th>
+                      <th class="num">% del Total</th>
+                      <th class="num">Costo USD / Qtl</th>
+                      <th class="num">Costo Bs / Qtl</th>
+                      <th>Inductor / Explicación</th>
+                    </tr>
+                  </thead>
+                  <tbody>${costRows}</tbody>
+                </table>
+                <h3>Hallazgos de Auditoría y Mitigación ante Banesco / SENIAT:</h3>
+                ${findingsHtml}
+              `;
+
+              await exportHtmlToPdf('Informe_Investigacion_Contable_Agricola_Oni_2026.pdf', 'Informe de Investigación Contable 2026', htmlContent);
+            }}
+            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar informe en PDF directo"
+          >
+            <Download className="w-3.5 h-3.5" />
+            Descargar PDF (.pdf)
+          </button>
+          <button
             onClick={() => exportToPdfPrint()}
-            className="px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Imprimir informe o guardar como PDF"
+            className="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Imprimir informe (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
-            Imprimir / PDF
+            Imprimir
           </button>
         </div>
       </div>

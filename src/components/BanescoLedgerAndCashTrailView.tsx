@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { BookOpen, DollarSign, ArrowDownRight, ArrowUpRight, Plus, Download, Printer, Search, Wallet, X } from 'lucide-react';
+import { BookOpen, DollarSign, ArrowDownRight, ArrowUpRight, Plus, Download, Printer, Search, Wallet, X, FileSpreadsheet, FileDown } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { useAppData, PettyCashEntry } from '../context/AppDataContext';
+import { exportToWord, exportToCsv, exportHtmlToPdf, exportToPdfPrint } from '../utils/exportUtils';
 
 interface Props {
   company: CompanyProfile;
@@ -122,9 +123,8 @@ export const BanescoLedgerAndCashTrailView: React.FC<Props> = ({ company, curren
               </select>
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-stone-400">Visualizar en:</span>
-              <div className="flex bg-stone-950 rounded p-0.5 border border-stone-700">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex bg-stone-950 rounded p-0.5 border border-stone-700 mr-2">
                 <button
                   onClick={() => setCurrencyMode('VES')}
                   className={`px-2.5 py-1 rounded text-[11px] font-bold ${
@@ -142,6 +142,127 @@ export const BanescoLedgerAndCashTrailView: React.FC<Props> = ({ company, curren
                   Dólares (USD BCV)
                 </button>
               </div>
+
+              <button
+                onClick={() => {
+                  const rowsHtml = filteredBankMovements.map(m => `
+                    <tr>
+                      <td>${m.date}</td>
+                      <td><strong>${m.reference}</strong></td>
+                      <td>${m.description}</td>
+                      <td class="num">Bs. ${m.bcvRate.toFixed(2)}</td>
+                      <td class="num">${m.debitVES > 0 ? `Bs. ${m.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}</td>
+                      <td class="num">${m.creditVES > 0 ? `Bs. ${m.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}</td>
+                      <td class="num">Bs. ${m.balanceVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                      <td>${m.supportDocType} (${m.supportDocRef})</td>
+                    </tr>
+                  `).join('');
+
+                  const htmlContent = `
+                    <h1>${company.name}</h1>
+                    <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Cuenta Banesco:</strong> ${company.banescoAccountVES}</p>
+                    <h2>LIBRO AUXILIAR DE BANCOS - BANESCO BANCO UNIVERSAL (2026)</h2>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Referencia</th>
+                          <th>Descripción y Tercero</th>
+                          <th class="num">Tasa BCV</th>
+                          <th class="num">Débito (Egreso)</th>
+                          <th class="num">Crédito (Abono)</th>
+                          <th class="num">Saldo Bs</th>
+                          <th>Soporte Documental</th>
+                        </tr>
+                      </thead>
+                      <tbody>${rowsHtml}</tbody>
+                    </table>
+                  `;
+                  exportToWord('Libro_Auxiliar_Banesco_2026_Agricola_Oni.doc', 'Libro Auxiliar Banesco 2026', htmlContent);
+                }}
+                className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+                title="Descargar libro auxiliar en Microsoft Word (.doc)"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                Word (.doc)
+              </button>
+
+              <button
+                onClick={() => {
+                  const headers = ['Fecha', 'Referencia', 'Descripcion', 'Tasa_BCV', 'Debito_Bs', 'Credito_Bs', 'Saldo_Bs', 'Debito_USD', 'Credito_USD', 'Soporte_Tipo', 'Soporte_Ref'];
+                  const rows = filteredBankMovements.map(m => [
+                    m.date,
+                    m.reference,
+                    m.description,
+                    m.bcvRate,
+                    m.debitVES,
+                    m.creditVES,
+                    m.balanceVES,
+                    m.debitVES > 0 ? m.countervalueUSD : 0,
+                    m.creditVES > 0 ? m.countervalueUSD : 0,
+                    m.supportDocType,
+                    m.supportDocRef
+                  ]);
+                  exportToCsv('Libro_Auxiliar_Banesco_2026.csv', headers, rows);
+                }}
+                className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+                title="Descargar libro auxiliar en Excel (CSV)"
+              >
+                <FileSpreadsheet className="w-3.5 h-3.5" />
+                Excel (CSV)
+              </button>
+
+              <button
+                onClick={async () => {
+                  const rowsHtml = filteredBankMovements.map(m => `
+                    <tr>
+                      <td>${m.date}</td>
+                      <td><strong>${m.reference}</strong></td>
+                      <td>${m.description}</td>
+                      <td class="num">Bs. ${m.bcvRate.toFixed(2)}</td>
+                      <td class="num">${m.debitVES > 0 ? `Bs. ${m.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}</td>
+                      <td class="num">${m.creditVES > 0 ? `Bs. ${m.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}</td>
+                      <td class="num">Bs. ${m.balanceVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                      <td>${m.supportDocType} (${m.supportDocRef})</td>
+                    </tr>
+                  `).join('');
+
+                  const htmlContent = `
+                    <h1>${company.name}</h1>
+                    <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Cuenta Banesco:</strong> ${company.banescoAccountVES}</p>
+                    <h2>LIBRO AUXILIAR DE BANCOS - BANESCO BANCO UNIVERSAL (2026)</h2>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Referencia</th>
+                          <th>Descripción y Tercero</th>
+                          <th class="num">Tasa BCV</th>
+                          <th class="num">Débito (Egreso)</th>
+                          <th class="num">Crédito (Abono)</th>
+                          <th class="num">Saldo Bs</th>
+                          <th>Soporte Documental</th>
+                        </tr>
+                      </thead>
+                      <tbody>${rowsHtml}</tbody>
+                    </table>
+                  `;
+                  await exportHtmlToPdf('Libro_Auxiliar_Banesco_2026_Agricola_Oni.pdf', 'Libro Auxiliar Banesco 2026', htmlContent);
+                }}
+                className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1 shadow"
+                title="Descargar libro auxiliar en PDF directo"
+              >
+                <Download className="w-3.5 h-3.5" />
+                PDF
+              </button>
+
+              <button
+                onClick={() => exportToPdfPrint()}
+                className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+                title="Imprimir (Ctrl+P)"
+              >
+                <Printer className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
 

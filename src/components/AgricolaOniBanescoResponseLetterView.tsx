@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Printer, Download, Copy, Check, FileCheck, Shield, ExternalLink, ChevronRight, Stamp, FileDown } from 'lucide-react';
-import { exportToWord } from '../utils/exportUtils';
+import { exportToWord, downloadElementAsPdf } from '../utils/exportUtils';
 import { BANESCO_AUDIT_INFO_2026, BANESCO_AUDIT_POINTS } from '../data/agricolaOniAudit2026Data';
 import { CompanyProfile } from '../data/nominusData';
 import { useAppData } from '../context/AppDataContext';

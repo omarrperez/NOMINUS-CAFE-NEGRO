@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Scale, FileCheck, Printer, Download, Eye, Shield, CheckCircle, ChevronRight, Copy, FileDown } from 'lucide-react';
-import { exportToWord, exportToPdfPrint } from '../utils/exportUtils';
+import { exportToWord, exportToPdfPrint, exportHtmlToPdf } from '../utils/exportUtils';
 import { CompanyProfile } from '../data/nominusData';
 
 interface Props {
@@ -177,12 +177,54 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
             Exportar Word (.doc)
           </button>
           <button
+            onClick={async () => {
+              const clausesHtml = selectedContract.clauses.map(c => `
+                <h3>${c.title}</h3>
+                <p>${c.content}</p>
+              `).join('');
+
+              const htmlContent = `
+                <h1>${company.name} &mdash; RIF ${company.rif}</h1>
+                <h2>${selectedContract.title.toUpperCase()}</h2>
+                <p><strong>Código de Registro:</strong> ${selectedContract.code} &middot; <strong>Fecha:</strong> ${selectedContract.date}</p>
+                <div class="highlight-box">
+                  <strong>Partes Intervinientes:</strong> ${selectedContract.parties}<br>
+                  <strong>Objeto:</strong> ${selectedContract.summary}
+                </div>
+                ${clausesHtml}
+                <div class="footer-signatures">
+                  <table style="border:none;margin-top:40pt">
+                    <tr style="border:none;background:none">
+                      <td style="border:none;width:50%;text-align:center">
+                        _____________________________________<br>
+                        <strong>${company.legalRepresentative}</strong><br>
+                        Por: ${company.name}<br>
+                        C.I. ${company.idNumber}
+                      </td>
+                      <td style="border:none;width:50%;text-align:center">
+                        _____________________________________<br>
+                        <strong>Parte Contratante / Aval</strong><br>
+                        Aceptado Conforme
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              `;
+              await exportHtmlToPdf(`${selectedContract.code}_Agricola_Oni.pdf`, selectedContract.title, htmlContent);
+            }}
+            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar contrato en PDF directo"
+          >
+            <Download className="w-3.5 h-3.5" />
+            Descargar PDF (.pdf)
+          </button>
+          <button
             onClick={() => exportToPdfPrint()}
-            className="px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Imprimir contrato o guardar como PDF"
+            className="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Imprimir contrato (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
-            Imprimir / PDF
+            Imprimir
           </button>
         </div>
       </div>

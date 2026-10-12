@@ -178,7 +178,7 @@ export async function downloadNativeDocx(
             new TableCell({
               shading: {
                 fill: 'FEF3C7',
-                val: ShadingType.CLEAR,
+                type: ShadingType.CLEAR,
                 color: 'auto'
               },
               borders: {
@@ -236,7 +236,7 @@ export async function downloadNativeDocx(
           new TableCell({
             shading: {
               fill: '1E293B',
-              val: ShadingType.CLEAR,
+              type: ShadingType.CLEAR,
               color: 'auto'
             },
             borders: {
@@ -270,7 +270,7 @@ export async function downloadNativeDocx(
           children: r.map(
             (c, cIdx) =>
               new TableCell({
-                shading: rIdx % 2 === 1 ? { fill: 'F8FAFC', val: ShadingType.CLEAR, color: 'auto' } : undefined,
+                shading: rIdx % 2 === 1 ? { fill: 'F8FAFC', type: ShadingType.CLEAR, color: 'auto' } : undefined,
                 borders: {
                   top: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' },
                   bottom: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' },
@@ -722,13 +722,13 @@ async function exportHtmlToNativeDocx(
                 shading: isHeader
                   ? {
                       fill: '1E293B',
-                      val: ShadingType.CLEAR,
+                      type: ShadingType.CLEAR,
                       color: 'auto'
                     }
                   : trIdx % 2 === 1
                   ? {
                       fill: 'F8FAFC',
-                      val: ShadingType.CLEAR,
+                      type: ShadingType.CLEAR,
                       color: 'auto'
                     }
                   : undefined,
@@ -802,7 +802,7 @@ async function exportHtmlToNativeDocx(
                     new TableCell({
                       shading: {
                         fill: 'FEF3C7',
-                        val: ShadingType.CLEAR,
+                        type: ShadingType.CLEAR,
                         color: 'auto'
                       },
                       borders: {

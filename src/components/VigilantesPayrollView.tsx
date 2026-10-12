@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Users, Shield, Printer, CheckCircle, Search, Eye, Download, X, AlertCircle, Plus, Trash2 } from 'lucide-react';
+import { Users, Shield, Printer, CheckCircle, Search, Eye, Download, X, AlertCircle, Plus, Trash2, FileSpreadsheet, FileDown } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { useAppData, WorkerPayrollItem } from '../context/AppDataContext';
+import { exportToWord, exportToCsv, exportHtmlToPdf, exportToPdfPrint } from '../utils/exportUtils';
 
 interface Props {
   company: CompanyProfile;
@@ -105,7 +106,7 @@ export const VigilantesPayrollView: React.FC<Props> = ({ company, currentRate })
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setShowAddWorkerModal(true)}
             className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
@@ -114,11 +115,132 @@ export const VigilantesPayrollView: React.FC<Props> = ({ company, currentRate })
             Agregar Trabajador Real
           </button>
           <button
-            onClick={() => window.print()}
+            onClick={() => {
+              const rowsHtml = filteredWorkers.map(w => {
+                const net = calculateWorkerNet(w);
+                return `
+                  <tr>
+                    <td>${w.name}</td>
+                    <td>${w.cedula}</td>
+                    <td>${w.role}</td>
+                    <td>${w.department}</td>
+                    <td>${w.banescoAccount}</td>
+                    <td class="num">$${w.baseSalaryUSD.toFixed(2)}</td>
+                    <td class="num">$${w.attendanceBonusUSD.toFixed(2)}</td>
+                    <td class="num"><strong>Bs. ${net.netVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong></td>
+                  </tr>
+                `;
+              }).join('');
+
+              const htmlContent = `
+                <h1>${company.name}</h1>
+                <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Tasa BCV:</strong> Bs. ${currentRate.rateUsd.toFixed(2)}</p>
+                <h2>NÓMINA GENERAL DE EMPLEADOS Y CUSTODIOS AGRÍCOLAS (2026)</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nombre y Apellido</th>
+                      <th>Cédula</th>
+                      <th>Cargo</th>
+                      <th>Departamento</th>
+                      <th>Cuenta Banesco</th>
+                      <th class="num">Sueldo USD</th>
+                      <th class="num">Bono USD</th>
+                      <th class="num">Neto Bs</th>
+                    </tr>
+                  </thead>
+                  <tbody>${rowsHtml}</tbody>
+                </table>
+              `;
+              exportToWord('Nomina_General_Trabajadores_Agricola_Oni.doc', 'Nómina General de Trabajadores', htmlContent);
+            }}
+            className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+            title="Exportar nómina a Word (.doc)"
+          >
+            <FileDown className="w-3.5 h-3.5" />
+            Word (.doc)
+          </button>
+
+          <button
+            onClick={() => {
+              const headers = ['Nombre', 'Cedula', 'Cargo', 'Departamento', 'Cuenta_Banesco', 'Sueldo_Base_USD', 'Bono_USD', 'Neto_VES', 'Neto_USD'];
+              const rows = filteredWorkers.map(w => {
+                const net = calculateWorkerNet(w);
+                return [
+                  w.name,
+                  w.cedula,
+                  w.role,
+                  w.department,
+                  w.banescoAccount,
+                  w.baseSalaryUSD,
+                  w.attendanceBonusUSD,
+                  net.netVES,
+                  net.netUSD
+                ];
+              });
+              exportToCsv('Nomina_General_Trabajadores_2026.csv', headers, rows);
+            }}
+            className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+            title="Exportar nómina a Excel (CSV)"
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5" />
+            Excel (CSV)
+          </button>
+
+          <button
+            onClick={async () => {
+              const rowsHtml = filteredWorkers.map(w => {
+                const net = calculateWorkerNet(w);
+                return `
+                  <tr>
+                    <td>${w.name}</td>
+                    <td>${w.cedula}</td>
+                    <td>${w.role}</td>
+                    <td>${w.department}</td>
+                    <td>${w.banescoAccount}</td>
+                    <td class="num">$${w.baseSalaryUSD.toFixed(2)}</td>
+                    <td class="num">$${w.attendanceBonusUSD.toFixed(2)}</td>
+                    <td class="num"><strong>Bs. ${net.netVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong></td>
+                  </tr>
+                `;
+              }).join('');
+
+              const htmlContent = `
+                <h1>${company.name}</h1>
+                <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Tasa BCV:</strong> Bs. ${currentRate.rateUsd.toFixed(2)}</p>
+                <h2>NÓMINA GENERAL DE EMPLEADOS Y CUSTODIOS AGRÍCOLAS (2026)</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Nombre y Apellido</th>
+                      <th>Cédula</th>
+                      <th>Cargo</th>
+                      <th>Departamento</th>
+                      <th>Cuenta Banesco</th>
+                      <th class="num">Sueldo USD</th>
+                      <th class="num">Bono USD</th>
+                      <th class="num">Neto Bs</th>
+                    </tr>
+                  </thead>
+                  <tbody>${rowsHtml}</tbody>
+                </table>
+              `;
+              await exportHtmlToPdf('Nomina_General_Trabajadores_Agricola_Oni.pdf', 'Nómina General de Trabajadores', htmlContent);
+            }}
+            className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1 shadow"
+            title="Descargar nómina en PDF directo"
+          >
+            <Download className="w-3.5 h-3.5" />
+            PDF
+          </button>
+
+          <button
+            onClick={() => exportToPdfPrint()}
             className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded text-xs font-medium transition-colors flex items-center gap-1.5"
+            title="Imprimir planilla (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
-            Imprimir Planilla
+            Imprimir
           </button>
         </div>
       </div>
