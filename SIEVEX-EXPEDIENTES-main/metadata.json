@@ -1,0 +1,6 @@
+{
+  "name": "SIEVEX - Expedientes y Trazabilidad Cambiaria Venezuela",
+  "description": "Sistema de control de expedientes de personas naturales, debida diligencia bancaria (SUDEBAN/BCV), trazabilidad del rastro de efectivo y generador documental legal en Venezuela.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

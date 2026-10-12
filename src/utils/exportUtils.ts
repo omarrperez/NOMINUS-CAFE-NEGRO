@@ -1077,6 +1077,7 @@ export interface ExcelExportOptions {
   headers: string[];
   rows: (string | number)[][];
   totalsRow?: (string | number)[];
+  totals?: (string | number)[];
   columnWidths?: number[];
 }
 
@@ -1097,9 +1098,12 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
     subtitle,
     headers,
     rows,
-    totalsRow,
+    totalsRow: rawTotalsRow,
+    totals,
     columnWidths
   } = options;
+
+  const totalsRow = rawTotalsRow || totals;
 
   const workbook = new ExcelJS.Workbook();
   workbook.creator = companyName;
@@ -1350,6 +1354,421 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
   downloadBlob(blob, safeFilename);
 }
 
+export async function exportFinancialStatementsDualXlsx(params: {
+  filename: string;
+  companyName: string;
+  companyRif: string;
+  periodDate: string;
+  exchangeRateBCV: number;
+  balanceSheetData: {
+    assets: { current: (string | number)[][]; currentTotal: number; currentTotalUSD: number; ppe: (string | number)[][]; ppeTotal: number; ppeTotalUSD: number; totalAssets: number; totalAssetsUSD: number };
+    liabilities: { current: (string | number)[][]; currentTotal: number; currentTotalUSD: number; totalLiabilities: number; totalLiabilitiesUSD: number };
+    equity: { items: (string | number)[][]; totalEquity: number; totalEquityUSD: number };
+    totalLiabilitiesAndEquity: number;
+    totalLiabilitiesAndEquityUSD: number;
+  };
+  incomeStatementData: {
+    rows: (string | number)[][];
+    totalRevenuesBs: number;
+    totalRevenuesUSD: number;
+    netIncomeBs: number;
+    netIncomeUSD: number;
+  };
+  trialBalanceData?: {
+    rows: {
+      code: string;
+      accountName: string;
+      category: string;
+      initialBalance2025: { debitVES: number; creditVES: number };
+      movements2026: { debitVES: number; creditVES: number };
+      finalBalance2026: { debitVES: number; creditVES: number };
+      finalBalanceUSD: { debitUSD: number; creditUSD: number };
+    }[];
+    totals: {
+      initialDebitVES: number;
+      initialCreditVES: number;
+      movementsDebitVES: number;
+      movementsCreditVES: number;
+      finalDebitVES: number;
+      finalCreditVES: number;
+      finalDebitUSD: number;
+      finalCreditUSD: number;
+    };
+  };
+  notes: { title: string; text: string }[];
+}): Promise<void> {
+  const {
+    filename,
+    companyName,
+    companyRif,
+    periodDate,
+    exchangeRateBCV,
+    balanceSheetData,
+    incomeStatementData,
+    trialBalanceData,
+    notes
+  } = params;
+
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = companyName;
+  workbook.lastModifiedBy = 'Auditoría Bancaria Banesco / CPC 41.802';
+  workbook.created = new Date();
+
+  // Helper for Member header
+  const addHeader = (ws: ExcelJS.Worksheet, sheetTitle: string) => {
+    const r1 = ws.addRow([companyName.toUpperCase()]);
+    r1.height = 24;
+    ws.mergeCells(1, 1, 1, 6);
+    const c1 = ws.getCell('A1');
+    c1.font = { name: 'Calibri', size: 15, bold: true, color: { argb: 'FFFFFFFF' } };
+    c1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+    c1.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+
+    const r2 = ws.addRow([`R.I.F.: ${companyRif} | CORTADO AL ${periodDate.toUpperCase()} | TASA BCV: ${exchangeRateBCV.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD`]);
+    r2.height = 18;
+    ws.mergeCells(2, 1, 2, 6);
+    const c2 = ws.getCell('A2');
+    c2.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFD97706' } };
+    c2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+    c2.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+
+    const r3 = ws.addRow([sheetTitle.toUpperCase()]);
+    r3.height = 22;
+    ws.mergeCells(3, 1, 3, 6);
+    const c3 = ws.getCell('A3');
+    c3.font = { name: 'Calibri', size: 12, bold: true, color: { argb: 'FF0F172A' } };
+    c3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+    c3.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+
+    ws.addRow([]);
+  };
+
+  // Helper for Table Headers
+  const addTableHeaders = (ws: ExcelJS.Worksheet, headers: string[]) => {
+    const hRow = ws.addRow(headers);
+    hRow.height = 24;
+    hRow.eachCell((cell, colIndex) => {
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E293B' } };
+      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.alignment = { horizontal: colIndex <= 2 ? 'left' : 'right', vertical: 'middle' };
+      cell.border = {
+        top: { style: 'thin', color: { argb: 'FF334155' } },
+        bottom: { style: 'medium', color: { argb: 'FF0F172A' } },
+        left: { style: 'thin', color: { argb: 'FF334155' } },
+        right: { style: 'thin', color: { argb: 'FF334155' } }
+      };
+    });
+  };
+
+  // Helper for Rows
+  const addDataRows = (ws: ExcelJS.Worksheet, rows: (string | number)[][]) => {
+    rows.forEach(r => {
+      const row = ws.addRow(r);
+      row.height = 20;
+      row.eachCell((cell, colIndex) => {
+        const isHeaderOrSection = typeof r[0] === 'string' && (r[0].startsWith('---') || r[0].startsWith('ACTIVO') || r[0].startsWith('PASIVO') || r[0].startsWith('PATRIMONIO') || r[0].includes('TOTAL'));
+        
+        if (isHeaderOrSection && (r[1] === undefined || r[1] === '' || r[1] === 0)) {
+          cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF0F172A' } };
+          cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'F1F5F9' } };
+        } else {
+          cell.font = { name: 'Calibri', size: 10, color: { argb: 'FF0F172A' } };
+        }
+
+        cell.border = {
+          bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+          left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+          right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+        };
+
+        if (colIndex <= 2) {
+          cell.alignment = { horizontal: 'left', vertical: 'middle' };
+        } else {
+          cell.alignment = { horizontal: 'right', vertical: 'middle' };
+          if (typeof cell.value === 'number') {
+            cell.numFmt = colIndex === 4 ? '"$"#,##0.00' : '#,##0.00';
+          }
+        }
+      });
+    });
+  };
+
+  const addTotalRow = (ws: ExcelJS.Worksheet, label: string, code: string, valBs: number, valUSD: number) => {
+    const tRow = ws.addRow([code, label, valBs, valUSD]);
+    tRow.height = 26;
+    tRow.eachCell((cell, colIndex) => {
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+      cell.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.border = {
+        top: { style: 'medium', color: { argb: 'FF0F172A' } },
+        bottom: { style: 'double', color: { argb: 'FF0F172A' } }
+      };
+      if (colIndex <= 2) {
+        cell.alignment = { horizontal: 'left', vertical: 'middle' };
+      } else {
+        cell.alignment = { horizontal: 'right', vertical: 'middle' };
+        cell.numFmt = colIndex === 4 ? '"$"#,##0.00' : '#,##0.00';
+        if (colIndex === 4) {
+          cell.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF34D399' } };
+        }
+      }
+    });
+  };
+
+  // -------------------------------------------------------------
+  // TAB 1: BALANCE GENERAL (ESTADO DE SITUACIÓN FINANCIERA)
+  // -------------------------------------------------------------
+  const ws1 = workbook.addWorksheet('Balance General 31-08-2026', { views: [{ showGridLines: true }] });
+  addHeader(ws1, 'ESTADO DE SITUACIÓN FINANCIERA (BALANCE GENERAL DUAL Bs. / USD)');
+  addTableHeaders(ws1, ['Código', 'Cuenta Contable / Rubro Patrimonial', 'Monto en Bolívares (Bs.)', 'Monto en Dólares (USD)']);
+
+  // Section: Activo Corriente
+  ws1.addRow(['1.1', 'ACTIVO CORRIENTE (CIRCULANTE)', '', '']);
+  addDataRows(ws1, balanceSheetData.assets.current);
+  addTotalRow(ws1, 'TOTAL ACTIVO CORRIENTE', '1.1.99', balanceSheetData.assets.currentTotal, balanceSheetData.assets.currentTotalUSD);
+
+  // Section: Propiedad Planta y Equipo
+  ws1.addRow([]);
+  ws1.addRow(['1.2', 'PROPIEDAD, PLANTA Y EQUIPO (NO CORRIENTE)', '', '']);
+  addDataRows(ws1, balanceSheetData.assets.ppe);
+  addTotalRow(ws1, 'TOTAL PROPIEDAD, PLANTA Y EQUIPO NETO', '1.2.99', balanceSheetData.assets.ppeTotal, balanceSheetData.assets.ppeTotalUSD);
+
+  // Total Activo
+  ws1.addRow([]);
+  addTotalRow(ws1, 'TOTAL ACTIVO', '1.0.00', balanceSheetData.assets.totalAssets, balanceSheetData.assets.totalAssetsUSD);
+
+  // Section: Pasivo Corriente
+  ws1.addRow([]);
+  ws1.addRow(['2.1', 'PASIVO CORRIENTE (CIRCULANTE)', '', '']);
+  addDataRows(ws1, balanceSheetData.liabilities.current);
+  addTotalRow(ws1, 'TOTAL PASIVO CORRIENTE', '2.1.99', balanceSheetData.liabilities.currentTotal, balanceSheetData.liabilities.currentTotalUSD);
+
+  // Total Pasivo
+  ws1.addRow([]);
+  addTotalRow(ws1, 'TOTAL PASIVO', '2.0.00', balanceSheetData.liabilities.totalLiabilities, balanceSheetData.liabilities.totalLiabilitiesUSD);
+
+  // Section: Patrimonio Neto
+  ws1.addRow([]);
+  ws1.addRow(['3.1', 'PATRIMONIO NETO', '', '']);
+  addDataRows(ws1, balanceSheetData.equity.items);
+  addTotalRow(ws1, 'TOTAL PATRIMONIO NETO', '3.1.99', balanceSheetData.equity.totalEquity, balanceSheetData.equity.totalEquityUSD);
+
+  // Total Pasivo + Patrimonio
+  ws1.addRow([]);
+  addTotalRow(ws1, 'TOTAL PASIVO Y PATRIMONIO NETO', '3.0.00', balanceSheetData.totalLiabilitiesAndEquity, balanceSheetData.totalLiabilitiesAndEquityUSD);
+
+  // Signatures on Sheet 1
+  ws1.addRow([]);
+  ws1.addRow(['CERTIFICACIÓN LEGAL Y TÉCNICA CONTABLE (VEN-NIF / BANESCO)']);
+  const s1 = ws1.addRow(['____________________________________________', '', '', '____________________________________________']);
+  s1.getCell(1).alignment = { horizontal: 'center' };
+  s1.getCell(4).alignment = { horizontal: 'center' };
+  const s2 = ws1.addRow(['Elías Rafael Trias Abreu', '', '', 'Lcda. Carmen Rivas']);
+  s2.getCell(1).font = { bold: true };
+  s2.getCell(4).font = { bold: true };
+  s2.getCell(1).alignment = { horizontal: 'center' };
+  s2.getCell(4).alignment = { horizontal: 'center' };
+  const s3 = ws1.addRow(['Presidente - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Colegiado CPC 41.802']);
+  s3.getCell(1).alignment = { horizontal: 'center' };
+  s3.getCell(4).alignment = { horizontal: 'center' };
+
+  ws1.getColumn(1).width = 14;
+  ws1.getColumn(2).width = 52;
+  ws1.getColumn(3).width = 32;
+  ws1.getColumn(4).width = 28;
+
+  // -------------------------------------------------------------
+  // TAB 2: ESTADO DE GANANCIAS Y PÉRDIDAS (ESTADO DE RESULTADO INTEGRAL)
+  // -------------------------------------------------------------
+  const ws2 = workbook.addWorksheet('Ganancias y Perdidas 2026', { views: [{ showGridLines: true }] });
+  addHeader(ws2, 'ESTADO DE RESULTADO INTEGRAL (GANANCIAS Y PÉRDIDAS DUAL Bs. / USD)');
+  addTableHeaders(ws2, ['Código', 'Concepto / Cuenta de Ingresos y Gastos', 'Monto en Bolívares (Bs.)', 'Monto en Dólares (USD)']);
+  addDataRows(ws2, incomeStatementData.rows);
+  addTotalRow(ws2, 'UTILIDAD NETA DEL EJERCICIO (01/01/2026 AL 31/08/2026)', '5.0.00', incomeStatementData.netIncomeBs, incomeStatementData.netIncomeUSD);
+
+  ws2.addRow([]);
+  ws2.addRow(['CERTIFICACIÓN LEGAL Y TÉCNICA CONTABLE']);
+  const s2_1 = ws2.addRow(['____________________________________________', '', '', '____________________________________________']);
+  s2_1.getCell(1).alignment = { horizontal: 'center' };
+  s2_1.getCell(4).alignment = { horizontal: 'center' };
+  const s2_2 = ws2.addRow(['Elías Rafael Trias Abreu (Presidente)', '', '', 'Lcda. Carmen Rivas (CPC 41.802)']);
+  s2_2.getCell(1).font = { bold: true };
+  s2_2.getCell(4).font = { bold: true };
+  s2_2.getCell(1).alignment = { horizontal: 'center' };
+  s2_2.getCell(4).alignment = { horizontal: 'center' };
+
+  ws2.getColumn(1).width = 14;
+  ws2.getColumn(2).width = 52;
+  ws2.getColumn(3).width = 32;
+  ws2.getColumn(4).width = 28;
+
+  // -------------------------------------------------------------
+  // TAB 3: BALANCE DE COMPROBACIÓN 31-08-2026 (SALDOS Y MOVIMIENTOS)
+  // -------------------------------------------------------------
+  if (trialBalanceData) {
+    const wsTb = workbook.addWorksheet('Balance Comprobacion 2026', { views: [{ showGridLines: true }] });
+    addHeader(wsTb, 'BALANCE DE COMPROBACIÓN DE SALDOS Y MOVIMIENTOS (AL 31/08/2026)');
+
+    // Table Header Row 1 (Groupings)
+    const gHeader = wsTb.addRow([
+      'Código',
+      'Nombre de la Cuenta Contable',
+      'Cat.',
+      'SALDO INICIAL AL 31/12/2025 (Bs.)', '',
+      'MOVIMIENTOS ACUMULADOS 2026 (Bs.)', '',
+      'SALDO FINAL AL 31/08/2026 (Bs.)', '',
+      'SALDO EQUIVALENTE USD (31/08/2026)', ''
+    ]);
+    gHeader.height = 22;
+    wsTb.mergeCells(gHeader.number, 4, gHeader.number, 5);
+    wsTb.mergeCells(gHeader.number, 6, gHeader.number, 7);
+    wsTb.mergeCells(gHeader.number, 8, gHeader.number, 9);
+    wsTb.mergeCells(gHeader.number, 10, gHeader.number, 11);
+
+    gHeader.eachCell((cell) => {
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.alignment = { horizontal: 'center', vertical: 'middle' };
+    });
+
+    // Sub Header Row 2
+    const subHeader = wsTb.addRow([
+      '', '', '',
+      'Débito (Bs.)', 'Crédito (Bs.)',
+      'Debe (Bs.)', 'Haber (Bs.)',
+      'Débito (Bs.)', 'Crédito (Bs.)',
+      'Débito ($)', 'Crédito ($)'
+    ]);
+    subHeader.height = 20;
+    subHeader.eachCell((cell) => {
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF334155' } };
+      cell.font = { name: 'Calibri', size: 9.5, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.alignment = { horizontal: 'center', vertical: 'middle' };
+    });
+
+    // Add rows
+    trialBalanceData.rows.forEach(r => {
+      const row = wsTb.addRow([
+        r.code,
+        r.accountName,
+        r.category,
+        r.initialBalance2025.debitVES,
+        r.initialBalance2025.creditVES,
+        r.movements2026.debitVES,
+        r.movements2026.creditVES,
+        r.finalBalance2026.debitVES,
+        r.finalBalance2026.creditVES,
+        r.finalBalanceUSD.debitUSD,
+        r.finalBalanceUSD.creditUSD
+      ]);
+      row.height = 19;
+      row.eachCell((cell, colIndex) => {
+        cell.font = { name: 'Calibri', size: 9.5, color: { argb: 'FF0F172A' } };
+        cell.border = {
+          bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+          left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+          right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+        };
+        if (colIndex === 1 || colIndex === 3) {
+          cell.alignment = { horizontal: 'center', vertical: 'middle' };
+        } else if (colIndex === 2) {
+          cell.alignment = { horizontal: 'left', vertical: 'middle' };
+        } else {
+          cell.alignment = { horizontal: 'right', vertical: 'middle' };
+          if (typeof cell.value === 'number') {
+            cell.numFmt = colIndex >= 10 ? '"$"#,##0.00' : '#,##0.00';
+          }
+        }
+      });
+    });
+
+    // Totals Row
+    const tTb = wsTb.addRow([
+      'TOTAL',
+      'TOTAL BALANCE DE COMPROBACIÓN Y MOVIMIENTOS',
+      '100%',
+      trialBalanceData.totals.initialDebitVES,
+      trialBalanceData.totals.initialCreditVES,
+      trialBalanceData.totals.movementsDebitVES,
+      trialBalanceData.totals.movementsCreditVES,
+      trialBalanceData.totals.finalDebitVES,
+      trialBalanceData.totals.finalCreditVES,
+      trialBalanceData.totals.finalDebitUSD,
+      trialBalanceData.totals.finalCreditUSD
+    ]);
+    tTb.height = 24;
+    tTb.eachCell((cell, colIndex) => {
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.border = {
+        top: { style: 'medium', color: { argb: 'FF0F172A' } },
+        bottom: { style: 'double', color: { argb: 'FF0F172A' } }
+      };
+      if (colIndex <= 3) {
+        cell.alignment = { horizontal: colIndex === 2 ? 'left' : 'center', vertical: 'middle' };
+      } else {
+        cell.alignment = { horizontal: 'right', vertical: 'middle' };
+        cell.numFmt = colIndex >= 10 ? '"$"#,##0.00' : '#,##0.00';
+        if (colIndex >= 10) {
+          cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF34D399' } };
+        }
+      }
+    });
+
+    wsTb.getColumn(1).width = 12;
+    wsTb.getColumn(2).width = 45;
+    wsTb.getColumn(3).width = 12;
+    wsTb.getColumn(4).width = 20;
+    wsTb.getColumn(5).width = 20;
+    wsTb.getColumn(6).width = 22;
+    wsTb.getColumn(7).width = 22;
+    wsTb.getColumn(8).width = 22;
+    wsTb.getColumn(9).width = 22;
+    wsTb.getColumn(10).width = 18;
+    wsTb.getColumn(11).width = 18;
+  }
+
+  // -------------------------------------------------------------
+  // TAB 4: NOTAS REVELATORIAS EXPLICATIVAS (ANEXO BANESCO / VEN-NIF)
+  // -------------------------------------------------------------
+  const ws3 = workbook.addWorksheet('Notas a EEFF & Banco', { views: [{ showGridLines: true }] });
+  addHeader(ws3, 'NOTAS EXPLICATIVAS REVELATORIAS A LOS ESTADOS FINANCIEROS (VEN-NIF GE)');
+
+
+  notes.forEach((note, idx) => {
+    const nHead = ws3.addRow([`NOTA ${idx + 1}: ${note.title.toUpperCase()}`]);
+    nHead.height = 22;
+    ws3.mergeCells(nHead.number, 1, nHead.number, 4);
+    nHead.getCell(1).font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF0F172A' } };
+    nHead.getCell(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+
+    const nTxt = ws3.addRow([note.text]);
+    nTxt.height = 42;
+    ws3.mergeCells(nTxt.number, 1, nTxt.number, 4);
+    nTxt.getCell(1).font = { name: 'Calibri', size: 10, color: { argb: 'FF334155' } };
+    nTxt.getCell(1).alignment = { wrapText: true, vertical: 'top' };
+
+    ws3.addRow([]);
+  });
+
+  ws3.getColumn(1).width = 18;
+  ws3.getColumn(2).width = 40;
+  ws3.getColumn(3).width = 30;
+  ws3.getColumn(4).width = 30;
+
+  // Generate buffer and download
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  });
+
+  const safeFilename = filename.toLowerCase().endsWith('.xlsx')
+    ? filename
+    : `${filename}.xlsx`;
+
+  downloadBlob(blob, safeFilename);
+}
+
 /**
  * Exporta datos tabulares directamente como hoja de cálculo Excel (.xlsx) nativa.
  */
@@ -1370,6 +1789,7 @@ export function exportToCsv(
     rows
   });
 }
+
 
 /**
  * Disparo nativo de impresión física (Ctrl + P)

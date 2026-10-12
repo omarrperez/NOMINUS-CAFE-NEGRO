@@ -34,7 +34,8 @@ import {
   BANESCO_USD_USAGE_BREAKDOWN_2026,
   BANESCO_NATURAL_PERSONS_BREAKDOWN_2026,
   BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026,
-  BANESCO_RECONCILIATION_2026
+  BANESCO_RECONCILIATION_2026,
+  BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026
 } from '../data/agricolaOniAudit2026Data';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { useAppData } from '../context/AppDataContext';
@@ -667,6 +668,112 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                     </span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ========================================================================= */}
+          {/* SECCIÓN ESPECIAL: COMPOSICIÓN DE ABONOS POR ORIGEN Y MES Y CONCILIACIÓN CON BANESCO */}
+          {/* ========================================================================= */}
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow space-y-5 text-white">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded text-[11px] font-mono font-bold uppercase">
+                    Auditoría de Movilización Cambiaria Banesco
+                  </span>
+                  <span className="px-2.5 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded text-[11px] font-mono font-bold">
+                    CUADRE 100% CONFORME: USD 2.781.830,18
+                  </span>
+                </div>
+                <h3 className="text-base font-bold text-white mt-1">
+                  Composición de Abonos por Origen y Mes & Conciliación con Banesco BBU (Enero - Agosto 2026)
+                </h3>
+                <p className="text-xs text-slate-300 mt-1">
+                  Explicación técnica del descalce entre el promedio bruto en libros (<strong>$2.912.368,95 USD/mes</strong>) y el promedio de créditos movilizados reportado por Banesco (<strong>$2.781.830,18 USD/mes</strong>).
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 font-mono text-xs">
+                <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block font-sans">Promedio Bruto Libros:</span>
+                  <span className="text-sm font-bold text-amber-400 block">$2.912.368,95 USD/mes</span>
+                  <span className="text-[10px] text-slate-500 font-sans">Incluye aportes socios y traspasos</span>
+                </div>
+                <div className="bg-slate-950 p-3 rounded-lg border border-emerald-900/60 bg-emerald-950/20">
+                  <span className="text-[10px] text-emerald-400 block font-sans">Promedio Neto Banesco:</span>
+                  <span className="text-sm font-bold text-emerald-400 block">$2.781.830,18 USD/mes</span>
+                  <span className="text-[10px] text-slate-400 font-sans">Créditos Operativos Aceptados</span>
+                </div>
+              </div>
+            </div>
+
+            {/* TABLA MES A MES DE COMPOSICIÓN DE ABONOS */}
+            <div className="overflow-x-auto border border-slate-800 rounded-lg bg-slate-950">
+              <table className="w-full text-xs text-left font-mono-num">
+                <thead className="bg-slate-900 text-slate-300 uppercase text-[10px] tracking-wider border-b border-slate-800 font-sans font-bold">
+                  <tr>
+                    <th className="px-3 py-2.5">Mes / Período</th>
+                    <th className="px-3 py-2.5 text-right">Anticipos Clientes ($)</th>
+                    <th className="px-3 py-2.5 text-right">Línea Becerra ($)</th>
+                    <th className="px-3 py-2.5 text-right">Traspasos Internos ($)</th>
+                    <th className="px-3 py-2.5 text-right">Pers. Nat. / Socio Elías ($)</th>
+                    <th className="px-3 py-2.5 text-right">Diferencial BCV ($)</th>
+                    <th className="px-3 py-2.5 text-right font-bold text-amber-400">Total Bruto Libros ($)</th>
+                    <th className="px-3 py-2.5 text-right font-bold text-emerald-400">Créditos Banesco ($)</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                  {BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026.breakdownMonthly.map((item) => (
+                    <tr key={item.month} className="hover:bg-slate-900/80 transition-colors">
+                      <td className="px-3 py-2 font-bold font-sans text-white">{item.monthName}</td>
+                      <td className="px-3 py-2 text-right text-slate-300">${item.customerAdvancesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                      <td className="px-3 py-2 text-right text-slate-300">${item.becerraCreditUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                      <td className="px-3 py-2 text-right text-slate-400">${item.internalTransfersUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                      <td className="px-3 py-2 text-right text-amber-300 font-semibold">${(item.naturalPersonsUSD + item.eliasTriasSocioUSD).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                      <td className="px-3 py-2 text-right text-slate-400">${item.exchangeDiffUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                      <td className="px-3 py-2 text-right font-bold text-amber-400">${item.grossTotalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                      <td className="px-3 py-2 text-right font-bold text-emerald-400">${item.netBanescoUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot className="bg-slate-900 border-t-2 border-slate-700 font-bold text-xs">
+                  <tr>
+                    <td className="px-3 py-2.5 font-sans uppercase text-amber-300">PROMEDIO MENSUAL CONCILIADO:</td>
+                    <td className="px-3 py-2.5 text-right text-slate-200">$2.302.500,00</td>
+                    <td className="px-3 py-2.5 text-right text-slate-200">$232.500,00</td>
+                    <td className="px-3 py-2.5 text-right text-slate-400">$243.125,00</td>
+                    <td className="px-3 py-2.5 text-right text-amber-300">$87.585,99</td>
+                    <td className="px-3 py-2.5 text-right text-slate-400">$46.657,96</td>
+                    <td className="px-3 py-2.5 text-right text-amber-400 font-bold">$2.912.368,95 USD</td>
+                    <td className="px-3 py-2.5 text-right text-emerald-400 font-bold text-sm">$2.781.830,18 USD</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            {/* NOTAS EXPLICATIVAS PARA EL ANALISTA DEL BANCO */}
+            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3 text-xs">
+              <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                <h4 className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">
+                  INFORME DE ANÁLISIS BANCARIO Y CONCILIACIÓN DE DISCREPANCIA ($130.538,77 USD / MES)
+                </h4>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px]">
+                {BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026.reconciliationExplanations.map((exp, idx) => (
+                  <div key={idx} className="bg-slate-900/90 p-3 rounded-lg border border-slate-800 space-y-1.5">
+                    <span className="font-bold text-amber-400 block font-sans">{exp.concept}</span>
+                    <div className="flex justify-between items-center text-[10px] font-mono text-emerald-400">
+                      <span>Ajuste Mensual: -${exp.amountUSDMonthlyAvg.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                      <span>Acumulado: -${exp.amountUSD8Months.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <p className="text-slate-300 text-[10.5px] leading-relaxed font-sans mt-1">
+                      {exp.bankAnalystExplanation}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

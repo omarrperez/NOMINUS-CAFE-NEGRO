@@ -1,0 +1,80 @@
+{
+  "entities": {
+    "ExpedienteOperacion": {
+      "title": "ExpedienteOperacion",
+      "description": "Expediente de persona natural y trazabilidad cambiaria con recaudos y asientos contables",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "numeroExpediente": { "type": "string" },
+        "fechaContrato": { "type": "string" },
+        "estado": { "type": "string", "enum": ["En proceso", "Cerrado", "Observado", "En aduana"] },
+        "cliente": { "type": "object" },
+        "anticipo": { "type": "object" },
+        "divisas": { "type": "object" },
+        "proveedor": { "type": "object" },
+        "importacion": { "type": "object" },
+        "entrega": { "type": "object" },
+        "documentos": { "type": "object" },
+        "observaciones": { "type": "string" },
+        "elaboradoPor": { "type": "string" },
+        "revisadoPor": { "type": "string" }
+      },
+      "required": ["id", "numeroExpediente", "fechaContrato", "estado"]
+    },
+    "EmpresaConfig": {
+      "title": "EmpresaConfig",
+      "description": "Parámetros legales de la empresa importadora y tasa referencial oficial BCV",
+      "type": "object",
+      "properties": {
+        "razonSocial": { "type": "string" },
+        "rif": { "type": "string" },
+        "registroMercantil": { "type": "string" },
+        "tomoNumero": { "type": "string" },
+        "folioNumero": { "type": "string" },
+        "fechaRegistro": { "type": "string" },
+        "circunscripcion": { "type": "string" },
+        "direccionFiscal": { "type": "string" },
+        "ciudadEstado": { "type": "string" },
+        "representanteLegal": { "type": "string" },
+        "cedulaRepresentante": { "type": "string" },
+        "cargoRepresentante": { "type": "string" },
+        "telefono": { "type": "string" },
+        "email": { "type": "string" },
+        "registroSunagro": { "type": "string" },
+        "bancoPrincipal": { "type": "string" },
+        "cuentaBancariaBs": { "type": "string" },
+        "cuentaCustodiaUsd": { "type": "string" },
+        "tasaBCVActual": { "type": "number" }
+      },
+      "required": ["razonSocial", "rif"]
+    },
+    "AuditoriaRegistro": {
+      "title": "AuditoriaRegistro",
+      "description": "Bitácora de seguridad y trazabilidad del sistema",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fecha": { "type": "string" },
+        "accion": { "type": "string" },
+        "detalles": { "type": "string" },
+        "usuario": { "type": "string" }
+      },
+      "required": ["id", "fecha", "accion"]
+    }
+  },
+  "firestore": {
+    "/expedientes/{expedienteId}": {
+      "schema": "ExpedienteOperacion",
+      "description": "Expedientes de importación y debida diligencia de personas naturales"
+    },
+    "/empresa/{empresaId}": {
+      "schema": "EmpresaConfig",
+      "description": "Datos registrales y cuenta custodia de la empresa importadora"
+    },
+    "/auditoria/{registroId}": {
+      "schema": "AuditoriaRegistro",
+      "description": "Registros de auditoría, sincronización y seguridad"
+    }
+  }
+}

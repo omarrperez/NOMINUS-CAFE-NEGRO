@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Reglas para Colección de Expedientes de Personas Naturales
+    match /expedientes/{expedienteId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Reglas para Configuración de la Empresa Importadora
+    match /empresa/{empresaId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Reglas para Bitácora de Auditoría y Seguridad
+    match /auditoria/{registroId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Reglas para Historial de Tasas de Cambio BCV
+    match /tasas/{tasaId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /tasasBCV/{tasaId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /tasas_cambio/{tasaId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Denegación por defecto del resto de rutas
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

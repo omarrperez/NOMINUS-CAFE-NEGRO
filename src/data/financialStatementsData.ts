@@ -527,3 +527,220 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
   }
 };
 
+// =========================================================================
+// 9. BALANCE DE COMPROBACIÓN GENERAL AL 31 DE AGOSTO DE 2026 (VEN-NIF)
+// DUAL VES & USD CON CONCILIACIÓN DE SALDOS 31/12/2025 Y MOVIMIENTOS 2026
+// =========================================================================
+export interface TrialBalanceRow {
+  code: string;
+  accountName: string;
+  category: 'ACTIVO' | 'PASIVO' | 'PATRIMONIO' | 'INGRESO' | 'EGRESO';
+  initialBalance2025: {
+    debitVES: number;
+    creditVES: number;
+  };
+  movements2026: {
+    debitVES: number;
+    creditVES: number;
+  };
+  finalBalance2026: {
+    debitVES: number;
+    creditVES: number;
+  };
+  finalBalanceUSD: {
+    debitUSD: number;
+    creditUSD: number;
+  };
+}
+
+export const TRIAL_BALANCE_AUGUST_2026 = {
+  periodTitle: 'BALANCE DE COMPROBACIÓN DE SALDOS Y MOVIMIENTOS',
+  periodSubTitle: 'Desde el 01 de Enero de 2026 hasta el 31 de Agosto de 2026',
+  comparativeBaseDate: '31 de Diciembre de 2025',
+  exchangeRateBCV: 794.99,
+  rows: [
+    {
+      code: '1.1.01',
+      accountName: 'Efectivo y Bancos (Banesco Cta. Cte. y Caja Chica)',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 2418532.47, creditVES: 0.00 },
+      movements2026: { debitVES: 1966597105.35, creditVES: 1968016359.81 },
+      finalBalance2026: { debitVES: 999278.01, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 1256.97, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.02',
+      accountName: 'Cuentas por Cobrar Comerciales (Clientes)',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 53109051.79, creditVES: 0.00 },
+      movements2026: { debitVES: 78717472.35, creditVES: 131826524.14 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.03',
+      accountName: 'Cuentas por Cobrar Socios - Mutuo y Línea de Crédito Manuel Becerra',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 512324652.96, creditVES: 186376000.00 },
+      finalBalance2026: { debitVES: 325948652.96, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 410003.46, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.04',
+      accountName: 'Retenciones ISLR Clientes Retenidas',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 661181.94, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 661181.94, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 831.69, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.05',
+      accountName: 'ISLR Pagado por Anticipado / Crédito Fiscal Exigible',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 394563.21, creditVES: 0.00 },
+      movements2026: { debitVES: 392611.51, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 787174.72, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 990.17, creditUSD: 0.00 }
+    },
+    {
+      code: '1.2.01',
+      accountName: 'Maquinarias y Equipos Agrícolas',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 10000.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 10000.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 12.58, creditUSD: 0.00 }
+    },
+    {
+      code: '1.2.02',
+      accountName: 'Vehículos y Flota de Carga Agrícola',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 26145094.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 26145094.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 32887.32, creditUSD: 0.00 }
+    },
+    {
+      code: '1.2.03',
+      accountName: 'Muebles y Equipos de Oficina',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 590000.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 590000.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 742.15, creditUSD: 0.00 }
+    },
+    {
+      code: '1.2.04',
+      accountName: 'Edificaciones e Inmuebles Industriales',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 1317600.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 1317600.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 1657.38, creditUSD: 0.00 }
+    },
+    {
+      code: '1.2.05',
+      accountName: 'Depreciación Acumulada Propiedad, Planta y Equipos',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 8.47 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 8.47 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 0.01 }
+    },
+    {
+      code: '2.1.01',
+      accountName: 'Cuentas por Pagar Socios (Elías Rafael Trias Abreu)',
+      category: 'PASIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 246572875.38 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 246572875.38 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 310158.46 }
+    },
+    {
+      code: '2.1.02',
+      accountName: 'ISLR por Pagar / Provisiones Tributarias',
+      category: 'PASIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 1395745.15 },
+      movements2026: { debitVES: 1395745.15, creditVES: 696202.38 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 696202.38 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 875.74 }
+    },
+    {
+      code: '3.1.01',
+      accountName: 'Capital Social Suscrito y Pagado',
+      category: 'PATRIMONIO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 600000.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 600000.00 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 754.73 }
+    },
+    {
+      code: '3.2.01',
+      accountName: 'Superávit Acumulado (Resultados de Ejercicios Anteriores)',
+      category: 'PATRIMONIO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 79877475.85 },
+      movements2026: { debitVES: 0.00, creditVES: 2712793.94 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 82590269.79 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 103888.44 }
+    },
+    {
+      code: '3.2.02',
+      accountName: 'Utilidad Neta del Ejercicio 2025 (Cierre)',
+      category: 'PATRIMONIO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 2712793.94 },
+      movements2026: { debitVES: 2712793.94, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 0.00 }
+    },
+    {
+      code: '3.3.01',
+      accountName: 'Reserva Legal Cumplida (10% Capital)',
+      category: 'PATRIMONIO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 60000.00 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 60000.00 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 75.47 }
+    },
+    {
+      code: '4.1.01',
+      accountName: 'Ingresos por Servicios Agrícolas y Procesamiento',
+      category: 'INGRESO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 78717472.35 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 78717472.35 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 99016.93 }
+    },
+    {
+      code: '4.2.01',
+      accountName: 'Ingresos por Intereses Financieros Contrato Mutuo Becerra',
+      category: 'INGRESO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 0.00, creditVES: 13924047.66 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 13924047.66 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 17514.75 }
+    },
+    {
+      code: '5.1.01',
+      accountName: 'Costo Operacional de Servicios Agrícolas Prestados',
+      category: 'EGRESO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 66701894.40, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 66701894.40, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 83902.81, creditUSD: 0.00 }
+    }
+  ],
+  totals: {
+    initialDebitVES: 84646023.41,
+    initialCreditVES: 84646023.41,
+    movementsDebitVES: 2559508835.31,
+    movementsCreditVES: 2559508835.31,
+    finalDebitVES: 423160876.03,
+    finalCreditVES: 423160876.03,
+    finalDebitUSD: 532284.53,
+    finalCreditUSD: 532284.53
+  }
+};
+
+

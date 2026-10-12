@@ -409,18 +409,18 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
   return (
     <div className="space-y-6">
       {/* Top Banner Explaining the Intermediary Business Model */}
-      <div className="bg-stone-900 border border-stone-800 p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 text-white shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-amber-950 text-amber-400 border border-amber-800 rounded">
+            <span className="p-1.5 bg-blue-900 text-blue-200 border border-blue-700 rounded">
               <Globe className="w-5 h-5" />
             </span>
             <h2 className="text-xl font-bold text-white tracking-tight">
               Intermediación Comercial & Importación de Café
             </h2>
           </div>
-          <p className="text-xs text-stone-400 mt-1 max-w-3xl leading-relaxed">
-            <strong className="text-amber-400 font-semibold">{company.name}</strong> es intermediaria e importadora: recibe <strong className="text-stone-200">Anticipos en Ventas</strong> de clientes nacionales para suplir el déficit de la cosecha venezolana, <strong className="text-stone-200">compra dólares a Banesco</strong> para adquirir café en Colombia y fletes internacionales, y factura a los clientes el café importado <strong className="text-emerald-400 font-semibold">a partir de Octubre</strong>.
+          <p className="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+            <strong className="text-amber-300 font-semibold">{company.name}</strong> es intermediaria e importadora: recibe <strong className="text-white">Anticipos en Ventas</strong> de clientes nacionales para suplir el déficit de la cosecha venezolana, <strong className="text-white">compra dólares a Banesco</strong> para adquirir café en Colombia y fletes internacionales, y factura a los clientes el café importado <strong className="text-emerald-300 font-semibold">a partir de Octubre</strong>.
           </p>
         </div>
 
@@ -567,7 +567,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               `;
               await exportHtmlToPdf('Informe_Anticipos_Importacion_Cafe_Agricola_Oni.pdf', 'Informe de Anticipos de Café', htmlContent);
             }}
-            className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+            className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
             title="Descargar informe en archivo PDF directo"
           >
             <Download className="w-3.5 h-3.5" />
@@ -575,7 +575,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           </button>
           <button
             onClick={() => exportToPdfPrint()}
-            className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+            className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded text-xs transition-colors shadow"
             title="Imprimir (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
@@ -585,67 +585,67 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
 
       {/* KPI Overview of the 4 Stages */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 font-mono-num">
-        <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-          <div className="flex items-center justify-between text-xs font-sans text-stone-400 mb-1">
+        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-sans text-slate-600 mb-1">
             <span>1. Anticipos Recibidos</span>
-            <span className="text-amber-400 font-bold">{customerAdvances.length} Clientes</span>
+            <span className="text-amber-600 font-bold">{customerAdvances.length} Clientes</span>
           </div>
-          <span className="text-lg font-bold text-emerald-400 block mt-1">
+          <span className="text-lg font-bold text-emerald-700 block mt-1">
             Bs. {totalAdvancesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
           </span>
-          <span className="text-[11px] text-stone-400 font-sans">
+          <span className="text-[11px] text-slate-500 font-sans">
             ${totalAdvancesUSD.toFixed(2)} USD &middot; {totalTargetQtl} Qtl
           </span>
         </div>
 
-        <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-          <div className="flex items-center justify-between text-xs font-sans text-stone-400 mb-1">
+        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-sans text-slate-600 mb-1">
             <span>2. Compra Dólares Banesco</span>
-            <span className="text-emerald-400 font-bold">{fxPurchases.length} Operaciones</span>
+            <span className="text-emerald-600 font-bold">{fxPurchases.length} Operaciones</span>
           </div>
-          <span className="text-lg font-bold text-emerald-400 block mt-1">
+          <span className="text-lg font-bold text-emerald-700 block mt-1">
             ${totalFxPurchasedUSD.toFixed(2)} USD
           </span>
-          <span className="text-[11px] text-stone-400 font-sans">
+          <span className="text-[11px] text-slate-500 font-sans">
             Bs. {totalFxSpentVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} en Mesa de Cambio
           </span>
         </div>
 
-        <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-          <div className="flex items-center justify-between text-xs font-sans text-stone-400 mb-1">
+        <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-sans text-slate-600 mb-1">
             <span>3. Importación Colombia</span>
-            <span className="text-indigo-400 font-bold">{importShipments.length} Lotes</span>
+            <span className="text-indigo-600 font-bold">{importShipments.length} Lotes</span>
           </div>
-          <span className="text-lg font-bold text-white block mt-1">
+          <span className="text-lg font-bold text-slate-900 block mt-1">
             {totalImportVolumeQtl} Qtl Café
           </span>
-          <span className="text-[11px] text-stone-400 font-sans">
+          <span className="text-[11px] text-slate-500 font-sans">
             Costo CIF: ${totalImportCostUSD.toFixed(2)} USD
           </span>
         </div>
 
-        <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl bg-amber-950/20 border-amber-900/60">
-          <div className="flex items-center justify-between text-xs font-sans text-amber-300 mb-1">
+        <div className="bg-blue-50/70 border border-blue-200 p-4 rounded-xl shadow-sm">
+          <div className="flex items-center justify-between text-xs font-sans text-blue-900 mb-1">
             <span>4. Facturado en Octubre</span>
-            <span className="text-amber-400 font-bold">{octoberInvoices.length} Facturas</span>
+            <span className="text-amber-700 font-bold">{octoberInvoices.length} Facturas</span>
           </div>
-          <span className="text-lg font-bold text-amber-400 block mt-1">
+          <span className="text-lg font-bold text-amber-700 block mt-1">
             Bs. {totalInvoicedOctoberVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
           </span>
-          <span className="text-[11px] text-stone-400 font-sans">
+          <span className="text-[11px] text-slate-600 font-sans">
             Regularización de Anticipos
           </span>
         </div>
       </div>
 
       {/* Tabs Selector for the 4 Stages */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-stone-800 pb-3">
+      <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3">
         <button
           onClick={() => setActiveTab('ADVANCES')}
           className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'ADVANCES'
-              ? 'bg-amber-600 text-stone-950 shadow'
-              : 'bg-stone-900 text-stone-300 hover:bg-stone-800'
+              ? 'bg-blue-800 text-white shadow'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           <DollarSign className="w-4 h-4" />
@@ -656,8 +656,8 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           onClick={() => setActiveTab('FX_PURCHASE')}
           className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'FX_PURCHASE'
-              ? 'bg-amber-600 text-stone-950 shadow'
-              : 'bg-stone-900 text-stone-300 hover:bg-stone-800'
+              ? 'bg-blue-800 text-white shadow'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           <ArrowRightLeft className="w-4 h-4" />
@@ -668,8 +668,8 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           onClick={() => setActiveTab('IMPORT_SHIPMENTS')}
           className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'IMPORT_SHIPMENTS'
-              ? 'bg-amber-600 text-stone-950 shadow'
-              : 'bg-stone-900 text-stone-300 hover:bg-stone-800'
+              ? 'bg-blue-800 text-white shadow'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           <Ship className="w-4 h-4" />
@@ -680,8 +680,8 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           onClick={() => setActiveTab('OCTOBER_INVOICES')}
           className={`px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 ${
             activeTab === 'OCTOBER_INVOICES'
-              ? 'bg-amber-600 text-stone-950 shadow'
-              : 'bg-stone-900 text-stone-300 hover:bg-stone-800'
+              ? 'bg-blue-800 text-white shadow'
+              : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
           <Calendar className="w-4 h-4" />
@@ -692,12 +692,12 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       {/* TAB 1: CUSTOMER SALES ADVANCES */}
       {activeTab === 'ADVANCES' && (
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-stone-900 border border-stone-800 p-4 rounded-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
             <div>
-              <h3 className="text-sm font-bold text-white">
+              <h3 className="text-sm font-bold text-slate-900">
                 Registro de Anticipos en Ventas Recibidos de Clientes
               </h3>
-              <p className="text-xs text-stone-400 mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Los clientes transfieren bolívares a Banesco como anticipo para asegurar la importación de café por falta de cosecha nacional.
               </p>
             </div>

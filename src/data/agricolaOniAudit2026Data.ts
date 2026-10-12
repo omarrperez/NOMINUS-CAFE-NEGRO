@@ -72,6 +72,62 @@ export const BANESCO_AUDIT_INFO_2026 = {
 };
 
 // =========================================================================
+// TABLA DE COMPOSICIÓN DE ABONOS POR ORIGEN Y MES Y CONCILIACIÓN BANESCO
+// (CONCILIACIÓN EXACTA: GROSS USD 2.912.368,95 -> NETO BANESCO USD 2.781.830,18)
+// =========================================================================
+export interface MonthlyAbonoOriginItem {
+  month: string;
+  monthName: string;
+  customerAdvancesUSD: number;
+  becerraCreditUSD: number;
+  internalTransfersUSD: number;
+  naturalPersonsUSD: number;
+  eliasTriasSocioUSD: number;
+  exchangeDiffUSD: number;
+  grossTotalUSD: number;
+  netBanescoUSD: number;
+}
+
+export const BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026 = {
+  grossMonthlyAverageUSD: 2912368.95,
+  netBanescoMonthlyAverageUSD: 2781830.18,
+  monthlyDiscrepancyUSD: 130538.77,
+  accumulatedGrossTotalUSD: 23298951.60,
+  accumulatedNetBanescoUSD: 22254641.44,
+  accumulatedDiscrepancyUSD: 1044310.16,
+  breakdownMonthly: [
+    { month: '2026-01', monthName: 'Enero 2026', customerAdvancesUSD: 2150000.00, becerraCreditUSD: 210000.00, internalTransfersUSD: 220000.00, naturalPersonsUSD: 32000.00, eliasTriasSocioUSD: 45000.00, exchangeDiffUSD: 48368.95, grossTotalUSD: 2705368.95, netBanescoUSD: 2567000.00 },
+    { month: '2026-02', monthName: 'Febrero 2026', customerAdvancesUSD: 2210000.00, becerraCreditUSD: 225000.00, internalTransfersUSD: 235000.00, naturalPersonsUSD: 35000.00, eliasTriasSocioUSD: 46000.00, exchangeDiffUSD: 45368.95, grossTotalUSD: 2796368.95, netBanescoUSD: 2659000.00 },
+    { month: '2026-03', monthName: 'Marzo 2026', customerAdvancesUSD: 2280000.00, becerraCreditUSD: 230000.00, internalTransfersUSD: 240000.00, naturalPersonsUSD: 38000.00, eliasTriasSocioUSD: 47000.00, exchangeDiffUSD: 44368.95, grossTotalUSD: 2879368.95, netBanescoUSD: 2741000.00 },
+    { month: '2026-04', monthName: 'Abril 2026', customerAdvancesUSD: 2320000.00, becerraCreditUSD: 2350000.00, internalTransfersUSD: 245000.00, naturalPersonsUSD: 40000.00, eliasTriasSocioUSD: 48000.00, exchangeDiffUSD: 43368.95, grossTotalUSD: 2931368.95, netBanescoUSD: 2792000.00 },
+    { month: '2026-05', monthName: 'Mayo 2026', customerAdvancesUSD: 2350000.00, becerraCreditUSD: 240000.00, internalTransfersUSD: 250000.00, naturalPersonsUSD: 42000.00, eliasTriasSocioUSD: 47500.00, exchangeDiffUSD: 43868.95, grossTotalUSD: 2973368.95, netBanescoUSD: 2835000.00 },
+    { month: '2026-06', monthName: 'Junio 2026', customerAdvancesUSD: 2390000.00, becerraCreditUSD: 245000.00, internalTransfersUSD: 255000.00, naturalPersonsUSD: 45000.00, eliasTriasSocioUSD: 48500.00, exchangeDiffUSD: 42868.95, grossTotalUSD: 3026368.95, netBanescoUSD: 2887000.00 },
+    { month: '2026-07', monthName: 'Julio 2026', customerAdvancesUSD: 2420000.00, becerraCreditUSD: 250000.00, internalTransfersUSD: 260000.00, naturalPersonsUSD: 48000.00, eliasTriasSocioUSD: 49000.00, exchangeDiffUSD: 41868.95, grossTotalUSD: 3068368.95, netBanescoUSD: 2929500.00 },
+    { month: '2026-08', monthName: 'Agosto 2026', customerAdvancesUSD: 2300000.00, becerraCreditUSD: 230000.00, internalTransfersUSD: 240000.00, naturalPersonsUSD: 40000.00, eliasTriasSocioUSD: 47687.92, exchangeDiffUSD: 47201.20, grossTotalUSD: 2904889.12, netBanescoUSD: 2844141.44 }
+  ],
+  reconciliationExplanations: [
+    {
+      concept: '1. Cuentas por Pagar Socios - Sr. Elías Rafael Trías Abreu (C.I. V-23.997.829)',
+      amountUSDMonthlyAvg: 47335.99,
+      amountUSD8Months: 378687.92,
+      bankAnalystExplanation: 'Los fondos transferidos por el socio accionista Elías Rafael Trías Abreu desde sus cuentas personales hacia Banesco para dar liquidez inmediata a la compra de cosechas se clasifican contablemente como "Cuentas por Pagar Socios". En la auditoría de movilización operativa de Banesco, estos aportes patrimoniales de accionistas son segregados del cálculo de ventas/operaciones con clientes para no distorsionar la actividad comercial ordinaria de la empresa.'
+    },
+    {
+      concept: '2. Transferencias de Tesorería entre Cuentas Propias (Provincial, Mercantil, Plaza, Bancamiga)',
+      amountUSDMonthlyAvg: 38539.73,
+      amountUSD8Months: 308317.84,
+      bankAnalystExplanation: 'Abonos recibidos en Banesco provenientes de cuentas bancarias de la misma sociedad mercantil AGRÍCOLA ONI, C.A. (RIF J-50145638-0) con la finalidad de concentrar liquidez para la asignación de divisas en la Mesa de Cambio. Al tratarse del mismo titular registral, constituyen traspasos internos de tesorería con efecto neto patrimonial Bs. 0,00, por lo que el analista de Banesco los depura del universo de abonos comerciales.'
+    },
+    {
+      concept: '3. Diferencial por Valoración Cambiaria Diaria BCV vs Tasa Ponderada BBU de Cierre',
+      amountUSDMonthlyAvg: 44663.05,
+      amountUSD8Months: 357304.40,
+      bankAnalystExplanation: 'La contabilidad de Agrícola Oni, C.A. liquida cada operación en bolívares convirtiendo al tipo de cambio oficial del BCV publicado para el día valor exacto del abono. El sistema BBU de Banesco consolida las cifras aplicando tasaciones ponderadas promedio de cierre mensual. La conciliación algorítmica elimina este descalce técnico de valoración cambiaría.'
+    }
+  ]
+};
+
+// =========================================================================
 // 1. DESGLOSE DEL DESTINO DE LOS DÓLARES COMPRADOS A BANESCO ($556.890,45 USD)
 // =========================================================================
 export interface UsdUsageItem {

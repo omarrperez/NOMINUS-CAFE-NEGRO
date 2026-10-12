@@ -256,13 +256,13 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
   }
 ];
 
-// Combine with other special contracts
-const SPECIAL_CONTRACTS = [
+// Combine with other special contracts (Becerra, Elías Trías, Personas Naturales, Proveedor Colombia)
+export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-01',
-    batchCode: 'N/A (LÍNEA DE CRÉDITO)',
+    batchCode: 'LÍNEA ROTATIVA Y MUTUO',
     contractCode: 'CTR-MUT-2026-BECERRA-600M',
-    companyName: 'MANUEL BECERRA (SOCIO)',
+    companyName: 'MANUEL BECERRA (SOCIO Y ALIADO)',
     rif: 'V-023997829',
     repName: 'Manuel Becerra',
     repId: 'V-023997829',
@@ -271,17 +271,156 @@ const SPECIAL_CONTRACTS = [
     amountUSD: 888888.89,
     coffeeQtl: 0,
     date: '02 de Enero de 2026',
-    status: 'LÍNEA ROTATIVA ACTIVA',
-    octoberInvoiceRef: 'PAGARÉ NOTARIADO N° 4012',
-    summary: 'Contrato de Préstamo Mutuo con Interés y Línea de Crédito Rotativa otorgado por AGRÍCOLA ONI C.A. a favor de MANUEL BECERRA por hasta Bs. 600.000.000,00.',
+    status: 'LÍNEA ROTATIVA ACTIVA CON INTERESES',
+    octoberInvoiceRef: 'PAGARÉ NOTARIADO N° 4012 / ASIENTO INT-BECERRA',
+    summary: 'Contrato de Préstamo Mutuo Mercantil con Intereses y Línea de Crédito Rotativa suscrito con Manuel Becerra por hasta Bs. 600.000.000,00. Generación de intereses devengados por Bs. 13.924.047,66 reconocidos en el Estado de Resultados.',
     clauses: [
       {
-        title: 'PRIMERA: Objeto y Límite de la Línea de Crédito',
-        content: 'AGRÍCOLA ONI C.A. conviene en otorgar a favor de MANUEL BECERRA una línea de crédito rotativa de mutuo comercial por hasta Bs. 600.000.000,00 para capital de trabajo y fomento cafetalero.'
+        title: 'PRIMERA: Objeto y Límite de la Línea de Crédito Rotativa',
+        content: 'AGRÍCOLA ONI, C.A. (EL PRESTAMISTA) concede a favor de MANUEL BECERRA (EL PRESTATARIO) una línea de crédito rotativa de mutuo comercial por hasta la suma de Seiscientos Millones de Bolívares (Bs. 600.000.000,00) para el financiamiento de operaciones cafetaleras y fomento de acopio.'
       },
       {
-        title: 'SEGUNDA: Reembolsos y Naturaleza No Gravable',
-        content: 'Las amortizaciones recibidas en la cuenta Banesco constituyen recuperación de capital prestado, por lo cual no constituyen hecho imponible de IVA ni enriquecimiento de ISLR.'
+        title: 'SEGUNDA: Reembolsos, Amortizaciones y Disminución del Activo Exigible',
+        content: 'Durante el período comprendido entre enero y agosto de 2026, EL PRESTATARIO ha efectuado 14 amortizaciones parciales de capital mediante transferencias bancarias a la cuenta Banesco de la empresa por un total de Bs. 186.376.000,00. Dichos reembolsos constituyen recuperación de activo exigible (disminución del saldo por cobrar), por lo cual no constituyen hecho imponible del IVA ni ingreso de ventas.'
+      },
+      {
+        title: 'TERCERA: Tasa de Interés Financiero y Reconocimiento Contable en Estado de Resultados',
+        content: 'Las partes convienen una tasa de interés flotante preferencial sobre los saldos deudores de la línea de crédito. Al 31 de agosto de 2026, los intereses financiado causados ascienden a la cantidad de Trece Millones Novecientos Veinticuatro Mil Cuarenta y Siete Bolívares con 66/100 (Bs. 13.924.047,66), equivalentes a USD 17.514,75 al TC oficial BCV de 794,99 VES/USD. Dicho monto se ha reconocido e incorporado de forma transparente en el Estado de Resultados al 31/08/2026 bajo el rubro "Ingresos Financieros por Intereses Contrato Mutuo Manuel Becerra", elevando el activo exigible por cobrar en el Balance General a la cifra de Bs. 325.948.652,96 (Bs. 312.024.605,30 de saldo capital principal + Bs. 13.924.047,66 de intereses causados).'
+      },
+      {
+        title: 'CUARTA: Documentación de Resguardo y Transparencia Compliance',
+        content: 'El presente instrumento se autentica mediante Pagaré Notariado N° 4012 y se incorpora al expediente bancario auditado AUD-BAN-2026-ONI-094 para resguardo ante Banesco Compliance y el SENIAT.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-soc-in',
+    batchCode: 'CUENTAS POR PAGAR SOCIOS',
+    contractCode: 'CTR-SOCIO-2026-ELIAS-INGRESOS',
+    companyName: 'ELÍAS RAFAEL TRÍAS ABREU (SOCIO ACCIONISTA)',
+    rif: 'V-23997829',
+    repName: 'Elías Rafael Trías Abreu',
+    repId: 'V-23.997.829',
+    bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
+    amountVES: 7649975.00,
+    amountUSD: 11266.93,
+    coffeeQtl: 0,
+    date: '01 de Enero de 2026',
+    status: 'APORTES DE LIQUIDEZ Y CAJA CHICA',
+    octoberInvoiceRef: 'COMP-SOCIO-IN-2026-001',
+    summary: 'Contrato de Mutuo y Aporte de Liquidez de Socio Accionista otorgado por Elías Rafael Trías Abreu a favor de AGRÍCOLA ONI, C.A. por Bs. 7.649.975,00 para cobertura de gastos de operación rural y caja chica en Banesco.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto y Aporte de Liquidez Inmediata',
+        content: 'ELÍAS RAFAEL TRÍAS ABREU, en su condición de socio propietario de AGRÍCOLA ONI, C.A. (RIF J-50145638-0), transfiere desde sus cuentas personales hacia la cuenta corriente Banesco de la sociedad fondos en bolívares por un total acumulado de Bs. 7.649.975,00 ($11.266,93 USD) en 21 operaciones bancarias registradas entre enero y agosto de 2026.'
+      },
+      {
+        title: 'SEGUNDA: Clasificación Contable y Exclusión de Ventas Comerciales',
+        content: 'De conformidad con los VEN-NIF, dichos abonos se registran contablemente en la cuenta de pasivo corriente "Cuentas por Pagar Socios". En la auditoría bancaria de Banesco, estos fondos se convalidan como aportes de liquidez del accionista, quedando totalmente excluidos del cálculo de ventas gravables o ingresos brutos por comercialización.'
+      },
+      {
+        title: 'TERCERA: Reembolsos y Mutuo Financiero',
+        content: 'La sociedad mercantil reembolsará estos montos al socio accionista a medida que la tesorería de la empresa cuente con disponibilidad de liquidez sobrante post-cosecha.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-soc-out',
+    batchCode: 'CUENTAS POR COBRAR SOCIOS',
+    contractCode: 'CTR-SOCIO-2026-ELIAS-EGRESOS',
+    companyName: 'ELÍAS RAFAEL TRÍAS ABREU (AVANCES / EGRESOS)',
+    rif: 'V-23997829',
+    repName: 'Elías Rafael Trías Abreu',
+    repId: 'V-23.997.829',
+    bankOrigin: 'Banesco Banco Universal (0134)',
+    amountVES: 15400000.00,
+    amountUSD: 22100.00,
+    coffeeQtl: 0,
+    date: '15 de Enero de 2026',
+    status: 'AVANCES Y REEMBOLSOS A ACCIONISTA',
+    octoberInvoiceRef: 'COMP-SOCIO-OUT-2026-001',
+    summary: 'Contrato de Préstamo de Tesorería y Regularización de Cuentas con Accionista suscrito entre AGRÍCOLA ONI, C.A. y Elías Rafael Trías Abreu para justificar las transferencias de egreso hacia sus cuentas personales.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto y Avances de Tesorería Corporativa',
+        content: 'AGRÍCOLA ONI, C.A. conviene en otorgar avances temporales de liquidez a favor del accionista Elías Rafael Trías Abreu cuando requiera montos para la atención de compromisos personales o delegaciones de representación comercial.'
+      },
+      {
+        title: 'SEGUNDA: Regla Contable - Cuentas por Cobrar Socios',
+        content: 'Toda salida o egreso bancario de la cuenta Banesco de AGRÍCOLA ONI, C.A. dirigido hacia cuentas personales del señor Elías Rafael Trías Abreu se clasifica obligatoriamente como "Cuentas por Cobrar Socios" (Activo Corriente) en la contabilidad general de la empresa.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-001',
+    batchCode: 'LOTE-NAT-2026-001',
+    contractCode: 'CTR-NAT-2026-LANDER-001',
+    companyName: 'JUAN RAFAEL LANDER RAMÍREZ (PERSONA NATURAL)',
+    rif: 'V-24493340',
+    repName: 'Juan Rafael Lander Ramírez',
+    repId: 'V-24.493.340',
+    bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
+    amountVES: 17975979.99,
+    amountUSD: 29680.10,
+    coffeeQtl: 180,
+    date: '12 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'FAC-NAT-OCT-2026-001',
+    summary: 'Contrato de Mandato y Anticipo en Ventas para Reserva de Café Verde suscrito por Juan Rafael Lander Ramírez con Agrícola Oni, C.A. por Bs. 17.975.979,99.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo y Custodia',
+        content: 'JUAN RAFAEL LANDER RAMÍREZ entrega a AGRÍCOLA ONI, C.A. la suma de Bs. 17.975.979,99 en calidad de anticipo financiero en custodia para asegurar un cupo de 180 quintales de café verde arábica.'
+      },
+      {
+        title: 'SEGUNDA: Facturación y Finiquito en Octubre 2026',
+        content: 'La entrega física del café en octubre de 2026 extinguirá el anticipo en custodia (Pasivo NIIF 15) mediante la emisión de la correspondiente factura de venta personal.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-002',
+    batchCode: 'LOTE-NAT-2026-002',
+    contractCode: 'CTR-NAT-2026-TRIAS-002',
+    companyName: 'BLANCA CRISTINA TRÍAS ABREU (PERSONA NATURAL)',
+    rif: 'V-20105311',
+    repName: 'Blanca Cristina Trías Abreu',
+    repId: 'V-20.105.311',
+    bankOrigin: 'Banco Mercantil (0105) / Banesco (0134)',
+    amountVES: 3870000.00,
+    amountUSD: 6388.96,
+    coffeeQtl: 40,
+    date: '18 de Agosto de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'FAC-NAT-OCT-2026-002',
+    summary: 'Contrato de Anticipo y Reserva de Café Verde suscrito por Blanca Cristina Trías Abreu con Agrícola Oni, C.A. por Bs. 3.870.000,00.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto y Custodia de Fondos',
+        content: 'BLANCA CRISTINA TRÍAS ABREU efectúa un avance de Bs. 3.870.000,00 para la reserva de 40 quintales de café de consumo regional. Se registra como Pasivo Corriente (NIIF 15).'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-003',
+    batchCode: 'LOTE-NAT-2026-COLECTIVO',
+    contractCode: 'CTR-NAT-2026-LOTE14-COLECTIVO',
+    companyName: 'LOTE DE 14 PERSONAS NATURALES (COMPRADORES REGIONALES)',
+    rif: 'V-14882102-VAR',
+    repName: 'Representación Colectiva 14 Titulares',
+    repId: 'V-14.882.102 / V-18.390.412 / V-11.204.919',
+    bankOrigin: 'BDV, Mercantil, Bancamiga, BFC',
+    amountVES: 21845979.99,
+    amountUSD: 36069.06,
+    coffeeQtl: 220,
+    date: '30 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA COLECTIVA',
+    octoberInvoiceRef: 'EXP-NAT-LOTE14-2026',
+    summary: 'Contrato Marco Colectivo de Anticipos y Custodia de Fondos suscrito por 14 Personas Naturales para reserva de molienda y traslado de café pergamino.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto y Resguardo Colectivo',
+        content: 'El grupo de 14 personas naturales compradoras de café entrega montos agrupados por Bs. 21.845.979,99 para la reserva de cupos de grano en los almacenes de Araure.'
       }
     ]
   },
@@ -534,28 +673,28 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
   return (
     <div className="space-y-6">
       {/* Top Banner and Tabs */}
-      <div className="bg-stone-900 border border-stone-800 p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 text-white shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <Scale className="w-5 h-5 text-amber-500" />
+            <Scale className="w-5 h-5 text-amber-400" />
             <h2 className="text-xl font-bold text-white tracking-tight">
               Blindaje Legal & Contratos de Mandato por Lotes
             </h2>
           </div>
-          <p className="text-xs text-stone-400 mt-1">
+          <p className="text-xs text-slate-300 mt-1">
             Contratos de Mandato de Importación para las 6 Personas Jurídicas &middot; Blindaje SUDEBAN, SENIAT, NIIF 15 y Prevención de Legitimación
           </p>
         </div>
 
         {/* Action Controls & Tab Switcher */}
         <div className="flex flex-wrap items-center gap-2 no-print">
-          <div className="flex bg-stone-950 p-1 rounded-lg border border-stone-800">
+          <div className="flex bg-slate-950 p-1 rounded-lg border border-slate-800">
             <button
               onClick={() => setActiveTab('BATCH_MATRIX')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 activeTab === 'BATCH_MATRIX'
-                  ? 'bg-amber-600 text-stone-950 shadow'
-                  : 'text-stone-400 hover:text-stone-200'
+                  ? 'bg-blue-700 text-white shadow'
+                  : 'text-slate-300 hover:text-white'
               }`}
             >
               Matriz de Lotes ({LEGAL_ENTITY_BATCH_CONTRACTS.length})
@@ -564,8 +703,8 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
               onClick={() => setActiveTab('SINGLE_CONTRACT')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 activeTab === 'SINGLE_CONTRACT'
-                  ? 'bg-amber-600 text-stone-950 shadow'
-                  : 'text-stone-400 hover:text-stone-200'
+                  ? 'bg-blue-700 text-white shadow'
+                  : 'text-slate-300 hover:text-white'
               }`}
             >
               Lector de Contrato
@@ -597,64 +736,64 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
         <div className="space-y-4">
           {/* Summary KPIs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-              <span className="text-xs text-stone-400 block">Total Contratos de Mandato</span>
-              <span className="text-xl font-bold text-amber-400 mt-1 block">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+              <span className="text-xs text-slate-600 block">Total Contratos de Mandato</span>
+              <span className="text-xl font-bold text-amber-700 mt-1 block">
                 6 Empresas Jurídicas
               </span>
-              <span className="text-[10px] text-stone-500 mt-0.5 block">
+              <span className="text-[10px] text-slate-500 mt-0.5 block">
                 100% con RIF y Rep. Legal registrado
               </span>
             </div>
 
-            <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-              <span className="text-xs text-stone-400 block">Monto en Custodia (Pasivo NIIF 15)</span>
-              <span className="text-xl font-bold text-white mt-1 block">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+              <span className="text-xs text-slate-600 block">Monto en Custodia (Pasivo NIIF 15)</span>
+              <span className="text-xl font-bold text-slate-900 mt-1 block">
                 Bs. {totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
               </span>
-              <span className="text-[10px] text-emerald-400 mt-0.5 block font-mono">
+              <span className="text-[10px] text-emerald-700 mt-0.5 block font-mono">
                 ${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
               </span>
             </div>
 
-            <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-              <span className="text-xs text-stone-400 block">Volumen Comprometido en Café</span>
-              <span className="text-xl font-bold text-amber-400 mt-1 block">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+              <span className="text-xs text-slate-600 block">Volumen Comprometido en Café</span>
+              <span className="text-xl font-bold text-amber-700 mt-1 block">
                 {totalQtl.toLocaleString('es-VE')} Quintales
               </span>
-              <span className="text-[10px] text-stone-500 mt-0.5 block">
+              <span className="text-[10px] text-slate-500 mt-0.5 block">
                 Café Arábica Pergamino Lavado Colombia
               </span>
             </div>
 
-            <div className="bg-stone-900 border border-stone-800 p-4 rounded-xl">
-              <span className="text-xs text-stone-400 block">Estatus de Absorción Fiscal</span>
-              <span className="text-xl font-bold text-blue-400 mt-1 block">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+              <span className="text-xs text-slate-600 block">Estatus de Absorción Fiscal</span>
+              <span className="text-xl font-bold text-blue-800 mt-1 block">
                 Octubre de 2026
               </span>
-              <span className="text-[10px] text-stone-400 mt-0.5 block">
+              <span className="text-[10px] text-slate-500 mt-0.5 block">
                 Emisión de Factura + Retenciones Prov. 0049
               </span>
             </div>
           </div>
 
           {/* Search bar */}
-          <div className="flex items-center gap-3 bg-stone-900 border border-stone-800 p-3 rounded-lg">
-            <Search className="w-4 h-4 text-stone-400 shrink-0" />
+          <div className="flex items-center gap-3 bg-white border border-slate-200 p-3 rounded-lg shadow-sm">
+            <Search className="w-4 h-4 text-slate-400 shrink-0" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar por lote, código de contrato, empresa cliente o RIF..."
-              className="bg-transparent text-xs text-stone-200 placeholder-stone-500 focus:outline-none w-full"
+              className="bg-transparent text-xs text-slate-800 placeholder-slate-400 focus:outline-none w-full"
             />
           </div>
 
           {/* Table of Batch Contracts */}
-          <div className="bg-stone-900 border border-stone-800 rounded-xl overflow-hidden shadow">
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-stone-950 text-stone-400 uppercase font-mono text-[10px]">
+                <thead className="bg-slate-900 text-slate-200 uppercase font-mono text-[10px]">
                   <tr>
                     <th className="p-3"># Lote</th>
                     <th className="p-3">Código Contrato</th>
@@ -668,34 +807,34 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                     <th className="p-3 text-center">Acciones</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-800 text-stone-300">
+                <tbody className="divide-y divide-slate-200 text-slate-800">
                   {filteredBatchContracts.map((c) => (
-                    <tr key={c.id} className="hover:bg-stone-800/50 transition-colors">
-                      <td className="p-3 font-mono text-amber-400 font-bold whitespace-nowrap">
+                    <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                      <td className="p-3 font-mono text-amber-700 font-bold whitespace-nowrap">
                         {c.batchCode}
                       </td>
-                      <td className="p-3 font-mono text-stone-200 font-semibold whitespace-nowrap">
+                      <td className="p-3 font-mono text-slate-900 font-semibold whitespace-nowrap">
                         {c.contractCode}
                       </td>
-                      <td className="p-3 font-bold text-white max-w-xs">
+                      <td className="p-3 font-bold text-slate-900 max-w-xs">
                         {c.companyName}
                       </td>
-                      <td className="p-3 font-mono text-stone-300 whitespace-nowrap">
+                      <td className="p-3 font-mono text-slate-700 whitespace-nowrap">
                         {c.rif}
                       </td>
-                      <td className="p-3 text-stone-300">
-                        {c.repName} <span className="text-[10px] text-stone-500 block">({c.repId})</span>
+                      <td className="p-3 text-slate-700">
+                        {c.repName} <span className="text-[10px] text-slate-500 block">({c.repId})</span>
                       </td>
-                      <td className="p-3 text-stone-400 text-[11px]">
+                      <td className="p-3 text-slate-600 text-[11px]">
                         {c.bankOrigin}
                       </td>
-                      <td className="p-3 text-right font-mono font-bold text-stone-100">
+                      <td className="p-3 text-right font-mono font-bold text-slate-900">
                         Bs. {c.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="p-3 text-right font-mono text-emerald-400">
+                      <td className="p-3 text-right font-mono text-emerald-700 font-semibold">
                         ${c.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
-                      <td className="p-3 text-right font-mono text-amber-300 font-bold">
+                      <td className="p-3 text-right font-mono text-amber-700 font-bold">
                         {c.coffeeQtl.toLocaleString('es-VE')}
                       </td>
                       <td className="p-3 text-center">
@@ -705,7 +844,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                               setSelectedContract(c);
                               setActiveTab('SINGLE_CONTRACT');
                             }}
-                            className="px-2 py-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 border border-amber-500/30 rounded text-[11px] font-semibold transition-colors flex items-center gap-1"
+                            className="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 rounded text-[11px] font-semibold transition-colors flex items-center gap-1"
                             title="Ver contrato en lector"
                           >
                             <Eye className="w-3 h-3" />
@@ -713,7 +852,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                           </button>
                           <button
                             onClick={() => handleExportSingleContractWord(c)}
-                            className="px-2 py-1 bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 rounded text-[11px] font-semibold transition-colors flex items-center gap-1"
+                            className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-300 rounded text-[11px] font-semibold transition-colors flex items-center gap-1"
                             title="Descargar este contrato en Word (.doc) para modificarlo"
                           >
                             <FileDown className="w-3 h-3" />
@@ -724,21 +863,21 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="bg-stone-950 font-bold text-white font-mono text-xs border-t-2 border-stone-800">
+                <tfoot className="bg-slate-900 font-bold text-white font-mono text-xs border-t-2 border-slate-700">
                   <tr>
-                    <td colSpan={6} className="p-3 text-amber-400">
+                    <td colSpan={6} className="p-3 text-amber-300">
                       TOTAL GENERAL CONTRATOS POR LOTE ({filteredBatchContracts.length} CLIENTES JURÍDICOS)
                     </td>
                     <td className="p-3 text-right text-amber-300">
                       Bs. {totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="p-3 text-right text-emerald-400">
+                    <td className="p-3 text-right text-emerald-300">
                       ${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="p-3 text-right text-amber-300">
                       {totalQtl.toLocaleString('es-VE')} Qtl
                     </td>
-                    <td className="p-3 text-center text-stone-500 text-[10px]">
+                    <td className="p-3 text-center text-slate-300 text-[10px]">
                       NIIF 15 PASIVO
                     </td>
                   </tr>
