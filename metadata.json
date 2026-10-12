@@ -1,0 +1,6 @@
+{
+  "name": "NOMINUS - Agrícola Oni & Café",
+  "description": "Sistema empresarial de auditoría bancaria Banesco, contabilidad cafetalera, liquidación de nómina de vigilancia, tasas BCV, contratos y comprobantes para Agrícola Oni y Nominus Café.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
