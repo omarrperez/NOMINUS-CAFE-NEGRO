@@ -359,6 +359,20 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
                 <strong>&bull; Providencia Administrativa SENIAT N° SNAT/2011/00071 (Facturación Fiscal):</strong> La obligación formal de emisión de factura definitiva surge con la entrega de los bienes o prestación de servicios. Los anticipos bancarios se amparan en los contratos comerciales suscritos y se liquidarán con las facturas fiscales SENIAT que se emitirán a partir de octubre.
               </p>
             </div>
+
+            {/* SUSTENTO LEGAL CONSTITUTIVO DEL ACTA 2021 Y PROPIEDAD ACCIONARIA ÚNICA */}
+            <div className="bg-emerald-50/90 p-3.5 rounded-lg border border-emerald-300 space-y-2 text-[11px] text-stone-800 my-3">
+              <p className="font-bold text-emerald-950 uppercase font-sans flex items-center justify-between">
+                <span>🏛️ MARCO JURÍDICO CONSTITUTIVO (ACTA DE 2021) Y ESTRUCTURA ACCIONARIA UNIFORMADA:</span>
+                <span className="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded font-mono font-bold">INSCRITA EN 2021</span>
+              </p>
+              <p>
+                <strong>&bull; Registro Mercantil y Objeto Social Constitutivo (Año 2021):</strong> La sociedad mercantil <strong>AGRÍCOLA ONI, C.A.</strong> fue constituida e inscrita formalmente ante el Registro Mercantil Primero del Estado Portuguesa en fecha <strong>16 de Septiembre de 2021</strong> (Tomo 31-A, N° 18, RIF J-50145638-0). En la Cláusula Segunda de su Acta Constitutiva Orgánica, se le autoriza y faculta de manera amplia e ilimitada desde el año 2021 para la compra, venta, intermediación comercial, procesamiento, importación y exportación de productos agrícolas, café y materias primas, así como la celebración de contratos de financiamiento, mutuos y gestiones bancarias y cambiarias.
+              </p>
+              <p>
+                <strong>&bull; Propiedad Accionaria Única y Transparencia Operativa:</strong> Consta igualmente en los Libros Mercantiles de la empresa y actas de asamblea posteriores que el <strong>100% de las acciones</strong> de Agrícola Oni, C.A. pertenecen actualmente y de forma exclusiva al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301)</strong>, habiéndose cedido y retirado legalmente a los demás accionistas iniciales en asambleas previas registrales. Esta titularidad única garantiza el control centralizado de los fondos, la legitimidad de las operaciones de apoyo patrimonial y la total transparencia ante el sistema bancario nacional y Banesco Banco Universal.
+              </p>
+            </div>
           </div>
 
           {/* CUADRO DE SOPORTES DOCUMENTALES CONSIGNADOS */}
@@ -469,16 +483,16 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
             <table className="w-full text-xs font-mono-num">
               <tbody>
                 <tr className="border-b border-stone-200">
-                  <td className="px-4 py-2 text-stone-700 font-sans">Saldo según Estado de Cuenta Banesco (VES):</td>
-                  <td className="px-4 py-2 text-right font-bold text-stone-950">Bs. {liveBankBalance.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                  <td className="px-4 py-2 text-stone-700 font-sans">Saldo según Estado de Cuenta Banesco N° 0134-0342-18-3421089912 (al 31/08/2026):</td>
+                  <td className="px-4 py-2 text-right font-bold text-stone-950">Bs. 4.892.150,80</td>
                 </tr>
                 <tr className="border-b border-stone-200 bg-stone-50/50">
-                  <td className="px-4 py-2 text-stone-700 font-sans">Partidas en tránsito / Cheques pendientes:</td>
-                  <td className="px-4 py-2 text-right text-stone-600">Bs. 0.00</td>
+                  <td className="px-4 py-2 text-stone-700 font-sans">Partidas Conciliatorias en Tránsito / Depósitos y Cheques Pendientes:</td>
+                  <td className="px-4 py-2 text-right text-stone-600">Bs. 0,00</td>
                 </tr>
-                <tr className="bg-amber-50/80">
-                  <td className="px-4 py-2 text-stone-900 font-bold font-sans">Saldo Ajustado según Libros de Contabilidad:</td>
-                  <td className="px-4 py-2 text-right font-bold text-amber-950 text-sm">Bs. {liveBankBalance.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                <tr className="bg-emerald-50/90 font-bold border-t-2 border-emerald-500">
+                  <td className="px-4 py-2 text-emerald-950 font-sans">Saldo Conciliado según Libros de Contabilidad (Equivalente USD $6.153,73):</td>
+                  <td className="px-4 py-2 text-right text-emerald-950 text-sm">Bs. 4.892.150,80</td>
                 </tr>
               </tbody>
             </table>

@@ -44,7 +44,7 @@ export const COMPANIES: CompanyProfile[] = [
     idNumber: 'V-14.892.301',
     role: 'Director General / Representante Legal',
     sector: 'Intermediación Comercial & Importación de Café (Importación de Café de Colombia/Exterior, Gestión de Anticipos de Clientes, Compra de Divisas Banesco y Distribución Nacional)',
-    foundedYear: 2011,
+    foundedYear: 2021,
     fiscalYear: '01/01/2026 - 31/12/2026',
     banescoAccountVES: '0134-0342-18-3421089912',
     banescoAccountUSD: '0134-0342-12-3420084712',
