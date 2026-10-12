@@ -42,10 +42,14 @@ import { ReceiptGeneratorView } from './components/ReceiptGeneratorView';
 import { SecurityDatabaseCenterView } from './components/SecurityDatabaseCenterView';
 import { DeepResearchAndUxReportView } from './components/DeepResearchAndUxReportView';
 import { FinancialStatementsAndBecerraSuiteView } from './components/FinancialStatementsAndBecerraSuiteView';
+import { LegalEntitiesSeniatRifListView } from './components/LegalEntitiesSeniatRifListView';
+import { FiscalAuditorCrossCheckReportView } from './components/FiscalAuditorCrossCheckReportView';
 
 export type ActiveModule =
   | 'IMPORT_AND_ADVANCES'
+  | 'FISCAL_AUDITOR_REPORT'
   | 'FINANCIAL_STATEMENTS_BECERRA'
+  | 'SENIAT_LEGAL_ENTITIES'
   | 'BANESCO_LETTER_FULL'
   | 'BANESCO_LETTER_ONE_PAGE'
   | 'BANESCO_AUDIT_SHEET'
@@ -68,6 +72,8 @@ function MainAppContent() {
 
   const navItems: { id: ActiveModule; label: string; icon: React.ElementType; badge?: string }[] = [
     { id: 'IMPORT_AND_ADVANCES', label: 'Anticipos & Importación (Colombia)', icon: Globe, badge: 'Principal' },
+    { id: 'FISCAL_AUDITOR_REPORT', label: 'Auditoría Fiscal Proveedores', icon: ShieldCheck, badge: 'Auditor' },
+    { id: 'SENIAT_LEGAL_ENTITIES', label: 'Clientes Jurídicos & RIF SENIAT', icon: Building2, badge: 'SENIAT' },
     { id: 'FINANCIAL_STATEMENTS_BECERRA', label: 'EEFF 2025-2026 & Manuel Becerra', icon: TrendingUp, badge: 'Auditoría' },
     { id: 'BANESCO_LETTER_FULL', label: 'Carta Respuesta Banesco', icon: FileCheck, badge: 'Oficial' },
     { id: 'BANESCO_LETTER_ONE_PAGE', label: 'Carta 1 Página (Impresión)', icon: FileText, badge: '1 Hoja' },
@@ -213,6 +219,14 @@ function MainAppContent() {
                 company={selectedCompany}
                 currentRate={currentRate}
               />
+            )}
+
+            {activeModule === 'FISCAL_AUDITOR_REPORT' && (
+              <FiscalAuditorCrossCheckReportView />
+            )}
+
+            {activeModule === 'SENIAT_LEGAL_ENTITIES' && (
+              <LegalEntitiesSeniatRifListView />
             )}
 
             {activeModule === 'FINANCIAL_STATEMENTS_BECERRA' && (

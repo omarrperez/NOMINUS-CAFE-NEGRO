@@ -25,7 +25,7 @@ import {
   Check,
   FileDown
 } from 'lucide-react';
-import { exportToWord, exportToCsv, exportToPdfPrint, downloadElementAsPdf, exportHtmlToPdf } from '../utils/exportUtils';
+import { exportToWord, exportToCsv, exportToExcelXlsx, exportToPdfPrint, downloadElementAsPdf, exportHtmlToPdf } from '../utils/exportUtils';
 import {
   BALANCE_SHEET_2025,
   INCOME_STATEMENT_2025,
@@ -193,8 +193,22 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
   };
 
   const handleExportTable1Csv = () => {
-    const headers = ['Origen', 'Clasificacion_Legal', 'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Total_Bs', 'Pct_Total', 'Total_USD'];
-    const rows = BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.rows.map(r => [
+    const headers = [
+      'Origen de Fondos',
+      'Clasificación Legal / Contable (Sustento Banesco)',
+      'Enero (Bs.)',
+      'Febrero (Bs.)',
+      'Marzo (Bs.)',
+      'Abril (Bs.)',
+      'Mayo (Bs.)',
+      'Junio (Bs.)',
+      'Julio (Bs.)',
+      'Agosto (Bs.)',
+      'Total Acumulado (Bs.)',
+      '% del Total',
+      'Contravalor USD ($)'
+    ];
+    const dataRows = BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.rows.map(r => [
       r.origen,
       r.legalClassification,
       r.ene,
@@ -206,17 +220,41 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       r.jul,
       r.ago,
       r.totalBs,
-      r.pctDelTotal,
+      `${r.pctDelTotal.toFixed(1)}%`,
       r.totalUSD
     ]);
     const t = BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals;
-    rows.push(['TOTAL GENERAL', 'Cuadre 100% Extracto Bancario', t.ene, t.feb, t.mar, t.abr, t.may, t.jun, t.jul, t.ago, t.totalBs, 100.0, t.totalUSD]);
-    exportToCsv('Composicion_Abonos_Banesco_2026.csv', headers, rows);
+    const totalsRow = [
+      'TOTAL GENERAL CONSOLIDADOS',
+      'Cuadre 100% Extracto Bancario Banesco vs EEFF 2026',
+      t.ene,
+      t.feb,
+      t.mar,
+      t.abr,
+      t.may,
+      t.jun,
+      t.jul,
+      t.ago,
+      t.totalBs,
+      '100.0%',
+      t.totalUSD
+    ];
+
+    exportToExcelXlsx({
+      filename: 'Cuadre_Oficial_Abonos_Banesco_y_EEFF_2026.xlsx',
+      sheetName: 'Cuadre Oficial Abonos 2026',
+      title: 'COMPOSICIÓN OFICIAL DE ABONOS POR ORIGEN Y MES (BS) - ENERO A AGOSTO 2026',
+      subtitle: 'Cuadre Oficial del Estado de Cuenta Banesco N° 0134-0342-18-3421089912 vs Estados Financieros',
+      headers,
+      rows: dataRows,
+      totalsRow,
+      columnWidths: [38, 65, 16, 16, 16, 16, 16, 16, 16, 16, 22, 14, 20]
+    });
   };
 
   const handleExportBecerraCsv = () => {
-    const headers = ['Item', 'Fecha', 'Referencia', 'Banco', 'Descripcion', 'Desembolso_Prestamo_Bs', 'Amortizacion_Pago_Bs'];
-    const rows = MANUEL_BECERRA_MOVEMENTS_2026.map(m => [
+    const headers = ['# Item', 'Fecha', 'Referencia Banesco', 'Institución Bancaria', 'Descripción / Detalle', 'Desembolso Préstamo (Egreso Bs.)', 'Amortización Pago (Ingreso Bs.)'];
+    const dataRows = MANUEL_BECERRA_MOVEMENTS_2026.map(m => [
       m.item,
       m.date,
       m.reference,
@@ -225,7 +263,98 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       m.outflowVES,
       m.inflowVES
     ]);
-    exportToCsv('Contrato_Mutuo_Becerra_47_Movimientos_2026.csv', headers, rows);
+    const totalsRow = [
+      'TOTALES',
+      '47 MOVIMIENTOS',
+      '',
+      'BANESCO',
+      'Línea de Crédito Rotativa Becerra',
+      MANUEL_BECERRA_SUMMARY_2026.totalDisbursedVES,
+      MANUEL_BECERRA_SUMMARY_2026.totalRepaidVES
+    ];
+
+    exportToExcelXlsx({
+      filename: 'Contrato_Mutuo_Becerra_47_Movimientos_2026.xlsx',
+      sheetName: 'Movimientos Mutuo Becerra',
+      title: 'RELACIÓN DETALLADA DE MOVIMIENTOS BANCARIOS BANESCO - MANUEL BECERRA (47 OPERACIONES 2026)',
+      subtitle: `Préstamos Otorgados: Bs. ${MANUEL_BECERRA_SUMMARY_2026.totalDisbursedVES.toLocaleString('es-VE')} | Amortizados: Bs. ${MANUEL_BECERRA_SUMMARY_2026.totalRepaidVES.toLocaleString('es-VE')} | Saldo x Cobrar: Bs. ${MANUEL_BECERRA_SUMMARY_2026.totalReceivableAugust31VES.toLocaleString('es-VE')} ($${MANUEL_BECERRA_SUMMARY_2026.totalReceivableUSD.toLocaleString('en-US')} USD)`,
+      headers,
+      rows: dataRows,
+      totalsRow,
+      columnWidths: [8, 14, 20, 16, 50, 25, 25]
+    });
+  };
+
+  const handleExportConciliacionCsv = () => {
+    const headers = ['# Item', 'Concepto de Conciliación', 'Naturaleza Legal / Contable', 'Monto Movilizado Banesco (Bs.)', 'Impacto en Estado de Resultados (Bs.)', 'Sustento Legal y Fiscal SENIAT / SUDEBAN'];
+    const dataRows = BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.breakdown.map((item, idx) => [
+      idx + 1,
+      item.concept,
+      item.nature,
+      item.bankAmountVES,
+      item.impactOnIncomeStatement,
+      item.legalNotes
+    ]);
+
+    exportToExcelXlsx({
+      filename: 'Conciliacion_Banesco_vs_Estados_Financieros_2026.xlsx',
+      sheetName: 'Conciliación Banesco vs EEFF',
+      title: 'CONCILIACIÓN ANALÍTICA: BANESCO VS ESTADOS FINANCIEROS (CORTE 31/08/2026)',
+      subtitle: 'Ingresos Banesco Bs. 1.966.597.105,35 vs Ingresos EEFF Bs. 92.641.520,01 | Diferencia 100% Justificada',
+      headers,
+      rows: dataRows,
+      columnWidths: [8, 45, 35, 25, 25, 60]
+    });
+  };
+
+  const handleExportBalanceSheetExcel = () => {
+    const headers = ['Concepto / Rubro Contable (VEN-NIF)', '31/12/2025 (Bs.)', '31/12/2025 (US$)', '31/08/2026 (Bs.)', '31/08/2026 (US$)'];
+    const dataRows = [
+      ['ACTIVO CORRIENTE', '', '', '', ''],
+      ['Efectivo en Caja y Bancos', BALANCE_SHEET_2025.assets.current.cashAndBanks, BALANCE_SHEET_2025.assets.current.cashAndBanks / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks, BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / 794.99],
+      ['Cuentas por Cobrar Manuel Becerra', 0, 0, BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable, BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / 794.99],
+      ['Total Activo Corriente', BALANCE_SHEET_2025.assets.current.totalCurrent, BALANCE_SHEET_2025.assets.current.totalCurrent / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent, BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent / 794.99],
+      ['TOTAL ACTIVO', BALANCE_SHEET_2025.assets.totalAssets, BALANCE_SHEET_2025.assets.totalAssets / 301.37, BALANCE_SHEET_AUGUST_2026.assets.totalAssets, BALANCE_SHEET_AUGUST_2026.assets.totalAssets / 794.99],
+      ['PASIVO CORRIENTE', '', '', '', ''],
+      ['Cuentas por Pagar Socios / Anticipos', 0, 0, BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables, BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / 794.99],
+      ['TOTAL PASIVO Y PATRIMONIO', BALANCE_SHEET_2025.totalLiabilitiesAndEquity, BALANCE_SHEET_2025.totalLiabilitiesAndEquity / 301.37, BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity, BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity / 794.99]
+    ];
+
+    exportToExcelXlsx({
+      filename: 'Estado_Situacion_Financiera_VEN_NIF_2025_2026.xlsx',
+      sheetName: 'Balance General Comparativo',
+      title: 'ESTADO DE SITUACIÓN FINANCIERA COMPARATIVO (VEN-NIF)',
+      subtitle: 'Cierre Diciembre 2025 (Tasa BCV 301,37) vs Corte Agosto 2026 (Tasa BCV 794,99)',
+      headers,
+      rows: dataRows,
+      columnWidths: [45, 25, 20, 25, 20]
+    });
+  };
+
+  const handleExportIncomeStatementExcel = () => {
+    const headers = ['Concepto de Resultados', 'Ejercicio 2025 (Bs.)', 'Ejercicio 2025 (US$)', 'Enero-Agosto 2026 (Bs.)', 'Enero-Agosto 2026 (US$)'];
+    const dataRows = [
+      ['INGRESOS OPERACIONALES', '', '', '', ''],
+      ['Ventas por Servicios Agrícolas Facturados', INCOME_STATEMENT_2025.revenues.agriculturalServices, INCOME_STATEMENT_2025.revenues.agriculturalServices / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices, INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['Ingresos Financieros por Intereses de Mutuo (Becerra)', 0, 0, INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome, INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['TOTAL INGRESOS', INCOME_STATEMENT_2025.revenues.totalRevenues, INCOME_STATEMENT_2025.revenues.totalRevenues / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues, INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['COSTOS OPERACIONALES', '', '', '', ''],
+      ['Costos Directos de Servicios', INCOME_STATEMENT_2025.costs.serviceCosts, INCOME_STATEMENT_2025.costs.serviceCosts / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts, INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['UTILIDAD BRUTA', INCOME_STATEMENT_2025.costs.grossProfit, INCOME_STATEMENT_2025.costs.grossProfit / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.costs.grossProfit, INCOME_STATEMENT_AUGUST_2026.costs.grossProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['GASTOS OPERATIVOS Y ADMINISTRATIVOS', INCOME_STATEMENT_2025.operatingExpenses.administrativeExpenses, INCOME_STATEMENT_2025.operatingExpenses.administrativeExpenses / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.operatingExpenses.administrativeExpenses, INCOME_STATEMENT_AUGUST_2026.operatingExpenses.administrativeExpenses / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['UTILIDAD EN OPERACIONES', INCOME_STATEMENT_2025.operatingExpenses.operatingProfit, INCOME_STATEMENT_2025.operatingExpenses.operatingProfit / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit, INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV],
+      ['UTILIDAD NETA DEL EJERCICIO', INCOME_STATEMENT_2025.taxesAndReserves.netProfit, INCOME_STATEMENT_2025.taxesAndReserves.netProfit / INCOME_STATEMENT_2025.exchangeRateBCV, INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit, INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV]
+    ];
+
+    exportToExcelXlsx({
+      filename: 'Estado_Resultados_Integrales_2025_2026.xlsx',
+      sheetName: 'Estado de Resultados',
+      title: 'ESTADO DE RESULTADO INTEGRAL COMPARATIVO (VEN-NIF)',
+      subtitle: 'Cierre 2025 vs Corte 8 Meses al 31 de Agosto de 2026',
+      headers,
+      rows: dataRows,
+      columnWidths: [48, 25, 20, 25, 20]
+    });
   };
 
   const handleExportBecerraWord = () => {
@@ -639,6 +768,26 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
           </div>
 
           <div className="flex flex-wrap items-center gap-2 no-print">
+            <button
+              onClick={() => {
+                if (activeTab === 'MANUEL_BECERRA') {
+                  handleExportBecerraCsv();
+                } else if (activeTab === 'CONCILIACION_BANCO') {
+                  handleExportConciliacionCsv();
+                } else if (activeTab === 'EEFF_COMPARATIVO') {
+                  handleExportBalanceSheetExcel();
+                } else if (activeTab === 'ESTADO_RESULTADOS') {
+                  handleExportIncomeStatementExcel();
+                } else {
+                  handleExportTable1Csv();
+                }
+              }}
+              className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
+              title="Descargar hoja de cálculo oficial en Microsoft Excel (.xlsx)"
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5" />
+              Descargar Excel (.xlsx)
+            </button>
             <button
               onClick={() => {
                 if (activeTab === 'CARTA_BANCO_OFICIAL') {
@@ -1467,6 +1616,14 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
 
               <div className="flex items-center gap-1.5 no-print shrink-0">
                 <button
+                  onClick={handleExportBalanceSheetExcel}
+                  className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  title="Descargar Balance General en Excel (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5" />
+                  Excel (.xlsx)
+                </button>
+                <button
                   onClick={handleExportBalanceSheetWord}
                   className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
                   title="Descargar Balance General en Word"
@@ -1669,6 +1826,14 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               </div>
 
               <div className="flex items-center gap-1.5 no-print shrink-0">
+                <button
+                  onClick={handleExportIncomeStatementExcel}
+                  className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  title="Descargar Estado de Resultados en Excel (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-3.5 h-3.5" />
+                  Excel (.xlsx)
+                </button>
                 <button
                   onClick={handleExportIncomeStatementWord}
                   className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"

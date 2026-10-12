@@ -441,7 +441,7 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
     },
     {
       id: 'ORIG-03',
-      origen: 'Persona V-023997829 (recurrente)',
+      origen: 'Persona V-023997829 (Socio Propietario Agrícola Oni C.A.)',
       category: 'PERSONA_NATURAL_V023',
       ene: 14000.00,
       feb: 500000.00,
@@ -454,12 +454,12 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 7649975.00,
       pctDelTotal: 0.4,
       totalUSD: 11266.93,
-      auditExplanation: '21 transferencias del productor asociado titular V-023997829 para aportes operativos de acopio y fletes de café en campo.',
-      legalClassification: 'Aportes Operativos de Campo para Consolidación de Lote. Comprobante COMP-ANT-NAT-2026-001.'
+      auditExplanation: '21 transferencias de abonos del socio propietario V-23.997.829 para inyección de liquidez y operación de la empresa.',
+      legalClassification: 'Cuentas por Pagar Socios (Pasivo Corriente) / Aportes del Socio Propietario V-23.997.829.'
     },
     {
       id: 'ORIG-04',
-      origen: 'Personas naturales (V-)',
+      origen: 'Personas Naturales (V-24493340 Juan Lander / V-20105311 Blanca Trías)',
       category: 'PERSONAS_NATURALES_V',
       ene: 0,
       feb: 0,
@@ -472,8 +472,8 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 21845979.99,
       pctDelTotal: 1.1,
       totalUSD: 36069.06,
-      auditExplanation: '15 abonos bancarios de 14 titulares personas naturales con cédula de identidad por reserva y procura de café pergamino.',
-      legalClassification: 'Anticipos Menores por Reserva de Café para Consumo Regional. Comprobante COMP-ANT-NAT-2026-002.'
+      auditExplanation: '15 abonos bancarios de personas naturales por concepto de anticipos para reserva de café (Juan Rafael Lander Ramírez V-24.493.340, Blanca Cristina Trías Abreu V-20.105.311 y otros).',
+      legalClassification: 'Anticipos de Clientes Personas Naturales (Pasivo Corriente NIIF 15). Comprobante COMP-ANT-NAT-2026-002.'
     },
     {
       id: 'ORIG-05',

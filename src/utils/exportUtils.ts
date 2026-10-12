@@ -9,6 +9,7 @@
 
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 import {
   Document,
   Packer,
@@ -1066,33 +1067,308 @@ export async function exportHtmlToPdf(
 /** Alias para compatibilidad */
 export const exportToPdf = downloadElementAsPdf;
 
+export interface ExcelExportOptions {
+  filename: string;
+  sheetName?: string;
+  companyName?: string;
+  companyRif?: string;
+  title: string;
+  subtitle?: string;
+  headers: string[];
+  rows: (string | number)[][];
+  totalsRow?: (string | number)[];
+  columnWidths?: number[];
+}
+
 /**
- * Exporta datos tabulares a CSV (Excel compatible) con codificación UTF-8 BOM.
+ * Genera y descarga un libro de trabajo Microsoft Excel (.xlsx) nativo
+ * con formato ejecutivo, celdas numéricas reales en columnas independientes,
+ * anchos de columna dinámicos y membrete corporativo.
+ */
+import ExcelJS from 'exceljs';
+
+export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<void> {
+  const {
+    filename,
+    sheetName = 'Cuadre Oficial 2026',
+    companyName = 'AGRÍCOLA ONI, C.A.',
+    companyRif = 'J-40822606-8',
+    title,
+    subtitle,
+    headers,
+    rows,
+    totalsRow,
+    columnWidths
+  } = options;
+
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = companyName;
+  workbook.lastModifiedBy = 'Auditoría Bancaria Banesco / SENIAT';
+  workbook.created = new Date();
+
+  const ws = workbook.addWorksheet(sheetName.substring(0, 31), {
+    views: [{ showGridLines: true }]
+  });
+
+  const colCount = Math.max(headers.length, 1);
+
+  // 1. Membrete corporativo
+  // Fila 1: Nombre Empresa
+  const r1 = ws.addRow([companyName.toUpperCase()]);
+  r1.height = 24;
+  ws.mergeCells(1, 1, 1, colCount);
+  const c1 = ws.getCell('A1');
+  c1.font = { name: 'Calibri', size: 16, bold: true, color: { argb: 'FFFFFFFF' } };
+  c1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } }; // Dark Navy
+  c1.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+
+  // Fila 2: RIF e Información
+  const r2 = ws.addRow([`R.I.F.: ${companyRif} | CUMPLE CON NORMAS BANCARIAS SUDEBAN Y VEN-NIF`]);
+  r2.height = 18;
+  ws.mergeCells(2, 1, 2, colCount);
+  const c2 = ws.getCell('A2');
+  c2.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFD97706' } }; // Golden Amber
+  c2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+  c2.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+
+  // Fila 3: Título del Reporte
+  const r3 = ws.addRow([title.toUpperCase()]);
+  r3.height = 22;
+  ws.mergeCells(3, 1, 3, colCount);
+  const c3 = ws.getCell('A3');
+  c3.font = { name: 'Calibri', size: 12, bold: true, color: { argb: 'FF0F172A' } };
+  c3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } }; // Light Slate
+  c3.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+
+  // Fila 4: Subtítulo si aplica
+  if (subtitle) {
+    const r4 = ws.addRow([subtitle]);
+    r4.height = 18;
+    ws.mergeCells(4, 1, 4, colCount);
+    const c4 = ws.getCell('A4');
+    c4.font = { name: 'Calibri', size: 10, italic: true, color: { argb: 'FF475569' } };
+    c4.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+    c4.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
+  }
+
+  // Fila vacía separadora
+  const rSpacer = ws.addRow([]);
+  rSpacer.height = 10;
+
+  // 2. Encabezados de Columna
+  const headerRow = ws.addRow(headers);
+  headerRow.height = 28;
+  headerRow.eachCell((cell, colNum) => {
+    cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FFFFFFFF' } };
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E293B' } }; // Corporate Navy
+    cell.alignment = {
+      horizontal: colNum <= 2 ? 'left' : 'right',
+      vertical: 'middle',
+      wrapText: true
+    };
+    cell.border = {
+      top: { style: 'medium', color: { argb: 'FF0F172A' } },
+      bottom: { style: 'medium', color: { argb: 'FF0F172A' } },
+      left: { style: 'thin', color: { argb: 'FF334155' } },
+      right: { style: 'thin', color: { argb: 'FF334155' } }
+    };
+  });
+
+  // 3. Filas de Datos
+  rows.forEach((rowData, idx) => {
+    const row = ws.addRow(rowData);
+    row.height = 26;
+    const isOdd = idx % 2 === 1;
+    const bgArgb = isOdd ? 'FFF8FAFC' : 'FFFFFFFF'; // Zebra striping
+
+    row.eachCell({ includeEmpty: true }, (cell, colNum) => {
+      const isFirstTwoCols = colNum <= 2;
+      const rawValue = cell.value;
+
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgArgb } };
+      cell.font = { name: 'Calibri', size: 10, color: { argb: 'FF1E293B' }, bold: colNum === 1 };
+      cell.border = {
+        top: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+        bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+        left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
+        right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+      };
+
+      if (isFirstTwoCols) {
+        cell.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+      } else {
+        cell.alignment = { horizontal: 'right', vertical: 'middle' };
+        // Formato numérico
+        if (typeof rawValue === 'number') {
+          const headerName = String(headers[colNum - 1] || '');
+          if (headerName.includes('%')) {
+            cell.numFmt = '0.0%';
+          } else if (headerName.includes('USD') || headerName.includes('$')) {
+            cell.numFmt = '"$"#,##0.00';
+          } else {
+            cell.numFmt = '#,##0.00';
+          }
+        } else if (typeof rawValue === 'string') {
+          const str = rawValue.trim();
+          if (str.endsWith('%')) {
+            const pVal = parseFloat(str.replace('%', '')) / 100;
+            if (!isNaN(pVal)) {
+              cell.value = pVal;
+              cell.numFmt = '0.0%';
+            }
+          } else if (/^-?\d+(\.\d+)?$/.test(str)) {
+            cell.value = parseFloat(str);
+            const headerName = String(headers[colNum - 1] || '');
+            if (headerName.includes('USD') || headerName.includes('$')) {
+              cell.numFmt = '"$"#,##0.00';
+            } else {
+              cell.numFmt = '#,##0.00';
+            }
+          }
+        }
+      }
+    });
+  });
+
+  // 4. Fila de Totales si existe
+  if (totalsRow) {
+    const totalRow = ws.addRow(totalsRow);
+    totalRow.height = 28;
+    totalRow.eachCell({ includeEmpty: true }, (cell, colNum) => {
+      const isFirstTwoCols = colNum <= 2;
+      const rawValue = cell.value;
+
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } }; // Slate Dark Navy
+      cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.border = {
+        top: { style: 'medium', color: { argb: 'FF0F172A' } },
+        bottom: { style: 'double', color: { argb: 'FF0F172A' } }, // Accounting Double Bottom Border
+        left: { style: 'thin', color: { argb: 'FF334155' } },
+        right: { style: 'thin', color: { argb: 'FF334155' } }
+      };
+
+      if (isFirstTwoCols) {
+        cell.alignment = { horizontal: 'left', vertical: 'middle', wrapText: true };
+      } else {
+        cell.alignment = { horizontal: 'right', vertical: 'middle' };
+        if (typeof rawValue === 'number') {
+          const headerName = String(headers[colNum - 1] || '');
+          if (headerName.includes('%')) {
+            cell.numFmt = '0.0%';
+          } else if (headerName.includes('USD') || headerName.includes('$')) {
+            cell.numFmt = '"$"#,##0.00';
+            cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF34D399' } };
+          } else {
+            cell.numFmt = '#,##0.00';
+          }
+        } else if (typeof rawValue === 'string') {
+          const str = rawValue.trim();
+          if (str.endsWith('%')) {
+            const pVal = parseFloat(str.replace('%', '')) / 100;
+            if (!isNaN(pVal)) {
+              cell.value = pVal;
+              cell.numFmt = '0.0%';
+            }
+          } else if (/^-?\d+(\.\d+)?$/.test(str)) {
+            cell.value = parseFloat(str);
+            const headerName = String(headers[colNum - 1] || '');
+            if (headerName.includes('USD') || headerName.includes('$')) {
+              cell.numFmt = '"$"#,##0.00';
+              cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF34D399' } };
+            } else {
+              cell.numFmt = '#,##0.00';
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 5. Firma de auditoría al pie
+  ws.addRow([]);
+  const rSigHeader = ws.addRow(['CERTIFICACIÓN Y AUDITORÍA EXTERNA INDEPENDIENTE:']);
+  rSigHeader.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+
+  ws.addRow([]);
+  const rSigLines = ws.addRow([
+    '__________________________________________________',
+    '',
+    '',
+    '',
+    '',
+    '__________________________________________________'
+  ]);
+  rSigLines.getCell(1).font = { name: 'Calibri', size: 9, color: { argb: 'FF64748B' } };
+  rSigLines.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF64748B' } };
+
+  const rSigNames = ws.addRow([
+    'Ing. Pedro Rodríguez (Presidente)',
+    '',
+    '',
+    '',
+    '',
+    'Lcda. Carmen Rivas (Contador Público CPC 41.802)'
+  ]);
+  rSigNames.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+  rSigNames.getCell(6).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+
+  const rSigTitles = ws.addRow([
+    `${companyName} - RIF: ${companyRif}`,
+    '',
+    '',
+    '',
+    '',
+    'Auditor Externo Independiente - VEN-NIF / SUDEBAN'
+  ]);
+  rSigTitles.getCell(1).font = { name: 'Calibri', size: 9, color: { argb: 'FF475569' } };
+  rSigTitles.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF475569' } };
+
+  // Adjust Column Widths
+  for (let i = 1; i <= colCount; i++) {
+    const col = ws.getColumn(i);
+    if (columnWidths && columnWidths[i - 1]) {
+      col.width = Math.max(columnWidths[i - 1], 18);
+    } else if (i === 1) {
+      col.width = 38;
+    } else if (i === 2) {
+      col.width = 58;
+    } else {
+      col.width = 20;
+    }
+  }
+
+  // Generate buffer and download file
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  });
+
+  const safeFilename = filename.toLowerCase().endsWith('.xlsx')
+    ? filename
+    : `${filename.replace(/\.csv$|\.xls$/, '')}.xlsx`;
+
+  downloadBlob(blob, safeFilename);
+}
+
+/**
+ * Exporta datos tabulares directamente como hoja de cálculo Excel (.xlsx) nativa.
  */
 export function exportToCsv(
   filename: string,
   headers: string[],
   rows: (string | number)[][]
 ): void {
-  const escapeCell = (val: string | number) => {
-    const str = String(val ?? '');
-    if (str.includes(';') || str.includes('\n') || str.includes('"')) {
-      return `"${str.replace(/"/g, '""')}"`;
-    }
-    return str;
-  };
+  const cleanFilename = filename.endsWith('.csv')
+    ? filename.replace(/\.csv$/, '.xlsx')
+    : filename;
 
-  const csvContent = [
-    headers.map(escapeCell).join(';'),
-    ...rows.map((row) => row.map(escapeCell).join(';'))
-  ].join('\r\n');
-
-  const blob = new Blob(['\ufeff', csvContent], {
-    type: 'text/csv;charset=utf-8;'
+  exportToExcelXlsx({
+    filename: cleanFilename,
+    sheetName: 'Datos_Auditados',
+    title: 'INFORME DE AUDITORÍA Y REGISTROS BANCARIOS BBU 2026',
+    headers,
+    rows
   });
-
-  const safeFilename = filename.toLowerCase().endsWith('.csv') ? filename : `${filename}.csv`;
-  downloadBlob(blob, safeFilename);
 }
 
 /**

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BookOpen, DollarSign, ArrowDownRight, ArrowUpRight, Plus, Download, Printer, Search, Wallet, X, FileSpreadsheet, FileDown } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { useAppData, PettyCashEntry } from '../context/AppDataContext';
-import { exportToWord, exportToCsv, exportHtmlToPdf, exportToPdfPrint } from '../utils/exportUtils';
+import { exportToWord, exportToCsv, exportHtmlToPdf, exportToPdfPrint, exportToExcelXlsx } from '../utils/exportUtils';
 
 interface Props {
   company: CompanyProfile;
@@ -189,7 +189,19 @@ export const BanescoLedgerAndCashTrailView: React.FC<Props> = ({ company, curren
 
               <button
                 onClick={() => {
-                  const headers = ['Fecha', 'Referencia', 'Descripcion', 'Tasa_BCV', 'Debito_Bs', 'Credito_Bs', 'Saldo_Bs', 'Debito_USD', 'Credito_USD', 'Soporte_Tipo', 'Soporte_Ref'];
+                  const headers = [
+                    'Fecha',
+                    'Referencia Bancaria',
+                    'Descripción / Titular y Beneficiario',
+                    'Tasa BCV (Bs/$)',
+                    'Débito / Egreso (Bs.)',
+                    'Crédito / Abono (Bs.)',
+                    'Saldo Disponible (Bs.)',
+                    'Monto USD ($)',
+                    'Tipo Documento Soporte',
+                    'Referencia Documental'
+                  ];
+
                   const rows = filteredBankMovements.map(m => [
                     m.date,
                     m.reference,
@@ -198,18 +210,46 @@ export const BanescoLedgerAndCashTrailView: React.FC<Props> = ({ company, curren
                     m.debitVES,
                     m.creditVES,
                     m.balanceVES,
-                    m.debitVES > 0 ? m.countervalueUSD : 0,
-                    m.creditVES > 0 ? m.countervalueUSD : 0,
+                    m.countervalueUSD,
                     m.supportDocType,
                     m.supportDocRef
                   ]);
-                  exportToCsv('Libro_Auxiliar_Banesco_2026.csv', headers, rows);
+
+                  const totalDebits = filteredBankMovements.reduce((sum, m) => sum + m.debitVES, 0);
+                  const totalCredits = filteredBankMovements.reduce((sum, m) => sum + m.creditVES, 0);
+                  const totalUSD = filteredBankMovements.reduce((sum, m) => sum + m.countervalueUSD, 0);
+
+                  const totalsRow = [
+                    'TOTALES',
+                    `${filteredBankMovements.length} MOVIMIENTOS`,
+                    'AUDITORÍA BANCARIA COMPLIANCE',
+                    '',
+                    totalDebits,
+                    totalCredits,
+                    totalCredits - totalDebits,
+                    totalUSD,
+                    'REGISTROS CERTIFICADOS',
+                    'Soporte Digital Depositado'
+                  ];
+
+                  exportToExcelXlsx({
+                    filename: 'Libro_Auxiliar_Banesco_y_Rastro_Efectivo_2026.xlsx',
+                    sheetName: 'Libro Auxiliar Banesco',
+                    companyName: company.name,
+                    companyRif: company.rif,
+                    title: 'LIBRO AUXILIAR BANCARIO Y RASTRO DE EFECTIVO (BANESCO BANCO UNIVERSAL)',
+                    subtitle: `Cuenta Corriente N° ${company.banescoAccountVES} - Trazabilidad y Auditable para SUDEBAN`,
+                    headers,
+                    rows,
+                    totalsRow,
+                    columnWidths: [14, 18, 48, 16, 22, 22, 22, 18, 28, 24]
+                  });
                 }}
                 className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
-                title="Descargar libro auxiliar en Excel (CSV)"
+                title="Descargar libro auxiliar y rastro de efectivo formateado en Excel (.xlsx)"
               >
                 <FileSpreadsheet className="w-3.5 h-3.5" />
-                Excel (CSV)
+                Excel (.xlsx)
               </button>
 
               <button
