@@ -6,3 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+firebase-applet-config*.json
+firebase-blueprint.json
+firestore.rules
+firebase.json
+*.key
+*.pem
+*.secret
+

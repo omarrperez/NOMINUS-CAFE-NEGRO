@@ -180,11 +180,11 @@ export const SecurityDatabaseCenterView: React.FC<Props> = ({ company }) => {
           <div className="flex items-center gap-2">
             <Database className="w-5 h-5 text-emerald-400" />
             <h2 className="text-xl font-bold text-white tracking-tight">
-              Centro de Base de Datos & Carga de Información Real
+              Centro de Base de Datos, Firebase Nube & Carga de Información Real
             </h2>
           </div>
           <p className="text-xs text-stone-400 mt-1">
-            Gestión de persistencia local, vaciado de datos de prueba y carga masiva de datos contables y bancarios reales
+            Gestión de persistencia local, conexión en vivo a Firebase Firestore y carga masiva de datos contables reales
           </p>
         </div>
 
@@ -203,6 +203,73 @@ export const SecurityDatabaseCenterView: React.FC<Props> = ({ company }) => {
             <Download className="w-3.5 h-3.5 text-emerald-400" />
             Exportar Base de Datos
           </button>
+        </div>
+      </div>
+
+      {/* FIREBASE CLOUD & CONSOLE CONTROL PANEL */}
+      <div className="bg-gradient-to-r from-stone-900 via-stone-900 to-amber-950/30 border border-amber-900/40 p-5 rounded-xl space-y-4 shadow-lg">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-800 pb-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-lg text-amber-400">
+              <Lock className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                Panel de Administración y Acceso a Firebase Cloud
+                <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold rounded-full uppercase tracking-wider">
+                  Sincronizado / Activo
+                </span>
+              </h3>
+              <p className="text-xs text-stone-300 mt-0.5">
+                Acceso oficial a la consola de Google Firebase para administrar base de datos Firestore, reglas de seguridad y usuarios
+              </p>
+            </div>
+          </div>
+
+          <a
+            href="https://console.firebase.google.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-stone-950 font-bold rounded-lg text-xs shadow-md transition-all flex items-center gap-2 shrink-0"
+          >
+            <KeyRound className="w-4 h-4" />
+            Abrir Consola Oficial de Firebase
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-sans">
+          <div className="bg-stone-950/80 border border-stone-800 p-3.5 rounded-lg space-y-1.5">
+            <div className="text-stone-400 font-semibold text-[11px] flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              Método de Acceso a Firebase
+            </div>
+            <p className="text-stone-300 text-[11px] leading-relaxed">
+              Para ingresar a la consola de Firebase, haz clic en el botón superior o entra a <strong className="text-white font-mono">console.firebase.google.com</strong> con tu cuenta de Google.
+            </p>
+          </div>
+
+          <div className="bg-stone-950/80 border border-stone-800 p-3.5 rounded-lg space-y-1.5">
+            <div className="text-stone-400 font-semibold text-[11px] flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+              Reglas e Integridad de Seguridad
+            </div>
+            <p className="text-stone-300 text-[11px] leading-relaxed">
+              Tus datos están protegidos bajo <strong className="text-amber-300 font-mono">firestore.rules</strong> y variables de entorno de servidor. No hay claves expuestas en el repositorio público.
+            </p>
+          </div>
+
+          <div className="bg-stone-950/80 border border-stone-800 p-3.5 rounded-lg space-y-1.5">
+            <div className="text-stone-400 font-semibold text-[11px] flex items-center gap-1.5">
+              <RefreshCw className="w-3.5 h-3.5 text-sky-400" />
+              Colecciones Firestore Sincronizadas
+            </div>
+            <div className="flex flex-wrap gap-1 mt-1">
+              <span className="px-1.5 py-0.5 bg-stone-800 text-stone-300 font-mono text-[10px] rounded border border-stone-700">asientos_contables</span>
+              <span className="px-1.5 py-0.5 bg-stone-800 text-stone-300 font-mono text-[10px] rounded border border-stone-700">banco_banesco</span>
+              <span className="px-1.5 py-0.5 bg-stone-800 text-stone-300 font-mono text-[10px] rounded border border-stone-700">contratos_anticipos</span>
+              <span className="px-1.5 py-0.5 bg-stone-800 text-stone-300 font-mono text-[10px] rounded border border-stone-700">empresas</span>
+            </div>
+          </div>
         </div>
       </div>
 

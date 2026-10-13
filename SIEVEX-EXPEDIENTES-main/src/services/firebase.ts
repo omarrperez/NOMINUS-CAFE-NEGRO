@@ -14,8 +14,13 @@ import firebaseConfig from '../../firebase-applet-config.json';
 import { DatosEmpresaImportadora, ExpedienteOperacion } from '../types';
 import { DATOS_EMPRESA_DEFAULT, EXPEDIENTES_INICIALES } from '../data/initialData';
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId); /* CRITICAL: The app will break without this line */
+const activeFirebaseConfig = {
+  ...firebaseConfig,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || firebaseConfig.apiKey || '',
+};
+
+const app = initializeApp(activeFirebaseConfig);
+export const db = getFirestore(app, activeFirebaseConfig.firestoreDatabaseId); /* CRITICAL: The app will break without this line */
 export const auth = getAuth(app);
 
 export enum OperationType {
