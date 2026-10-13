@@ -288,10 +288,10 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-soc-in',
     batchCode: 'CUENTAS POR PAGAR SOCIOS',
-    contractCode: 'CTR-SOCIO-2026-OMAR-INGRESOS',
-    companyName: 'ING. OMAR PÉREZ (ACCIONISTA PROPIETARIO)',
+    contractCode: 'CTR-SOCIO-2026-ELIAS-INGRESOS',
+    companyName: 'ELIAS RAFAEL TRÍAS ABREU (ACCIONISTA PROPIETARIO Y PRESIDENTE)',
     rif: 'V-14892301',
-    repName: 'Ing. Omar Pérez',
+    repName: 'Elias Rafael Trías Abreu',
     repId: 'V-14.892.301',
     bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
     amountVES: 7649975.00,
@@ -300,11 +300,11 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     date: '01 de Enero de 2026',
     status: 'APORTES DE LIQUIDEZ Y CAJA CHICA',
     octoberInvoiceRef: 'COMP-SOCIO-IN-2026-001',
-    summary: 'Contrato de Mutuo y Aporte de Liquidez de Socio Accionista otorgado por Ing. Omar Pérez (C.I. V-14.892.301) a favor de AGRÍCOLA ONI, C.A. por Bs. 7.649.975,00 para cobertura de gastos de operación rural y caja chica en Banesco.',
+    summary: 'Contrato de Mutuo y Aporte de Liquidez de Socio Accionista otorgado por Elias Rafael Trías Abreu (C.I. V-14.892.301), Presidente y Propietario de AGRÍCOLA ONI, C.A. por Bs. 7.649.975,00 para cobertura de gastos de operación rural y caja chica en Banesco.',
     clauses: [
       {
         title: 'PRIMERA: Objeto y Aporte de Liquidez Inmediata',
-        content: 'ING. OMAR PÉREZ (C.I. V-14.892.301), en su condición de socio propietario de AGRÍCOLA ONI, C.A. (RIF J-50145638-0), transfiere desde sus cuentas personales hacia la cuenta corriente Banesco de la sociedad fondos en bolívares por un total acumulado de Bs. 7.649.975,00 ($11.266,93 USD) en 21 operaciones bancarias registradas entre enero y agosto de 2026.'
+        content: 'ELIAS RAFAEL TRÍAS ABREU (C.I. V-14.892.301), en su condición de Presidente y Socio Propietario de AGRÍCOLA ONI, C.A. (RIF J-50145638-0), transfiere desde sus cuentas personales hacia la cuenta corriente Banesco de la sociedad fondos en bolívares por un total acumulado de Bs. 7.649.975,00 ($11.266,93 USD) en 21 operaciones bancarias registradas entre enero y agosto de 2026.'
       },
       {
         title: 'SEGUNDA: Clasificación Contable y Exclusión de Ventas Comerciales',
@@ -319,10 +319,10 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-soc-out',
     batchCode: 'CUENTAS POR COBRAR SOCIOS',
-    contractCode: 'CTR-SOCIO-2026-OMAR-EGRESOS',
-    companyName: 'ING. OMAR PÉREZ (AVANCES / EGRESOS ACCIONISTA)',
+    contractCode: 'CTR-SOCIO-2026-ELIAS-EGRESOS',
+    companyName: 'ELIAS RAFAEL TRÍAS ABREU (AVANCES / EGRESOS ACCIONISTA)',
     rif: 'V-14892301',
-    repName: 'Ing. Omar Pérez',
+    repName: 'Elias Rafael Trías Abreu',
     repId: 'V-14.892.301',
     bankOrigin: 'Banesco Banco Universal (0134)',
     amountVES: 15400000.00,
@@ -331,88 +331,364 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     date: '15 de Enero de 2026',
     status: 'AVANCES Y REEMBOLSOS A ACCIONISTA',
     octoberInvoiceRef: 'COMP-SOCIO-OUT-2026-001',
-    summary: 'Contrato de Préstamo de Tesorería y Regularización de Cuentas con Accionista suscrito entre AGRÍCOLA ONI, C.A. e Ing. Omar Pérez (C.I. V-14.892.301) para justificar las transferencias de egreso hacia sus cuentas personales.',
+    summary: 'Contrato de Préstamo de Tesorería y Regularización de Cuentas con Accionista suscrito entre AGRÍCOLA ONI, C.A. y Elias Rafael Trías Abreu (C.I. V-14.892.301) para justificar las transferencias de egreso hacia sus cuentas personales.',
     clauses: [
       {
         title: 'PRIMERA: Objeto y Avances de Tesorería Corporativa',
-        content: 'AGRÍCOLA ONI, C.A. conviene en otorgar avances temporales de liquidez a favor del accionista mayoritario Ing. Omar Pérez cuando requiera montos para la atención de compromisos personales o delegaciones de representación comercial.'
+        content: 'AGRÍCOLA ONI, C.A. conviene en otorgar avances temporales de liquidez a favor del Presidente y Accionista Mayoritario Elias Rafael Trías Abreu cuando requiera montos para la atención de compromisos personales o delegaciones de representación comercial.'
       },
       {
         title: 'SEGUNDA: Regla Contable - Cuentas por Cobrar Socios',
-        content: 'Toda salida o egreso bancario de la cuenta Banesco de AGRÍCOLA ONI, C.A. dirigido hacia cuentas personales del accionista Ing. Omar Pérez se clasifica obligatoriamente como "Cuentas por Cobrar Socios" (Activo Corriente) en la contabilidad general de la empresa.'
+        content: 'Toda salida o egreso bancario de la cuenta Banesco de AGRÍCOLA ONI, C.A. dirigido hacia cuentas personales del accionista Elias Rafael Trías Abreu se clasifica obligatoriamente como "Cuentas por Cobrar Socios" (Activo Corriente) en la contabilidad general de la empresa.'
       }
     ]
   },
   {
     id: 'ctr-nat-001',
-    batchCode: 'LOTE-NAT-2026-001',
-    contractCode: 'CTR-NAT-2026-BANESCO-001',
-    companyName: 'CLIENTES PERSONAS NATURALES (DEPOSITANTES Y TRANSFERENCIAS TAQUILLA BANESCO)',
-    rif: 'S/N EN EXTRACTO BANCO',
-    repName: 'Depositantes y Transferencias Banesco',
-    repId: 'S/N EN EXTRACTO',
-    bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
-    amountVES: 17975979.99,
-    amountUSD: 29680.10,
-    coffeeQtl: 180,
+    batchCode: 'ABONO-NAT-001',
+    contractCode: 'CTR-ANT-NAT-2026-001',
+    companyName: 'Depositante Persona Natural (Abono Taquilla Acarigua)',
+    rif: 'C.I. V-12.845.910',
+    repName: 'Depositante Taquilla Banesco',
+    repId: 'V-12.845.910',
+    bankOrigin: 'Banesco Banco Universal (#3606912341)',
+    amountVES: 1200000.00,
+    amountUSD: 1751.82,
+    coffeeQtl: 12,
     date: '12 de Junio de 2026',
     status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
-    octoberInvoiceRef: 'FAC-NAT-OCT-2026-001',
-    summary: 'Contrato Marco de Mandato y Anticipo en Ventas para Reserva de Café Verde suscrito con Clientes Personas Naturales identificados en extracto Banesco por Bs. 17.975.979,99.',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-001',
+    summary: 'Contrato de Mandato y Anticipo de Cliente Persona Natural por Bs. 1.200.000,00 ($1.751,82 USD) recibido en Banesco Acarigua (Ref: #3606912341) para reserva inicial de lote de café pergamino de origen nacional.',
     clauses: [
       {
         title: 'PRIMERA: Objeto del Anticipo y Custodia',
-        content: 'Clientes personas naturales entregan a AGRÍCOLA ONI, C.A. la suma de Bs. 17.975.979,99 en calidad de anticipo financiero en custodia para asegurar un cupo de 180 quintales de café verde arábica.'
+        content: 'El cliente persona natural identificado en el extracto bancario Banesco entrega a AGRÍCOLA ONI, C.A. la suma de Un Millón Dosocientos Mil Bolívares (Bs. 1.200.000,00) a tasa BCV oficial en calidad de anticipo financiero para la reserva de 12 quintales de café verde.'
       },
       {
-        title: 'SEGUNDA: Facturación y Finiquito en Octubre 2026',
-        content: 'La entrega física del café en octubre de 2026 extinguirá el anticipo en custodia (Pasivo NIIF 15) mediante la emisión de la correspondiente factura de venta.'
+        title: 'SEGUNDA: Extinción del Pasivo NIIF 15',
+        content: 'La entrega de la mercancía en octubre de 2026 extinguirá la obligación mediante la correspondiente factura formal de venta a tasa oficial BCV.'
       }
     ]
   },
   {
     id: 'ctr-nat-002',
-    batchCode: 'LOTE-NAT-2026-002',
-    contractCode: 'CTR-NAT-2026-BANESCO-002',
-    companyName: 'CLIENTES PERSONAS NATURALES (RESERVA DE CAFÉ REGIONAL)',
-    rif: 'S/N EN EXTRACTO BANCO',
-    repName: 'Clientes Personas Naturales',
-    repId: 'S/N EN EXTRACTO',
-    bankOrigin: 'Banco Mercantil (0105) / Banesco (0134)',
-    amountVES: 3870000.00,
-    amountUSD: 6388.96,
-    coffeeQtl: 40,
-    date: '18 de Agosto de 2026',
+    batchCode: 'ABONO-NAT-002',
+    contractCode: 'CTR-ANT-NAT-2026-002',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-15.340.892',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-15.340.892',
+    bankOrigin: 'Banesco Banco Universal (#3607100845)',
+    amountVES: 1500000.00,
+    amountUSD: 2184.99,
+    coffeeQtl: 15,
+    date: '14 de Junio de 2026',
     status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
-    octoberInvoiceRef: 'FAC-NAT-OCT-2026-002',
-    summary: 'Contrato de Anticipo y Reserva de Café Verde suscrito con personas naturales por Bs. 3.870.000,00 segun extractos Banesco.',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-002',
+    summary: 'Contrato de Mandato y Anticipo de Cliente Persona Natural por Bs. 1.500.000,00 ($2.184,99 USD) recibido vía Transferencia Crédito Inmediato Banesco (Ref: #3607100845) para reserva de quintales de café verde.',
     clauses: [
       {
-        title: 'PRIMERA: Objeto y Custodia de Fondos',
-        content: 'Clientes personas naturales efectúan un avance de Bs. 3.870.000,00 para la reserva de 40 quintales de café de consumo regional. Se registra como Pasivo Corriente (NIIF 15).'
+        title: 'PRIMERA: Objeto y Reserva de Café Verde',
+        content: 'El cliente efectúa un abono de Bs. 1.500.000,00 para asegurar la reserva y congelación de precio de 15 quintales de café arábica nacional.'
       }
     ]
   },
   {
     id: 'ctr-nat-003',
-    batchCode: 'LOTE-NAT-2026-COLECTIVO',
-    contractCode: 'CTR-NAT-2026-LOTE14-COLECTIVO',
-    companyName: 'LOTE DE 14 PERSONAS NATURALES (COMPRADORES REGIONALES)',
-    rif: 'V-14882102-VAR',
-    repName: 'Representación Colectiva 14 Titulares',
-    repId: 'V-14.882.102 / V-18.390.412 / V-11.204.919',
-    bankOrigin: 'BDV, Mercantil, Bancamiga, BFC',
-    amountVES: 21845979.99,
-    amountUSD: 36069.06,
-    coffeeQtl: 220,
-    date: '30 de Junio de 2026',
-    status: 'FONDOS EN CUSTODIA / RESERVA COLECTIVA',
-    octoberInvoiceRef: 'EXP-NAT-LOTE14-2026',
-    summary: 'Contrato Marco Colectivo de Anticipos y Custodia de Fondos suscrito por 14 Personas Naturales para reserva de molienda y traslado de café pergamino.',
+    batchCode: 'ABONO-NAT-003',
+    contractCode: 'CTR-ANT-NAT-2026-003',
+    companyName: 'Depositante Taquilla Banesco Acarigua',
+    rif: 'C.I. V-18.450.112',
+    repName: 'Depositante Taquilla Acarigua',
+    repId: 'V-18.450.112',
+    bankOrigin: 'Banesco Banco Universal (#3607312098)',
+    amountVES: 2100000.00,
+    amountUSD: 3052.33,
+    coffeeQtl: 21,
+    date: '16 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-003',
+    summary: 'Contrato de Mandato y Anticipo de Cliente Persona Natural por Bs. 2.100.000,00 ($3.052,33 USD) recibido en taquilla Banesco Acarigua (Ref: #3607312098) por concepto de pago anticipado por lote de café lavado especial.',
     clauses: [
       {
-        title: 'PRIMERA: Objeto y Resguardo Colectivo',
-        content: 'El grupo de 14 personas naturales compradoras de café entrega montos agrupados por Bs. 21.845.979,99 para la reserva de cupos de grano en los almacenes de Araure.'
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Abono recibido en taquilla por Bs. 2.100.000,00 para la reserva de 21 quintales de café lavado de alta calidad.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-004',
+    batchCode: 'ABONO-NAT-004',
+    contractCode: 'CTR-ANT-NAT-2026-004',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-09.874.120',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-09.874.120',
+    bankOrigin: 'Banesco Banco Universal (#3607548912)',
+    amountVES: 1850000.00,
+    amountUSD: 2684.66,
+    coffeeQtl: 18,
+    date: '18 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-004',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 1.850.000,00 ($2.684,66 USD) para secado, trilla y preparación de lote de café pergamino.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto y Acondicionamiento',
+        content: 'Anticipo para financiamiento y trilla de 18 quintales de café pergamino lavado.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-005',
+    batchCode: 'ABONO-NAT-005',
+    contractCode: 'CTR-ANT-NAT-2026-005',
+    companyName: 'Depositante Taquilla Banesco Guanare',
+    rif: 'C.I. V-16.789.001',
+    repName: 'Depositante Taquilla Guanare',
+    repId: 'V-16.789.001',
+    bankOrigin: 'Banesco Banco Universal (#3607812034)',
+    amountVES: 950000.00,
+    amountUSD: 1376.81,
+    coffeeQtl: 9,
+    date: '20 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-005',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 950.000,00 ($1.376,81 USD) depositado en Guanare para reserva de grano moca especial.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto y Reserva Especial',
+        content: 'Depósito de Bs. 950.000,00 para reserva de café especial tipo moca.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-006',
+    batchCode: 'ABONO-NAT-006',
+    contractCode: 'CTR-ANT-NAT-2026-006',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-14.220.551',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-14.220.551',
+    bankOrigin: 'Banesco Banco Universal (#3608011245)',
+    amountVES: 2400000.00,
+    amountUSD: 3472.22,
+    coffeeQtl: 24,
+    date: '22 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-006',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 2.400.000,00 ($3.472,22 USD) para reserva y compra de 24 quintales de café verde.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Abono de Bs. 2.400.000,00 para acopio y reserva de 24 quintales en depósito.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-007',
+    batchCode: 'ABONO-NAT-007',
+    contractCode: 'CTR-ANT-NAT-2026-007',
+    companyName: 'Depositante Taquilla Banesco Ospino',
+    rif: 'C.I. V-11.543.889',
+    repName: 'Depositante Taquilla Ospino',
+    repId: 'V-11.543.889',
+    bankOrigin: 'Banesco Banco Universal (#3608245109)',
+    amountVES: 1150000.00,
+    amountUSD: 1661.85,
+    coffeeQtl: 11,
+    date: '24 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-007',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 1.150.000,00 ($1.661,85 USD) abonado en Ospino para acopio de café origen Lara-Portuguesa.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Depósito de Bs. 1.150.000,00 para reserva de 11 quintales de café regional.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-008',
+    batchCode: 'ABONO-NAT-008',
+    contractCode: 'CTR-ANT-NAT-2026-008',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-19.102.334',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-19.102.334',
+    bankOrigin: 'Banesco Banco Universal (#3608490123)',
+    amountVES: 3200000.00,
+    amountUSD: 4614.28,
+    coffeeQtl: 32,
+    date: '26 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-008',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 3.200.000,00 ($4.614,28 USD) abonado vía Banesco para reserva de cosecha nacional de café.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Transferencia de Bs. 3.200.000,00 para reserva de 32 quintales de café pergamino.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-009',
+    batchCode: 'ABONO-NAT-009',
+    contractCode: 'CTR-ANT-NAT-2026-009',
+    companyName: 'Depositante Taquilla Banesco Chacao',
+    rif: 'C.I. V-13.889.012',
+    repName: 'Depositante Taquilla Chacao',
+    repId: 'V-13.889.012',
+    bankOrigin: 'Banesco Banco Universal (#3608712045)',
+    amountVES: 1700000.00,
+    amountUSD: 2449.57,
+    coffeeQtl: 17,
+    date: '28 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-009',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 1.700.000,00 ($2.449,57 USD) depositado en Chacao para reserva de café gourmet.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Abono de Bs. 1.700.000,00 para reserva de 17 quintales de café verde arábica.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-010',
+    batchCode: 'ABONO-NAT-010',
+    contractCode: 'CTR-ANT-NAT-2026-010',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-17.654.321',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-17.654.321',
+    bankOrigin: 'Banesco Banco Universal (#3608900112)',
+    amountVES: 1925979.99,
+    amountUSD: 2771.20,
+    coffeeQtl: 19,
+    date: '30 de Junio de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-010',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 1.925.979,99 ($2.771,20 USD) abonado en Banesco para cierre de paquete de junio.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Transferencia de Bs. 1.925.979,99 para reserva de 19 quintales de grano.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-011',
+    batchCode: 'ABONO-NAT-011',
+    contractCode: 'CTR-ANT-NAT-2026-011',
+    companyName: 'Depositante Taquilla Banesco Araure',
+    rif: 'C.I. V-10.450.987',
+    repName: 'Depositante Taquilla Araure',
+    repId: 'V-10.450.987',
+    bankOrigin: 'Banesco Banco Universal (#3615100234)',
+    amountVES: 850000.00,
+    amountUSD: 1125.83,
+    coffeeQtl: 8,
+    date: '04 de Agosto de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-011',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 850.000,00 ($1.125,83 USD) abonado en Araure para reserva de café verde de agosto.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Depósito de Bs. 850.000,00 para reserva de 8 quintales de café verde.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-012',
+    batchCode: 'ABONO-NAT-012',
+    contractCode: 'CTR-ANT-NAT-2026-012',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-16.123.456',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-16.123.456',
+    bankOrigin: 'Banesco Banco Universal (#3615412098)',
+    amountVES: 920000.00,
+    amountUSD: 1207.35,
+    coffeeQtl: 9,
+    date: '10 de Agosto de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-012',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 920.000,00 ($1.207,35 USD) recibido vía Banesco para compra anticipada de café.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Abono de Bs. 920.000,00 para reserva de 9 quintales de grano verde.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-013',
+    batchCode: 'ABONO-NAT-013',
+    contractCode: 'CTR-ANT-NAT-2026-013',
+    companyName: 'Depositante Taquilla Banesco Barquisimeto',
+    rif: 'C.I. V-12.987.654',
+    repName: 'Depositante Barquisimeto',
+    repId: 'V-12.987.654',
+    bankOrigin: 'Banesco Banco Universal (#3615890123)',
+    amountVES: 600000.00,
+    amountUSD: 779.22,
+    coffeeQtl: 6,
+    date: '15 de Agosto de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-013',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 600.000,00 ($779,22 USD) depositado en Barquisimeto para reserva y muestreo.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Depósito de Bs. 600.000,00 para reserva de 6 quintales de café.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-014',
+    batchCode: 'ABONO-NAT-014',
+    contractCode: 'CTR-ANT-NAT-2026-014',
+    companyName: 'TRF CR INM Personas Naturales Banesco',
+    rif: 'C.I. V-18.765.432',
+    repName: 'Titular Transferencia Inmediata',
+    repId: 'V-18.765.432',
+    bankOrigin: 'Banesco Banco Universal (#3616200112)',
+    amountVES: 700000.00,
+    amountUSD: 895.14,
+    coffeeQtl: 7,
+    date: '22 de Agosto de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-014',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 700.000,00 ($895,14 USD) recibido vía Banesco para acopio en Portuguesa.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Transferencia de Bs. 700.000,00 para reserva de 7 quintales de grano verde.'
+      }
+    ]
+  },
+  {
+    id: 'ctr-nat-015',
+    batchCode: 'ABONO-NAT-015',
+    contractCode: 'CTR-ANT-NAT-2026-015',
+    companyName: 'Depositante Taquilla Banesco Biscucuy',
+    rif: 'C.I. V-15.890.123',
+    repName: 'Depositante Biscucuy',
+    repId: 'V-15.890.123',
+    bankOrigin: 'Banesco Banco Universal (#3616612045)',
+    amountVES: 800000.00,
+    amountUSD: 1010.10,
+    coffeeQtl: 8,
+    date: '28 de Agosto de 2026',
+    status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
+    octoberInvoiceRef: 'COMP-ANT-NAT-2026-015',
+    summary: 'Contrato de Mandato y Anticipo por Bs. 800.000,00 ($1.010,10 USD) abonado en Biscucuy para reserva final de agosto.',
+    clauses: [
+      {
+        title: 'PRIMERA: Objeto del Anticipo',
+        content: 'Depósito en taquilla por Bs. 800.000,00 para reserva de 8 quintales de café verde.'
       }
     ]
   },
@@ -441,23 +717,38 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   }
 ];
 
+export const ALL_SYSTEM_CONTRACTS = [
+  ...LEGAL_ENTITY_BATCH_CONTRACTS.map(c => ({ ...c, categoryGroup: 'PERSONA_JURIDICA' })),
+  ...SPECIAL_CONTRACTS.map(c => ({
+    ...c,
+    categoryGroup: c.id.includes('nat')
+      ? 'PERSONA_NATURAL'
+      : c.id.includes('soc')
+      ? 'SOCIO_PRESIDENTE'
+      : 'MUTUO_PROCURA'
+  }))
+];
+
 export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
   const [activeTab, setActiveTab] = useState<'BATCH_MATRIX' | 'SINGLE_CONTRACT'>('BATCH_MATRIX');
-  const [selectedContract, setSelectedContract] = useState<LegalEntityBatchContract>(LEGAL_ENTITY_BATCH_CONTRACTS[0]);
+  const [categoryFilter, setCategoryFilter] = useState<'ALL' | 'PERSONA_JURIDICA' | 'PERSONA_NATURAL' | 'SOCIO_PRESIDENTE' | 'MUTUO_PROCURA'>('ALL');
+  const [selectedContract, setSelectedContract] = useState<LegalEntityBatchContract>(ALL_SYSTEM_CONTRACTS[0]);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredBatchContracts = LEGAL_ENTITY_BATCH_CONTRACTS.filter(
-    (c) =>
+  const filteredContracts = ALL_SYSTEM_CONTRACTS.filter((c) => {
+    const matchesCategory = categoryFilter === 'ALL' || c.categoryGroup === categoryFilter;
+    const matchesSearch =
       c.companyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.rif.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.batchCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
       c.contractCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      c.repName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+      c.repName.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
-  const totalVES = LEGAL_ENTITY_BATCH_CONTRACTS.reduce((acc, c) => acc + c.amountVES, 0);
-  const totalUSD = LEGAL_ENTITY_BATCH_CONTRACTS.reduce((acc, c) => acc + c.amountUSD, 0);
-  const totalQtl = LEGAL_ENTITY_BATCH_CONTRACTS.reduce((acc, c) => acc + c.coffeeQtl, 0);
+  const totalVES = filteredContracts.reduce((acc, c) => acc + c.amountVES, 0);
+  const totalUSD = filteredContracts.reduce((acc, c) => acc + c.amountUSD, 0);
+  const totalQtl = filteredContracts.reduce((acc, c) => acc + c.coffeeQtl, 0);
 
   const handleExportSingleContractWord = (ctr: LegalEntityBatchContract) => {
     const clausesHtml = ctr.clauses
@@ -769,6 +1060,65 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
             </div>
           </div>
 
+          {/* Interactive Category Selector Tabs */}
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-xs no-print">
+            <button
+              type="button"
+              onClick={() => setCategoryFilter('ALL')}
+              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-bold ${
+                categoryFilter === 'ALL'
+                  ? 'bg-slate-900 text-amber-400 border-slate-900 shadow-xs'
+                  : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              Todos ({ALL_SYSTEM_CONTRACTS.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setCategoryFilter('PERSONA_JURIDICA')}
+              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-bold ${
+                categoryFilter === 'PERSONA_JURIDICA'
+                  ? 'bg-blue-900 text-blue-200 border-blue-900 shadow-xs'
+                  : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🏢 Jurídicas ({LEGAL_ENTITY_BATCH_CONTRACTS.length})
+            </button>
+            <button
+              type="button"
+              onClick={() => setCategoryFilter('PERSONA_NATURAL')}
+              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-bold ${
+                categoryFilter === 'PERSONA_NATURAL'
+                  ? 'bg-emerald-900 text-emerald-200 border-emerald-900 shadow-xs'
+                  : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              👤 Naturales (3)
+            </button>
+            <button
+              type="button"
+              onClick={() => setCategoryFilter('SOCIO_PRESIDENTE')}
+              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-bold ${
+                categoryFilter === 'SOCIO_PRESIDENTE'
+                  ? 'bg-purple-900 text-purple-200 border-purple-900 shadow-xs'
+                  : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              👔 Presidente & Socio (2)
+            </button>
+            <button
+              type="button"
+              onClick={() => setCategoryFilter('MUTUO_PROCURA')}
+              className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer font-bold ${
+                categoryFilter === 'MUTUO_PROCURA'
+                  ? 'bg-amber-900 text-amber-200 border-amber-900 shadow-xs'
+                  : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🤝 Mutuo & Procura (2)
+            </button>
+          </div>
+
           {/* Search bar */}
           <div className="flex items-center gap-3 bg-white border border-slate-200 p-3 rounded-lg shadow-sm">
             <Search className="w-4 h-4 text-slate-400 shrink-0" />
@@ -776,7 +1126,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Buscar por lote, código de contrato, empresa cliente o RIF..."
+              placeholder="Buscar por lote, código de contrato, cliente, RIF o representante..."
               className="bg-transparent text-xs text-slate-800 placeholder-slate-400 focus:outline-none w-full"
             />
           </div>
@@ -789,18 +1139,18 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   <tr>
                     <th className="p-3"># Lote</th>
                     <th className="p-3">Código Contrato</th>
-                    <th className="p-3">Razón Social Legal</th>
+                    <th className="p-3">Razón Social / Nombre Legal</th>
                     <th className="p-3">R.I.F. SENIAT</th>
-                    <th className="p-3">Representante Legal</th>
-                    <th className="p-3">Banco Origen</th>
-                    <th className="p-3 text-right">Monto Anticipo (Bs.)</th>
+                    <th className="p-3">Representante / Titular</th>
+                    <th className="p-3">Banco / Origen</th>
+                    <th className="p-3 text-right">Monto (Bs.)</th>
                     <th className="p-3 text-right">USD ($)</th>
                     <th className="p-3 text-right">Vol. (Qtl)</th>
                     <th className="p-3 text-center">Acciones</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 text-slate-800">
-                  {filteredBatchContracts.map((c) => (
+                  {filteredContracts.map((c) => (
                     <tr key={c.id} className="hover:bg-slate-50 transition-colors">
                       <td className="p-3 font-mono text-amber-700 font-bold whitespace-nowrap">
                         {c.batchCode}
@@ -827,7 +1177,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                         ${c.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </td>
                       <td className="p-3 text-right font-mono text-amber-700 font-bold">
-                        {c.coffeeQtl.toLocaleString('es-VE')}
+                        {c.coffeeQtl > 0 ? `${c.coffeeQtl.toLocaleString('es-VE')} Qtl` : '&mdash;'}
                       </td>
                       <td className="p-3 text-center">
                         <div className="flex items-center justify-center gap-1.5">
@@ -836,15 +1186,15 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                               setSelectedContract(c);
                               setActiveTab('SINGLE_CONTRACT');
                             }}
-                            className="px-2 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 rounded text-[11px] font-semibold transition-colors flex items-center gap-1"
-                            title="Ver contrato en lector"
+                            className="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded text-[11px] font-bold transition-colors flex items-center gap-1 shadow-2xs cursor-pointer"
+                            title="Ver contrato completo en formato papel"
                           >
-                            <Eye className="w-3 h-3" />
+                            <Eye className="w-3.5 h-3.5" />
                             <span>Ver</span>
                           </button>
                           <button
                             onClick={() => handleExportSingleContractWord(c)}
-                            className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-300 rounded text-[11px] font-semibold transition-colors flex items-center gap-1"
+                            className="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-800 border border-blue-300 rounded text-[11px] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
                             title="Descargar este contrato en Word (.doc) para modificarlo"
                           >
                             <FileDown className="w-3 h-3" />
@@ -858,7 +1208,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                 <tfoot className="bg-slate-900 font-bold text-white font-mono text-xs border-t-2 border-slate-700">
                   <tr>
                     <td colSpan={6} className="p-3 text-amber-300">
-                      TOTAL GENERAL CONTRATOS POR LOTE ({filteredBatchContracts.length} CLIENTES JURÍDICOS)
+                      TOTAL CONTRATOS REGISTRADOS ({filteredContracts.length} INSTRUMENTOS)
                     </td>
                     <td className="p-3 text-right text-amber-300">
                       Bs. {totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}

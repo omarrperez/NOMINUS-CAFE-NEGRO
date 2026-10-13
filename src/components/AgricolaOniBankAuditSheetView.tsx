@@ -794,7 +794,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
 
             <div className="text-right shrink-0">
               <span className="text-[11px] text-stone-400 block font-mono">Auditoría Colegiada</span>
-              <span className="text-xs font-bold text-white block">Lcda. Carmen Rivas (CPC 41.802)</span>
+              <span className="text-xs font-bold text-white block">Licdo. Omar Pérez Castillo (C.P.C. 16.336)</span>
             </div>
           </div>
         </div>

@@ -156,17 +156,24 @@ function MainAppContent() {
             <div className="flex items-center gap-2 shrink-0">
               <button
                 onClick={() => setActiveModule('DASHBOARD')}
-                className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
               >
                 <LayoutGrid className="w-3.5 h-3.5" />
                 <span>Panel Principal</span>
               </button>
               <button
+                onClick={() => setActiveModule('LEGAL_CONTRACTS')}
+                className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl text-xs transition-all flex items-center gap-1.5 shadow-xs cursor-pointer ring-2 ring-blue-300/80"
+              >
+                <Scale className="w-3.5 h-3.5 text-amber-300" />
+                <span>📄 CONTRATOS A FIRMAR</span>
+              </button>
+              <button
                 onClick={() => setActiveModule('IMPORT_AND_ADVANCES')}
-                className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
               >
                 <Globe className="w-3.5 h-3.5" />
-                <span>Flujo Café Nacional</span>
+                <span>Flujo Café</span>
               </button>
             </div>
           </div>
@@ -309,6 +316,7 @@ function MainAppContent() {
               <DualCurrencyFinancialStatementsSheetView
                 company={selectedCompany}
                 currentRate={currentRate}
+                onNavigateToBecerraSuite={() => setActiveModule('FINANCIAL_STATEMENTS_BECERRA')}
               />
             )}
 

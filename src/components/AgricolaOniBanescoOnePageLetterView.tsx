@@ -199,19 +199,19 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
         <div className="mt-8 pt-4 border-t border-stone-300 grid grid-cols-2 gap-6 text-center">
           <div>
             <div className="h-10 flex items-center justify-center">
-              <span className="font-serif italic text-amber-900 text-xs border-b border-stone-600 px-4">Omar Pérez &mdash; Rep. Legal</span>
+              <span className="font-serif italic text-amber-900 text-xs border-b border-stone-600 px-4">Elias Rafael Trías Abreu &mdash; Presidente</span>
             </div>
             <p className="font-bold text-stone-900 text-[11px] mt-1">{company.legalRepresentative}</p>
-            <p className="text-[10px] text-stone-600">C.I.: {company.idNumber} &middot; Presidente</p>
+            <p className="text-[10px] text-stone-600">C.I.: {company.idNumber} &middot; Presidente / Propietario</p>
             <p className="text-[10px] font-semibold text-stone-800">{company.name}</p>
           </div>
 
           <div>
             <div className="h-10 flex items-center justify-center">
-              <span className="font-mono text-emerald-800 text-[10px] border-b border-stone-600 px-4">Lcda. Carmen Rivas CPC 41.802</span>
+              <span className="font-mono text-emerald-800 text-[10px] border-b border-stone-600 px-4">Licdo. Omar Pérez Castillo C.P.C. 16.336</span>
             </div>
-            <p className="font-bold text-stone-900 text-[11px] mt-1">Lcda. Carmen Rivas</p>
-            <p className="text-[10px] text-stone-600">Contador Público Colegiado</p>
+            <p className="font-bold text-stone-900 text-[11px] mt-1">Licdo. Omar Pérez Castillo</p>
+            <p className="text-[10px] text-stone-600">Contador Público C.P.C. 16.336</p>
             <p className="text-[10px] font-semibold text-stone-800">Auditor Financiero Externo</p>
           </div>
         </div>

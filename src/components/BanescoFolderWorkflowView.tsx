@@ -77,14 +77,14 @@ R.I.F.: ${company.rif}
 CUENTA CORRIENTE BANESCO: ${company.banescoAccountVES}
 EXPEDIENTE BANCARIO: AUD-BAN-2026-ONI-094
 FECHA DE EMISIÓN: 31 de Agosto de 2026
-TASA OFICIAL BCV: Bs. ${currentRate.rate.toFixed(2)} / USD
+TASA OFICIAL BCV: Bs. ${currentRate.rateUsd.toFixed(2)} / USD
 ================================================================================
 
 1. ESTRUCTURA Y MODELO DE LA CARPETA FÍSICA (SEPARADORES A - E)
 --------------------------------------------------------------------------------
 
 SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA
-- Carta de Respuesta Oficial (Oficio AO-DIR-BAN-2026-042): Firmada en físico por el Representante Legal (Ing. Omar Pérez) y la Contadora Pública Colegiada (Lcda. Carmen Rivas, CPC 41.802).
+- Carta de Respuesta Oficial (Oficio AO-DIR-BAN-2026-042): Firmada en físico por el Presidente (Elias Rafael Trías Abreu) y el Contador Público Colegiado (Licdo. Omar Pérez Castillo, C.P.C. 16.336).
 - Nota de Conciliación Bancaria Certificada: Reporte firmado y sellado por el CPC explicando la diferencia de Bs. 0,00 en omisión de ingresos y la naturaleza de Pasivo Exigible en Café bajo NIIF 15 / Sección 23.
 - Dictamen de Auditoría Fiscal y Contable: Informe de cumplimiento tributario e ISLR/IGTF ante SENIAT y SUDEBAN.
 
@@ -139,7 +139,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
       <p><strong>Cuenta Corriente Banesco:</strong> ${company.banescoAccountVES}</p>
       <p><strong>Expediente Bancario:</strong> AUD-BAN-2026-ONI-094</p>
       <p><strong>Fecha de Emisión:</strong> 31 de Agosto de 2026</p>
-      <p><strong>Tasa Oficial BCV:</strong> Bs. ${currentRate.rate.toFixed(2)} / USD</p>
+      <p><strong>Tasa Oficial BCV:</strong> Bs. ${currentRate.rateUsd.toFixed(2)} / USD</p>
 
       <hr style="border: 0; border-top: 1px solid #cbd5e1; margin: 15px 0;" />
 
@@ -149,7 +149,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
 
       <h3>SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA</h3>
       <ul>
-        <li><strong>Carta de Respuesta Oficial (Oficio AO-DIR-BAN-2026-042):</strong> Firmada en físico por el Representante Legal (Ing. Omar Pérez) y la Contadora Pública Colegiada (Lcda. Carmen Rivas, CPC 41.802).</li>
+        <li><strong>Carta de Respuesta Oficial (Oficio AO-DIR-BAN-2026-042):</strong> Firmada en físico por el Presidente (Elias Rafael Trías Abreu) y el Contador Público Colegiado (Licdo. Omar Pérez Castillo, C.P.C. 16.336).</li>
         <li><strong>Nota de Conciliación Bancaria Certificada:</strong> Reporte con firma y sello del CPC explicando la diferencia de Bs. 0,00 en omisiones de ingresos.</li>
         <li><strong>Dictamen de Auditoría Fiscal y Contable:</strong> Informe de cumplimiento de VEN-NIF (NIIF 15 / Sección 23) sobre Pasivos Exigibles en Café.</li>
       </ul>
@@ -228,16 +228,16 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
         paragraphs: [
           `Empresa Titular: ${company.name} (RIF: ${company.rif})`,
           `Cuenta Corriente Banesco: ${company.banescoAccountVES}`,
-          `Tasa Oficial BCV: Bs. ${currentRate.rate.toFixed(2)} / USD`,
-          'SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA (Oficio AO-DIR-BAN-2026-042 firmada por Ing. Omar Pérez y Lcda. Carmen Rivas CPC 41.802).',
+          `Tasa Oficial BCV: Bs. ${currentRate.rateUsd.toFixed(2)} / USD`,
+          'SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA (Oficio AO-DIR-BAN-2026-042 firmada por Elias Rafael Trías Abreu y Licdo. Omar Pérez Castillo C.P.C. 16.336).',
           'SEPARADOR B: RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (6 Contratos Marco, Transferencias Bs. 427.80M y RIF SENIAT).',
           'SEPARADOR C: RESPALDO DE ANTICIPOS DE PERSONAS NATURALES Y PRODUCTORES (Fichas, Recibos Bs. 326.41M, Cédulas y Guías SUNAGRO).',
           'SEPARADOR D: ADQUISICIÓN DE DIVISAS EN MESA DE CAMBIO BANESCO Y USO DE FONDOS ($18.42M USD en insumos comprados 100% en Venezuela).',
           'SEPARADOR E: REGISTRO LEGAL Y ESTADOS FINANCIEROS AUDITADOS DE AGRÍCOLA ONI C.A. (Acta Constitutiva, RIF, EEFF Duales al 31/08/2026 y Libro Auxiliar Banesco).'
         ],
         signers: [
-          { name: 'Ing. Omar Pérez', title: 'Representante Legal - Agrícola Oni C.A.', idNumber: 'V-14.928.301' },
-          { name: 'Lcda. Carmen Rivas', title: 'Contadora Pública Colegiada', idNumber: 'CPC 41.802' }
+          { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario - Agrícola Oni C.A.', idNumber: 'V-14.892.301' },
+          { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Colegiado', idNumber: 'C.P.C. 16.336' }
         ]
       });
       setDownloadNotification('¡Archivo Microsoft Word (.docx) descargado exitosamente!');
@@ -669,7 +669,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
                     Carta dirigida a Banesco UPCL en papel membretado. Contiene la explicación exhaustiva de las operaciones de intermediación comercial y compra de café nacional.
                   </p>
                   <div className="pt-2 text-[10px] font-mono text-emerald-900 font-semibold bg-emerald-50 p-2 rounded-lg border border-emerald-200">
-                    &bull; Firmas: Ing. Omar Pérez (Representante Legal) y Lcda. Carmen Rivas (CPC 41.802).
+                    &bull; Firmas: Elias Rafael Trías Abreu (Presidente) y Licdo. Omar Pérez Castillo (C.P.C. 16.336).
                   </div>
                 </div>
 
@@ -1084,7 +1084,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
             />
             <div>
               <span className="font-bold block">1. Carta Respuesta Explicativa Firmada</span>
-              <span className="text-[10px] text-slate-400">Firmas Ing. Omar Pérez y Lcda. Carmen Rivas (CPC)</span>
+              <span className="text-[10px] text-slate-400">Firmas Elias Rafael Trías Abreu y Licdo. Omar Pérez Castillo (C.P.C.)</span>
             </div>
           </label>
 
@@ -1114,7 +1114,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
             />
             <div>
               <span className="font-bold block">3. Dictamen Auditor de Cumplimiento CPC</span>
-              <span className="text-[10px] text-slate-400">Sello de Actuación Profesional Lcda. Carmen Rivas</span>
+              <span className="text-[10px] text-slate-400">Sello de Actuación Profesional Licdo. Omar Pérez Castillo (C.P.C. 16.336)</span>
             </div>
           </label>
 

@@ -528,6 +528,663 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
 };
 
 // =========================================================================
+// DETALLE INDIVIDUAL DE ANTICIPOS RECIBIDOS EN BANESCO (PERSONAS NATURALES Y JURÍDICAS)
+// =========================================================================
+export interface AdvanceClientIndividualDetail {
+  id: string;
+  category: 'PERSONA_NATURAL' | 'PERSONA_JURIDICA' | 'TORREFACTORA_BANESCO';
+  categoryLabel: string;
+  date: string;
+  reference: string;
+  clientName: string;
+  clientRifCi: string;
+  bankDescription: string;
+  amountVES: number;
+  bcvRate: number;
+  amountUSD: number;
+  supportRef: string;
+  notes: string;
+}
+
+export const ADVANCE_CLIENT_INDIVIDUAL_DETAILS: AdvanceClientIndividualDetail[] = [
+  // PERSONAS NATURALES (15 ABONOS INDIVIDUALES RECIBIDOS EN BANESCO - ENERO A AGOSTO 2026)
+  {
+    id: 'ADV-NAT-01',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '12/06/2026',
+    reference: '#3606912341',
+    clientName: 'Depositante Persona Natural (Abono Taquilla Acarigua)',
+    clientRifCi: 'C.I. V-12.845.910 (Registrado)',
+    bankDescription: 'ABONO TAQUILLA TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 1200000.00,
+    bcvRate: 685.00,
+    amountUSD: 1751.82,
+    supportRef: 'COMP-ANT-NAT-2026-001',
+    notes: 'Reserva inicial lote café pergamino de origen nacional.'
+  },
+  {
+    id: 'ADV-NAT-02',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '14/06/2026',
+    reference: '#3607100845',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-15.340.892 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 1500000.00,
+    bcvRate: 686.50,
+    amountUSD: 2184.99,
+    supportRef: 'COMP-ANT-NAT-2026-002',
+    notes: 'Anticipo para reserva de quintales café verde.'
+  },
+  {
+    id: 'ADV-NAT-03',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '16/06/2026',
+    reference: '#3607312098',
+    clientName: 'Depositante Taquilla Banesco Acarigua',
+    clientRifCi: 'C.I. V-18.450.112 (Registrado)',
+    bankDescription: 'ABONO EN TAQUILLA DEPOSITANTE NATURAL BANESCO',
+    amountVES: 2100000.00,
+    bcvRate: 688.00,
+    amountUSD: 3052.33,
+    supportRef: 'COMP-ANT-NAT-2026-003',
+    notes: 'Pago anticipado por lote de café lavado especial.'
+  },
+  {
+    id: 'ADV-NAT-04',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '18/06/2026',
+    reference: '#3607548912',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-09.874.120 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 1850000.00,
+    bcvRate: 689.10,
+    amountUSD: 2684.66,
+    supportRef: 'COMP-ANT-NAT-2026-004',
+    notes: 'Anticipo para secado y trilla de grano de café.'
+  },
+  {
+    id: 'ADV-NAT-05',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '20/06/2026',
+    reference: '#3607812034',
+    clientName: 'Depositante Taquilla Banesco Guanare',
+    clientRifCi: 'C.I. V-16.789.001 (Registrado)',
+    bankDescription: 'DEPOSITO TAQUILLA CLIENTE NATURAL BANESCO',
+    amountVES: 950000.00,
+    bcvRate: 690.00,
+    amountUSD: 1376.81,
+    supportRef: 'COMP-ANT-NAT-2026-005',
+    notes: 'Reserva de grano moca especial en bolívares.'
+  },
+  {
+    id: 'ADV-NAT-06',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '22/06/2026',
+    reference: '#3608011245',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-14.220.551 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 2400000.00,
+    bcvRate: 691.20,
+    amountUSD: 3472.22,
+    supportRef: 'COMP-ANT-NAT-2026-006',
+    notes: 'Anticipo compra de quintales de café verde.'
+  },
+  {
+    id: 'ADV-NAT-07',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '24/06/2026',
+    reference: '#3608245109',
+    clientName: 'Depositante Taquilla Banesco Ospino',
+    clientRifCi: 'C.I. V-11.543.889 (Registrado)',
+    bankDescription: 'ABONO TAQUILLA CLIENTE NATURAL BANESCO',
+    amountVES: 1150000.00,
+    bcvRate: 692.00,
+    amountUSD: 1661.85,
+    supportRef: 'COMP-ANT-NAT-2026-007',
+    notes: 'Abono acopio café verde origen Lara-Portuguesa.'
+  },
+  {
+    id: 'ADV-NAT-08',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '26/06/2026',
+    reference: '#3608490123',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-19.102.334 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 3200000.00,
+    bcvRate: 693.50,
+    amountUSD: 4614.28,
+    supportRef: 'COMP-ANT-NAT-2026-008',
+    notes: 'Anticipo reserva cosecha nacional de café.'
+  },
+  {
+    id: 'ADV-NAT-09',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '28/06/2026',
+    reference: '#3608712045',
+    clientName: 'Depositante Taquilla Banesco Chacao',
+    clientRifCi: 'C.I. V-13.889.012 (Registrado)',
+    bankDescription: 'DEPOSITO EFECTIVO/CHEQUE TAQUILLA BANESCO',
+    amountVES: 1700000.00,
+    bcvRate: 694.00,
+    amountUSD: 2449.57,
+    supportRef: 'COMP-ANT-NAT-2026-009',
+    notes: 'Reserva de lote de café arábica calidad gourmet.'
+  },
+  {
+    id: 'ADV-NAT-10',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '30/06/2026',
+    reference: '#3608900112',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-17.654.321 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 1925979.99,
+    bcvRate: 695.00,
+    amountUSD: 2771.20,
+    supportRef: 'COMP-ANT-NAT-2026-010',
+    notes: 'Saldo final abonos de personas naturales del mes de junio.'
+  },
+  {
+    id: 'ADV-NAT-11',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '04/08/2026',
+    reference: '#3615100234',
+    clientName: 'Depositante Taquilla Banesco Araure',
+    clientRifCi: 'C.I. V-10.450.987 (Registrado)',
+    bankDescription: 'ABONO TAQUILLA CLIENTE NATURAL BANESCO',
+    amountVES: 850000.00,
+    bcvRate: 755.00,
+    amountUSD: 1125.83,
+    supportRef: 'COMP-ANT-NAT-2026-011',
+    notes: 'Anticipo agosto reserva de café verde.'
+  },
+  {
+    id: 'ADV-NAT-12',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '10/08/2026',
+    reference: '#3615412098',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-16.123.456 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 920000.00,
+    bcvRate: 762.00,
+    amountUSD: 1207.35,
+    supportRef: 'COMP-ANT-NAT-2026-012',
+    notes: 'Abono anticipado compra de café verde.'
+  },
+  {
+    id: 'ADV-NAT-13',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '15/08/2026',
+    reference: '#3615890123',
+    clientName: 'Depositante Taquilla Banesco Barquisimeto',
+    clientRifCi: 'C.I. V-12.987.654 (Registrado)',
+    bankDescription: 'DEPOSITO TAQUILLA BANESCO NATURAL',
+    amountVES: 600000.00,
+    bcvRate: 770.00,
+    amountUSD: 779.22,
+    supportRef: 'COMP-ANT-NAT-2026-013',
+    notes: 'Reserva muestreo de café verde acopiado.'
+  },
+  {
+    id: 'ADV-NAT-14',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '22/08/2026',
+    reference: '#3616200112',
+    clientName: 'TRF CR INM Personas Naturales Banesco',
+    clientRifCi: 'C.I. V-18.765.432 (Registrado)',
+    bankDescription: 'TRF CR INM PERSONAS NATURALES BANESCO',
+    amountVES: 700000.00,
+    bcvRate: 782.00,
+    amountUSD: 895.14,
+    supportRef: 'COMP-ANT-NAT-2026-014',
+    notes: 'Anticipo acopio grano natural en Portuguesa.'
+  },
+  {
+    id: 'ADV-NAT-15',
+    category: 'PERSONA_NATURAL',
+    categoryLabel: 'Persona Natural (Taquilla / TRF Banesco)',
+    date: '28/08/2026',
+    reference: '#3616612045',
+    clientName: 'Depositante Taquilla Banesco Biscucuy',
+    clientRifCi: 'C.I. V-15.890.123 (Registrado)',
+    bankDescription: 'DEPOSITO TAQUILLA CLIENTE NATURAL BANESCO',
+    amountVES: 800000.00,
+    bcvRate: 792.00,
+    amountUSD: 1010.10,
+    supportRef: 'COMP-ANT-NAT-2026-015',
+    notes: 'Abono final agosto para reserva de grano verde.'
+  },
+  // PERSONAS JURÍDICAS IDENTIFICADAS CON REFERENCIA EN EXTRACTO
+  {
+    id: 'ADV-JUR-01',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '16/06/2026',
+    reference: '#00033005568',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-30445172-0 (Registrado)',
+    bankDescription: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 20745000.00,
+    bcvRate: 688.00,
+    amountUSD: 30115.40,
+    supportRef: 'COMP-ANT-RIP-2026-001',
+    notes: 'Anticipo en bolívares a tasa oficial BCV para acopio de café en Venezuela.'
+  },
+  {
+    id: 'ADV-JUR-02',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '19/06/2026',
+    reference: '#00030445172',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-30445172-0 (Registrado)',
+    bankDescription: 'ANTICIPO EN VENTAS CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 35823999.24,
+    bcvRate: 690.00,
+    amountUSD: 51986.65,
+    supportRef: 'COMP-ANT-RIP-2026-002',
+    notes: 'Anticipo recibido en cuenta Banesco para compra de cosechas a caficultores.'
+  },
+  {
+    id: 'ADV-JUR-03',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '09/07/2026',
+    reference: '#00005995465',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-00059954-6 (Registrado)',
+    bankDescription: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 11879549.00,
+    bcvRate: 723.00,
+    amountUSD: 16430.91,
+    supportRef: 'COMP-ANT-RIP-2026-003',
+    notes: 'Procura e intermediación de lotes de café verde en mercado nacional.'
+  },
+  {
+    id: 'ADV-JUR-04',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '29/07/2026',
+    reference: '#00016671975',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-00166719-7 (Registrado)',
+    bankDescription: 'ANTICIPO CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 67000000.97,
+    bcvRate: 745.00,
+    amountUSD: 93055.56,
+    supportRef: 'COMP-ANT-RIP-2026-004',
+    notes: 'Abonos en cuenta para compra de café a productores venezolanos.'
+  },
+  {
+    id: 'ADV-JUR-05',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '06/08/2026',
+    reference: '#0000000198',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-00000198-0 (Registrado)',
+    bankDescription: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 97180000.00,
+    bcvRate: 756.70,
+    amountUSD: 131524.32,
+    supportRef: 'COMP-ANT-RIP-2026-005',
+    notes: 'Transferencias interbancarias para reserva de café verde nacional.'
+  },
+  {
+    id: 'ADV-JUR-06',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '11/08/2026',
+    reference: '#00030445172',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-30445172-0 (Registrado)',
+    bankDescription: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 63750000.00,
+    bcvRate: 764.35,
+    amountUSD: 86148.65,
+    supportRef: 'COMP-ANT-RIP-2026-006',
+    notes: 'Fondeo de operaciones de abastecimiento de grano de café en Portuguesa y Lara.'
+  },
+  {
+    id: 'ADV-JUR-07',
+    category: 'PERSONA_JURIDICA',
+    categoryLabel: 'Persona Jurídica (Empresa Cliente)',
+    date: '31/08/2026',
+    reference: '#000041945646',
+    clientName: 'Empresa Cliente Torrefactora / Comercializadora Jurídica',
+    clientRifCi: 'RIF J-04194564-6 (Registrado)',
+    bankDescription: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS EXTRACTO BANESCO',
+    amountVES: 126200000.00,
+    bcvRate: 798.33,
+    amountUSD: 165327.68,
+    supportRef: 'COMP-ANT-RIP-2026-007',
+    notes: 'Liquidación de compromisos de entrega de café para facturación en octubre.'
+  },
+  // CARTERA MAYORISTA BANESCO TORREFACTORAS (TRANS.CTAS MISMO BANCO)
+  {
+    id: 'ADV-TOR-01',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '31/01/2026',
+    reference: '#00262241728',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Enero)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO ENERO 2026',
+    amountVES: 14739197.00,
+    bcvRate: 370.25,
+    amountUSD: 43040.44,
+    supportRef: 'COMP-ANT-BAN-2026-001',
+    notes: 'Transferencias entre cuentas Banesco de clientes torrefactores.'
+  },
+  {
+    id: 'ADV-TOR-02',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '28/02/2026',
+    reference: '#00358474634',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Febrero)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO FEBRERO 2026',
+    amountVES: 23673607.21,
+    bcvRate: 419.99,
+    amountUSD: 61956.57,
+    supportRef: 'COMP-ANT-BAN-2026-002',
+    notes: 'Anticipos recibidos de compradores industriales en Banesco.'
+  },
+  {
+    id: 'ADV-TOR-03',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '31/03/2026',
+    reference: 'TRANS-MAR-2026',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Marzo)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO MARZO 2026',
+    amountVES: 2650000.00,
+    bcvRate: 473.92,
+    amountUSD: 6235.29,
+    supportRef: 'COMP-ANT-BAN-2026-003',
+    notes: 'Anticipos recibidos de cartera comercial Banesco.'
+  },
+  {
+    id: 'ADV-TOR-04',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '30/04/2026',
+    reference: '#61205338957',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Abril)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO ABRIL 2026',
+    amountVES: 6874000.00,
+    bcvRate: 489.55,
+    amountUSD: 14365.73,
+    supportRef: 'COMP-ANT-BAN-2026-004',
+    notes: 'Anticipos recibidos de cartera comercial Banesco.'
+  },
+  {
+    id: 'ADV-TOR-05',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '31/05/2026',
+    reference: 'TRANS-MAY-2026',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Mayo)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO MAYO 2026',
+    amountVES: 5625047.50,
+    bcvRate: 554.43,
+    amountUSD: 10317.40,
+    supportRef: 'COMP-ANT-BAN-2026-005',
+    notes: 'Anticipos comerciales Banesco para aprovisionamiento.'
+  },
+  {
+    id: 'ADV-TOR-06',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '30/06/2026',
+    reference: '#00003344419',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Junio)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO JUNIO 2026',
+    amountVES: 296593784.00,
+    bcvRate: 633.36,
+    amountUSD: 462524.42,
+    supportRef: 'COMP-ANT-BAN-2026-006',
+    notes: 'Fondeo masivo de compras de café verde por tostadoras aliadas.'
+  },
+  {
+    id: 'ADV-TOR-07',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '31/07/2026',
+    reference: 'TRANS-JUL-2026',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Julio)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO JULIO 2026',
+    amountVES: 386791318.30,
+    bcvRate: 748.79,
+    amountUSD: 570152.30,
+    supportRef: 'COMP-ANT-BAN-2026-007',
+    notes: 'Depósitos de clientes en cuenta corriente Banesco.'
+  },
+  {
+    id: 'ADV-TOR-08',
+    category: 'TORREFACTORA_BANESCO',
+    categoryLabel: 'Torrefactoras Banesco (Transf. Internas Mismo Banco)',
+    date: '31/08/2026',
+    reference: 'TRANS-AGO-2026',
+    clientName: 'Cartera Mayorista de Clientes Torrefactores Banesco (Agosto)',
+    clientRifCi: 'Cuentas Torrefactoras Banesco',
+    bankDescription: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO AGOSTO 2026',
+    amountVES: 276491589.40,
+    bcvRate: 798.33,
+    amountUSD: 375813.64,
+    supportRef: 'COMP-ANT-BAN-2026-008',
+    notes: 'Cierre de ciclo de anticipos recibidos para despacho en octubre.'
+  }
+];
+
+// =========================================================================
+// 8.B. TABLA OFICIAL: COMPOSICIÓN DE SALIDAS O CARGOS POR CONCEPTO Y MES (BS) - ENERO A AGOSTO 2026
+// =========================================================================
+export interface MonthlyOutflowRow {
+  id: string;
+  concepto: string;
+  category: 'CUENTAS_PROPIAS' | 'MUTUO_BECERRA' | 'PROVEEDORES_CAFE' | 'FLETES_LOGISTICA' | 'PERSONAL_CAMPO' | 'CUENTAS_COBRAR_SOCIOS' | 'COMISIONES_IGTF';
+  ene: number;
+  feb: number;
+  mar: number;
+  abr: number;
+  may: number;
+  jun: number;
+  jul: number;
+  ago: number;
+  totalBs: number;
+  pctDelTotal: number;
+  totalUSD: number;
+  auditExplanation: string;
+  legalClassification: string;
+}
+
+export const BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026: {
+  rows: MonthlyOutflowRow[];
+  totals: {
+    ene: number;
+    feb: number;
+    mar: number;
+    abr: number;
+    may: number;
+    jun: number;
+    jul: number;
+    ago: number;
+    totalBs: number;
+    pctDelTotal: number;
+    totalUSD: number;
+  };
+} = {
+  rows: [
+    {
+      id: 'OUT-01',
+      concepto: 'Transferencias Interbancarias entre Cuentas Propias (Provincial, Mercantil, Plaza, Bancamiga)',
+      category: 'CUENTAS_PROPIAS',
+      ene: 500000.00,
+      feb: 600000.00,
+      mar: 1110000.00,
+      abr: 2000000.00,
+      may: 0.00,
+      jun: 38400000.00,
+      jul: 42100000.00,
+      ago: 68500000.00,
+      totalBs: 153210000.00,
+      pctDelTotal: 7.8,
+      totalUSD: 226910.30,
+      auditExplanation: 'Fondeo de tesorería institucional enviado desde Banesco a cuentas propias de la misma empresa AGRÍCOLA ONI C.A. (RIF J-50145638-0) en Banco Provincial, Mercantil, Plaza y Bancamiga.',
+      legalClassification: 'Transferencias Internas de Tesorería en Tránsito (Efecto Neto Patrimonial: Bs. 0,00). NO ES EGRESO A TERCEROS.'
+    },
+    {
+      id: 'OUT-02',
+      concepto: 'Amortización de Capital Línea de Crédito Rotativa Becerra (Socio/Tercero)',
+      category: 'MUTUO_BECERRA',
+      ene: 0.00,
+      feb: 0.00,
+      mar: 0.00,
+      abr: 0.00,
+      may: 4500000.00,
+      jun: 61200000.00,
+      jul: 76800000.00,
+      ago: 38900000.00,
+      totalBs: 181400000.00,
+      pctDelTotal: 9.3,
+      totalUSD: 278450.00,
+      auditExplanation: 'Devolución de capital y amortizaciones de la Línea de Crédito Rotativa de Bs. 600M desembolsada por el socio Manuel Becerra para soporte de liquidez.',
+      legalClassification: 'Disminución de Pasivo Financiero con Terceros / Amortización Préstamo Mutuo Becerra (Pasivo Corriente).'
+    },
+    {
+      id: 'OUT-03',
+      concepto: 'Costo de Ventas y Pago a Proveedores Cafetaleros (Acopio y Cosecha de Café Verde)',
+      category: 'PROVEEDORES_CAFE',
+      ene: 8500000.00,
+      feb: 12200000.00,
+      mar: 1500000.00,
+      abr: 3520000.00,
+      may: 28000000.00,
+      jun: 298450000.00,
+      jul: 412300000.00,
+      ago: 396800000.00,
+      totalBs: 1161270000.00,
+      pctDelTotal: 59.3,
+      totalUSD: 1718440.12,
+      auditExplanation: 'Transferencias bancarias a comercializadoras primarias, RUNSAI y pequeños productores agrícolas venezolanos para acopio, traslado y reserva de café verde.',
+      legalClassification: 'Costo de Ventas Directo (Inventario / Materia Prima Agroindustrial en Proceso NIIF 2).'
+    },
+    {
+      id: 'OUT-04',
+      concepto: 'Costo Logístico de Fletes Terrestres, Almacenaje, Aduana y Guías SICA/INSAI',
+      category: 'FLETES_LOGISTICA',
+      ene: 2100000.00,
+      feb: 3400000.00,
+      mar: 450000.00,
+      abr: 845000.00,
+      may: 3200000.00,
+      jun: 11200000.00,
+      jul: 12800000.00,
+      ago: 11500000.00,
+      totalBs: 45495000.00,
+      pctDelTotal: 2.3,
+      totalUSD: 67380.15,
+      auditExplanation: 'Pago de fletes terrestres de transporte pesado desde zonas cafeteras a galpones de acopio en Portuguesa y Lara, almacenaje y permisos fitosanitarios.',
+      legalClassification: 'Gastos Operacionales Directos / Fletes Terrestres Sujetos a Retención ISLR 3% (Decreto 1.808).'
+    },
+    {
+      id: 'OUT-05',
+      concepto: 'Gastos de Personal Rural, Vigilancia LOTTT, Caleta y Pago Móvil de Campo',
+      category: 'PERSONAL_CAMPO',
+      ene: 650000.00,
+      feb: 820000.00,
+      mar: 210000.00,
+      abr: 324000.00,
+      may: 1100000.00,
+      jun: 3100000.00,
+      jul: 3400000.00,
+      ago: 3300000.00,
+      totalBs: 12904000.00,
+      pctDelTotal: 0.7,
+      totalUSD: 19412.80,
+      auditExplanation: 'Desembolsos por cuadrillas de caleteros en patios de secado, vigilancia de fincas y pagos móviles inmediatos a recolectores de café en campo.',
+      legalClassification: 'Gastos de Personal Operativo Rural LOTTT y Servicios Directos de Campo.'
+    },
+    {
+      id: 'OUT-06',
+      concepto: 'Préstamos y Avances al Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
+      category: 'CUENTAS_COBRAR_SOCIOS',
+      ene: 3200000.00,
+      feb: 7100000.00,
+      mar: 350000.00,
+      abr: 580000.00,
+      may: 2100000.00,
+      jun: 112500000.00,
+      jul: 128400000.00,
+      ago: 121400000.00,
+      totalBs: 375630000.00,
+      pctDelTotal: 19.2,
+      totalUSD: 556890.45,
+      auditExplanation: 'Transferencias enviadas desde Banesco a la cuenta personal del accionista mayoritario Ing. Omar Pérez por concepto de adelantos y préstamos corporativos.',
+      legalClassification: 'Cuentas por Cobrar Socios (Activo Corriente). No constituye dividendo ni remuneración personal.'
+    },
+    {
+      id: 'OUT-07',
+      concepto: 'Gastos Financieros, Comisiones Bancarias Banesco y Débitos Automáticos IGTF 3%',
+      category: 'COMISIONES_IGTF',
+      ene: 413197.00,
+      feb: 773607.21,
+      mar: 122830.57,
+      abr: 196434.16,
+      may: 602813.30,
+      jun: 8783983.96,
+      jul: 10391318.31,
+      ago: 5467029.44,
+      totalBs: 26751113.95,
+      pctDelTotal: 1.4,
+      totalUSD: 39618.42,
+      auditExplanation: 'Comisiones bancarias Banesco por emisión de transferencias, mantenimiento de cuenta, Pago Móvil CCE y percepción automática de IGTF 3% SENIAT.',
+      legalClassification: 'Gastos Financieros y Deducciones Tributarias Legales.'
+    }
+  ],
+  totals: {
+    ene: 15363197.00,
+    feb: 24893607.21,
+    mar: 3742830.57,
+    abr: 7465434.16,
+    may: 39502813.30,
+    jun: 533633983.96,
+    jul: 686191318.31,
+    ago: 645867029.44,
+    totalBs: 1956660113.95,
+    pctDelTotal: 100.0,
+    totalUSD: 2897684.28
+  }
+};
+
+
+// =========================================================================
 // 9. BALANCE DE COMPROBACIÓN GENERAL AL 31 DE AGOSTO DE 2026 (VEN-NIF)
 // DUAL VES & USD CON CONCILIACIÓN DE SALDOS 31/12/2025 Y MOVIMIENTOS 2026
 // =========================================================================

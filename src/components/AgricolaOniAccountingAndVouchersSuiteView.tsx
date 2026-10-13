@@ -81,7 +81,7 @@ export const AgricolaOniAccountingAndVouchersSuiteView: React.FC<Props> = ({ com
       documentRef: documentRef || 'Soporte Interno',
       bankAccountRef: bankRef || company.banescoAccountVES,
       approvedBy: company.legalRepresentative,
-      reviewedBy: 'Lcda. Carmen Rivas (CPC 41.802)',
+      reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
       preparedBy: 'Administración Contable',
       status: 'CONFIRMADO',
       lines: [

@@ -52,7 +52,7 @@ Amortización de Activo Financiero procedente de la Línea de Crédito Rotativa 
 c) Transferencias entre Cuentas Propias de Agrícola Oni (10,6% - Bs. 208.708.057,73 / USD 308.317,80):
 Traspasos internos de tesorería desde Provincial, Mercantil, Plaza y Bancamiga pertenecientes al mismo titular RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
 d) Aportes Operativos del Accionista Propietario (1,5% - Bs. 29.495.954,99 / USD 47.335,99):
-Inyecciones de liquidez realizadas por el accionista propietario Ing. Omar Pérez (C.I. V-14.892.301) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
+Inyecciones de liquidez realizadas por el Presidente y accionista propietario Elias Rafael Trías Abreu (C.I. V-14.892.301) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
 e) Ingresos Reales Devengados en el Ejercicio (Bs. 92.641.520,01 / USD 116.531,68):
 Servicios Agrícolas facturados (Bs. 78.717.472,35) e Intereses Ganados del Mutuo Becerra (Bs. 13.924.047,66), coincidiendo al 100% con los Estados Financieros Auditados.
 
@@ -65,8 +65,8 @@ CUADRE FINAL: Total Créditos Banesco (Bs. 1.966.597.105,35) - Pasivos NIIF 15 (
 - Propiedad Accionaria Única: Pertenece 100% al Ing. OMAR PÉREZ (C.I. V-14.892.301), garantizando total transparencia patrimonial ante Banesco Banco Universal.
 
 Atentamente,
-Ing. Omar Pérez — Director General / Representante Legal (C.I. V-14.892.301)
-Lcda. Carmen Rivas — Contador Público Colegiado (C.P.C. N° 41.802)
+Elias Rafael Trías Abreu — Presidente / Propietario (C.I. V-14.892.301)
+Licdo. Omar Pérez Castillo — Contador Público C.P.C. 16.336
 AGRÍCOLA ONI, C.A. — RIF J-50145638-0
     `;
     navigator.clipboard.writeText(textContent.trim());
@@ -344,7 +344,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
                     <td className="px-3 py-2 text-right text-stone-700">$47.335,99</td>
                     <td className="px-3 py-2 text-center font-bold text-stone-700">1,5%</td>
                     <td className="px-3 py-2 font-sans text-stone-600">
-                      Aportes e ingresos recibidos del accionista propietario Ing. Omar Pérez C.I. V-14.892.301 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
+                      Aportes e ingresos recibidos del Presidente y accionista propietario Elias Rafael Trías Abreu C.I. V-14.892.301 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
                     </td>
                   </tr>
 
@@ -459,7 +459,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
                   Estados Financieros Auditados VEN-NIF (2025 - 2026)
                 </span>
                 <p className="text-stone-600 text-[11px]">
-                  Balance General y Estado de Resultados al 31/12/2025 y al 31/08/2026, con dictamen de auditoría y notas revelatorias suscrito por Contador Público Colegiado (Lcda. Carmen Rivas, CPC 41.802).
+                  Balance General y Estado de Resultados al 31/12/2025 y al 31/08/2026, con dictamen de auditoría y notas revelatorias suscrito por Contador Público Colegiado (Licdo. Omar Pérez Castillo, C.P.C. 16.336).
                 </p>
               </div>
 
@@ -544,7 +544,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
             <div className="h-16 flex items-center justify-center sm:justify-start">
               {/* Digitized stamp/signature representation */}
               <div className="border border-stone-400 border-dashed rounded px-3 py-1 bg-stone-50 inline-block rotate-[-2deg] text-amber-900 font-serif italic text-sm">
-                Omar Pérez C. &mdash; Firma Digital Certificada
+                Elias Rafael Trías Abreu &mdash; Firma Digital
               </div>
             </div>
             <div className="border-t border-stone-800 pt-2 mt-2">
@@ -561,13 +561,13 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               <div className="border-2 border-emerald-800 rounded-full w-16 h-16 flex flex-col items-center justify-center text-[8px] font-bold text-emerald-900 uppercase rotate-6 bg-emerald-50/50">
                 <span>Colegio</span>
                 <span>Contadores</span>
-                <span className="font-mono">CPC 41.802</span>
+                <span className="font-mono">CPC 16.336</span>
               </div>
             </div>
             <div className="border-t border-stone-800 pt-2 mt-2">
-              <p className="font-bold text-stone-950 text-xs">Lcda. Carmen Rivas</p>
+              <p className="font-bold text-stone-950 text-xs">Licdo. Omar Pérez Castillo</p>
               <p className="text-[11px] text-stone-600">Contador Público Colegiado</p>
-              <p className="text-[11px] text-stone-600">Matrícula C.P.C. Nº 41.802</p>
+              <p className="text-[11px] text-stone-600">Matrícula C.P.C. Nº 16.336</p>
               <p className="text-[11px] font-semibold text-stone-800">Auditor Externo Acreditado</p>
             </div>
           </div>

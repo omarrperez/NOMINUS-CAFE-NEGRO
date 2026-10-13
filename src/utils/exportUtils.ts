@@ -1306,12 +1306,12 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
   rSigLines.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF64748B' } };
 
   const rSigNames = ws.addRow([
-    'Ing. Pedro Rodríguez (Presidente)',
+    'Elias Rafael Trías Abreu (Presidente)',
     '',
     '',
     '',
     '',
-    'Lcda. Carmen Rivas (Contador Público CPC 41.802)'
+    'Licdo. Omar Pérez Castillo (Contador Público C.P.C. 16.336)'
   ]);
   rSigNames.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
   rSigNames.getCell(6).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
@@ -1411,7 +1411,7 @@ export async function exportFinancialStatementsDualXlsx(params: {
 
   const workbook = new ExcelJS.Workbook();
   workbook.creator = companyName;
-  workbook.lastModifiedBy = 'Auditoría Bancaria Banesco / CPC 41.802';
+  workbook.lastModifiedBy = 'Auditoría Bancaria Banesco / C.P.C. 16.336';
   workbook.created = new Date();
 
   // Helper for Member header
@@ -1563,12 +1563,12 @@ export async function exportFinancialStatementsDualXlsx(params: {
   const s1 = ws1.addRow(['____________________________________________', '', '', '____________________________________________']);
   s1.getCell(1).alignment = { horizontal: 'center' };
   s1.getCell(4).alignment = { horizontal: 'center' };
-  const s2 = ws1.addRow(['Ing. Omar Pérez', '', '', 'Lcda. Carmen Rivas']);
+  const s2 = ws1.addRow(['Elias Rafael Trías Abreu', '', '', 'Licdo. Omar Pérez Castillo']);
   s2.getCell(1).font = { bold: true };
   s2.getCell(4).font = { bold: true };
   s2.getCell(1).alignment = { horizontal: 'center' };
   s2.getCell(4).alignment = { horizontal: 'center' };
-  const s3 = ws1.addRow(['Director General - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Colegiado CPC 41.802']);
+  const s3 = ws1.addRow(['Presidente / Propietario - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Colegiado C.P.C. 16.336']);
   s3.getCell(1).alignment = { horizontal: 'center' };
   s3.getCell(4).alignment = { horizontal: 'center' };
 
@@ -1591,7 +1591,11 @@ export async function exportFinancialStatementsDualXlsx(params: {
   const s2_1 = ws2.addRow(['____________________________________________', '', '', '____________________________________________']);
   s2_1.getCell(1).alignment = { horizontal: 'center' };
   s2_1.getCell(4).alignment = { horizontal: 'center' };
-  const s2_2 = ws2.addRow(['Ing. Omar Pérez (Director General)', '', '', 'Lcda. Carmen Rivas (CPC 41.802)']);
+  const s2_2 = ws2.addRow(['Elias Rafael Trías Abreu (Presidente)', '', '', 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)']);
+  s2_2.getCell(1).font = { bold: true };
+  s2_2.getCell(4).font = { bold: true };
+  s2_2.getCell(1).alignment = { horizontal: 'center' };
+  s2_2.getCell(4).alignment = { horizontal: 'center' };
   s2_2.getCell(1).font = { bold: true };
   s2_2.getCell(4).font = { bold: true };
   s2_2.getCell(1).alignment = { horizontal: 'center' };

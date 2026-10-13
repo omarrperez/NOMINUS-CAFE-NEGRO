@@ -169,7 +169,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         documentRef: advBankRef,
         bankAccountRef: company.banescoAccountVES,
         approvedBy: company.legalRepresentative,
-        reviewedBy: 'Lcda. Carmen Rivas (CPC 41.802)',
+        reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
         preparedBy: 'Administración Contable',
         status: 'CONFIRMADO',
         lines: [
@@ -260,7 +260,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       documentRef: fxRef || fxNumber,
       bankAccountRef: company.banescoAccountVES,
       approvedBy: company.legalRepresentative,
-      reviewedBy: 'Lcda. Carmen Rivas (CPC 41.802)',
+      reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
       preparedBy: 'Administración Contable',
       status: 'CONFIRMADO',
       lines: [
@@ -360,7 +360,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       rifThirdParty: invRif,
       documentRef: invNumber,
       approvedBy: company.legalRepresentative,
-      reviewedBy: 'Lcda. Carmen Rivas (CPC 41.802)',
+      reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
       preparedBy: 'Administración Contable',
       status: 'CONFIRMADO',
       lines: [

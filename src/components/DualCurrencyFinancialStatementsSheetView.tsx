@@ -31,9 +31,10 @@ import { exportFinancialStatementsDualXlsx, exportToPdfPrint, downloadNativeDocx
 interface Props {
   company: CompanyProfile;
   currentRate: BcvRateItem;
+  onNavigateToBecerraSuite?: () => void;
 }
 
-export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ company, currentRate }) => {
+export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ company, currentRate, onNavigateToBecerraSuite }) => {
   const [activeTab, setActiveTab] = useState<'BALANCE' | 'INCOME' | 'TRIAL_BALANCE' | 'NOTES' | 'BANESCO_SUMMARY'>('BALANCE');
   const [copiedNote, setCopiedNote] = useState<number | null>(null);
   const [tbSearch, setTbSearch] = useState<string>('');
@@ -90,7 +91,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
   const notesList = [
     {
       title: 'Identificación de la Empresa y Objeto Social',
-      text: `${company.name} (R.I.F. ${company.rif}) es una sociedad mercantil venezolana inscrita en el Registro Mercantil en 2021, cuyo objeto social comprende la compra, venta, acopio, procesamiento, intermediación comercial y servicios agrícolas de café en el territorio nacional. La empresa actúa como intermediaria entre personas naturales y jurídicas en Venezuela, comprando café exclusivamente a productores y empresas venezolanas a tipo de cambio oficial BCV. Su representante legal y director general es el Ing. Omar Pérez (C.I. V-14.892.301).`
+      text: `${company.name} (R.I.F. ${company.rif}) es una sociedad mercantil venezolana inscrita en el Registro Mercantil en 2021, cuyo objeto social comprende la compra, venta, acopio, procesamiento, intermediación comercial y servicios agrícolas de café en el territorio nacional. La empresa actúa como intermediaria entre personas naturales y jurídicas en Venezuela, comprando café exclusivamente a productores y empresas venezolanas a tipo de cambio oficial BCV. Su representante legal, Presidente y Director General es Elias Rafael Trías Abreu (C.I. V-14.892.301).`
     },
     {
       title: 'Bases de Presentación y Expresión Dual en Moneda Extranjera',
@@ -109,8 +110,8 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       text: `Comprende bienes de capital registrados al costo histórico (Inmuebles Bs. 1.317.600,00, Vehículos y Unidades de Carga Bs. 26.145.094,00, Equipos de Oficina y Maquinarias Bs. 600.000,00) menos su correspondiente depreciación acumulada de Bs. 8,47, para un saldo neto de Bs. 28.062.685,53 ($35.299,42 USD).`
     },
     {
-      title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Ing. Omar Pérez)',
-      text: `Registra las obligaciones financieras a corto plazo con el socio accionista mayoritario Ing. Omar Pérez (C.I. V-14.892.301) por un monto de Bs. 246.572.875,38 ($310.158,46 USD). Dichos fondos corresponden a aportes directos de capital de trabajo enviados desde sus cuentas personales hacia la cuenta corriente Banesco de la empresa para cubrir compras de materia prima y costos operativos en Venezuela.`
+      title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elias Rafael Trías Abreu)',
+      text: `Registra las obligaciones financieras a corto plazo con el Presidente y socio accionista mayoritario Elias Rafael Trías Abreu (C.I. V-14.892.301) por un monto de Bs. 246.572.875,38 ($310.158,46 USD). Dichos fondos corresponden a aportes directos de capital de trabajo enviados desde sus cuentas personales hacia la cuenta corriente Banesco de la empresa para cubrir compras de materia prima y costos operativos en Venezuela.`
     },
     {
       title: 'Anticipos en Bolívares Recibidos de Clientes a Tasa BCV para Compra de Café Nacional (NIIF 15 / Pasivos Operacionales)',
@@ -118,7 +119,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
     },
     {
       title: 'Reconciliación de Movilización Bancaria Banesco ($2.781.830,18 USD promedio) vs Ingresos ($116.531,68 USD)',
-      text: `La totalidad de la movilización acreditada en Banesco (Bs. 1.966.597.105,35 / $2.473.738,15 USD nominal) se compone estrictamente de: 1) Anticipos de clientes para compra de café nacional NIIF 15: Bs. 1.542.017.092,63 (78,4%); 2) Reintegros Mutuo Becerra: Bs. 186.376.000,00 (9,5%); 3) Transferencias entre Cuentas Propias: Bs. 208.708.057,73 (10,6%); 4) Aportes del socio accionista y personas naturales: Bs. 29.495.954,99 (1,5%). Los únicos ingresos gravables reales del período son Bs. 92.641.520,01 ($116.531,68 USD), compuestos por Servicios Agrícolas facturados en Venezuela (Bs. 78.717.472,35) e Intereses del Mutuo Becerra (Bs. 13.924.047,66).`
+      text: `La totalidad de la movilización acreditada en Banesco (Bs. 1.966.597.105,35 / $2.473.738,15 USD nominal) se compone strictly de: 1) Anticipos de clientes para compra de café nacional NIIF 15: Bs. 1.542.017.092,63 (78,4%); 2) Reintegros Mutuo Becerra: Bs. 186.376.000,00 (9,5%); 3) Transferencias entre Cuentas Propias: Bs. 208.708.057,73 (10,6%); 4) Aportes del socio accionista y personas naturales: Bs. 29.495.954,99 (1,5%). Los únicos ingresos gravables reales del período son Bs. 92.641.520,01 ($116.531,68 USD), compuestos por Servicios Agrícolas facturados en Venezuela (Bs. 78.717.472,35) e Intereses del Mutuo Becerra (Bs. 13.924.047,66).`
     }
   ];
 
@@ -154,7 +155,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         },
         liabilities: {
           current: [
-            ['2.1.01', 'Cuentas por Pagar Socios (Ing. Omar Pérez)', bs.liabilities.current.shareholderPayables, toUSD(bs.liabilities.current.shareholderPayables)],
+            ['2.1.01', 'Cuentas por Pagar Socios (Elias Rafael Trías Abreu)', bs.liabilities.current.shareholderPayables, toUSD(bs.liabilities.current.shareholderPayables)],
             ['2.1.02', 'ISLR por Pagar / Tributos Retenidos', bs.liabilities.current.islrPayable, toUSD(bs.liabilities.current.islrPayable)]
           ],
           currentTotal: liabilitiesCurrentBs,
@@ -212,8 +213,8 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       ],
       highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD promedio responde a Anticipos de Clientes para Compra e Intermediación de Café en Venezuela bajo NIIF 15 a Tasa Oficial BCV (78,4% / Bs. 1.542.017.092,63), los cuales constituyen Pasivo Corriente a ser sustituidos por facturas de venta en octubre de 2026 y no ventas gravables anticipadas.`,
       signers: [
-        { name: 'Ing. Omar Pérez', title: 'Presidente - Representante Legal' },
-        { name: 'Lcda. Carmen Rivas', title: 'Contador Público Colegiado', idNumber: 'CPC 41.802' }
+        { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario' },
+        { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Colegiado', idNumber: 'C.P.C. 16.336' }
       ]
     });
   };
@@ -593,7 +594,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                   <tr>
                     <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">2.1.01</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">
-                      Cuentas por Pagar Socios (Ing. Omar Pérez / Aportes Operativos)
+                      Cuentas por Pagar Socios (Elias Rafael Trías Abreu / Aportes Operativos)
                     </td>
                     <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-amber-800">
                       {bs.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
@@ -1105,15 +1106,15 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               <div className="grid grid-cols-2 gap-8 max-w-2xl mx-auto text-center text-xs">
                 <div>
                   <div className="border-b border-slate-400 mb-2 pb-8"></div>
-                  <p className="font-bold text-slate-900">Ing. Omar Pérez</p>
-                  <p className="text-slate-500 text-[11px]">Presidente & Representante Legal</p>
+                  <p className="font-bold text-slate-900">Elias Rafael Trías Abreu</p>
+                  <p className="text-slate-500 text-[11px]">Presidente & Propietario</p>
                   <p className="text-slate-400 text-[10px]">{company.name}</p>
                 </div>
                 <div>
                   <div className="border-b border-slate-400 mb-2 pb-8"></div>
-                  <p className="font-bold text-slate-900">Lcda. Carmen Rivas</p>
+                  <p className="font-bold text-slate-900">Licdo. Omar Pérez Castillo</p>
                   <p className="text-slate-500 text-[11px]">Contador Público Colegiado</p>
-                  <p className="text-slate-400 text-[10px]">C.P.C. N° 41.802</p>
+                  <p className="text-slate-400 text-[10px]">C.P.C. N° 16.336</p>
                 </div>
               </div>
             </div>
@@ -1224,6 +1225,29 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                   </div>
                 </div>
               </div>
+
+              <div className="bg-white p-4 rounded-xl border border-red-200 space-y-3 lg:col-span-2 bg-red-50/30">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h4 className="text-xs font-bold uppercase text-red-700 tracking-wider flex items-center gap-1.5">
+                      <FileSpreadsheet className="w-4 h-4 text-red-600" />
+                      3. Composición de Débitos, Salidas y Cargos en Banesco (Ene - Ago 2026)
+                    </h4>
+                    <p className="text-xs text-slate-600 mt-1">
+                      Total Salidas Registradas en Extracto Banesco: <strong className="text-red-700 font-mono">Bs. 1.956.660.113,95</strong> ($2.897.684,28 USD). Principalmente destinado a Costo de Ventas de Café Verde (59,3%) y Préstamos Accionista (19,2%).
+                    </p>
+                  </div>
+                  {onNavigateToBecerraSuite && (
+                    <button
+                      onClick={onNavigateToBecerraSuite}
+                      className="px-4 py-2 bg-red-700 hover:bg-red-800 text-white font-bold rounded-lg text-xs transition-colors flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
+                    >
+                      <span>Ver Cuadro Salidas Excel</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -1236,16 +1260,16 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
           <div className="grid grid-cols-2 gap-8 text-center">
             <div>
               <div className="border-b border-slate-400 w-3/4 mx-auto mb-2"></div>
-              <p className="text-sm font-bold text-slate-900">Ing. Omar Pérez</p>
-              <p className="text-xs text-slate-600">Presidente / Representante Legal</p>
+              <p className="text-sm font-bold text-slate-900">Elias Rafael Trías Abreu</p>
+              <p className="text-xs text-slate-600">Presidente / Propietario</p>
               <p className="text-xs text-slate-500 font-mono mt-0.5">{company.name} &middot; RIF {company.rif}</p>
             </div>
 
             <div>
               <div className="border-b border-slate-400 w-3/4 mx-auto mb-2"></div>
-              <p className="text-sm font-bold text-slate-900">Lcda. Carmen Rivas</p>
+              <p className="text-sm font-bold text-slate-900">Licdo. Omar Pérez Castillo</p>
               <p className="text-xs text-slate-600">Contador Público Colegiado</p>
-              <p className="text-xs text-slate-500 font-mono mt-0.5">CPC N° 41.802 &middot; Auditoría Venezolana VEN-NIF</p>
+              <p className="text-xs text-slate-500 font-mono mt-0.5">C.P.C. N° 16.336 &middot; Auditoría Venezolana VEN-NIF</p>
             </div>
           </div>
         </div>

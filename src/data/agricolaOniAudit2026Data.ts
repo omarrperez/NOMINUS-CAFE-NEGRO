@@ -827,8 +827,8 @@ export const BANESCO_RECONCILIATION_2026: BankReconciliation = {
   bookBalance: 9936991.40,
   adjustedBookBalance: 9936991.40,
   difference: 0.00,
-  auditedBy: 'Lcda. Carmen Rivas',
-  cpcAuditor: 'Contador Público Colegiado Nro. CPC 41.802'
+  auditedBy: 'Licdo. Omar Pérez Castillo',
+  cpcAuditor: 'Contador Público Colegiado Nro. C.P.C. 16.336'
 };
 
 export const BANESCO_AUDIT_POINTS = [

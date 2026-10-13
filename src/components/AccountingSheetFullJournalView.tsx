@@ -250,8 +250,8 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
         ])
       },
       signers: [
-        { name: company.legalRepresentative, title: 'Representante Legal', idNumber: 'V-23.997.829' },
-        { name: 'Lcda. Carmen Rivas', title: 'Contador Público Colegiado', idNumber: 'CPC 41.802' }
+        { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario', idNumber: 'V-14.892.301' },
+        { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Colegiado', idNumber: 'C.P.C. 16.336' }
       ]
     });
   };
@@ -358,8 +358,8 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
           </div>
           <div className="bg-slate-800/60 p-2.5 rounded-lg border border-slate-700">
             <div className="text-slate-400 text-[10px] uppercase font-bold">Contador Certificador</div>
-            <div className="text-base font-black text-blue-200">Lcda. Carmen Rivas</div>
-            <div className="text-[10px] text-amber-300">CPC 41.802 (Colegiado)</div>
+            <div className="text-base font-black text-blue-200">Licdo. Omar Pérez Castillo</div>
+            <div className="text-[10px] text-amber-300">C.P.C. 16.336 (Colegiado)</div>
           </div>
         </div>
       </div>
@@ -908,7 +908,7 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
 
           <div className="space-y-4 text-slate-800 text-sm leading-relaxed text-justify">
             <p>
-              Quien suscribe, <strong>Lcda. Carmen Rivas</strong>, Contador Público Colegiado bajo el N° <strong>CPC 41.802</strong>, hace constar que ha examinado minuciosamente el Libro Diario, el Balance de Comprobación y los Comprobantes de Diario de la entidad <strong>AGRÍCOLA ONI, C.A.</strong> correspondientes al período fiscal de ocho (8) meses comprendido entre el 01 de enero de 2026 y el 31 de agosto de 2026.
+              Quien suscribe, <strong>Licdo. Omar Pérez Castillo</strong>, Contador Público Colegiado bajo el N° <strong>C.P.C. 16.336</strong>, hace constar que ha examinado minuciosamente el Libro Diario, el Balance de Comprobación y los Comprobantes de Diario de la entidad <strong>AGRÍCOLA ONI, C.A.</strong> correspondientes al período fiscal de ocho (8) meses comprendido entre el 01 de enero de 2026 y el 31 de agosto de 2026.
             </p>
 
             <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-blue-800 text-xs font-sans space-y-2">
@@ -921,7 +921,7 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
                   <strong>Anticipos de Clientes (NIIF 15):</strong> Todos los abonos de personas jurídicas por USD $116.531,68 y de personas naturales por USD $1.092.368,95 están contabilizados como Pasivos por Anticipos en Ventas a diferir contra ventas en Octubre 2026.
                 </li>
                 <li>
-                  <strong>Movilizaciones de Socios:</strong> Se verificó la debida clasificación de las cuentas por pagar/cobrar del accionista propietario Ing. Omar Pérez (C.I. V-14.892.301).
+                  <strong>Movilizaciones de Socios:</strong> Se verificó la debida clasificación de las cuentas por pagar/cobrar del accionista propietario.
                 </li>
               </ul>
             </div>
@@ -933,14 +933,14 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
 
           <div className="pt-12 grid grid-cols-2 gap-8 text-center font-sans text-xs">
             <div className="border-t border-slate-300 pt-3">
-              <div className="font-bold text-slate-900">{company.legalRepresentative}</div>
-              <div className="text-slate-600">Representante Legal &middot; V-23.997.829</div>
+              <div className="font-bold text-slate-900">Elias Rafael Trías Abreu</div>
+              <div className="text-slate-600">Presidente / Propietario &middot; C.I. V-14.892.301</div>
               <div className="text-slate-500">{company.name}</div>
             </div>
             <div className="border-t border-slate-300 pt-3">
-              <div className="font-bold text-slate-900">Lcda. Carmen Rivas</div>
+              <div className="font-bold text-slate-900">Licdo. Omar Pérez Castillo</div>
               <div className="text-slate-600">Contador Público Colegiado</div>
-              <div className="text-blue-900 font-bold font-mono">CPC N° 41.802</div>
+              <div className="text-blue-900 font-bold font-mono">C.P.C. N° 16.336</div>
             </div>
           </div>
         </div>

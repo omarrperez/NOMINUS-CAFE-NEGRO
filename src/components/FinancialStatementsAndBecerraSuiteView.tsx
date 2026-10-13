@@ -35,7 +35,9 @@ import {
   MANUEL_BECERRA_SUMMARY_2026,
   BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION,
   BANESCO_OFFICIAL_LETTER_2026,
-  BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026
+  BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026,
+  BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026,
+  ADVANCE_CLIENT_INDIVIDUAL_DETAILS
 } from '../data/financialStatementsData';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 
@@ -46,6 +48,7 @@ interface Props {
 
 type SubTab =
   | 'TABLA_ORIGEN_MES'
+  | 'TABLA_CARGOS_MES'
   | 'CARTA_BANCO_OFICIAL'
   | 'MANUEL_BECERRA'
   | 'CONCILIACION_BANCO'
@@ -57,6 +60,7 @@ export const FinancialStatementsAndBecerraSuiteView: React.FC<Props> = ({ compan
   const [becerraFilter, setBecerraFilter] = useState<'TODOS' | 'EGRESOS' | 'INGRESOS'>('TODOS');
   const [searchTerm, setSearchTerm] = useState('');
   const [copied, setCopied] = useState(false);
+  const [advancesFilter, setAdvancesFilter] = useState<'ALL' | 'PERSONA_NATURAL' | 'PERSONA_JURIDICA' | 'TORREFACTORA_BANESCO'>('ALL');
 
   const filteredBecerraMovements = MANUEL_BECERRA_MOVEMENTS_2026.filter((mov) => {
     const matchesSearch =
@@ -87,15 +91,15 @@ En atención a su comunicación sobre la presunta disparidad entre los Ingresos 
 - Bs. 1.542.017.092,63 (78,4%): ANTICIPOS EN VENTAS DE CLIENTES JURÍDICOS (NIIF 15) para la intermediación y compra de café en Venezuela a tasa oficial BCV. Bajo NIIF 15 constituyen Pasivo Corriente, no ventas gravadas. Se facturan formalmente a partir de OCTUBRE DE 2026 sustituyendo el anticipo contra facturas de venta.
 - Bs. 186.376.000,00 (9,5%): REINTEGROS DE CAPITAL DEL CONTRATO DE PRÉSTAMO MUTUO Y LÍNEA DE CRÉDITO suscrito con el socio Manuel Becerra (Límite Bs. 600.000.000,00). Reducen la cuenta de activo "Cuentas por Cobrar Manuel Becerra" (saldo en balance Bs. 325.948.652,96).
 - Bs. 208.708.057,73 (10,6%): TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE AGRÍCOLA ONI C.A. (Banco Provincial, Mercantil, Plaza, Bancamiga). Impacto patrimonial neto de Bs. 0,00.
-- Bs. 29.495.954,99 (1,5%): APORTES DE ACCIONISTA PROPIETARIO ING. OMAR PÉREZ Y RESERVAS DE PERSONAS NATURALES.
+- Bs. 29.495.954,99 (1,5%): APORTES DE PRESIDENTE Y ACCIONISTA PROPIETARIO ELIAS RAFAEL TRÍAS ABREU Y RESERVAS DE PERSONAS NATURALES.
 
 2. INGRESOS FISCALES REALES DEVENGADOS:
 Los ingresos operacionales por Servicios Agrícolas (Bs. 78.717.472,35) más los Ingresos por Intereses del Mutuo Becerra (Bs. 13.924.047,66) totalizan exactamente Bs. 92.641.520,01, tal como refleja fielmente el Estado de Resultados al 31/08/2026.
 
-Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos a Futuro de Café Nacional, Comprobantes de compra de divisas ($556.890,45 USD), Guías SICA/CVC y Estados Financieros auditados CPC 41.802.
+Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos a Futuro de Café Nacional, Comprobantes de compra de divisas ($556.890,45 USD), Guías SICA/CVC y Estados Financieros auditados C.P.C. 16.336.
 
 Atentamente,
-Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
+Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador Público C.P.C. 16.336)
     `;
     navigator.clipboard.writeText(textContent.trim());
     setCopied(true);
@@ -178,8 +182,8 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
             </td>
             <td style="border:none;width:50%;text-align:center">
               _____________________________________<br>
-              <strong>Lcda. Carmen Rivas</strong><br>
-              Contador Público Colegiado Nro. 41.802<br>
+              <strong>Licdo. Omar Pérez Castillo</strong><br>
+              Contador Público C.P.C. 16.336<br>
               Auditor Externo Independiente
             </td>
           </tr>
@@ -241,6 +245,8 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
     exportToExcelXlsx({
       filename: 'Cuadre_Oficial_Abonos_Banesco_y_EEFF_2026.xlsx',
       sheetName: 'Cuadre Oficial Abonos 2026',
+      companyName: company.name,
+      companyRif: company.rif,
       title: 'COMPOSICIÓN OFICIAL DE ABONOS POR ORIGEN Y MES (BS) - ENERO A AGOSTO 2026',
       subtitle: 'Cuadre Oficial del Estado de Cuenta Banesco N° 0134-0342-18-3421089912 vs Estados Financieros',
       headers,
@@ -248,6 +254,341 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       totalsRow,
       columnWidths: [38, 65, 16, 16, 16, 16, 16, 16, 16, 16, 22, 14, 20]
     });
+  };
+
+  const handleExportTableOutflowWord = () => {
+    const tableRows = BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.rows.map(r => `
+      <tr>
+        <td><strong>${r.concepto}</strong><br><small style="color:#64748b">${r.legalClassification}</small></td>
+        <td class="num">${r.ene > 0 ? r.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.feb > 0 ? r.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.mar > 0 ? r.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.abr > 0 ? r.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.may > 0 ? r.may.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.jun > 0 ? r.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.jul > 0 ? r.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.ago > 0 ? r.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num" style="font-weight:bold;color:#0f172a">${r.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+        <td class="num" style="font-weight:bold;color:#d97706">${r.pctDelTotal.toFixed(1)}%</td>
+        <td class="num" style="font-weight:bold;color:#059669">$${r.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+      </tr>
+    `).join('');
+
+    const totals = BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals;
+
+    const htmlContent = `
+      <h1>${company.name}</h1>
+      <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Cuenta Banesco:</strong> ${company.banescoAccountVES}</p>
+      <h2>COMPOSICIÓN OFICIAL DE SALIDAS Y CARGOS BANESCO POR CONCEPTO Y MES (BS) &ndash; ENERO A AGOSTO 2026</h2>
+      <div class="highlight-box">
+        <strong>Resumen de Conciliación de Débitos / Egresos Bancarios:</strong><br>
+        Total Cargos Movilizados en Banesco: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
+        Principal Destino (59,3%): <strong>Bs. 1.161.270.000,00</strong> en Costo de Ventas y Liquidación de Compra de Café Verde a Productores.<br>
+        Saldo Final Conciliado en Banesco al 31/08/2026: <strong>Bs. 9.936.991,40</strong>.
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Concepto / Destino de Fondos</th>
+            <th class="num">Ene</th>
+            <th class="num">Feb</th>
+            <th class="num">Mar</th>
+            <th class="num">Abr</th>
+            <th class="num">May</th>
+            <th class="num">Jun</th>
+            <th class="num">Jul</th>
+            <th class="num">Ago</th>
+            <th class="num">Total Bs</th>
+            <th class="num">%</th>
+            <th class="num">Total USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+          <tr style="background-color:#0f172a;color:#ffffff;font-weight:bold">
+            <td style="color:#ffffff">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
+            <td class="num" style="color:#ffffff">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">100.0%</td>
+            <td class="num" style="color:#ffffff">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="footer-signatures">
+        <table style="border:none">
+          <tr style="border:none;background:none">
+            <td style="border:none;width:50%;text-align:center">
+              _____________________________________<br>
+              <strong>${company.legalRepresentative}</strong><br>
+              Presidente / Representante Legal<br>
+              ${company.name}
+            </td>
+            <td style="border:none;width:50%;text-align:center">
+              _____________________________________<br>
+              <strong>Licdo. Omar Pérez Castillo</strong><br>
+              Contador Público C.P.C. 16.336<br>
+              Auditor Externo Independiente
+            </td>
+          </tr>
+        </table>
+      </div>
+    `;
+
+    exportToWord('Composicion_Salidas_Cargos_Banesco_2026_Agricola_Oni.doc', 'Composición de Salidas y Cargos Banesco 2026', htmlContent);
+  };
+
+  const handleExportTableOutflowExcel = () => {
+    const headers = [
+      'Concepto / Destino de Fondos',
+      'Clasificación Legal / Contable (Auditoría)',
+      'Enero (Bs.)',
+      'Febrero (Bs.)',
+      'Marzo (Bs.)',
+      'Abril (Bs.)',
+      'Mayo (Bs.)',
+      'Junio (Bs.)',
+      'Julio (Bs.)',
+      'Agosto (Bs.)',
+      'Total Acumulado (Bs.)',
+      '% del Total',
+      'Contravalor USD ($)'
+    ];
+    const dataRows = BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.rows.map(r => [
+      r.concepto,
+      r.legalClassification,
+      r.ene,
+      r.feb,
+      r.mar,
+      r.abr,
+      r.may,
+      r.jun,
+      r.jul,
+      r.ago,
+      r.totalBs,
+      `${r.pctDelTotal.toFixed(1)}%`,
+      r.totalUSD
+    ]);
+    const t = BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals;
+    const totalsRow = [
+      'TOTAL GENERAL DE SALIDAS Y CARGOS BANESCO',
+      'Cuadre 100% Extracto Bancario Banesco vs EEFF 2026',
+      t.ene,
+      t.feb,
+      t.mar,
+      t.abr,
+      t.may,
+      t.jun,
+      t.jul,
+      t.ago,
+      t.totalBs,
+      '100.0%',
+      t.totalUSD
+    ];
+
+    exportToExcelXlsx({
+      filename: 'Composicion_Salidas_Cargos_Banesco_2026_Agricola_Oni.xlsx',
+      sheetName: 'Salidas Banesco 2026',
+      companyName: company.name,
+      companyRif: company.rif,
+      title: 'COMPOSICIÓN OFICIAL DE SALIDAS Y CARGOS BANESCO POR CONCEPTO Y MES (BS) - ENERO A AGOSTO 2026',
+      subtitle: 'Cuadre Oficial de Débitos del Estado de Cuenta Banesco N° 0134-0342-18-3421089912 vs Contabilidad EEFF',
+      headers,
+      rows: dataRows,
+      totalsRow,
+      columnWidths: [42, 65, 16, 16, 16, 16, 16, 16, 16, 16, 22, 14, 20]
+    });
+  };
+
+  const handleExportTableOutflowPdf = async () => {
+    const totals = BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals;
+    const tableRows = BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.rows.map(r => `
+      <tr>
+        <td><strong>${r.concepto}</strong><br><small style="color:#64748b">${r.legalClassification}</small></td>
+        <td class="num">${r.ene > 0 ? r.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.feb > 0 ? r.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.mar > 0 ? r.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.abr > 0 ? r.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.may > 0 ? r.may.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.jun > 0 ? r.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.jul > 0 ? r.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num">${r.ago > 0 ? r.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '—'}</td>
+        <td class="num" style="font-weight:bold;color:#0f172a">${r.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+        <td class="num" style="font-weight:bold;color:#d97706">${r.pctDelTotal.toFixed(1)}%</td>
+        <td class="num" style="font-weight:bold;color:#059669">$${r.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+      </tr>
+    `).join('');
+
+    const htmlContent = `
+      <h1>${company.name}</h1>
+      <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Cuenta Banesco:</strong> ${company.banescoAccountVES}</p>
+      <h2>COMPOSICIÓN OFICIAL DE SALIDAS Y CARGOS BANESCO POR CONCEPTO Y MES (BS) &ndash; ENERO A AGOSTO 2026</h2>
+      <div class="highlight-box">
+        <strong>Resumen Auditado de Débitos en Banesco:</strong><br>
+        Total Cargos Movilizados en Banesco: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
+        Costo de Ventas Directo (Materia Prima / Café Verde): <strong>Bs. 1.161.270.000,00 (59,3%)</strong>.<br>
+        Préstamos Accionista (Omar Pérez C.I. V-14.892.301): <strong>Bs. 375.630.000,00 (19,2%)</strong> &middot; Cuentas por Cobrar Socios.
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Concepto / Destino de Fondos</th>
+            <th class="num">Ene</th>
+            <th class="num">Feb</th>
+            <th class="num">Mar</th>
+            <th class="num">Abr</th>
+            <th class="num">May</th>
+            <th class="num">Jun</th>
+            <th class="num">Jul</th>
+            <th class="num">Ago</th>
+            <th class="num">Total Bs</th>
+            <th class="num">%</th>
+            <th class="num">Total USD</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+          <tr style="background-color:#0f172a;color:#ffffff;font-weight:bold">
+            <td style="color:#ffffff">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
+            <td class="num" style="color:#ffffff">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">100.0%</td>
+            <td class="num" style="color:#ffffff">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+
+    exportHtmlToPdf('Composicion_Salidas_Cargos_Banesco_2026_Agricola_Oni.pdf', 'Composición Oficial de Salidas y Cargos Banesco 2026', htmlContent);
+  };
+
+  const handleExportAdvancesDetailExcel = () => {
+    const headers = [
+      '# Ref',
+      'Fecha',
+      'Categoría de Cliente',
+      'RIF / C.I. Cliente',
+      'Referencia Banesco',
+      'Descripción en Extracto Bancario Banesco',
+      'Monto Recibido (Bs.)',
+      'Tasa BCV',
+      'Monto Equiv. (US$)',
+      'Comprobante / Soporte',
+      'Notas Auditadas & Calificación NIIF 15'
+    ];
+    const dataRows = ADVANCE_CLIENT_INDIVIDUAL_DETAILS.map(item => [
+      item.id,
+      item.date,
+      item.categoryLabel,
+      item.clientRifCi,
+      item.reference,
+      item.bankDescription,
+      item.amountVES,
+      item.bcvRate,
+      item.amountUSD,
+      item.supportRef,
+      item.notes
+    ]);
+
+    const totalVES = ADVANCE_CLIENT_INDIVIDUAL_DETAILS.reduce((acc, i) => acc + i.amountVES, 0);
+    const totalUSD = ADVANCE_CLIENT_INDIVIDUAL_DETAILS.reduce((acc, i) => acc + i.amountUSD, 0);
+
+    const totalsRow = [
+      'TOTAL GENERAL',
+      'Ene-Ago 2026',
+      'Personas Naturales + Jurídicas',
+      '100% Identificados',
+      'Extracto Banesco',
+      'Pasivo Corriente NIIF 15 - Facturación en Octubre',
+      totalVES,
+      '—',
+      totalUSD,
+      'Auditado Conforme',
+      'Sustento Legal y Fiscal SENIAT / SUDEBAN'
+    ];
+
+    exportToExcelXlsx({
+      filename: 'Detalle_Anticipos_Clientes_Personas_Naturales_y_Juridicas_2026.xlsx',
+      sheetName: 'Detalle Anticipos Clientes',
+      title: 'LISTA DETALLADA DE INGRESOS POR ANTICIPOS DE CLIENTES (PERSONAS NATURALES Y JURÍDICAS) - BANESCO 2026',
+      subtitle: `Total Bolívares: Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} | Total US$: $${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD | 79.5% de Ingresos Banesco`,
+      headers,
+      rows: dataRows,
+      totalsRow,
+      columnWidths: [12, 12, 32, 22, 18, 45, 22, 12, 18, 22, 45]
+    });
+  };
+
+  const handleExportAdvancesDetailWord = () => {
+    const rowsHtml = ADVANCE_CLIENT_INDIVIDUAL_DETAILS.map(item => `
+      <tr>
+        <td style="font-family:monospace">${item.id}</td>
+        <td>${item.date}</td>
+        <td><strong>${item.categoryLabel}</strong><br><small style="color:#475569">${item.clientRifCi}</small></td>
+        <td style="font-family:monospace">${item.reference}</td>
+        <td>${item.bankDescription}</td>
+        <td class="num" style="font-weight:bold;color:#059669">Bs. ${item.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+        <td class="num">Bs. ${item.bcvRate.toFixed(2)}</td>
+        <td class="num" style="font-weight:bold;color:#0f172a">$${item.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+        <td><small>${item.supportRef}</small></td>
+      </tr>
+    `).join('');
+
+    const totalVES = ADVANCE_CLIENT_INDIVIDUAL_DETAILS.reduce((acc, i) => acc + i.amountVES, 0);
+    const totalUSD = ADVANCE_CLIENT_INDIVIDUAL_DETAILS.reduce((acc, i) => acc + i.amountUSD, 0);
+
+    const htmlContent = `
+      <h1>${company.name}</h1>
+      <p><strong>RIF:</strong> ${company.rif} &middot; <strong>Cuenta Banesco:</strong> ${company.banescoAccountVES}</p>
+      <h2>DETALLE OFICIAL DE INGRESOS RECIBIDOS POR ANTICIPOS DE CLIENTES (PERSONAS NATURALES Y JURÍDICAS) &ndash; BANESCO 2026</h2>
+      <div class="highlight-box">
+        <strong>Resumen de Anticipos de Clientes en Banesco (NIIF 15):</strong><br>
+        1. Personas Naturales (15 Abonos Taquilla/Transferencias): <strong>Bs. 21.845.979,99</strong> ($36.069,06 USD).<br>
+        2. Terceros Jurídicos con RIF en Extracto: <strong>Bs. 528.578.549,25</strong> ($726.080,44 USD).<br>
+        3. Cartera Torrefactoras Banesco (TRANS.CTAS Mismo Banco): <strong>Bs. 1.013.438.543,38</strong> ($1.544.405,79 USD).<br>
+        <strong>TOTAL CONSOLIDADO ANTICIPOS: Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)</strong>.
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Fecha</th>
+            <th>Categoría / Identificación Cliente</th>
+            <th>Ref. Banesco</th>
+            <th>Descripción en Extracto</th>
+            <th class="num">Monto (Bs.)</th>
+            <th class="num">Tasa BCV</th>
+            <th class="num">Equiv. (US$)</th>
+            <th>Comprobante Soporte</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+          <tr style="background-color:#0f172a;color:#ffffff;font-weight:bold">
+            <td colspan="5" style="color:#ffffff">TOTAL GENERAL ANTICIPOS A CLIENTES</td>
+            <td class="num" style="color:#ffffff">Bs. ${totalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="color:#ffffff">—</td>
+            <td class="num" style="color:#ffffff">$${totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+            <td style="color:#ffffff">Pasivo Corriente NIIF 15</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
+
+    exportToWord('Detalle_Oficial_Anticipos_Clientes_Banesco_2026.doc', 'Detalle de Anticipos Recibidos de Clientes Banesco 2026', htmlContent);
   };
 
   const handleExportBecerraCsv = () => {
@@ -481,8 +822,8 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
             </td>
             <td style="border:none;width:50%;text-align:center">
               _____________________________________<br>
-              <strong>Lcda. Carmen Rivas</strong><br>
-              Contador Público Colegiado Nro. 41.802<br>
+              <strong>Licdo. Omar Pérez Castillo</strong><br>
+              Contador Público C.P.C. 16.336<br>
               Auditor Externo Independiente
             </td>
           </tr>
@@ -747,21 +1088,21 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
   };
 
   return (
-    <div className="space-y-6">
-      {/* Header Banner */}
-      <div className="bg-stone-900 border border-stone-800 p-6 rounded-xl shadow-lg">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-800 pb-5">
+    <div className="bg-slate-50/50 p-2 sm:p-4 rounded-2xl space-y-6">
+      {/* Header Banner in Soft Pastel Theme */}
+      <div className="bg-gradient-to-r from-amber-100/90 via-amber-50 to-sky-50 border-2 border-amber-200/90 p-6 rounded-2xl shadow-sm">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-200/80 pb-5">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="p-1.5 bg-amber-950 text-amber-400 border border-amber-800 rounded">
+            <div className="flex items-center gap-2.5">
+              <span className="p-2 bg-amber-200/80 text-amber-900 border border-amber-300 rounded-lg shadow-xs">
                 <Scale className="w-5 h-5" />
               </span>
-              <h2 className="text-xl font-bold text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-amber-950 tracking-tight">
                 Respuestas a Banesco / SENIAT: Cuadre Oficial de Abonos & EEFF 2026
               </h2>
             </div>
-            <p className="text-xs text-stone-400 mt-1">
-              {company.name} &middot; RIF <span className="font-mono text-amber-400">{company.rif}</span> &middot; Expediente Banesco AUD-BAN-2026-ONI-094
+            <p className="text-xs text-amber-900/80 font-medium mt-1.5 flex flex-wrap items-center gap-1">
+              <span>{company.name}</span> &middot; <span>RIF <strong className="font-mono text-amber-950">{company.rif}</strong></span> &middot; <span>Expediente Banesco AUD-BAN-2026-ONI-094</span>
             </p>
           </div>
 
@@ -780,10 +1121,10 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   handleExportTable1Csv();
                 }
               }}
-              className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
+              className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
               title="Descargar hoja de cálculo oficial en Microsoft Excel (.xlsx)"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5" />
+              <FileSpreadsheet className="w-4 h-4" />
               Descargar Excel (.xlsx)
             </button>
             <button
@@ -805,10 +1146,10 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   handleExportTable1Word();
                 }
               }}
-              className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
+              className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
               title="Descargar documento editable en formato Microsoft Word (.doc)"
             >
-              <FileDown className="w-3.5 h-3.5" />
+              <FileDown className="w-4 h-4" />
               Descargar Word (.doc)
             </button>
             <button
@@ -832,139 +1173,172 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   await handleExportTable1Pdf();
                 }
               }}
-              className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
+              className="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs transition-all flex items-center gap-1.5 shadow-sm"
               title="Descargar archivo PDF directo"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-4 h-4" />
               Descargar PDF
             </button>
             <button
               onClick={() => exportToPdfPrint()}
-              className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded text-xs font-medium transition-colors flex items-center gap-1 shadow"
+              className="px-3 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-xs"
               title="Imprimir documento físico (Ctrl+P)"
             >
-              <Printer className="w-3.5 h-3.5" />
+              <Printer className="w-4 h-4 text-slate-600" />
               Imprimir
             </button>
           </div>
         </div>
 
-        {/* 4 KPI Cards */}
+        {/* 4 KPI Cards in Pastel Colors */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-5 font-mono-num">
-          <div className="bg-stone-950/80 border border-stone-800 p-4 rounded-lg">
-            <span className="text-[11px] font-sans font-medium text-stone-400 block">Créditos Movilizados en BBU</span>
-            <span className="text-lg font-bold text-emerald-400 mt-1 block">
+          <div className="bg-emerald-50/90 border border-emerald-200/90 p-4 rounded-xl shadow-xs">
+            <span className="text-[11px] font-sans font-bold text-emerald-800 block">Créditos Movilizados en BBU</span>
+            <span className="text-lg font-black text-emerald-950 mt-1 block">
               Bs. {BANESCO_OFFICIAL_LETTER_2026.bankCreditsTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-stone-400 font-sans">
+            <span className="text-[11px] text-emerald-700 font-bold font-sans">
               ${BANESCO_OFFICIAL_LETTER_2026.bankCreditsAverageUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD prom.
             </span>
           </div>
 
-          <div className="bg-stone-950/80 border border-stone-800 p-4 rounded-lg">
-            <span className="text-[11px] font-sans font-medium text-stone-400 block">Ventas Declaradas en EEFF</span>
-            <span className="text-lg font-bold text-white mt-1 block">
+          <div className="bg-blue-50/90 border border-blue-200/90 p-4 rounded-xl shadow-xs">
+            <span className="text-[11px] font-sans font-bold text-blue-800 block">Ventas Declaradas en EEFF</span>
+            <span className="text-lg font-black text-blue-950 mt-1 block">
               Bs. {BANESCO_OFFICIAL_LETTER_2026.reportedRevenuesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-stone-400 font-sans">
+            <span className="text-[11px] text-blue-700 font-bold font-sans">
               ${BANESCO_OFFICIAL_LETTER_2026.reportedRevenuesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
             </span>
           </div>
 
-          <div className="bg-stone-950/80 border border-amber-900/60 p-4 rounded-lg bg-amber-950/10">
-            <span className="text-[11px] font-sans font-medium text-amber-300 block">Anticipos Ventas Café (NIIF 15)</span>
-            <span className="text-lg font-bold text-amber-400 mt-1 block">
+          <div className="bg-amber-100/90 border border-amber-300/90 p-4 rounded-xl shadow-xs">
+            <span className="text-[11px] font-sans font-bold text-amber-900 block">Anticipos Ventas Café (NIIF 15)</span>
+            <span className="text-lg font-black text-amber-950 mt-1 block">
               Bs. {(528578549.25 + 1013438543.38).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-stone-400 font-sans">
+            <span className="text-[11px] text-amber-800 font-bold font-sans">
               78.4% del banco &middot; Factura en Octubre
             </span>
           </div>
 
-          <div className="bg-stone-950/80 border border-emerald-900/60 p-4 rounded-lg bg-emerald-950/20">
-            <span className="text-[11px] font-sans font-medium text-emerald-300 block">Ctas x Cobrar Manuel Becerra</span>
-            <span className="text-lg font-bold text-emerald-400 mt-1 block">
+          <div className="bg-teal-50/90 border border-teal-200/90 p-4 rounded-xl shadow-xs">
+            <span className="text-[11px] font-sans font-bold text-teal-800 block">Ctas x Cobrar Manuel Becerra</span>
+            <span className="text-lg font-black text-teal-950 mt-1 block">
               Bs. {BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-stone-400 font-sans">
+            <span className="text-[11px] text-teal-700 font-bold font-sans">
               Línea Bs. 600M &middot; Saldo Cuadrado
             </span>
           </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="flex items-center gap-2 overflow-x-auto pt-5 border-t border-stone-800 mt-5 no-print text-xs">
-          <button
-            onClick={() => setActiveTab('TABLA_ORIGEN_MES')}
-            className={`px-3.5 py-2 rounded-lg font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
-              activeTab === 'TABLA_ORIGEN_MES'
-                ? 'bg-amber-600 text-stone-950 font-bold shadow'
-                : 'bg-stone-950 text-stone-300 hover:bg-stone-800'
-            }`}
-          >
-            <FileSpreadsheet className="w-3.5 h-3.5" />
-            <span>1. Composición de Abonos por Origen (Ene - Ago 2026)</span>
-          </button>
+        {/* PROMINENT PASTEL TAB NAVIGATION MENU */}
+        <div className="bg-gradient-to-r from-amber-200/80 via-orange-100/90 to-sky-100/80 border-2 border-amber-300 rounded-2xl p-4 shadow-md mt-6 no-print">
+          <div className="flex items-center justify-between mb-3 px-1">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-amber-600 animate-pulse ring-2 ring-amber-300"></span>
+              <span className="text-xs font-black uppercase tracking-wider text-slate-900">
+                MENÚ OFICIAL DE CUADROS E INFORMES (Haz clic para visualizar):
+              </span>
+            </div>
+            <span className="text-[11px] font-extrabold text-amber-900 bg-white/90 px-3 py-0.5 rounded-full border border-amber-300 shadow-2xs">
+              6 Módulos Disponibles
+            </span>
+          </div>
 
-          <button
-            onClick={() => setActiveTab('CARTA_BANCO_OFICIAL')}
-            className={`px-3.5 py-2 rounded-lg font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
-              activeTab === 'CARTA_BANCO_OFICIAL'
-                ? 'bg-amber-600 text-stone-950 font-bold shadow'
-                : 'bg-stone-950 text-stone-300 hover:bg-stone-800'
-            }`}
-          >
-            <FileCheck className="w-3.5 h-3.5" />
-            <span>2. Carta Explicativa a Banesco / SENIAT (Firmada)</span>
-          </button>
+          <div className="flex items-center gap-2.5 overflow-x-auto pb-1 text-xs">
+            <button
+              onClick={() => setActiveTab('TABLA_ORIGEN_MES')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'TABLA_ORIGEN_MES'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'TABLA_ORIGEN_MES' ? 'bg-slate-950 text-amber-300' : 'bg-emerald-100 text-emerald-800'}`}>1</span>
+              <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+              <span>1. Composición de Abonos por Origen (Ene - Ago 2026)</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('MANUEL_BECERRA')}
-            className={`px-3.5 py-2 rounded-lg font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
-              activeTab === 'MANUEL_BECERRA'
-                ? 'bg-amber-600 text-stone-950 font-bold shadow'
-                : 'bg-stone-950 text-stone-300 hover:bg-stone-800'
-            }`}
-          >
-            <Users className="w-3.5 h-3.5" />
-            <span>3. Contrato Mutuo Manuel Becerra (47 Movs)</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('TABLA_CARGOS_MES')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'TABLA_CARGOS_MES'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'TABLA_CARGOS_MES' ? 'bg-slate-950 text-amber-300' : 'bg-red-100 text-red-800'}`}>2</span>
+              <FileSpreadsheet className="w-4 h-4 text-red-600" />
+              <span>2. Composición de Salidas y Cargos Banesco (Ene - Ago 2026)</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('CONCILIACION_BANCO')}
-            className={`px-3.5 py-2 rounded-lg font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
-              activeTab === 'CONCILIACION_BANCO'
-                ? 'bg-amber-600 text-stone-950 font-bold shadow'
-                : 'bg-stone-950 text-stone-300 hover:bg-stone-800'
-            }`}
-          >
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>4. Conciliación Técnica: Banesco vs Ingresos EEFF</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('CARTA_BANCO_OFICIAL')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'CARTA_BANCO_OFICIAL'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'CARTA_BANCO_OFICIAL' ? 'bg-slate-950 text-amber-300' : 'bg-blue-100 text-blue-800'}`}>3</span>
+              <FileCheck className="w-4 h-4 text-blue-600" />
+              <span>3. Carta Explicativa a Banesco / SENIAT (Firmada)</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('EEFF_COMPARATIVO')}
-            className={`px-3.5 py-2 rounded-lg font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
-              activeTab === 'EEFF_COMPARATIVO'
-                ? 'bg-amber-600 text-stone-950 font-bold shadow'
-                : 'bg-stone-950 text-stone-300 hover:bg-stone-800'
-            }`}
-          >
-            <Building2 className="w-3.5 h-3.5" />
-            <span>5. Balance General (2025 vs 2026)</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('MANUEL_BECERRA')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'MANUEL_BECERRA'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'MANUEL_BECERRA' ? 'bg-slate-950 text-amber-300' : 'bg-purple-100 text-purple-800'}`}>4</span>
+              <Users className="w-4 h-4 text-purple-600" />
+              <span>4. Contrato Mutuo Manuel Becerra (47 Movs)</span>
+            </button>
 
-          <button
-            onClick={() => setActiveTab('ESTADO_RESULTADOS')}
-            className={`px-3.5 py-2 rounded-lg font-semibold transition-all flex items-center gap-1.5 shrink-0 ${
-              activeTab === 'ESTADO_RESULTADOS'
-                ? 'bg-amber-600 text-stone-950 font-bold shadow'
-                : 'bg-stone-950 text-stone-300 hover:bg-stone-800'
-            }`}
-          >
-            <TrendingUp className="w-3.5 h-3.5" />
-            <span>6. Estado de Resultados (2025 vs 2026)</span>
-          </button>
+            <button
+              onClick={() => setActiveTab('CONCILIACION_BANCO')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'CONCILIACION_BANCO'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'CONCILIACION_BANCO' ? 'bg-slate-950 text-amber-300' : 'bg-teal-100 text-teal-800'}`}>5</span>
+              <ShieldCheck className="w-4 h-4 text-teal-600" />
+              <span>5. Conciliación Técnica: Banesco vs Ingresos EEFF</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('EEFF_COMPARATIVO')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'EEFF_COMPARATIVO'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'EEFF_COMPARATIVO' ? 'bg-slate-950 text-amber-300' : 'bg-sky-100 text-sky-800'}`}>6</span>
+              <Building2 className="w-4 h-4 text-sky-600" />
+              <span>6. Balance General (2025 vs 2026)</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('ESTADO_RESULTADOS')}
+              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+                activeTab === 'ESTADO_RESULTADOS'
+                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
+                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+              }`}
+            >
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'ESTADO_RESULTADOS' ? 'bg-slate-950 text-amber-300' : 'bg-indigo-100 text-indigo-800'}`}>7</span>
+              <TrendingUp className="w-4 h-4 text-indigo-600" />
+              <span>7. Estado de Resultados (2025 vs 2026)</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -973,14 +1347,14 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       {/* ========================================================================= */}
       {activeTab === 'TABLA_ORIGEN_MES' && (
         <div className="space-y-6">
-          <div className="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow space-y-4">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-stone-800 pb-4">
+          <div className="bg-white border-2 border-amber-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-amber-200/80 pb-4">
               <div>
-                <h3 className="text-base font-bold text-white flex items-center gap-2">
-                  <FileSpreadsheet className="w-5 h-5 text-amber-500" />
+                <h3 className="text-base sm:text-lg font-black text-amber-950 flex items-center gap-2">
+                  <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
                   Composición Oficial de Abonos por Origen y Mes (Bs) &ndash; Enero a Agosto 2026
                 </h3>
-                <p className="text-xs text-stone-400 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed font-medium">
                   Cuadro oficial de depósitos bancarios Banesco (Cuenta Corriente N° 0134-0342-18-3421089912). Se identifica detalladamente cada origen de fondos para desvirtuar la observación de la Unidad de Cumplimiento.
                 </p>
               </div>
@@ -989,7 +1363,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 <div className="flex items-center gap-1.5 no-print">
                   <button
                     onClick={handleExportTable1Word}
-                    className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-xs"
                     title="Exportar esta tabla completa a Microsoft Word"
                   >
                     <FileDown className="w-3.5 h-3.5" />
@@ -997,7 +1371,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   </button>
                   <button
                     onClick={handleExportTable1Csv}
-                    className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+                    className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-xs"
                     title="Exportar a CSV compatible con Excel"
                   >
                     <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -1005,7 +1379,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   </button>
                   <button
                     onClick={handleExportTable1Pdf}
-                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1 shadow"
+                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs transition-all flex items-center gap-1 shadow-xs"
                     title="Descargar tabla oficial en archivo PDF directo"
                   >
                     <Download className="w-3.5 h-3.5" />
@@ -1013,18 +1387,18 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   </button>
                   <button
                     onClick={() => exportToPdfPrint()}
-                    className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+                    className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
                     title="Imprimir (Ctrl+P)"
                   >
                     <Printer className="w-3.5 h-3.5" />
                   </button>
                 </div>
-                <div className="bg-stone-950 p-3 rounded-lg border border-stone-800 text-right font-mono-num">
-                  <span className="text-[10px] text-stone-400 block font-sans">Total Fondos Movilizados:</span>
-                  <span className="text-lg font-bold text-emerald-400 block">
+                <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-right font-mono-num shadow-xs">
+                  <span className="text-[10px] text-emerald-800 block font-sans font-bold">Total Fondos Movilizados:</span>
+                  <span className="text-lg font-black text-emerald-950 block">
                     Bs. {BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                   </span>
-                  <span className="text-xs text-stone-300 block">
+                  <span className="text-xs text-emerald-800 font-bold block">
                     ${BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
                   </span>
                 </div>
@@ -1032,20 +1406,20 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
             </div>
 
             {/* Aclaratoria sobre el renglón amarillo (51.5%) */}
-            <div className="bg-amber-950/30 border border-amber-600/60 p-4 rounded-xl text-xs space-y-2">
-              <div className="flex items-center gap-2 text-amber-400 font-bold">
-                <AlertTriangle className="w-4 h-4" />
+            <div className="bg-amber-100/90 border border-amber-300 p-4 rounded-xl text-xs space-y-2 shadow-2xs">
+              <div className="flex items-center gap-2 text-amber-950 font-black">
+                <AlertTriangle className="w-4 h-4 text-amber-700" />
                 <span>Actualización Clave: Identificación Total del Renglón Amarillo (51.5%)</span>
               </div>
-              <p className="text-stone-300 leading-relaxed">
-                El renglón que anteriormente figuraba como <strong className="text-amber-300 font-mono">«Banesco sin identificar (TRANS,CTAS)»</strong> por <strong>Bs. 1.013.438.543,38 (51.5% del total)</strong> ha sido completamente verificado y clasificado: corresponde a <strong>ANTICIPOS EN VENTAS DE CLIENTES TORREFACTORES INDUSTRIALES</strong> mediante transferencias internas entre cuentas Banesco. Junto al renglón de Terceros con RIF (Bs. 528,58M &middot; 26.9%), suman <strong>Bs. 1.542,02 millones (78.4%)</strong> de anticipos para compra e intermediación de café en Venezuela a tasa BCV bajo la norma <strong>NIIF 15</strong>, cuyo café se entrega y factura en <strong>Octubre de 2026</strong>.
+              <p className="text-amber-950 leading-relaxed font-medium">
+                El renglón que anteriormente figuraba como <strong className="text-amber-900 font-mono">«Banesco sin identificar (TRANS,CTAS)»</strong> por <strong>Bs. 1.013.438.543,38 (51.5% del total)</strong> ha sido completamente verificado y clasificado: corresponde a <strong>ANTICIPOS EN VENTAS DE CLIENTES TORREFACTORES INDUSTRIALES</strong> mediante transferencias internas entre cuentas Banesco. Junto al renglón de Terceros con RIF (Bs. 528,58M &middot; 26.9%), suman <strong>Bs. 1.542,02 millones (78.4%)</strong> de anticipos para compra e intermediación de café en Venezuela a tasa BCV bajo la norma <strong>NIIF 15</strong>, cuyo café se entrega y factura en <strong>Octubre de 2026</strong>.
               </p>
             </div>
 
             {/* Tabla Completa con los 8 Meses */}
-            <div className="overflow-x-auto border border-stone-800 rounded-lg">
-              <table className="w-full text-xs text-left text-stone-300">
-                <thead className="bg-stone-950 text-stone-400 uppercase text-[10px] tracking-wider border-b border-stone-800 font-mono">
+            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-xs text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
                   <tr>
                     <th className="px-3 py-2.5">Origen</th>
                     <th className="px-2.5 py-2.5 text-right">Ene</th>
@@ -1056,12 +1430,12 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                     <th className="px-2.5 py-2.5 text-right">Jun</th>
                     <th className="px-2.5 py-2.5 text-right">Jul</th>
                     <th className="px-2.5 py-2.5 text-right">Ago</th>
-                    <th className="px-3 py-2.5 text-right text-white">Total Bs</th>
-                    <th className="px-2.5 py-2.5 text-right text-amber-400">% Total</th>
-                    <th className="px-3 py-2.5 text-right text-emerald-400">Total US$</th>
+                    <th className="px-3 py-2.5 text-right text-slate-900 font-black">Total Bs</th>
+                    <th className="px-2.5 py-2.5 text-right text-amber-900 font-black">% Total</th>
+                    <th className="px-3 py-2.5 text-right text-emerald-900 font-black">Total US$</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-800 font-mono-num">
+                <tbody className="divide-y divide-slate-200 font-mono-num">
                   {BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.rows.map((row) => {
                     const isYellowRow = row.id === 'ORIG-06';
                     return (
@@ -1069,38 +1443,38 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                         key={row.id}
                         className={`transition-colors ${
                           isYellowRow
-                            ? 'bg-amber-950/40 font-bold border-y-2 border-amber-600/80 hover:bg-amber-900/30'
-                            : 'hover:bg-stone-800/40'
+                            ? 'bg-amber-100 font-bold border-y-2 border-amber-400 hover:bg-amber-200/80 text-amber-950'
+                            : 'hover:bg-amber-50/60 text-slate-800'
                         }`}
                       >
                         <td className="px-3 py-2.5 font-sans">
-                          <span className={`block font-semibold ${isYellowRow ? 'text-amber-300 text-xs' : 'text-stone-100'}`}>
+                          <span className={`block font-semibold ${isYellowRow ? 'text-amber-950 text-xs font-bold' : 'text-slate-900 font-bold'}`}>
                             {row.origen}
                           </span>
-                          <span className="text-[10px] text-stone-400 block font-normal mt-0.5">{row.legalClassification}</span>
+                          <span className="text-[10px] text-slate-500 block font-normal mt-0.5">{row.legalClassification}</span>
                         </td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-400">{row.ene > 0 ? row.ene.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-400">{row.feb > 0 ? row.feb.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-400">{row.mar > 0 ? row.mar.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-400">{row.abr > 0 ? row.abr.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-400">{row.may > 0 ? row.may.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-300">{row.jun > 0 ? row.jun.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-300">{row.jul > 0 ? row.jul.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-2.5 py-2.5 text-right text-stone-300">{row.ago > 0 ? row.ago.toLocaleString('es-VE') : '—'}</td>
-                        <td className="px-3 py-2.5 text-right font-bold text-white whitespace-nowrap">
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.ene > 0 ? row.ene.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.feb > 0 ? row.feb.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.mar > 0 ? row.mar.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.abr > 0 ? row.abr.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.may > 0 ? row.may.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-700">{row.jun > 0 ? row.jun.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-700">{row.jul > 0 ? row.jul.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-700">{row.ago > 0 ? row.ago.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-3 py-2.5 text-right font-black text-slate-950 whitespace-nowrap">
                           {row.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                         </td>
-                        <td className="px-2.5 py-2.5 text-right font-bold text-amber-400 whitespace-nowrap">
+                        <td className="px-2.5 py-2.5 text-right font-black text-amber-900 whitespace-nowrap">
                           {row.pctDelTotal.toFixed(1)}%
                         </td>
-                        <td className="px-3 py-2.5 text-right font-bold text-emerald-400 whitespace-nowrap">
+                        <td className="px-3 py-2.5 text-right font-black text-emerald-900 whitespace-nowrap">
                           ${row.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
-                <tfoot className="bg-stone-950 border-t-2 border-stone-700 font-mono-num font-bold text-xs text-white">
+                <tfoot className="bg-slate-200 border-t-2 border-slate-400 font-mono-num font-bold text-xs text-slate-950">
                   <tr>
                     <td className="px-3 py-3 uppercase font-sans">TOTAL</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.ene.toLocaleString('es-VE')}</td>
@@ -1111,12 +1485,233 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.jun.toLocaleString('es-VE')}</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.jul.toLocaleString('es-VE')}</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.ago.toLocaleString('es-VE')}</td>
-                    <td className="px-3 py-3 text-right text-emerald-400">
+                    <td className="px-3 py-3 text-right text-emerald-950 font-black">
                       Bs. {BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="px-2.5 py-3 text-right text-amber-400">100.0%</td>
-                    <td className="px-3 py-3 text-right text-emerald-400">
+                    <td className="px-2.5 py-3 text-right text-amber-950 font-black">100.0%</td>
+                    <td className="px-3 py-3 text-right text-emerald-950 font-black">
                       ${BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026.totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          {/* SECCIÓN ADICIONAL: LISTA DETALLADA DE CLIENTES (PERSONAS NATURALES Y JURÍDICAS) */}
+          <div className="bg-white border-2 border-emerald-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-emerald-200/80 pb-4">
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-emerald-950 flex items-center gap-2">
+                  <Users className="w-5 h-5 text-emerald-600" />
+                  Lista Oficial y Detallada de Clientes que Otorgaron Anticipos (Personas Naturales y Jurídicas)
+                </h3>
+                <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed font-medium">
+                  Relación analítica e individualizada de abonos bancarios en Banesco (Cuenta N° 0134-0342-18-3421089912) clasificados como Anticipos Recibidos de Clientes bajo la norma NIIF 15.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 no-print shrink-0">
+                <button
+                  onClick={handleExportAdvancesDetailExcel}
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+                  title="Exportar esta lista completa de Personas Naturales y Jurídicas a Excel (.xlsx)"
+                >
+                  <FileSpreadsheet className="w-4 h-4" />
+                  Excel (.xlsx)
+                </button>
+                <button
+                  onClick={handleExportAdvancesDetailWord}
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-xs"
+                  title="Exportar esta lista a Microsoft Word (.doc)"
+                >
+                  <FileDown className="w-3.5 h-3.5" />
+                  Word (.doc)
+                </button>
+                <button
+                  onClick={() => exportToPdfPrint()}
+                  className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
+                  title="Imprimir lista (Ctrl+P)"
+                >
+                  <Printer className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Botones Interactivos de Selección de Categoría de Anticipos */}
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5 font-mono-num text-xs no-print">
+              <button
+                type="button"
+                onClick={() => setAdvancesFilter('ALL')}
+                className={`p-3 rounded-xl border text-left transition-all ${
+                  advancesFilter === 'ALL'
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-md ring-2 ring-slate-900/30'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-800 border-slate-300'
+                }`}
+              >
+                <span className="text-[10px] font-sans font-bold uppercase block opacity-80">Ver Todos (30 Registros)</span>
+                <span className="text-sm font-black mt-0.5 block">Bs. 1.563.864.529,24</span>
+                <span className="text-[10px] font-bold opacity-90">$2.306.555,29 USD &middot; Total Anticipos</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setAdvancesFilter('PERSONA_NATURAL')}
+                className={`p-3 rounded-xl border text-left transition-all ${
+                  advancesFilter === 'PERSONA_NATURAL'
+                    ? 'bg-emerald-700 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
+                    : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border-emerald-300'
+                }`}
+              >
+                <span className="text-[10px] font-sans font-bold uppercase block opacity-90">1. Personas Naturales (15 Abonos)</span>
+                <span className="text-sm font-black mt-0.5 block">Bs. 21.845.979,99</span>
+                <span className="text-[10px] font-bold opacity-90">$36.069,06 USD &middot; Taquilla/Transf. Banesco</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setAdvancesFilter('PERSONA_JURIDICA')}
+                className={`p-3 rounded-xl border text-left transition-all ${
+                  advancesFilter === 'PERSONA_JURIDICA'
+                    ? 'bg-sky-700 text-white border-sky-800 shadow-md ring-2 ring-sky-500/40'
+                    : 'bg-sky-50 hover:bg-sky-100 text-sky-950 border-sky-300'
+                }`}
+              >
+                <span className="text-[10px] font-sans font-bold uppercase block opacity-90">2. Personas Jurídicas (Empresas RIF)</span>
+                <span className="text-sm font-black mt-0.5 block">Bs. 528.578.549,25</span>
+                <span className="text-[10px] font-bold opacity-90">$726.080,44 USD &middot; 7 Referencias Bancarias</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setAdvancesFilter('TORREFACTORA_BANESCO')}
+                className={`p-3 rounded-xl border text-left transition-all ${
+                  advancesFilter === 'TORREFACTORA_BANESCO'
+                    ? 'bg-amber-700 text-white border-amber-800 shadow-md ring-2 ring-amber-500/40'
+                    : 'bg-amber-100 hover:bg-amber-200 text-amber-950 border-amber-300'
+                }`}
+              >
+                <span className="text-[10px] font-sans font-bold uppercase block opacity-90">3. Cartera Torrefactoras Banesco</span>
+                <span className="text-sm font-black mt-0.5 block">Bs. 1.013.438.543,38</span>
+                <span className="text-[10px] font-bold opacity-90">$1.544.405,79 USD &middot; TRANS.CTAS Mismo Banco</span>
+              </button>
+            </div>
+
+            {/* Título Dinámico según Filtro Activo */}
+            <div className="bg-slate-100 px-4 py-2.5 rounded-xl border border-slate-300 flex items-center justify-between">
+              <span className="text-xs font-black text-slate-900 uppercase font-sans flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 inline-block"></span>
+                {advancesFilter === 'PERSONA_NATURAL' && 'CUADRO DETALLADO: 15 ABONOS DE PERSONAS NATURALES QUE OTORGARON ANTICIPO (BANESCO)'}
+                {advancesFilter === 'PERSONA_JURIDICA' && 'CUADRO DETALLADO: PERSONAS JURÍDICAS QUE OTORGARON ANTICIPO EN VENTAS (BANESCO)'}
+                {advancesFilter === 'TORREFACTORA_BANESCO' && 'CUADRO DETALLADO: CARTERA MAYORISTA DE TORREFACTORAS BANESCO (TRANS.CTAS)'}
+                {advancesFilter === 'ALL' && 'LISTA CONSOLIDADA COMPLETA DE ANTICIPOS A CLIENTES (PERSONAS NATURALES Y JURÍDICAS)'}
+              </span>
+              <span className="text-[11px] font-mono font-bold text-slate-600">
+                Mostrando {
+                  ADVANCE_CLIENT_INDIVIDUAL_DETAILS.filter((item) => {
+                    if (advancesFilter === 'PERSONA_NATURAL') return item.category === 'PERSONA_NATURAL';
+                    if (advancesFilter === 'PERSONA_JURIDICA') return item.category === 'PERSONA_JURIDICA';
+                    if (advancesFilter === 'TORREFACTORA_BANESCO') return item.category === 'TORREFACTORA_BANESCO';
+                    return true;
+                  }).length
+                } registro(s)
+              </span>
+            </div>
+
+            {/* Tabla Detallada Filtrada */}
+            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-xs text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
+                  <tr>
+                    <th className="px-3 py-2.5"># Ref</th>
+                    <th className="px-2.5 py-2.5">Fecha</th>
+                    <th className="px-3 py-2.5">Categoría & Identificación del Cliente</th>
+                    <th className="px-2.5 py-2.5">Ref. Banesco</th>
+                    <th className="px-3 py-2.5">Descripción en Extracto Banesco</th>
+                    <th className="px-3 py-2.5 text-right text-emerald-900 font-black">Monto (Bs.)</th>
+                    <th className="px-2.5 py-2.5 text-right">Tasa BCV</th>
+                    <th className="px-3 py-2.5 text-right text-slate-900 font-black">Monto (US$)</th>
+                    <th className="px-3 py-2.5">Comprobante & Soporte NIIF 15</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200 font-mono-num">
+                  {ADVANCE_CLIENT_INDIVIDUAL_DETAILS.filter((item) => {
+                    if (advancesFilter === 'PERSONA_NATURAL') return item.category === 'PERSONA_NATURAL';
+                    if (advancesFilter === 'PERSONA_JURIDICA') return item.category === 'PERSONA_JURIDICA';
+                    if (advancesFilter === 'TORREFACTORA_BANESCO') return item.category === 'TORREFACTORA_BANESCO';
+                    return true;
+                  }).map((item) => {
+                    const isNatural = item.category === 'PERSONA_NATURAL';
+                    const isJuridica = item.category === 'PERSONA_JURIDICA';
+                    return (
+                      <tr
+                        key={item.id}
+                        className={`transition-colors ${
+                          isNatural
+                            ? 'bg-emerald-50/70 hover:bg-emerald-100/80 font-medium'
+                            : isJuridica
+                            ? 'bg-sky-50/50 hover:bg-sky-100/70 font-medium'
+                            : 'hover:bg-amber-50/60'
+                        }`}
+                      >
+                        <td className="px-3 py-2.5 font-mono text-[11px] font-bold text-slate-700">{item.id}</td>
+                        <td className="px-2.5 py-2.5 text-slate-700 whitespace-nowrap">{item.date}</td>
+                        <td className="px-3 py-2.5 font-sans">
+                          <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-black uppercase mb-0.5 ${
+                            isNatural
+                              ? 'bg-emerald-200 text-emerald-950 border border-emerald-300'
+                              : isJuridica
+                              ? 'bg-sky-200 text-sky-950 border border-sky-300'
+                              : 'bg-amber-200 text-amber-950 border border-amber-300'
+                          }`}>
+                            {item.categoryLabel}
+                          </span>
+                          <span className="block font-bold text-slate-900 text-xs">{item.clientName}</span>
+                          <span className="text-[10px] text-slate-500 block">{item.clientRifCi}</span>
+                        </td>
+                        <td className="px-2.5 py-2.5 font-mono font-bold text-slate-800 whitespace-nowrap">{item.reference}</td>
+                        <td className="px-3 py-2.5 font-sans text-xs text-slate-700 max-w-xs">{item.bankDescription}</td>
+                        <td className="px-3 py-2.5 text-right font-black text-emerald-950 whitespace-nowrap">
+                          Bs. {item.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600 whitespace-nowrap">
+                          Bs. {item.bcvRate.toFixed(2)}
+                        </td>
+                        <td className="px-3 py-2.5 text-right font-black text-slate-950 whitespace-nowrap">
+                          ${item.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-3 py-2.5 font-sans text-[11px]">
+                          <span className="font-bold text-slate-800 block">{item.supportRef}</span>
+                          <span className="text-[10px] text-slate-500 leading-tight block">{item.notes}</span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot className="bg-slate-900 text-white font-mono-num font-bold text-xs">
+                  <tr>
+                    <td colSpan={5} className="px-3 py-3 uppercase font-sans tracking-wider text-amber-300">
+                      SUBTOTAL / TOTAL FILTRADO EN TABLA
+                    </td>
+                    <td className="px-3 py-3 text-right text-emerald-300 font-black">
+                      Bs. {ADVANCE_CLIENT_INDIVIDUAL_DETAILS.filter((item) => {
+                        if (advancesFilter === 'PERSONA_NATURAL') return item.category === 'PERSONA_NATURAL';
+                        if (advancesFilter === 'PERSONA_JURIDICA') return item.category === 'PERSONA_JURIDICA';
+                        if (advancesFilter === 'TORREFACTORA_BANESCO') return item.category === 'TORREFACTORA_BANESCO';
+                        return true;
+                      }).reduce((a, b) => a + b.amountVES, 0).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="px-2.5 py-3 text-right text-slate-400">—</td>
+                    <td className="px-3 py-3 text-right text-amber-300 font-black">
+                      ${ADVANCE_CLIENT_INDIVIDUAL_DETAILS.filter((item) => {
+                        if (advancesFilter === 'PERSONA_NATURAL') return item.category === 'PERSONA_NATURAL';
+                        if (advancesFilter === 'PERSONA_JURIDICA') return item.category === 'PERSONA_JURIDICA';
+                        if (advancesFilter === 'TORREFACTORA_BANESCO') return item.category === 'TORREFACTORA_BANESCO';
+                        return true;
+                      }).reduce((a, b) => a + b.amountUSD, 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="px-3 py-3 font-sans text-[10px] text-slate-300">
+                      100% Pasivo Corriente NIIF 15 &middot; Facturación en Octubre 2026
                     </td>
                   </tr>
                 </tfoot>
@@ -1127,18 +1722,181 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 2: CARTA EXPLICATIVA OFICIAL FIRMADA A BANESCO / SENIAT */}
+      {/* TAB 2: COMPOSICIÓN DE SALIDAS O CARGOS BANESCO POR CONCEPTO Y MES (BS) */}
+      {/* ========================================================================= */}
+      {activeTab === 'TABLA_CARGOS_MES' && (
+        <div className="space-y-6">
+          <div className="bg-white border-2 border-red-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-red-200/80 pb-4">
+              <div>
+                <h3 className="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+                  <FileSpreadsheet className="w-5 h-5 text-red-600" />
+                  Composición Oficial de Salidas y Cargos Banesco por Concepto y Mes (Bs) &ndash; Enero a Agosto 2026
+                </h3>
+                <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed font-medium">
+                  Matriz oficial de débitos y egresos en Banesco (Cuenta Corriente N° 0134-0342-18-3421089912). Muestra el destino detallado de cada desembolso registrado en la contabilidad y estados financieros de la empresa.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-end gap-3 shrink-0">
+                <div className="flex items-center gap-1.5 no-print">
+                  <button
+                    onClick={handleExportTableOutflowExcel}
+                    className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
+                    title="Exportar a Microsoft Excel (.xlsx) nativo con formato oficial"
+                  >
+                    <FileSpreadsheet className="w-4 h-4" />
+                    Excel (.xlsx)
+                  </button>
+                  <button
+                    onClick={handleExportTableOutflowWord}
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-xs"
+                    title="Exportar esta tabla a Microsoft Word (.doc)"
+                  >
+                    <FileDown className="w-3.5 h-3.5" />
+                    Word (.doc)
+                  </button>
+                  <button
+                    onClick={handleExportTableOutflowPdf}
+                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs transition-all flex items-center gap-1 shadow-xs"
+                    title="Descargar tabla en PDF"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    PDF
+                  </button>
+                  <button
+                    onClick={() => exportToPdfPrint()}
+                    className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
+                    title="Imprimir (Ctrl+P)"
+                  >
+                    <Printer className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <div className="bg-red-50 p-3 rounded-xl border border-red-200 text-right font-mono-num shadow-xs">
+                  <span className="text-[10px] text-red-800 block font-sans font-bold">Total Salidas / Cargos Banesco:</span>
+                  <span className="text-lg font-black text-red-950 block">
+                    Bs. {BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                  </span>
+                  <span className="text-xs text-red-800 font-bold block">
+                    ${BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Resumen explicativo de conciliación */}
+            <div className="bg-emerald-50/90 border border-emerald-200 p-4 rounded-xl text-xs space-y-2 shadow-2xs">
+              <div className="flex items-center gap-2 text-emerald-950 font-black">
+                <ShieldCheck className="w-4 h-4 text-emerald-700" />
+                <span>Conciliación Matemática 100% Exacta entre Entradas, Salidas y Saldo en Cuenta Banesco</span>
+              </div>
+              <p className="text-slate-800 leading-relaxed font-medium">
+                (+) Total Abonos / Entradas Banesco (Ene-Ago 2026): <strong className="text-emerald-800 font-bold">Bs. 1.966.597.105,35</strong> ($2.912.368,95 USD) <br />
+                (-) Total Cargos / Salidas Banesco (Ene-Ago 2026): <strong className="text-red-700 font-bold">Bs. 1.956.660.113,95</strong> ($2.897.684,28 USD) <br />
+                (=) Saldo Conciliado en Banesco al 31/08/2026: <strong className="text-amber-900 font-bold">Bs. 9.936.991,40</strong> ($14.684,67 USD Tasa BCV 676.70 / BBU). El 59.3% de las salidas corresponde al Costo de Ventas para acopio de café verde, y el 19.2% a préstamos corporativos al accionista registrados como Cuentas por Cobrar Socios.
+              </p>
+            </div>
+
+            {/* Tabla Completa de Salidas y Cargos */}
+            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-xs text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
+                  <tr>
+                    <th className="px-3 py-2.5">Concepto / Destino de Fondos</th>
+                    <th className="px-2.5 py-2.5 text-right">Ene</th>
+                    <th className="px-2.5 py-2.5 text-right">Feb</th>
+                    <th className="px-2.5 py-2.5 text-right">Mar</th>
+                    <th className="px-2.5 py-2.5 text-right">Abr</th>
+                    <th className="px-2.5 py-2.5 text-right">May</th>
+                    <th className="px-2.5 py-2.5 text-right">Jun</th>
+                    <th className="px-2.5 py-2.5 text-right">Jul</th>
+                    <th className="px-2.5 py-2.5 text-right">Ago</th>
+                    <th className="px-3 py-2.5 text-right text-slate-900 font-black">Total Bs</th>
+                    <th className="px-2.5 py-2.5 text-right text-amber-900 font-black">% Total</th>
+                    <th className="px-3 py-2.5 text-right text-emerald-900 font-black">Total US$</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200 font-mono-num">
+                  {BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.rows.map((row) => {
+                    const isMainCostRow = row.id === 'OUT-03';
+                    const isShareholderRow = row.id === 'OUT-06';
+                    return (
+                      <tr
+                        key={row.id}
+                        className={`transition-colors ${
+                          isMainCostRow
+                            ? 'bg-emerald-50/80 font-bold border-y border-emerald-300 hover:bg-emerald-100'
+                            : isShareholderRow
+                            ? 'bg-blue-50/80 font-semibold border-y border-blue-200 hover:bg-blue-100'
+                            : 'hover:bg-slate-50'
+                        }`}
+                      >
+                        <td className="px-3 py-2.5 font-sans">
+                          <span className={`block font-semibold ${isMainCostRow ? 'text-emerald-950 font-bold text-xs' : isShareholderRow ? 'text-blue-950 font-bold text-xs' : 'text-slate-900 font-bold'}`}>
+                            {row.concepto}
+                          </span>
+                          <span className="text-[10px] text-slate-500 block font-normal mt-0.5">{row.legalClassification}</span>
+                        </td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.ene > 0 ? row.ene.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.feb > 0 ? row.feb.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.mar > 0 ? row.mar.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.abr > 0 ? row.abr.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-600">{row.may > 0 ? row.may.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-700">{row.jun > 0 ? row.jun.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-700">{row.jul > 0 ? row.jul.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-2.5 py-2.5 text-right text-slate-700">{row.ago > 0 ? row.ago.toLocaleString('es-VE') : '—'}</td>
+                        <td className="px-3 py-2.5 text-right font-black text-slate-950 whitespace-nowrap">
+                          {row.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-2.5 py-2.5 text-right font-black text-amber-900 whitespace-nowrap">
+                          {row.pctDelTotal.toFixed(1)}%
+                        </td>
+                        <td className="px-3 py-2.5 text-right font-black text-emerald-900 whitespace-nowrap">
+                          ${row.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot className="bg-slate-200 border-t-2 border-slate-400 font-mono-num font-bold text-xs text-slate-950">
+                  <tr>
+                    <td className="px-3 py-3 uppercase font-sans">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.ene.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.feb.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.mar.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.abr.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.may.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.jun.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.jul.toLocaleString('es-VE')}</td>
+                    <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.ago.toLocaleString('es-VE')}</td>
+                    <td className="px-3 py-3 text-right text-red-400">
+                      Bs. {BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="px-2.5 py-3 text-right text-amber-400">100.0%</td>
+                    <td className="px-3 py-3 text-right text-emerald-400">
+                      ${BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* TAB 3: CARTA EXPLICATIVA OFICIAL FIRMADA A BANESCO / SENIAT */}
       {/* ========================================================================= */}
       {activeTab === 'CARTA_BANCO_OFICIAL' && (
         <div className="space-y-6">
           {/* Action Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 bg-stone-900 border border-stone-800 p-4 rounded-xl no-print">
+          <div className="flex flex-wrap items-center justify-between gap-4 bg-white border-2 border-blue-200/90 p-5 rounded-2xl shadow-sm no-print">
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <FileCheck className="w-4 h-4 text-emerald-400" />
+              <h3 className="text-sm sm:text-base font-black text-slate-900 flex items-center gap-2">
+                <FileCheck className="w-5 h-5 text-emerald-600" />
                 Carta Explicativa Formal Firmada (Respuesta al Oficio de Banesco)
               </h3>
-              <p className="text-xs text-stone-400">
+              <p className="text-xs text-slate-600 font-medium mt-0.5">
                 Lista para consignar ante la Unidad de Prevención LC/FT de Banesco y la Gerencia de Fiscalización del SENIAT.
               </p>
             </div>
@@ -1151,17 +1909,17 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                     exportToWord('Carta_Explicativa_Banesco_Agricola_Oni_2026.doc', 'Carta Explicativa Oficial - Banesco Banco Universal', letterElement.innerHTML);
                   }
                 }}
-                className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold flex items-center gap-1.5 shadow"
+                className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs"
                 title="Descargar carta oficial en formato Microsoft Word editable (.doc)"
               >
-                <FileDown className="w-3.5 h-3.5" />
+                <FileDown className="w-4 h-4" />
                 Descargar en Word (.doc)
               </button>
               <button
                 onClick={handleCopyLetter}
-                className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded text-xs font-semibold flex items-center gap-1.5"
+                className="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4 text-slate-600" />}
                 {copied ? 'Copiado al Portapapeles' : 'Copiar Texto Oficial'}
               </button>
               <button
@@ -1171,25 +1929,25 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                     await downloadElementAsPdf(letterElement, 'Carta_Explicativa_Oficial_Banesco_Agricola_Oni_2026.pdf');
                   }
                 }}
-                className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs flex items-center gap-1.5 shadow"
+                className="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs flex items-center gap-1.5 shadow-xs"
                 title="Descargar carta oficial en archivo PDF directo"
               >
-                <Download className="w-3.5 h-3.5" />
+                <Download className="w-4 h-4" />
                 Descargar PDF
               </button>
               <button
                 onClick={() => exportToPdfPrint()}
-                className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs font-semibold flex items-center gap-1 shadow"
+                className="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 rounded-lg text-xs font-bold flex items-center gap-1 shadow-xs"
                 title="Imprimir (Ctrl+P)"
               >
-                <Printer className="w-3.5 h-3.5" />
+                <Printer className="w-4 h-4 text-slate-600" />
                 Imprimir
               </button>
             </div>
           </div>
 
           {/* Official Letter Paper */}
-          <div id="carta-banesco-doc-container" className="bg-white text-stone-900 rounded-xl shadow-2xl p-8 sm:p-12 max-w-4xl mx-auto border border-stone-200 text-xs leading-relaxed font-sans print:shadow-none print:border-none print:p-0 print:m-0">
+          <div id="carta-banesco-doc-container" className="bg-white text-stone-900 rounded-2xl shadow-xl p-8 sm:p-12 max-w-4xl mx-auto border border-stone-200 text-xs leading-relaxed font-sans print:shadow-none print:border-none print:p-0 print:m-0">
             {/* Header */}
             <div className="border-b-2 border-stone-900 pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start gap-4">
               <div>
@@ -1255,7 +2013,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   <div>
                     <strong>4. Aportes Operativos de Personas Naturales &mdash; Bs. 29.495.954,99 (1,5%):</strong>
                     <br />
-                    Integrados por el accionista propietario Ing. Omar Pérez C.I. V-14.892.301 (Bs. 7.649.975,00) y compradores personas naturales identificadas en extractos Banesco (Bs. 21.845.979,99) por reservas menores y suministros de campo.
+                    Integrados por el Presidente y accionista propietario Elias Rafael Trías Abreu C.I. V-14.892.301 (Bs. 7.649.975,00) y compradores personas naturales identificadas en extractos Banesco (Bs. 21.845.979,99) por reservas menores y suministros de campo.
                   </div>
 
                   <div>
@@ -1288,7 +2046,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               <div>
                 <div className="h-10 flex items-center">
                   <span className="font-serif italic text-amber-900 text-xs border-b border-stone-700 px-4">
-                    Omar Pérez C. &mdash; Presidente / Rep. Legal
+                    Elias Rafael Trías Abreu &mdash; Presidente / Propietario
                   </span>
                 </div>
                 <p className="font-bold text-stone-950 mt-1">{company.legalRepresentative}</p>
@@ -1299,11 +2057,11 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               <div className="text-right">
                 <div className="h-10 flex items-center justify-end">
                   <span className="font-mono text-emerald-800 text-[10px] border-b border-stone-700 px-4">
-                    Lcda. Carmen Rivas &middot; Matrícula CPC 41.802
+                    Licdo. Omar Pérez Castillo &middot; Matrícula C.P.C. 16.336
                   </span>
                 </div>
-                <p className="font-bold text-stone-950 mt-1">Lcda. Carmen Rivas</p>
-                <p className="text-[10px] text-stone-600">Contador Público Colegiado Nro. 41.802</p>
+                <p className="font-bold text-stone-950 mt-1">Licdo. Omar Pérez Castillo</p>
+                <p className="text-[10px] text-stone-600">Contador Público C.P.C. 16.336</p>
                 <p className="text-[10px] text-stone-700 font-semibold">Auditor Externo Independiente</p>
               </div>
             </div>
@@ -1312,35 +2070,35 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 3: CONTRATO MUTUO MANUEL BECERRA (47 MOVIMIENTOS) */}
+      {/* TAB 4: CONTRATO MUTUO MANUEL BECERRA (47 MOVIMIENTOS) */}
       {/* ========================================================================= */}
       {activeTab === 'MANUEL_BECERRA' && (
         <div className="space-y-6">
-          <div className="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow space-y-4">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-stone-800 pb-4">
+          <div className="bg-white border-2 border-purple-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-purple-200/80 pb-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-amber-500 font-bold text-sm uppercase tracking-wide font-mono">
+                  <span className="text-purple-700 font-extrabold text-xs uppercase tracking-wider font-mono bg-purple-100 px-2.5 py-0.5 rounded border border-purple-300">
                     EXPEDIENTE MUTUO 2026
                   </span>
-                  <span className="bg-stone-800 text-amber-400 text-[10px] px-2 py-0.5 rounded font-mono">
+                  <span className="bg-amber-100 text-amber-950 text-[11px] px-2.5 py-0.5 rounded font-bold border border-amber-300">
                     Límite Aprobado: Bs. 600.000.000,00
                   </span>
                 </div>
-                <h3 className="text-lg font-bold text-white mt-1">
+                <h3 className="text-lg font-black text-slate-900 mt-2">
                   Movimientos Bancarios Banesco: Contrato de Préstamo Mutuo &ndash; Manuel Becerra
                 </h3>
-                <p className="text-xs text-stone-400 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed font-medium">
                   Manuel Becerra es socio en una empresa vinculada. Se suscribió un <strong>Contrato de Préstamo Mutuo y Línea de Crédito Rotativa</strong> por hasta Bs. 600.000.000,00. Al corte del 31 de agosto de 2026, ya ha reembolsado un porcentaje de los desembolsos recibidos.
                 </p>
               </div>
 
-              <div className="bg-stone-950 p-4 rounded-lg border border-stone-800 text-right shrink-0 font-mono-num">
-                <span className="text-[10px] text-stone-400 block font-sans">Saldo Total por Cobrar en Balance:</span>
-                <span className="text-xl font-bold text-amber-400 block">
+              <div className="bg-purple-50 p-4 rounded-xl border border-purple-200 text-right shrink-0 font-mono-num shadow-2xs">
+                <span className="text-[10px] text-purple-800 block font-sans font-bold">Saldo Total por Cobrar en Balance:</span>
+                <span className="text-xl font-black text-purple-950 block">
                   Bs. {MANUEL_BECERRA_SUMMARY_2026.totalReceivableAugust31VES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                 </span>
-                <span className="text-xs text-stone-300 block">
+                <span className="text-xs text-purple-800 font-bold block">
                   ${MANUEL_BECERRA_SUMMARY_2026.totalReceivableUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD (BCV 794,99)
                 </span>
               </div>
@@ -1348,51 +2106,51 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
 
             {/* Cuadro de Cuadre Matemático del Mutuo */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-mono-num">
-              <div className="bg-stone-950 p-3.5 rounded-lg border border-stone-800">
-                <span className="text-[10px] text-stone-400 block font-sans">Total Desembolsado (Egresos)</span>
-                <span className="text-base font-bold text-amber-400 block mt-0.5">
+              <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-2xs">
+                <span className="text-[10px] text-slate-600 block font-sans font-bold">Total Desembolsado (Egresos)</span>
+                <span className="text-base font-black text-amber-900 block mt-0.5">
                   Bs. {MANUEL_BECERRA_SUMMARY_2026.totalDisbursedVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                 </span>
-                <span className="text-[11px] text-stone-500 font-sans">33 Transferencias prestadas</span>
+                <span className="text-[11px] text-slate-500 font-sans font-medium">33 Transferencias prestadas</span>
               </div>
 
-              <div className="bg-stone-950 p-3.5 rounded-lg border border-stone-800">
-                <span className="text-[10px] text-stone-400 block font-sans">Total Amortizado (Ingresos)</span>
-                <span className="text-base font-bold text-emerald-400 block mt-0.5">
+              <div className="bg-emerald-50 p-3.5 rounded-xl border border-emerald-200 shadow-2xs">
+                <span className="text-[10px] text-emerald-800 block font-sans font-bold">Total Amortizado (Ingresos)</span>
+                <span className="text-base font-black text-emerald-950 block mt-0.5">
                   Bs. {MANUEL_BECERRA_SUMMARY_2026.totalRepaidVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                 </span>
-                <span className="text-[11px] text-emerald-500/80 font-sans">
+                <span className="text-[11px] text-emerald-800 font-sans font-bold">
                   {MANUEL_BECERRA_SUMMARY_2026.percentagePaidPct.toFixed(2)}% del capital reembolsado
                 </span>
               </div>
 
-              <div className="bg-stone-950 p-3.5 rounded-lg border border-stone-800">
-                <span className="text-[10px] text-stone-400 block font-sans">Saldo Capital Restante</span>
-                <span className="text-base font-bold text-white block mt-0.5">
+              <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-2xs">
+                <span className="text-[10px] text-slate-600 block font-sans font-bold">Saldo Capital Restante</span>
+                <span className="text-base font-black text-slate-900 block mt-0.5">
                   Bs. {MANUEL_BECERRA_SUMMARY_2026.principalBalanceVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                 </span>
-                <span className="text-[11px] text-stone-400 font-sans">Capital exigible pendiente</span>
+                <span className="text-[11px] text-slate-500 font-sans font-medium">Capital exigible pendiente</span>
               </div>
 
-              <div className="bg-stone-950 p-3.5 rounded-lg border border-stone-800">
-                <span className="text-[10px] text-stone-400 block font-sans">Intereses Ganados (EEFF)</span>
-                <span className="text-base font-bold text-emerald-400 block mt-0.5">
+              <div className="bg-amber-50 p-3.5 rounded-xl border border-amber-200 shadow-2xs">
+                <span className="text-[10px] text-amber-900 block font-sans font-bold">Intereses Ganados (EEFF)</span>
+                <span className="text-base font-black text-amber-950 block mt-0.5">
                   Bs. {MANUEL_BECERRA_SUMMARY_2026.interestIncomeVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                 </span>
-                <span className="text-[11px] text-stone-400 font-sans">Registrado en Estado Resultados</span>
+                <span className="text-[11px] text-amber-800 font-sans font-medium">Registrado en Estado Resultados</span>
               </div>
             </div>
 
             {/* Filtros de la Tabla */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
                   placeholder="Buscar por referencia Banesco o fecha..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-stone-950 border border-stone-700 rounded pl-9 pr-3 py-1.5 text-xs text-stone-200 placeholder:text-stone-500 focus:outline-none focus:border-amber-500 font-mono"
+                  className="w-full bg-white border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-amber-500 font-mono shadow-2xs"
                 />
               </div>
 
@@ -1400,7 +2158,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 <div className="flex items-center gap-1.5 no-print">
                   <button
                     onClick={handleExportBecerraWord}
-                    className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-2xs"
                     title="Exportar movimientos del Contrato Mutuo a Word"
                   >
                     <FileDown className="w-3.5 h-3.5" />
@@ -1408,7 +2166,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   </button>
                   <button
                     onClick={handleExportBecerraCsv}
-                    className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1 shadow"
+                    className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-2xs"
                     title="Exportar movimientos a Excel (CSV)"
                   >
                     <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -1416,7 +2174,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   </button>
                   <button
                     onClick={handleExportBecerraPdf}
-                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1 shadow"
+                    className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs transition-all flex items-center gap-1 shadow-2xs"
                     title="Descargar movimientos en archivo PDF directo"
                   >
                     <Download className="w-3.5 h-3.5" />
@@ -1424,7 +2182,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   </button>
                   <button
                     onClick={() => exportToPdfPrint()}
-                    className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+                    className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
                     title="Imprimir (Ctrl+P)"
                   >
                     <Printer className="w-3.5 h-3.5" />
@@ -1432,11 +2190,11 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <Filter className="w-3.5 h-3.5 text-stone-400" />
+                  <Filter className="w-3.5 h-3.5 text-slate-500" />
                   <select
                     value={becerraFilter}
                     onChange={(e) => setBecerraFilter(e.target.value as any)}
-                    className="bg-stone-950 border border-stone-700 text-stone-300 text-xs rounded px-2.5 py-1.5 focus:outline-none focus:border-amber-500"
+                    className="bg-white border border-slate-300 text-slate-800 text-xs font-medium rounded-lg px-3 py-1.5 focus:outline-none focus:border-amber-500 shadow-2xs"
                   >
                     <option value="TODOS">Todos los Movimientos (47)</option>
                     <option value="EGRESOS">Egresos / Préstamos Otorgados (33)</option>
@@ -1447,43 +2205,43 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
             </div>
 
             {/* Tabla Completa de los 47 Movimientos */}
-            <div className="overflow-x-auto border border-stone-800 rounded-lg">
-              <table className="w-full text-xs text-left text-stone-300">
-                <thead className="bg-stone-950 text-stone-400 uppercase text-[10px] tracking-wider border-b border-stone-800 font-mono">
+            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-xs text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
                   <tr>
                     <th className="px-3 py-2.5 text-center">#</th>
                     <th className="px-3 py-2.5">Fecha</th>
                     <th className="px-3 py-2.5">Referencia Banesco</th>
                     <th className="px-3 py-2.5">Banco / Descripción</th>
-                    <th className="px-3 py-2.5 text-right text-amber-400">Egresos (Préstamo)</th>
-                    <th className="px-3 py-2.5 text-right text-emerald-400">Ingresos (Pagos de Becerra)</th>
+                    <th className="px-3 py-2.5 text-right text-amber-900 font-black">Egresos (Préstamo)</th>
+                    <th className="px-3 py-2.5 text-right text-emerald-900 font-black">Ingresos (Pagos de Becerra)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-800 font-mono-num">
+                <tbody className="divide-y divide-slate-200 font-mono-num">
                   {filteredBecerraMovements.map((mov) => (
-                    <tr key={mov.item} className="hover:bg-stone-800/40 transition-colors">
-                      <td className="px-3 py-2 text-center text-stone-500">{mov.item}</td>
-                      <td className="px-3 py-2 text-stone-300 whitespace-nowrap">{mov.date}</td>
-                      <td className="px-3 py-2 font-mono font-semibold text-amber-400 whitespace-nowrap">{mov.reference}</td>
-                      <td className="px-3 py-2 font-sans text-stone-300 text-[11px] truncate max-w-xs">{mov.description}</td>
-                      <td className="px-3 py-2 text-right text-amber-300 font-medium whitespace-nowrap">
+                    <tr key={mov.item} className="hover:bg-amber-50/50 transition-colors">
+                      <td className="px-3 py-2 text-center text-slate-500">{mov.item}</td>
+                      <td className="px-3 py-2 text-slate-700 font-medium whitespace-nowrap">{mov.date}</td>
+                      <td className="px-3 py-2 font-mono font-bold text-amber-900 whitespace-nowrap">{mov.reference}</td>
+                      <td className="px-3 py-2 font-sans text-slate-800 text-[11px] truncate max-w-xs">{mov.description}</td>
+                      <td className="px-3 py-2 text-right text-amber-900 font-bold whitespace-nowrap">
                         {mov.outflowVES > 0 ? `Bs. ${mov.outflowVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
                       </td>
-                      <td className="px-3 py-2 text-right text-emerald-400 font-bold whitespace-nowrap">
+                      <td className="px-3 py-2 text-right text-emerald-900 font-extrabold whitespace-nowrap">
                         {mov.inflowVES > 0 ? `Bs. ${mov.inflowVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
                       </td>
                     </tr>
                   ))}
                 </tbody>
-                <tfoot className="bg-stone-950 border-t-2 border-stone-800 font-mono-num font-bold text-xs">
+                <tfoot className="bg-slate-200 border-t-2 border-slate-400 font-mono-num font-bold text-xs text-slate-950">
                   <tr>
-                    <td colSpan={4} className="px-3 py-2.5 text-right text-white uppercase font-sans">
+                    <td colSpan={4} className="px-3 py-2.5 text-right text-slate-950 uppercase font-sans font-bold">
                       Totales de la Operación Mutuo 2026:
                     </td>
-                    <td className="px-3 py-2.5 text-right text-amber-400">
+                    <td className="px-3 py-2.5 text-right text-amber-950 font-black">
                       Bs. {MANUEL_BECERRA_SUMMARY_2026.totalDisbursedVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="px-3 py-2.5 text-right text-emerald-400">
+                    <td className="px-3 py-2.5 text-right text-emerald-950 font-black">
                       Bs. {MANUEL_BECERRA_SUMMARY_2026.totalRepaidVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
@@ -1495,22 +2253,22 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 4: CONCILIACIÓN TÉCNICA BANESCO VS ESTADOS FINANCIEROS */}
+      {/* TAB 5: CONCILIACIÓN TÉCNICA BANESCO VS ESTADOS FINANCIEROS */}
       {/* ========================================================================= */}
       {activeTab === 'CONCILIACION_BANCO' && (
         <div className="space-y-6">
-          <div className="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow space-y-4">
-            <div className="border-b border-stone-800 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="bg-white border-2 border-teal-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="border-b border-teal-200/80 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="p-1.5 bg-red-950 text-red-400 border border-red-800 rounded">
+                  <span className="p-1.5 bg-red-100 text-red-700 border border-red-200 rounded-lg">
                     <AlertCircle className="w-4 h-4" />
                   </span>
-                  <h3 className="text-base font-bold text-white">
+                  <h3 className="text-base font-black text-slate-900">
                     Respuesta Técnica a la Carta de Banesco: Discrepancia de Ingresos vs Depósitos
                   </h3>
                 </div>
-                <p className="text-xs text-stone-300 mt-2 leading-relaxed">
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed font-medium">
                   El Banco Banesco envió una comunicación observando que los <strong>depósitos bancarios (Bs. 1.966.597.105,35 / USD 2.781.830,18)</strong> no coinciden con los <strong>ingresos del Estado de Resultados al 31/08/2026 (Bs. 92.641.520,01 / USD 116.531,68)</strong>.
                   Esta diferencia se debe a que el banco confunde el <em>Flujo de Caja Bruto</em> con los <em>Ingresos Fiscales Devengados</em>. A continuación se presenta la demostración técnica irrefutable:
                 </p>
@@ -1519,7 +2277,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               <div className="flex items-center gap-1.5 no-print shrink-0">
                 <button
                   onClick={handleExportConciliacionWord}
-                  className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1 shadow-2xs"
                   title="Descargar conciliación técnica en Word"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -1527,7 +2285,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={handleExportConciliacionPdf}
-                  className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs flex items-center gap-1 shadow"
+                  className="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs transition-all flex items-center gap-1 shadow-2xs"
                   title="Descargar conciliación en PDF directo"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -1535,7 +2293,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={() => exportToPdfPrint()}
-                  className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+                  className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
                   title="Imprimir (Ctrl+P)"
                 >
                   <Printer className="w-3.5 h-3.5" />
@@ -1544,51 +2302,51 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
             </div>
 
             {/* Cuadro de Conciliación Demostrativo */}
-            <div className="bg-stone-950 border border-stone-800 rounded-xl p-5 space-y-4">
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-stone-800 pb-3 font-mono">
-                <span className="text-xs text-stone-400 uppercase font-sans font-bold">Total Depósitos Registrados en Extracto Banesco:</span>
-                <span className="text-lg font-bold text-emerald-400">Bs. {BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.bankDepositsTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-200 pb-3 font-mono">
+                <span className="text-xs text-slate-700 uppercase font-sans font-bold">Total Depósitos Registrados en Extracto Banesco:</span>
+                <span className="text-lg font-black text-emerald-800">Bs. {BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.bankDepositsTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
               </div>
 
               <div className="space-y-3 text-xs">
                 {BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.breakdown.map((row, idx) => (
-                  <div key={idx} className="p-3 bg-stone-900/80 border border-stone-800 rounded-lg space-y-1">
+                  <div key={idx} className="p-3.5 bg-white border border-slate-200 rounded-xl space-y-1 shadow-2xs">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
-                      <span className="font-bold text-stone-100">{row.concept}</span>
-                      <span className="font-mono font-semibold text-amber-400">
+                      <span className="font-bold text-slate-900">{row.concept}</span>
+                      <span className="font-mono font-bold text-amber-900">
                         {row.bankAmountVES > 0 ? `Bs. ${row.bankAmountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
                       </span>
                     </div>
-                    <div className="flex justify-between items-center text-[11px] text-stone-400">
-                      <span className="text-amber-500/90 font-mono font-medium">{row.nature}</span>
+                    <div className="flex justify-between items-center text-[11px] text-slate-600">
+                      <span className="text-amber-800 font-mono font-bold">{row.nature}</span>
                       {row.impactOnIncomeStatement > 0 && (
-                        <span className="text-emerald-400 font-mono font-bold">
+                        <span className="text-emerald-800 font-mono font-bold">
                           Impacto en EEFF: +Bs. {row.impactOnIncomeStatement.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                         </span>
                       )}
                     </div>
-                    <p className="text-[11px] text-stone-400 pt-1 border-t border-stone-800/80">{row.legalNotes}</p>
+                    <p className="text-[11px] text-slate-600 pt-1 border-t border-slate-100 font-medium">{row.legalNotes}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-3 border-t-2 border-stone-800 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 font-mono">
-                <span className="text-xs text-stone-200 uppercase font-sans font-bold">
+              <div className="pt-3 border-t-2 border-slate-300 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 font-mono">
+                <span className="text-xs text-slate-800 uppercase font-sans font-bold">
                   Ingresos Netos Auditados según Estado de Resultados (Corte 31/08/2026):
                 </span>
-                <span className="text-lg font-bold text-white">
+                <span className="text-lg font-black text-slate-900">
                   Bs. {BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.financialStatementRevenuesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                 </span>
               </div>
             </div>
 
             {/* Dictamen Jurídico y Contable */}
-            <div className="bg-emerald-950/30 border border-emerald-800/80 rounded-xl p-4 text-xs text-stone-300 space-y-2">
-              <h4 className="text-sm font-bold text-emerald-400 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4" />
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs text-slate-800 space-y-2 shadow-2xs">
+              <h4 className="text-sm font-black text-emerald-900 flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 Conclusión Oficial para la Unidad de Cumplimiento de Banesco
               </h4>
-              <p className="leading-relaxed">
+              <p className="leading-relaxed font-medium">
                 {BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.conclusion}
               </p>
             </div>
@@ -1597,17 +2355,17 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 5: BALANCE GENERAL COMPARATIVO (2025 VS CORTE AGOSTO 2026) */}
+      {/* TAB 6: BALANCE GENERAL COMPARATIVO (2025 VS CORTE AGOSTO 2026) */}
       {/* ========================================================================= */}
       {activeTab === 'EEFF_COMPARATIVO' && (
         <div className="space-y-6">
-          <div className="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow space-y-4">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-stone-800 pb-3">
+          <div className="bg-white border-2 border-sky-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-sky-200/80 pb-3">
               <div>
-                <h3 className="text-base font-bold text-white">
+                <h3 className="text-base sm:text-lg font-black text-slate-900">
                   Estado de Situación Financiera Comparativo (VEN-NIF)
                 </h3>
-                <p className="text-xs text-stone-400 mt-0.5">
+                <p className="text-xs text-slate-600 mt-0.5 font-medium">
                   Al 31 de diciembre de 2025 (Tasa 301,37) y al 31 de agosto de 2026 (Tasa 794,99)
                 </p>
               </div>
@@ -1615,7 +2373,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               <div className="flex items-center gap-1.5 no-print shrink-0">
                 <button
                   onClick={handleExportBalanceSheetExcel}
-                  className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Balance General en Excel (.xlsx)"
                 >
                   <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -1623,7 +2381,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={handleExportBalanceSheetWord}
-                  className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Balance General en Word"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -1631,7 +2389,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={handleExportBalanceSheetPdf}
-                  className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs flex items-center gap-1 shadow"
+                  className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-2xs"
                   title="Descargar Balance General en PDF directo"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -1639,7 +2397,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={() => exportToPdfPrint()}
-                  className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+                  className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
                   title="Imprimir (Ctrl+P)"
                 >
                   <Printer className="w-3.5 h-3.5" />
@@ -1647,158 +2405,158 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left text-stone-300">
-                <thead className="bg-stone-950 text-stone-400 uppercase text-[10px] tracking-wider border-b border-stone-800 font-mono">
+            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-xs text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
                   <tr>
                     <th className="px-4 py-2.5">Concepto / Denominación</th>
                     <th className="px-4 py-2.5 text-right">Al 31/12/2025 (Bs.)</th>
                     <th className="px-4 py-2.5 text-right">Al 31/12/2025 (US$)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-400">Al 31/08/2026 (Bs.)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-400">Al 31/08/2026 (US$)</th>
+                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Al 31/08/2026 (Bs.)</th>
+                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Al 31/08/2026 (US$)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-800 font-mono-num">
+                <tbody className="divide-y divide-slate-200 font-mono-num">
                   {/* ACTIVO */}
-                  <tr className="bg-stone-950/60 font-bold text-white uppercase text-[11px]">
+                  <tr className="bg-sky-100/90 font-black text-sky-950 uppercase text-[11px]">
                     <td colSpan={5} className="px-4 py-2">ACTIVO</td>
                   </tr>
-                  <tr className="bg-stone-950/30 font-semibold text-stone-300">
+                  <tr className="bg-slate-100 font-bold text-slate-800">
                     <td colSpan={5} className="px-4 py-1.5 pl-6">Activo Corriente</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Efectivo en Caja y Banco</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.assets.current.cashAndBanks / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-white font-bold">{BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-stone-300">${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Efectivo en Caja y Banco</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.cashAndBanks / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-700">${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Cuentas por Cobrar Comerciales</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.assets.current.tradeReceivables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.assets.current.tradeReceivables / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-stone-500">—</td>
-                    <td className="px-4 py-1.5 text-right text-stone-500">—</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Cobrar Comerciales</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.tradeReceivables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.tradeReceivables / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
                   </tr>
-                  <tr className="bg-amber-950/10 font-bold">
-                    <td className="px-4 py-1.5 pl-8 text-amber-300">Cuentas por Cobrar Manuel Becerra</td>
-                    <td className="px-4 py-1.5 text-right text-stone-500">—</td>
-                    <td className="px-4 py-1.5 text-right text-stone-500">—</td>
-                    <td className="px-4 py-1.5 text-right text-amber-400">{BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-400">${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-amber-100/90 font-bold">
+                    <td className="px-4 py-1.5 pl-8 text-amber-950">Cuentas por Cobrar Manuel Becerra</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-amber-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-amber-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Retención ISLR Clientes / por Compensar</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.assets.current.islrWithholdingClients / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Retención ISLR Clientes / por Compensar</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.islrWithholdingClients / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">ISLR pre Pagado</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.assets.current.prepaidISLR / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">ISLR pre Pagado</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.prepaidISLR / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950/40 font-bold">
-                    <td className="px-4 py-1.5 pl-6">Total Activo Corriente</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.assets.current.totalCurrent / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400">{BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400">${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-slate-200/80 font-bold">
+                    <td className="px-4 py-1.5 pl-6 text-slate-950">Total Activo Corriente</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_2025.assets.current.totalCurrent / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
 
                   {/* PROPIEDAD PLANTA Y EQUIPOS */}
-                  <tr className="bg-stone-950/30 font-semibold text-stone-300">
+                  <tr className="bg-slate-100 font-bold text-slate-800">
                     <td colSpan={5} className="px-4 py-1.5 pl-6">Propiedad, Planta y Equipos (Nota 7)</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Total Propiedad, Planta y Equipos</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Total Propiedad, Planta y Equipos</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950 font-bold text-white border-y border-stone-700">
+                  <tr className="bg-emerald-100 font-black text-slate-950 border-y-2 border-slate-300">
                     <td className="px-4 py-2">TOTAL ACTIVO</td>
                     <td className="px-4 py-2 text-right">{BALANCE_SHEET_2025.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right">${(BALANCE_SHEET_2025.assets.totalAssets / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">{BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-black">${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
 
                   {/* PASIVO */}
-                  <tr className="bg-stone-950/60 font-bold text-white uppercase text-[11px]">
+                  <tr className="bg-sky-100/90 font-black text-sky-950 uppercase text-[11px]">
                     <td colSpan={5} className="px-4 py-2">PASIVO</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Cuentas por Pagar Accionistas</td>
-                    <td className="px-4 py-1.5 text-right text-stone-500">—</td>
-                    <td className="px-4 py-1.5 text-right text-stone-500">—</td>
-                    <td className="px-4 py-1.5 text-right text-amber-400 font-bold">{BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-400">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Pagar Accionistas</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-amber-950 font-bold">{BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-amber-950">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">I.S.L.R. por Pagar</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.liabilities.current.islrPayable / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">I.S.L.R. por Pagar</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.liabilities.current.islrPayable / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950/40 font-bold">
-                    <td className="px-4 py-1.5 pl-6">TOTAL PASIVO</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.liabilities.totalLiabilities / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-400">{BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-400">${(BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-slate-200/80 font-bold">
+                    <td className="px-4 py-1.5 pl-6 text-slate-950">TOTAL PASIVO</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_2025.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_2025.liabilities.totalLiabilities / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-amber-950 font-black">{BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-amber-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
 
                   {/* PATRIMONIO */}
-                  <tr className="bg-stone-950/60 font-bold text-white uppercase text-[11px]">
+                  <tr className="bg-sky-100/90 font-black text-sky-950 uppercase text-[11px]">
                     <td colSpan={5} className="px-4 py-2">PATRIMONIO</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Capital Social Suscrito y Pagado</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.equity.subscribedCapital / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Capital Social Suscrito y Pagado</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.equity.subscribedCapital / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Superávit Acumulado</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.equity.accumulatedSurplus / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Superávit Acumulado</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.equity.accumulatedSurplus / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Utilidad del Ejercicio</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400">{BALANCE_SHEET_2025.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400">${(BALANCE_SHEET_2025.equity.periodProfit / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400 font-bold">{BALANCE_SHEET_AUGUST_2026.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.periodProfit / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Utilidad del Ejercicio</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-800 font-bold">{BALANCE_SHEET_2025.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-800 font-bold">${(BALANCE_SHEET_2025.equity.periodProfit / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.periodProfit / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-1.5 pl-8">Reserva Legal</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.equity.legalReserve / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_AUGUST_2026.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_AUGUST_2026.equity.legalReserve / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Reserva Legal</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.equity.legalReserve / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.equity.legalReserve / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950/40 font-bold">
-                    <td className="px-4 py-1.5 pl-6">TOTAL PATRIMONIO</td>
-                    <td className="px-4 py-1.5 text-right">{BALANCE_SHEET_2025.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right">${(BALANCE_SHEET_2025.equity.totalEquity / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400">{BALANCE_SHEET_AUGUST_2026.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-400">${(BALANCE_SHEET_AUGUST_2026.equity.totalEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-slate-200/80 font-bold">
+                    <td className="px-4 py-1.5 pl-6 text-slate-950">TOTAL PATRIMONIO</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_2025.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_2025.equity.totalEquity / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-emerald-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.totalEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950 font-bold text-white border-y-2 border-stone-600">
+                  <tr className="bg-slate-300 font-black text-slate-950 border-y-2 border-slate-400">
                     <td className="px-4 py-2.5">TOTAL PASIVO Y PATRIMONIO</td>
                     <td className="px-4 py-2.5 text-right">{BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2.5 text-right">${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-400">{BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-400">${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                 </tbody>
               </table>
@@ -1808,17 +2566,17 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
       )}
 
       {/* ========================================================================= */}
-      {/* TAB 6: ESTADO DE RESULTADOS INTEGRAL (2025 VS AGOSTO 2026) */}
+      {/* TAB 7: ESTADO DE RESULTADOS INTEGRAL (2025 VS AGOSTO 2026) */}
       {/* ========================================================================= */}
       {activeTab === 'ESTADO_RESULTADOS' && (
         <div className="space-y-6">
-          <div className="bg-stone-900 border border-stone-800 rounded-xl p-5 shadow space-y-4">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-stone-800 pb-3">
+          <div className="bg-white border-2 border-indigo-200/90 rounded-2xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-indigo-200/80 pb-3">
               <div>
-                <h3 className="text-base font-bold text-white">
+                <h3 className="text-base sm:text-lg font-black text-slate-900">
                   Estado de Resultado Integral Comparativo
                 </h3>
-                <p className="text-xs text-stone-400 mt-0.5">
+                <p className="text-xs text-slate-600 mt-0.5 font-medium">
                   Ejercicio 2025 cerrado vs Corte de 8 meses al 31 de agosto de 2026
                 </p>
               </div>
@@ -1826,7 +2584,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               <div className="flex items-center gap-1.5 no-print shrink-0">
                 <button
                   onClick={handleExportIncomeStatementExcel}
-                  className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Estado de Resultados en Excel (.xlsx)"
                 >
                   <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -1834,7 +2592,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={handleExportIncomeStatementWord}
-                  className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold flex items-center gap-1 shadow"
+                  className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Estado de Resultados en Word"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -1842,7 +2600,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={handleExportIncomeStatementPdf}
-                  className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs flex items-center gap-1 shadow"
+                  className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-2xs"
                   title="Descargar Estado de Resultados en PDF directo"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -1850,7 +2608,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 </button>
                 <button
                   onClick={() => exportToPdfPrint()}
-                  className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 rounded text-xs transition-colors shadow"
+                  className="p-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-lg text-xs transition-all shadow-2xs"
                   title="Imprimir (Ctrl+P)"
                 >
                   <Printer className="w-3.5 h-3.5" />
@@ -1858,76 +2616,76 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               </div>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left text-stone-300">
-                <thead className="bg-stone-950 text-stone-400 uppercase text-[10px] tracking-wider border-b border-stone-800 font-mono">
+            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-xs text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
                   <tr>
                     <th className="px-4 py-2.5">Concepto</th>
                     <th className="px-4 py-2.5 text-right">Año 2025 (Bs.)</th>
                     <th className="px-4 py-2.5 text-right">Año 2025 (US$)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-400">Ene-Ago 2026 (Bs.)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-400">Ene-Ago 2026 (US$)</th>
+                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Ene-Ago 2026 (Bs.)</th>
+                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Ene-Ago 2026 (US$)</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-800 font-mono-num">
-                  <tr className="bg-stone-950/60 font-bold text-white uppercase text-[11px]">
+                <tbody className="divide-y divide-slate-200 font-mono-num">
+                  <tr className="bg-indigo-100/90 font-black text-indigo-950 uppercase text-[11px]">
                     <td colSpan={5} className="px-4 py-2">INGRESOS OPERACIONALES Y FINANCIEROS</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-2 pl-6">Ingresos por Servicios Agrícolas</td>
-                    <td className="px-4 py-2 text-right">{INCOME_STATEMENT_2025.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right">${(INCOME_STATEMENT_2025.revenues.agriculturalServices / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400 font-bold">{INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">${(INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Ingresos por Servicios Agrícolas</td>
+                    <td className="px-4 py-2 text-right text-slate-600">{INCOME_STATEMENT_2025.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-600">${(INCOME_STATEMENT_2025.revenues.agriculturalServices / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-amber-950/10 font-bold">
-                    <td className="px-4 py-2 pl-6 text-amber-300">Ingresos por Intereses (Contrato Mutuo Manuel Becerra)</td>
-                    <td className="px-4 py-2 text-right text-stone-500">—</td>
-                    <td className="px-4 py-2 text-right text-stone-500">—</td>
-                    <td className="px-4 py-2 text-right text-amber-400">{INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-amber-400">${(INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-amber-100/90 font-bold">
+                    <td className="px-4 py-2 pl-6 text-amber-950">Ingresos por Intereses (Contrato Mutuo Manuel Becerra)</td>
+                    <td className="px-4 py-2 text-right text-slate-400">—</td>
+                    <td className="px-4 py-2 text-right text-slate-400">—</td>
+                    <td className="px-4 py-2 text-right text-amber-950 font-black">{INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-amber-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950 font-bold text-white border-y border-stone-700">
+                  <tr className="bg-slate-200/80 font-bold text-slate-950 border-y border-slate-300">
                     <td className="px-4 py-2">TOTAL INGRESOS</td>
-                    <td className="px-4 py-2 text-right">{INCOME_STATEMENT_2025.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right">${(INCOME_STATEMENT_2025.revenues.totalRevenues / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">{INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">${(INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800">{INCOME_STATEMENT_2025.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800">${(INCOME_STATEMENT_2025.revenues.totalRevenues / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-2 pl-6 text-amber-300">Costos de Servicios</td>
-                    <td className="px-4 py-2 text-right">{INCOME_STATEMENT_2025.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right">${(INCOME_STATEMENT_2025.costs.serviceCosts / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-amber-400">{INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-amber-400">${(INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Costos de Servicios</td>
+                    <td className="px-4 py-2 text-right text-slate-600">{INCOME_STATEMENT_2025.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-600">${(INCOME_STATEMENT_2025.costs.serviceCosts / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-amber-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-amber-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950/80 font-bold text-white">
+                  <tr className="bg-slate-100 font-bold text-slate-950">
                     <td className="px-4 py-2">UTILIDAD BRUTA</td>
-                    <td className="px-4 py-2 text-right">{INCOME_STATEMENT_2025.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right">${(INCOME_STATEMENT_2025.costs.grossProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">{INCOME_STATEMENT_AUGUST_2026.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">${(INCOME_STATEMENT_AUGUST_2026.costs.grossProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800">{INCOME_STATEMENT_2025.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800">${(INCOME_STATEMENT_2025.costs.grossProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.costs.grossProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr>
-                    <td className="px-4 py-2 pl-6">Gastos de Administración</td>
-                    <td className="px-4 py-2 text-right">{INCOME_STATEMENT_2025.operatingExpenses.administrativeExpenses.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right">${(INCOME_STATEMENT_2025.operatingExpenses.administrativeExpenses / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-stone-500">—</td>
-                    <td className="px-4 py-2 text-right text-stone-500">—</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Gastos de Administración</td>
+                    <td className="px-4 py-2 text-right text-slate-600">{INCOME_STATEMENT_2025.operatingExpenses.administrativeExpenses.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-600">${(INCOME_STATEMENT_2025.operatingExpenses.administrativeExpenses / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-400">—</td>
+                    <td className="px-4 py-2 text-right text-slate-400">—</td>
                   </tr>
-                  <tr className="bg-stone-950 font-bold border-t border-stone-800">
+                  <tr className="bg-slate-200/80 font-bold border-t border-slate-300">
                     <td className="px-4 py-2">UTILIDAD EN OPERACIONES</td>
-                    <td className="px-4 py-2 text-right">{INCOME_STATEMENT_2025.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right">${(INCOME_STATEMENT_2025.operatingExpenses.operatingProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">{INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-400">${(INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800">{INCOME_STATEMENT_2025.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800">${(INCOME_STATEMENT_2025.operatingExpenses.operatingProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-stone-950 font-bold text-emerald-400 border-y-2 border-emerald-800/80">
+                  <tr className="bg-emerald-100 font-black text-emerald-950 border-y-2 border-emerald-300">
                     <td className="px-4 py-2.5">UTILIDAD NETA DEL EJERCICIO</td>
                     <td className="px-4 py-2.5 text-right">{INCOME_STATEMENT_2025.taxesAndReserves.netProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2.5 text-right">${(INCOME_STATEMENT_2025.taxesAndReserves.netProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-400 font-bold">{INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-400 font-bold">${(INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">${(INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                 </tbody>
               </table>
