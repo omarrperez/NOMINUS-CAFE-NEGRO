@@ -90,7 +90,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
   const notesList = [
     {
       title: 'Identificación de la Empresa y Objeto Social',
-      text: `${company.name} (R.I.F. ${company.rif}) es una sociedad mercantil domiciliada en Venezuela, constituida originalmente para la comercialización, procesamiento, servicios de intermediación agrícola e importación de productos agroindustriales (principalmente café en grano verde). Su presidente y representante legal es el Sr. Elías Rafael Trias Abreu.`
+      text: `${company.name} (R.I.F. ${company.rif}) es una sociedad mercantil venezolana inscrita en el Registro Mercantil en 2021, cuyo objeto social comprende la compra, venta, acopio, procesamiento, intermediación comercial y servicios agrícolas de café en el territorio nacional. La empresa actúa como intermediaria entre personas naturales y jurídicas en Venezuela, comprando café exclusivamente a productores y empresas venezolanas a tipo de cambio oficial BCV. Su único accionista y propietario al 100% es el Sr. Elías Rafael Trías Abreu.`
     },
     {
       title: 'Bases de Presentación y Expresión Dual en Moneda Extranjera',
@@ -109,16 +109,16 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       text: `Comprende bienes de capital registrados al costo histórico (Inmuebles Bs. 1.317.600,00, Vehículos y Unidades de Carga Bs. 26.145.094,00, Equipos de Oficina y Maquinarias Bs. 600.000,00) menos su correspondiente depreciación acumulada de Bs. 8,47, para un saldo neto de Bs. 28.062.685,53 ($35.299,42 USD).`
     },
     {
-      title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elías Rafael Trias Abreu)',
-      text: `Registra las obligaciones financieras a corto plazo con el socio accionista mayoritario Sr. Elías Rafael Trias Abreu por un monto de Bs. 246.572.875,38 ($310.158,46 USD). Dichos fondos corresponden a aportes directos de capital de trabajo enviados desde sus cuentas personales hacia la cuenta corriente Banesco de la empresa para cubrir compras de materia prima y costos operativos.`
+      title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elías Rafael Trías Abreu)',
+      text: `Registra las obligaciones financieras a corto plazo con el socio accionista mayoritario Sr. Elías Rafael Trías Abreu por un monto de Bs. 246.572.875,38 ($310.158,46 USD). Dichos fondos corresponden a aportes directos de capital de trabajo enviados desde sus cuentas personales hacia la cuenta corriente Banesco de la empresa para cubrir compras de materia prima y costos operativos en Venezuela.`
     },
     {
-      title: 'Anticipos Recibidos para Importación de Café de Colombia (NIIF 15 / Pasivos Operacionales)',
-      text: `Durante el período Enero - Agosto 2026, la empresa recibió Bs. 1.542.017.092,63 (78,4% de las acreditaciones bancarias) por concepto de anticipos comerciales otorgados por clientes jurídicos nacionales para la compra e importación de café verde de Colombia. Según la NIIF 15 (Ingresos de Actividades Ordinarias procedentes de Contratos con Clientes), estos fondos constituyen Pasivo Corriente (Obligaciones de Desempeño) y NO forman parte de los ingresos del período. Su facturación definitiva y registro como venta fiscal se realiza en OCTUBRE DE 2026 al nacionalizar y entregar el rubro.`
+      title: 'Anticipos en Bolívares Recibidos de Clientes a Tasa BCV para Compra de Café Nacional (NIIF 15 / Pasivos Operacionales)',
+      text: `Durante el período Enero - Agosto 2026, la empresa recibió Bs. 1.542.017.092,63 (78,4% de las acreditaciones bancarias) por concepto de anticipos comerciales en bolívares otorgados por clientes jurídicos nacionales calculados a tasa oficial BCV. La empresa no importa café del exterior; actúa como intermediaria en el mercado nacional para comprar y acopiar cosechas de café a productores y empresas venezolanas. Según la NIIF 15, estos fondos constituyen Pasivo Corriente (Obligaciones de Desempeño) y NO forman parte de los ingresos del período. En el mes de OCTUBRE DE 2026 dichos anticipos son sustituidos por una FACTURA DE VENTAS definitiva a tasa oficial BCV contra la cual se eliminará y extinguirá el pasivo al 100%.`
     },
     {
       title: 'Reconciliación de Movilización Bancaria Banesco ($2.781.830,18 USD promedio) vs Ingresos ($116.531,68 USD)',
-      text: `La totalidad de la movilización acreditada en Banesco (Bs. 1.966.597.105,35 / $2.473.738,15 USD nominal) se compone estrictamente de: 1) Anticipos de clientes para café NIIF 15: Bs. 1.542.017.092,63 (78,4%); 2) Reintegros Mutuo Becerra: Bs. 186.376.000,00 (9,5%); 3) Transferencias entre Cuentas Propias: Bs. 208.708.057,73 (10,6%); 4) Aportes de personas naturales: Bs. 29.495.954,99 (1,5%). Los únicos ingresos gravables reales del período son Bs. 92.641.520,01 ($116.531,68 USD), compuestos por Servicios Agrícolas (Bs. 78.717.472,35) e Intereses del Mutuo Becerra (Bs. 13.924.047,66).`
+      text: `La totalidad de la movilización acreditada en Banesco (Bs. 1.966.597.105,35 / $2.473.738,15 USD nominal) se compone estrictamente de: 1) Anticipos de clientes para compra de café nacional NIIF 15: Bs. 1.542.017.092,63 (78,4%); 2) Reintegros Mutuo Becerra: Bs. 186.376.000,00 (9,5%); 3) Transferencias entre Cuentas Propias: Bs. 208.708.057,73 (10,6%); 4) Aportes del socio Elías Trías y personas naturales: Bs. 29.495.954,99 (1,5%). Los únicos ingresos gravables reales del período son Bs. 92.641.520,01 ($116.531,68 USD), compuestos por Servicios Agrícolas facturados en Venezuela (Bs. 78.717.472,35) e Intereses del Mutuo Becerra (Bs. 13.924.047,66).`
     }
   ];
 
@@ -210,7 +210,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         `4. INGRESOS DECLARADOS: Bs. ${totalRevenuesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${totalRevenuesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).`,
         `5. GANANCIA NETA DEL EJERCICIO: Bs. ${netIncomeBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${netIncomeUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).`
       ],
-      highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD promedio responde a Anticipos de Clientes para Importación de Café de Colombia bajo NIIF 15 (78,4% / Bs. 1.542.017.092,63), los cuales constituyen Pasivo Corriente y no ventas gravables.`,
+      highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD promedio responde a Anticipos de Clientes para Compra e Intermediación de Café en Venezuela bajo NIIF 15 a Tasa Oficial BCV (78,4% / Bs. 1.542.017.092,63), los cuales constituyen Pasivo Corriente a ser sustituidos por facturas de venta en octubre de 2026 y no ventas gravables anticipadas.`,
       signers: [
         { name: 'Elías Rafael Trias Abreu', title: 'Presidente - Representante Legal' },
         { name: 'Lcda. Carmen Rivas', title: 'Contador Público Colegiado', idNumber: 'CPC 41.802' }

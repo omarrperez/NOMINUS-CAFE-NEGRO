@@ -23,7 +23,8 @@ import {
   BadgeCheck,
   ChevronRight,
   PieChart,
-  Layers
+  Layers,
+  FolderArchive
 } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { ActiveModule } from '../App';
@@ -45,9 +46,18 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
   const categories = [
     {
       title: 'Estados Financieros, Banco & Conciliación',
-      subtitle: 'Balance Dual (Bs./USD), Notas Banesco y Conciliación Bancaria',
+      subtitle: 'Balance Dual (Bs./USD), Flujo de Entrega y Conciliación Bancaria',
       badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
       modules: [
+        {
+          id: 'BANESCO_FOLDER_WORKFLOW' as ActiveModule,
+          title: 'Flujo & Carpeta Exp. Banesco',
+          subtitle: 'Guía paso a paso, 5 separadores A-E y lista de chequeo para Banesco',
+          icon: FolderArchive,
+          badge: 'Carpeta Bank',
+          pastelBg: 'bg-amber-50/90 hover:bg-amber-100/90 border-amber-300/80 text-amber-950 font-bold',
+          iconBg: 'bg-amber-200 text-amber-900'
+        },
         {
           id: 'FINANCIAL_STATEMENTS_DUAL_SHEET' as ActiveModule,
           title: 'EEFF Dual (Bs. & USD) + Excel',
@@ -114,14 +124,14 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
       ]
     },
     {
-      title: 'Operaciones de Café, Anticipos & Importación',
-      subtitle: 'Comercio Exterior Colombia-Venezuela, fletes e intermediación',
+      title: 'Operaciones de Café Nacional, Anticipos & Contratos',
+      subtitle: 'Intermediación comercial con empresas venezolanas, acopio y tasa BCV',
       badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
       modules: [
         {
           id: 'IMPORT_AND_ADVANCES' as ActiveModule,
-          title: 'Anticipos & Importación Colombia',
-          subtitle: 'Cadena de valor: Anticipos cliente &rarr; Mesa de Cambio &rarr; Importación',
+          title: 'Anticipos en Bs. & Café Nacional',
+          subtitle: 'Cadena de valor: Anticipos en Bs. (BCV) &rarr; Acopio Nacional &rarr; Facturación Octubre',
           icon: Globe,
           badge: 'Flujo Principal',
           pastelBg: 'bg-amber-50/80 hover:bg-amber-100/80 border-amber-200/80 text-amber-950',
@@ -225,7 +235,7 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
         {
           id: 'RESEARCH_REPORT' as ActiveModule,
           title: 'Informe Ejecutivo & Costos',
-          subtitle: 'Estudio técnico-económico de viabilidad de importación',
+          subtitle: 'Estudio técnico-económico de intermediación y compra de café nacional',
           icon: BookOpenCheck,
           badge: 'Informe',
           pastelBg: 'bg-indigo-50/80 hover:bg-indigo-100/80 border-indigo-200/80 text-indigo-950',
@@ -249,7 +259,7 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
               Bienvenido al Panel Ejecutivo de <span className="text-emerald-800">{company.name}</span>
             </h1>
             <p className="text-sm text-slate-600 max-w-3xl leading-relaxed">
-              Plataforma contable, bancaria y de comercio exterior. Selecciona cualquiera de las secciones en los recuadros a continuación para acceder directamente al módulo correspondiente.
+              Plataforma contable, bancaria y de intermediación comercial de café nacional. Selecciona cualquiera de las secciones en los recuadros a continuación para acceder directamente al módulo correspondiente.
             </p>
           </div>
 
@@ -290,8 +300,8 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
             </div>
             <div>
               <p className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Volumen de Café</p>
-              <p className="text-sm font-bold text-slate-900 font-mono-num">18.000 Qq Importados</p>
-              <p className="text-[10px] text-amber-700 font-semibold">Importación Colombia</p>
+              <p className="text-sm font-bold text-slate-900 font-mono-num">18.000 Qq Acopiados</p>
+              <p className="text-[10px] text-emerald-700 font-semibold">Café Nacional Venezuela</p>
             </div>
           </div>
 

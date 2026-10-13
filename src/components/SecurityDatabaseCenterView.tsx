@@ -94,7 +94,7 @@ export const SecurityDatabaseCenterView: React.FC<Props> = ({ company }) => {
           coffeeVolumeTargetQtl: 500,
           bankReference: 'Ref: 84920194',
           status: 'RECIBIDO',
-          notes: 'Anticipo para importación de café de Colombia por déficit de cosecha nacional.'
+          notes: 'Anticipo en bolívares para compra y acopio de café en Venezuela a tasa oficial BCV (NIIF 15).'
         }
       ],
       fxPurchases: [
@@ -107,27 +107,27 @@ export const SecurityDatabaseCenterView: React.FC<Props> = ({ company }) => {
           usdCredited: 27372.26,
           banescoCommissionVES: 0,
           banescoRef: 'MESA-BANESCO-849',
-          destinationPurpose: 'PAGO_PROVEEDOR_COLOMBIA',
-          notes: 'Compra de divisas a Banesco para pago de café en Colombia'
+          destinationPurpose: 'PAGO_PROVEEDOR_VENEZUELA',
+          notes: 'Compra de divisas a Banesco para maquinaria e insumos en Venezuela'
         }
       ],
       importShipments: [
         {
           id: 'imp-001',
-          shipmentCode: 'IMP-COL-2026-001',
+          shipmentCode: 'LOTE-VE-2026-001',
           date: '2026-03-31',
-          supplierName: 'Cooperativa Cafetera de Cúcuta Ltda.',
-          supplierNit: 'NIT: 890.501.240-3',
-          originCountry: 'Colombia',
+          supplierName: 'Asociación de Caficultores del Municipio Unda (Chabasquén)',
+          supplierNit: 'J-30491823-1',
+          originCountry: 'Venezuela',
           coffeeVariety: 'Café Pergamino Lavado Especial',
           volumeQtl: 500,
           totalInvoiceUSD: 27000,
-          invoiceCommercialRef: 'EXP-COL-008412',
-          duaSeniatNumber: 'DUA-2026-ADU-004128',
-          insaiPermit: 'INSAI-FITOSAN-IMP-2026-904',
+          invoiceCommercialRef: 'FAC-VE-008412',
+          duaSeniatNumber: 'SICA-2026-GUIA-004128',
+          insaiPermit: 'CVC-AGRO-2026-904',
           internationalFreightUSD: 1800,
           customsCostsUSD: 1200,
-          status: 'NACIONALIZADO_EN_ALMACEN'
+          status: 'ACOPIADO_EN_ALMACEN'
         }
       ],
       octoberInvoices: [

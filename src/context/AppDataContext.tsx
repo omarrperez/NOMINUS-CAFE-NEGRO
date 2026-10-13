@@ -21,7 +21,7 @@ export interface CustomerAdvance {
   bcvRate: number;
   coffeeVolumeTargetQtl: number;
   bankReference: string;
-  status: 'RECIBIDO' | 'EN_CONVERSION_DIVISAS' | 'CAFE_IMPORTADO' | 'FACTURADO_OCTUBRE';
+  status: 'RECIBIDO' | 'EN_PROCURA_NACIONAL' | 'CAFE_ACOPIADO_VE' | 'FACTURADO_OCTUBRE';
   notes?: string;
 }
 
@@ -34,27 +34,41 @@ export interface BanescoFxPurchase {
   usdCredited: number;
   banescoCommissionVES: number;
   banescoRef: string;
-  destinationPurpose: 'PAGO_PROVEEDOR_COLOMBIA' | 'FLETE_INTERNACIONAL' | 'GASTOS_ADUANEROS';
+  destinationPurpose: 'PAGO_INSUMOS_MAQUINARIA_VE' | 'FLETE_TRANSPORTE_NACIONAL' | 'SERVICIOS_AGROINDUSTRIALES_VE';
   notes?: string;
 }
 
-export interface ImportShipmentColombia {
+export interface NationalCoffeeBatchPurchase {
   id: string;
-  shipmentCode: string;
+  batchCode?: string;
   date: string;
   supplierName: string;
-  supplierNit: string;
-  originCountry: string;
+  supplierRif?: string;
+  locationState?: string; // Portuguesa, Lara, Mérida, Táchira
   coffeeVariety: string;
   volumeQtl: number;
-  totalInvoiceUSD: number;
-  invoiceCommercialRef: string;
-  duaSeniatNumber: string;
-  insaiPermit: string;
-  internationalFreightUSD: number;
-  customsCostsUSD: number;
-  status: 'ORDEN_COMPRA' | 'TRANSITO_FRONTERA' | 'EN_ADUANA' | 'NACIONALIZADO_EN_ALMACEN';
+  pricePerQtlUSD?: number;
+  totalAmountUSD?: number;
+  totalAmountVES?: number;
+  bcvRate?: number;
+  sicaPermitNumber?: string;
+  cvcPermit?: string;
+  nationalFreightVES?: number;
+  status: 'CONTRATO_FUTURO' | 'EN_RECOLECCION' | 'ACOPIADO_EN_ALMACEN' | 'DESPACHADO_OCTUBRE' | 'NACIONALIZADO_EN_ALMACEN';
+  // Legacy aliases for backward compatibility
+  shipmentCode?: string;
+  supplierNit?: string;
+  originCountry?: string;
+  totalInvoiceUSD?: number;
+  invoiceCommercialRef?: string;
+  duaSeniatNumber?: string;
+  insaiPermit?: string;
+  internationalFreightUSD?: number;
+  customsCostsUSD?: number;
 }
+
+// Alias for backward compatibility
+export type ImportShipmentColombia = NationalCoffeeBatchPurchase;
 
 export interface OctoberInvoice {
   id: string;
@@ -178,8 +192,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 688.00,
     coffeeVolumeTargetQtl: 500,
     bankReference: '#00033005568',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Anticipo en ventas para importación de café verde de Colombia. Entrega programada octubre.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Anticipo en bolívares a tasa BCV para procura de café verde a productores de Portuguesa. Sustitución por factura de venta en octubre.'
   },
   {
     id: 'ADV-2026-002',
@@ -192,8 +206,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 690.00,
     coffeeVolumeTargetQtl: 850,
     bankReference: '#00058529036',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Anticipo clientes jurídicos para abastecimiento cafetalero.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Anticipo clientes jurídicos para acopio y compra de café nacional. Sustitución con factura de venta en octubre.'
   },
   {
     id: 'ADV-2026-003',
@@ -206,8 +220,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 723.00,
     coffeeVolumeTargetQtl: 280,
     bankReference: '#00005995465',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Fondos de clientes para intermediación comercial de café.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Fondos de clientes para intermediación y compra de lotes de café en el mercado venezolano a tasa BCV.'
   },
   {
     id: 'ADV-2026-004',
@@ -220,8 +234,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 745.00,
     coffeeVolumeTargetQtl: 1500,
     bankReference: '#00016671975',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Abonos en cuenta para importación y suministro agroindustrial.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Abonos en cuenta corriente para adquisición de cosecha cafetalera venezolana y suministro agroindustrial.'
   },
   {
     id: 'ADV-2026-005',
@@ -234,8 +248,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 756.70,
     coffeeVolumeTargetQtl: 2100,
     bankReference: '#0000000198',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Lotes de transferencias interbancarias para contingencia de demanda.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Lotes de transferencias interbancarias para reserva de café nacional en Portuguesa y Lara.'
   },
   {
     id: 'ADV-2026-006',
@@ -248,8 +262,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 764.35,
     coffeeVolumeTargetQtl: 1400,
     bankReference: '#00030445172',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Fondeo de operaciones de abastecimiento de grano de café.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Fondeo de operaciones de abastecimiento de grano de café en centros de acopio nacionales.'
   },
   {
     id: 'ADV-2026-007',
@@ -262,8 +276,8 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     bcvRate: 798.33,
     coffeeVolumeTargetQtl: 2650,
     bankReference: '#000041945646',
-    status: 'CAFE_IMPORTADO',
-    notes: 'Liquidación de compromisos de entrega de café para despacho en octubre.'
+    status: 'CAFE_ACOPIADO_VE',
+    notes: 'Compromiso de entrega de café acopiado en Venezuela para despacho y facturación de venta definitiva en octubre.'
   }
 ];
 
@@ -277,8 +291,8 @@ export const DEFAULT_BANESCO_FX_PURCHASES_2026: BanescoFxPurchase[] = [
     usdCredited: 119890.00,
     banescoCommissionVES: 242500,
     banescoRef: 'PACTO-MC-2026-0214',
-    destinationPurpose: 'PAGO_PROVEEDOR_COLOMBIA',
-    notes: 'Mesa de Cambio Banesco. Compra autorizada para procura inicial en Cúcuta.'
+    destinationPurpose: 'PAGO_INSUMOS_MAQUINARIA_VE',
+    notes: 'Mesa de Cambio Banesco. Compra autorizada para insumos y repuestos agroindustriales en Portuguesa.'
   },
   {
     id: 'FX-2026-002',
@@ -289,8 +303,8 @@ export const DEFAULT_BANESCO_FX_PURCHASES_2026: BanescoFxPurchase[] = [
     usdCredited: 107050.00,
     banescoCommissionVES: 262050,
     banescoRef: 'PACTO-MC-2026-0489',
-    destinationPurpose: 'PAGO_PROVEEDOR_COLOMBIA',
-    notes: 'Mesa de Cambio Banesco. Pago anticipado segundo lote Cooperativa Huila.'
+    destinationPurpose: 'PAGO_INSUMOS_MAQUINARIA_VE',
+    notes: 'Mesa de Cambio Banesco. Adquisición de tolvas y mantenimiento de despulpadora en Venezuela.'
   },
   {
     id: 'FX-2026-003',
@@ -301,8 +315,8 @@ export const DEFAULT_BANESCO_FX_PURCHASES_2026: BanescoFxPurchase[] = [
     usdCredited: 135000.00,
     banescoCommissionVES: 426000,
     banescoRef: 'PACTO-MC-2026-0631',
-    destinationPurpose: 'PAGO_PROVEEDOR_COLOMBIA',
-    notes: 'Intervención Cambiaria BCV / Banesco. Lote de café pergamino lavado.'
+    destinationPurpose: 'PAGO_INSUMOS_MAQUINARIA_VE',
+    notes: 'Intervención Cambiaria BCV / Banesco. Acondicionamiento de galpones y secadoras de café en Araure.'
   },
   {
     id: 'FX-2026-004',
@@ -313,8 +327,8 @@ export const DEFAULT_BANESCO_FX_PURCHASES_2026: BanescoFxPurchase[] = [
     usdCredited: 126850.45,
     banescoCommissionVES: 461600,
     banescoRef: 'PACTO-MC-2026-0728',
-    destinationPurpose: 'FLETE_INTERNACIONAL',
-    notes: 'Mesa de Cambio Banesco. Flete internacional y despacho aduanal DUA.'
+    destinationPurpose: 'FLETE_TRANSPORTE_NACIONAL',
+    notes: 'Mesa de Cambio Banesco. Flete terrestre nacional y logística de gandolas desde zonas cafetaleras.'
   },
   {
     id: 'FX-2026-005',
@@ -325,62 +339,62 @@ export const DEFAULT_BANESCO_FX_PURCHASES_2026: BanescoFxPurchase[] = [
     usdCredited: 68100.00,
     banescoCommissionVES: 486000,
     banescoRef: 'PACTO-MC-2026-0814',
-    destinationPurpose: 'GASTOS_ADUANEROS',
-    notes: 'Mesa de Cambio Banesco. Liquidación arancelaria y custodia final.'
+    destinationPurpose: 'SERVICIOS_AGROINDUSTRIALES_VE',
+    notes: 'Mesa de Cambio Banesco. Servicios de laboratorio cafetalero, pesaje y custodia remanente en cuenta.'
   }
 ];
 
 export const DEFAULT_IMPORT_SHIPMENTS_2026: ImportShipmentColombia[] = [
   {
-    id: 'IMP-COL-2026-001',
-    shipmentCode: 'IMP-COL-2026-001',
+    id: 'LOTE-VE-2026-001',
+    shipmentCode: 'LOTE-VE-2026-001',
     date: '2026-05-20',
-    supplierName: 'Cooperativa Cafetera de Cúcuta Ltda.',
-    supplierNit: 'NIT: 890.501.240-3',
-    originCountry: 'Colombia (Norte de Santander)',
-    coffeeVariety: 'Café Arábica Pergamino Lavado Exportación',
+    supplierName: 'Asociación de Caficultores del Municipio Unda (Chabasquén)',
+    supplierNit: 'RIF: J-40192840-1',
+    originCountry: 'Venezuela (Portuguesa)',
+    coffeeVariety: 'Café Arábica Pergamino Lavado Variedad Caturra/Bourbon',
     volumeQtl: 2500,
     totalInvoiceUSD: 155000,
-    invoiceCommercialRef: 'EXP-COL-008412',
-    duaSeniatNumber: 'DUA-2026-ADU-004128',
-    insaiPermit: 'INSAI-FITOSAN-IMP-2026-904',
+    invoiceCommercialRef: 'CONTR-PROCURA-UNDA-001',
+    duaSeniatNumber: 'GUIA-SICA-VE-2026-004128',
+    insaiPermit: 'CVC-GUIA-NAC-2026-904',
     internationalFreightUSD: 23400,
     customsCostsUSD: 12000,
     status: 'NACIONALIZADO_EN_ALMACEN'
   },
   {
-    id: 'IMP-COL-2026-002',
-    shipmentCode: 'IMP-COL-2026-002',
+    id: 'LOTE-VE-2026-002',
+    shipmentCode: 'LOTE-VE-2026-002',
     date: '2026-07-15',
-    supplierName: 'Cooperativa de Caficultores del Huila Ltda.',
-    supplierNit: 'NIT: 891.100.842-1',
-    originCountry: 'Colombia (Huila)',
-    coffeeVariety: 'Café Arábica Supremo Excelso',
+    supplierName: 'Sociedad de Productores de Café de Biscucuy (Sucre)',
+    supplierNit: 'RIF: J-40810239-4',
+    originCountry: 'Venezuela (Portuguesa)',
+    coffeeVariety: 'Café Arábica Grano Oro Calidad Gourmet',
     volumeQtl: 3000,
     totalInvoiceUSD: 180000,
-    invoiceCommercialRef: 'EXP-COL-009104',
-    duaSeniatNumber: 'DUA-2026-ADU-005891',
-    insaiPermit: 'INSAI-FITOSAN-IMP-2026-1180',
+    invoiceCommercialRef: 'CONTR-PROCURA-BISC-002',
+    duaSeniatNumber: 'GUIA-SICA-VE-2026-005891',
+    insaiPermit: 'CVC-GUIA-NAC-2026-1180',
     internationalFreightUSD: 26800,
     customsCostsUSD: 14000,
     status: 'NACIONALIZADO_EN_ALMACEN'
   },
   {
-    id: 'IMP-COL-2026-003',
-    shipmentCode: 'IMP-COL-2026-003',
+    id: 'LOTE-VE-2026-003',
+    shipmentCode: 'LOTE-VE-2026-003',
     date: '2026-08-25',
-    supplierName: 'Exportadora Andina de Café Santander S.A.S.',
-    supplierNit: 'NIT: 900.842.115-7',
-    originCountry: 'Colombia (Santander)',
-    coffeeVariety: 'Café Pergamino Lavado Especial',
+    supplierName: 'Cooperativa Agroindustrial de Café Sanare / Guárico (Lara)',
+    supplierNit: 'RIF: J-31294820-8',
+    originCountry: 'Venezuela (Lara)',
+    coffeeVariety: 'Café Arábica Pergamino Fino Típica',
     volumeQtl: 2000,
     totalInvoiceUSD: 110000,
-    invoiceCommercialRef: 'EXP-COL-009588',
-    duaSeniatNumber: 'DUA-2026-ADU-007204',
-    insaiPermit: 'INSAI-FITOSAN-IMP-2026-1402',
+    invoiceCommercialRef: 'CONTR-PROCURA-LARA-003',
+    duaSeniatNumber: 'GUIA-SICA-VE-2026-007204',
+    insaiPermit: 'CVC-GUIA-NAC-2026-1402',
     internationalFreightUSD: 17180.15,
     customsCostsUSD: 9000,
-    status: 'NACIONALIZADO_EN_ALMACEN'
+    status: 'ACOPIADO_EN_ALMACEN'
   }
 ];
 

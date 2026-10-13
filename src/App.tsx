@@ -23,7 +23,8 @@ import {
   Globe,
   Ship,
   ArrowRightLeft,
-  TrendingUp
+  TrendingUp,
+  FolderArchive
 } from 'lucide-react';
 
 import { COMPANIES, CompanyProfile, CURRENT_BCV_RATE, BcvRateItem } from './data/nominusData';
@@ -49,9 +50,11 @@ import { FiscalAuditorCrossCheckReportView } from './components/FiscalAuditorCro
 import { BanescoReconciliationNoteSheetView } from './components/BanescoReconciliationNoteSheetView';
 import { AccountingSheetFullJournalView } from './components/AccountingSheetFullJournalView';
 import { DualCurrencyFinancialStatementsSheetView } from './components/DualCurrencyFinancialStatementsSheetView';
+import { BanescoFolderWorkflowView } from './components/BanescoFolderWorkflowView';
 
 export type ActiveModule =
   | 'DASHBOARD'
+  | 'BANESCO_FOLDER_WORKFLOW'
   | 'IMPORT_AND_ADVANCES'
   | 'FINANCIAL_STATEMENTS_DUAL_SHEET'
   | 'ACCOUNTING_SHEET'
@@ -81,7 +84,8 @@ function MainAppContent() {
 
   const navItems: { id: ActiveModule; label: string; icon: React.ElementType; badge?: string }[] = [
     { id: 'DASHBOARD', label: 'Inicio Dashboard', icon: LayoutGrid, badge: 'Inicio' },
-    { id: 'IMPORT_AND_ADVANCES', label: 'Anticipos & Importación (Colombia)', icon: Globe, badge: 'Principal' },
+    { id: 'BANESCO_FOLDER_WORKFLOW', label: 'Flujo & Carpeta Exp. Banesco', icon: FolderArchive, badge: 'Carpeta Bank' },
+    { id: 'IMPORT_AND_ADVANCES', label: 'Anticipos & Café Nacional (Venezuela)', icon: Globe, badge: 'Principal' },
     { id: 'FINANCIAL_STATEMENTS_DUAL_SHEET', label: 'EEFF Dual (Bs. & USD) + Excel Banco', icon: Scale, badge: '31-08-2026' },
     { id: 'ACCOUNTING_SHEET', label: 'Hoja de Contabilidad & Asientos ERP', icon: BookOpen, badge: 'Diario ERP' },
     { id: 'FISCAL_AUDITOR_REPORT', label: 'Auditoría Fiscal Proveedores', icon: ShieldCheck, badge: 'Auditor' },
@@ -138,13 +142,13 @@ function MainAppContent() {
               </span>
               <div>
                 <h2 className="text-sm sm:text-base font-bold text-slate-900 flex flex-wrap items-center gap-2">
-                  <span>Agrícola Oni C.A. &middot; Intermediación & Importación de Café</span>
+                  <span>Agrícola Oni C.A. &middot; Intermediación Comercial & Compra de Café Nacional</span>
                   <span className="text-[10px] bg-emerald-100 text-emerald-900 border border-emerald-300 px-2 py-0.5 rounded-md font-bold font-mono">
-                    Déficit Nacional Cubierto con Importación
+                    Operaciones 100% en Venezuela a Tasa Oficial BCV
                   </span>
                 </h2>
                 <p className="text-xs text-slate-600 max-w-3xl mt-1 leading-relaxed font-medium">
-                  Recepción de anticipos en ventas en Banesco &rarr; Compra de dólares a Banesco en Mesa de Cambio &rarr; Pago de café en Colombia y flete &rarr; Facturación a clientes en Octubre.
+                  Recepción de anticipos en bolívares en Banesco a tasa oficial BCV &rarr; Compra y acopio de café en Venezuela &rarr; Compra de divisas en Banesco para insumos y maquinaria &rarr; Sustitución por facturas de venta en Octubre 2026.
                 </p>
               </div>
             </div>
@@ -161,8 +165,8 @@ function MainAppContent() {
                 onClick={() => setActiveModule('IMPORT_AND_ADVANCES')}
                 className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition-colors flex items-center gap-1.5 shadow-2xs cursor-pointer"
               >
-                <Ship className="w-3.5 h-3.5" />
-                <span>Flujo Importación</span>
+                <Globe className="w-3.5 h-3.5" />
+                <span>Flujo Café Nacional</span>
               </button>
             </div>
           </div>
@@ -262,7 +266,7 @@ function MainAppContent() {
               <p className="text-[11px] text-slate-600 leading-relaxed">
                 Empresa: <strong className="text-slate-900">{selectedCompany.name}</strong>
                 <br />
-                Actividad: <span className="text-emerald-800 font-semibold">Intermediación e Importación</span>
+                Actividad: <span className="text-emerald-800 font-semibold">Intermediación y Procura Nacional</span>
                 <br />
                 RIF: <strong className="font-mono text-slate-900">{selectedCompany.rif}</strong>
                 <br />
@@ -283,6 +287,14 @@ function MainAppContent() {
                 currentRate={currentRate}
                 onNavigate={(m) => setActiveModule(m)}
                 totalLoaded={totalLoaded}
+              />
+            )}
+
+            {activeModule === 'BANESCO_FOLDER_WORKFLOW' && (
+              <BanescoFolderWorkflowView
+                company={selectedCompany}
+                currentRate={currentRate}
+                onNavigateToModule={(mod) => setActiveModule(mod as ActiveModule)}
               />
             )}
 
@@ -408,7 +420,7 @@ function MainAppContent() {
           <div className="flex items-center gap-2">
             <span className="font-serif-doc font-bold text-emerald-950 text-sm">NOMINUS &middot; Agrícola Oni C.A.</span>
             <span>&mdash;</span>
-            <span className="text-slate-600">Intermediación Comercial, Anticipos en Ventas e Importación de Café 2026</span>
+            <span className="text-slate-600">Intermediación Comercial, Anticipos en Ventas a Tasa BCV y Café Nacional 2026</span>
           </div>
           <div className="flex items-center gap-3 text-[11px] font-mono text-slate-600">
             <span>Banesco Cta Corriente</span>

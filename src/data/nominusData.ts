@@ -43,12 +43,12 @@ export const COMPANIES: CompanyProfile[] = [
     legalRepresentative: 'Ing. Omar Pérez',
     idNumber: 'V-14.892.301',
     role: 'Director General / Representante Legal',
-    sector: 'Intermediación Comercial & Importación de Café (Importación de Café de Colombia/Exterior, Gestión de Anticipos de Clientes, Compra de Divisas Banesco y Distribución Nacional)',
+    sector: 'Intermediación Comercial & Compra de Café 100% Nacional (Gestión de Anticipos en Bolívares de Clientes a Tasa Oficial BCV, Procura y Acopio de Café en Venezuela, Contratos a Futuro con Empresas y Productores Nacionales, Sustitución por Facturas de Venta en Octubre 2026)',
     foundedYear: 2021,
     fiscalYear: '01/01/2026 - 31/12/2026',
     banescoAccountVES: '0134-0342-18-3421089912',
     banescoAccountUSD: '0134-0342-12-3420084712',
-    cvcLicense: 'CVC-IMP-2026-0418',
+    cvcLicense: 'CVC-NAC-2026-0418',
     sicaRegistry: 'SICA-VE-8941094',
   }
 ];

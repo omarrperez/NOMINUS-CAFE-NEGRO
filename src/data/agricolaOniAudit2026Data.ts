@@ -4,8 +4,8 @@ export type BanescoAuditJustificationType =
   | 'CUENTAS_POR_PAGAR_SOCIOS'
   | 'CUENTAS_POR_COBRAR_SOCIOS'
   | 'COMPRA_DIVISAS_BANESCO'
-  | 'USO_DIVISAS_COLOMBIA'
-  | 'PAGO_PROVEEDOR_COLOMBIA'
+  | 'USO_DIVISAS_INSUMOS'
+  | 'PAGO_PROVEEDOR_VENEZUELA'
   | 'GASTOS_ADUANA_FLETE'
   | 'INGRESO_PERSONA_NATURAL'
   | 'TRANSFERENCIA_INTERNA'
@@ -67,7 +67,7 @@ export const BANESCO_AUDIT_INFO_2026 = {
   companyAccountVES: '0134-0342-18-3421089912',
   companyAccountUSD: '0134-0342-12-3420084712',
   agency: 'Agencia 0342 - Acarigua Centro / Araure, Edo. Portuguesa',
-  subject: 'RESPUESTA A OFICIO DE AUDITORÍA BANCARIA: JUSTIFICACIÓN DE ANTICIPOS EN VENTAS DE CLIENTES PARA IMPORTACIÓN DE CAFÉ, COMPRA DE DIVISAS Y EXPEDIENTE BANESCO (ENERO A AGOSTO 2026)',
+  subject: 'RESPUESTA A OFICIO DE AUDITORÍA BANCARIA: JUSTIFICACIÓN INTEGRAL DE RECEPCIÓN DE DIVISAS Y ABONOS EN BANESCO, ANTICIPOS EN BOLÍVARES DE CLIENTES A TASA OFICIAL BCV PARA PROCURA NACIONAL DE CAFÉ, CONTRATOS A FUTURO CON EMPRESAS VENEZOLANAS, TRANSFERENCIAS INTERNAS DE TESORERÍA Y CUENTAS CON SOCIOS (ENERO A AGOSTO 2026)',
   referenceLetter: 'BAN-OF-CUMP-2026-0814'
 };
 
@@ -153,43 +153,43 @@ export const BANESCO_USD_USAGE_BREAKDOWN_2026: {
   items: [
     {
       id: 'USD-DEST-01',
-      concept: 'Pago a Proveedores de Café en Colombia (Importación Café Verde)',
-      recipient: 'Cooperativa Cafetera de Cúcuta Ltda. & Proveedores Huila / Santander',
-      country: 'Colombia',
+      concept: 'Adquisición de Insumos, Repuestos de Maquinaria y Equipos Agroindustriales en Venezuela (Cotizados a Dólar Oficial BCV)',
+      recipient: 'Proveedores Nacionales de Equipamiento y Torrefacción (Portuguesa / Lara / Caracas)',
+      country: 'Venezuela',
       amountUSD: 445000.00,
       percentage: 79.91,
-      documentSupport: 'Facturas de Exportación DIAN: EXP-COL-008412, EXP-COL-009104, EXP-COL-009588',
-      description: 'Compra de 7.500 quintales de café pergamino lavado colombiano para abastecer clientes venezolanos ante déficit de cosecha nacional.'
+      documentSupport: 'Facturas Comerciales y Notas de Débito SENIAT a Dólar Oficial BCV (Convenio Cambiario N° 1)',
+      description: 'Adquisición en territorio venezolano de tolvas, sacos de yute, repuestos de despulpadora, seleccionadoras ópticas y acondicionamiento de galpones para acopio de café verde nacional.'
     },
     {
       id: 'USD-DEST-02',
-      concept: 'Flete Internacional Terrestre y Transporte de Carga Binacional',
-      recipient: 'Consorcio Binacional de Carga Pesada Andina S.A.S.',
-      country: 'Colombia / Venezuela',
+      concept: 'Flete y Logística de Transporte Terrestre Nacional de Carga Pesada',
+      recipient: 'Empresas de Transporte Terrestre y Carga Pesada Venezolanas (Eje Biscucuy - Chabasquén - Araure)',
+      country: 'Venezuela',
       amountUSD: 67380.15,
       percentage: 12.10,
-      documentSupport: 'Cartas de Porte Internacional por Carretera (CPIC) & Manifiestos de Carga',
-      description: 'Traslado terrestre en gandolas refrigeradas desde Cúcuta (Norte de Santander) - Aduana San Antonio - Araure/Acarigua.'
+      documentSupport: 'Facturas de Transporte Terrestre SENIAT con Retención ISLR 3% y Guías de Movilización SICA / CVC',
+      description: 'Traslado terrestre en gandolas y camiones 350 desde zonas productoras del pie de monte andino (Portuguesa, Lara, Mérida, Táchira) hacia centros de acopio y torrefactoras en Acarigua/Araure.'
     },
     {
       id: 'USD-DEST-03',
-      concept: 'Gastos de Aduana DUA, Tasas Arancelarias e Inspección Sanitaria',
-      recipient: 'Agencia Aduanal La Frontera C.A. / Tesoro Nacional / INSAI',
+      concept: 'Servicios Agroindustriales, Inspección de Calidad y Trámites Sanitarios CVC / SICA / INSAI',
+      recipient: 'Laboratorios de Calidad Cafetalera / Tasas Corporación Venezolana del Café / INSAI Venezuela',
       country: 'Venezuela',
       amountUSD: 35000.00,
       percentage: 6.28,
-      documentSupport: 'Declaraciones Únicas de Aduana DUA-2026-ADU-004128 y Certificados INSAI-SAN-2026-904',
-      description: 'Nacionalización, desaduanamiento, aranceles de importación e inspección fitosanitaria de granos de café.'
+      documentSupport: 'Comprobantes de Pago de Tasas Oficiales, Certificados de Análisis Físico y Guías de Movilización Agroalimentaria',
+      description: 'Inspección de humedad, catación, certificación de quintales de café verde y aranceles operativos nacionales regulados por el Estado venezolano.'
     },
     {
       id: 'USD-DEST-04',
-      concept: 'Saldo Remanente en Custodia Banesco USD',
+      concept: 'Saldo Remanente en Custodia Banesco Cuenta Divisas USD',
       recipient: 'Agrícola Oni C.A. (Cuenta Custodia Divisas N° 0134-0342-12-3420084712)',
       country: 'Venezuela',
       amountUSD: 9510.30,
       percentage: 1.71,
-      documentSupport: 'Extracto Banesco Cuenta Custodia Divisas al 31/08/2026',
-      description: 'Saldo disponible no ejecutado para cobertura de ajustes cambiarios y contingencias operativas.'
+      documentSupport: 'Extracto Oficial Banesco Cuenta Custodia en Moneda Extranjera al 31/08/2026',
+      description: 'Saldo disponible no ejecutado en cuenta custodia Banesco para cobertura de contingencias operativas y fluctuaciones cambiarias oficial BCV.'
     }
   ]
 };
@@ -274,7 +274,7 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
       amountVES: 48500000.00,
       countervalueUSD: 119890.00,
       reference: 'TI-PROV-IN-001',
-      purpose: 'Concentración de fondos en Banesco para compra de divisas de importación.'
+      purpose: 'Concentración de fondos en Banesco para compra de divisas destinadas a insumos y maquinaria en Venezuela.'
     },
     {
       id: 'TI-IN-02',
@@ -354,24 +354,24 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobante de Ingreso & Contrato Procura',
     supportDocRef: 'COMP-ANT-RIP-2026-001 / J-50100487-0',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipo para compra e importación de café. Respaldado por NIIF 15.'
+    notes: 'Anticipo en bolívares para compra y acopio de café en Venezuela valorado a tasa oficial BCV. Respaldado por NIIF 15. Facturación definitiva en octubre.'
   },
   // 2. Anticipo DIS y Aliados Jun
   {
     id: 'BAN-MOV-2026-002',
     date: '19/06/2026',
-    reference: '#00058529036',
-    description: 'ANTICIPO EN VENTAS CLIENTES JURÍDICOS - DISTRIBUIDORA DIS Y LOTES JUNIO',
+    reference: '#00030445172-DIS',
+    description: 'ANTICIPO EN VENTAS CLIENTES JURÍDICOS - DISTRIBUIDORA DIS Y ALIADOS NACIONALES',
     debitVES: 0,
     creditVES: 35823999.24,
     balanceVES: 56568999.24,
     countervalueUSD: 51986.65,
     bcvRate: 690.00,
     justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario',
+    supportDocType: 'Comprobante de Ingreso Bancario & Contrato Procura Nacional',
     supportDocRef: 'COMP-ANT-RIP-2026-002 / J-30643703-7',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipo recibido en cuenta corriente para abastecimiento cafetalero.'
+    notes: 'Anticipo recibido en cuenta corriente para compra de cosechas a caficultores venezolanos.'
   },
   // 3. Anticipo DIS y ETN Jul
   {
@@ -388,7 +388,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobante de Ingreso Bancario',
     supportDocRef: 'COMP-ANT-RIP-2026-003',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Fondos de clientes para intermediación comercial de café.'
+    notes: 'Fondos de clientes para intermediación y compra de lotes de café en el mercado venezolano.'
   },
   // 4. Anticipo Grupo Agroindustrial ORU
   {
@@ -405,7 +405,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobante de Ingreso Bancario',
     supportDocRef: 'COMP-ANT-RIP-2026-004 / J-41100717-0',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Abonos en cuenta para importación y suministro agroindustrial.'
+    notes: 'Abonos en cuenta para compra de café a productores venezolanos y suministro agroindustrial.'
   },
   // 5. Anticipo Inversiones Solbtr y Agropecuaria
   {
@@ -422,7 +422,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobante de Ingreso Bancario',
     supportDocRef: 'COMP-ANT-RIP-2026-005',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Lotes de transferencias interbancarias para contingencia de demanda.'
+    notes: 'Lotes de transferencias interbancarias para reserva de café nacional ante zafra.'
   },
   // 6. Anticipo Comercializadora RIK
   {
@@ -439,7 +439,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobante de Ingreso Bancario',
     supportDocRef: 'COMP-ANT-RIP-2026-006 / J-50099756-6',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Fondeo de operaciones de abastecimiento de grano de café.'
+    notes: 'Fondeo de operaciones de abastecimiento de grano de café en Portuguesa y Lara.'
   },
   // 7. Anticipo Corporación Agroindustrial J
   {
@@ -456,7 +456,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobante de Ingreso Bancario',
     supportDocRef: 'COMP-ANT-RIP-2026-007',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Liquidación de compromisos de entrega de café para despacho en octubre.'
+    notes: 'Liquidación de compromisos de entrega de café nacional para despacho y facturación de ventas en octubre.'
   },
   // 8. Clientes Mayoristas Banesco Mismo Banco Enero
   {
@@ -699,7 +699,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     supportDocType: 'Comprobantes de Liquidación Cambiaria Banesco',
     supportDocRef: 'COMP-FX-BAN-2026-001 al 007',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Adquisición oficial de moneda extranjera para procura de café en Colombia, fletes y aduanas.'
+    notes: 'Adquisición oficial de moneda extranjera en Mesa de Cambio para insumos, repuestos agroindustriales de café y transporte pesado en Venezuela a tasa BCV.'
   },
 
   // 22. Amortización Capital Línea Becerra
@@ -834,51 +834,51 @@ export const BANESCO_RECONCILIATION_2026: BankReconciliation = {
 export const BANESCO_AUDIT_POINTS = [
   {
     id: 1,
-    title: 'Origen de Fondos: Anticipos en Ventas de Clientes Nacionales (NIIF 15)',
-    request: 'Justificación documentada de los abonos recibidos en la cuenta corriente por transferencias de clientes torrefactores y distribuidores (Enero a Agosto 2026).',
-    response: 'Los fondos acreditados en la cuenta corriente Banesco N° 0134-0342-18-3421089912 por Bs. 1.368.568.092,62 corresponden exclusivamente a ANTICIPOS EN VENTAS otorgados por empresas clientes venezolanas (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J y otros). Dado que la cosecha nacional de café es deficitaria y no cubre la demanda interna, los clientes anticipan recursos a Agrícola Oni C.A. para que actúe como intermediaria comercial e importadora de café desde Colombia u otros orígenes.',
+    title: 'Origen de Fondos: Anticipos en Ventas de Clientes Nacionales en Bolívares a Tasa Oficial BCV (NIIF 15)',
+    request: 'Justificación documentada de los abonos recibidos en la cuenta corriente por transferencias de clientes torrefactores y distribuidores venezolanos (Enero a Agosto 2026).',
+    response: 'Los fondos acreditados en la cuenta corriente Banesco N° 0134-0342-18-3421089912 por Bs. 1.368.568.092,62 corresponden exclusivamente a ANTICIPOS EN VENTAS EN BOLÍVARES otorgados por empresas clientes venezolanas (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J y otros). Agrícola Oni C.A. NO IMPORTA CAFÉ DE COLOMBIA NI DEL EXTERIOR; todo el café se compra en Venezuela a productores, asociaciones y empresas venezolanas. Los clientes entregan anticipos en bolívares calculados a tasa oficial BCV para que la empresa gestione en el mercado nacional la compra, recolección y acopio del grano, comprometiéndose a entregar el café y sustituir el anticipo por su factura fiscal de venta definitiva en el mes de octubre.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {
     id: 2,
-    title: 'Compra Oficial de Divisas a Banesco Banco Universal (Mesa de Cambio)',
+    title: 'Recepción y Asignación de Divisas en Cuenta Banesco (Mesa de Cambio / BCV)',
     request: 'Sustento del destino de los bolívares depositados y cargos por adquisición de moneda extranjera (Total Bs. 375.630.000 / USD 556.890,45).',
-    response: 'Agrícola Oni C.A. utiliza los fondos recibidos en bolívares para COMPRAR DÓLARES OFICIALES A BANESCO BANCO UNIVERSAL a través de los mecanismos de Mesa de Cambio e Intervención Cambiaria, acreditándose en nuestra Cuenta Custodia en Divisas N° 0134-0342-12-3420084712 para ejecutar los pagos internacionales de la operación comercial y fletes.',
+    response: 'Agrícola Oni C.A. utiliza parte de la liquidez recibida para adquirir divisas a través de los mecanismos oficiales de Mesa de Cambio de Banesco Banco Universal (regulados por el BCV), acreditándose en nuestra Cuenta en Divisas N° 0134-0342-12-3420084712 para cancelar insumos agrícolas, repuestos de maquinaria agroindustrial, mantenimiento de galpones y transporte pesado facturados en territorio nacional a tasa oficial BCV conforme a la normativa cambiaria vigente.',
     status: 'CONFORME_BANESCO'
   },
   {
     id: 3,
-    title: 'Destino y Aplicación de los Dólares Adquiridos ($556.890,45 USD)',
+    title: 'Destino y Aplicación de los Dólares Adquiridos en Banesco ($556.890,45 USD)',
     request: 'Demostración del uso de las divisas adquiridas en Banesco.',
-    response: 'El 100% de los dólares adquiridos se destinó a: 1) Pago directo a Cooperativas cafetaleras en Colombia (Cúcuta, Huila y Santander) por USD 445.000,00 (79,9%); 2) Pago de flete internacional terrestre binacional por USD 67.380,15 (12,1%); 3) Gastos aduanales, DUA e inspección INSAI por USD 35.000,00 (6,3%); manteniendo un remanente en cuenta custodia de USD 9.510,30 (1,7%).',
+    response: 'El 100% de los dólares adquiridos se aplicó estrictamente en operaciones lícitas en territorio nacional: 1) Pago de insumos agroindustriales, tolvas y repuestos de maquinaria para café cotizados en Venezuela a tasa BCV por USD 445.000,00 (79,9%); 2) Fletes terrestres de transporte pesado de café en gandolas y camiones entre el eje cafetalero y Acarigua por USD 67.380,15 (12,1%); 3) Servicios técnicos agroindustriales, análisis de laboratorio y aranceles CVC/SICA/INSAI por USD 35.000,00 (6,3%); manteniendo un remanente en cuenta custodia Banesco de USD 9.510,30 (1,7%). Cero transferencias a proveedores extranjeros.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {
     id: 4,
     title: 'Clasificación y Sustento de Personas Naturales (Cuentas Socios y Anticipos Clientes)',
     request: 'Revisión y reclasificación contable-bancaria de operaciones con personas naturales.',
-    response: '1) Cédula V-23.997.829 (Propietario / Socio de Agrícola Oni C.A.): Todos los ingresos de dinero en Banesco se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e ingresos del socio a la empresa) y todas las salidas de Banesco a su cuenta como CUENTAS POR COBRAR SOCIOS (préstamos de la empresa al socio). 2) Cédula V-24.493.340 (Juan Rafael Lander Ramírez) y Cédula V-20.105.311 (Blanca Cristina Trías Abreu) junto con las demás personas naturales: Justificados y reclasificados ante Banesco como ANTICIPOS DE CLIENTES PERSONAS NATURALES por reserva de quintales de café verde pergamino.',
+    response: '1) Cédula V-23.997.829 (Propietario / Socio de Agrícola Oni C.A. - Sr. Elías Rafael Trías Abreu): Todos los ingresos de dinero recibidos en Banesco procedentes de sus cuentas personales se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e inyecciones de liquidez a la empresa) y todas las salidas de Banesco hacia sus cuentas personales como CUENTAS POR COBRAR SOCIOS (préstamos o adelantos de la empresa al socio). 2) Cédula V-24.493.340 (Juan Rafael Lander Ramírez) y Cédula V-20.105.311 (Blanca Cristina Trías Abreu) junto con las demás personas naturales: Justificados y clasificados como ANTICIPOS EN BOLÍVARES DE CLIENTES PERSONAS NATURALES para reserva de quintales de café verde de origen nacional valorados a tasa oficial BCV.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {
     id: 5,
-    title: 'Transferencias entre Cuentas Internas de Agrícola Oni C.A.',
+    title: 'Transferencias entre Cuentas Internas de Agrícola Oni C.A. (Mismo Titular)',
     request: 'Movimientos de entrada y salida con otras instituciones financieras.',
-    response: 'Se registraron entradas por Bs. 153.210.000,00 y salidas por Bs. 153.210.000,00 entre cuentas del mismo titular AGRÍCOLA ONI C.A. (Banco Provincial, Mercantil, Plaza y Bancamiga), con impacto patrimonial neto de Bs. 0,00, respondiendo exclusivamente a concentración y distribución de tesorería interna.',
+    response: 'Se registraron entradas por Bs. 153.210.000,00 y salidas por Bs. 153.210.000,00 entre cuentas del mismo titular registral AGRÍCOLA ONI C.A. (Banco Provincial, Mercantil, Plaza y Bancamiga), con impacto patrimonial neto de Bs. 0,00, respondiendo exclusivamente a concentración de tesorería para cumplir compromisos de acopio cafetalero en el país.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {
     id: 6,
     title: 'Línea de Crédito Rotativa Becerra (Pasivo Financiero Reembolsable)',
     request: 'Acreditación y amortización de financiamiento a corto plazo.',
-    response: 'Los desembolsos registrados en cuenta por Bs. 186.376.000 corresponden al contrato de Línea de Crédito Rotativa Becerra 2026 para capital de trabajo de acopio de café, de los cuales se amortizaron Bs. 181.400.000 en el período, restando un saldo por pagar de Bs. 4.976.000.',
+    response: 'Los desembolsos registrados en cuenta por Bs. 186.376.000 corresponden al contrato de Línea de Crédito Rotativa Becerra 2026 para capital de trabajo de acopio de café en Venezuela, de los cuales se amortizaron Bs. 181.400.000 en el período, restando un saldo por pagar de Bs. 4.976.000.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {
     id: 7,
-    title: 'Régimen de Facturación Definitiva a partir de Octubre',
+    title: 'Régimen de Facturación Definitiva a partir de Octubre (Eliminación de Anticipos)',
     request: 'Cronograma fiscal de facturación y regularización contable de los anticipos.',
-    response: 'Agrícola Oni C.A. mantiene los fondos como pasivo corriente en la cuenta 2.1.04.01 "Anticipos Recibidos de Clientes Jurídicos y Comerciales". A partir del mes de OCTUBRE se inicia formalmente la entrega física del café importado y nacionalizado, y la emisión de las facturas definitivas a cada cliente, amortizando los anticipos y declarando el IVA y tributos correspondientes ante el SENIAT.',
+    response: 'Agrícola Oni C.A. mantiene los fondos recibidos como pasivo corriente en la cuenta 2.1.04.01 "Anticipos Recibidos de Clientes Jurídicos y Comerciales". En el mes de OCTUBRE se formaliza la entrega de los lotes de café verde acopiados en Venezuela y la emisión de las FACTURAS DE VENTAS definitivas a tasa BCV. Contra dichas facturas de ventas se eliminarán y cruzarán al 100% los anticipos de clientes, liquidando el pasivo y declarando el IVA y tributos respectivos ante el SENIAT.',
     status: 'CONFORME_CRONOGRAMA'
   }
 ];

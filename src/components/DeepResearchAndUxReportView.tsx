@@ -187,11 +187,11 @@ export const DeepResearchAndUxReportView: React.FC<Props> = ({ company }) => {
               Estructura de Costo y Margen por Quintal de Café (Qtl = 46 Kg)
             </h3>
             <p className="text-xs text-stone-400 mt-0.5">
-              Base de cálculo: Operaciones Ene - Ago 2026 &middot; 7,500 Quintales de Café Importado desde Colombia &middot; Agrícola Oni C.A.
+              Base de cálculo: Operaciones Ene - Ago 2026 &middot; 7,500 Quintales de Café Acopiado en Venezuela a Tasa Oficial BCV &middot; Agrícola Oni C.A.
             </p>
           </div>
           <span className="text-xs font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800 px-3 py-1 rounded">
-            Costo Promedio Importación: $59.33 / Qtl
+            Costo Promedio Procura y Acopio: $59.33 / Qtl
           </span>
         </div>
 

@@ -23,21 +23,51 @@ export const AgricolaOniBanescoResponseLetterView: React.FC<Props> = ({ company,
 
   const handleCopyText = () => {
     const textContent = `
-OFICIO: AO-DIR-BAN-2026-042
-FECHA: 31 de Marzo de 2026
-EXPEDIENTE: AUD-BAN-2026-ONI-094
+OFICIO Nº: AO-DIR-BAN-2026-042
+FECHA: 31 de Agosto de 2026
+EXPEDIENTE BANCARIO: AUD-BAN-2026-ONI-094
 
 A: BANESCO BANCO UNIVERSAL, C.A.
 Unidad de Prevención y Control de Legitimación de Capitales (UPCLC/FT)
-Gerencia de Auditoría Interna
-Atención: Lcdo. Roberto Albarrán
+Gerencia de Auditoría Interna & Cumplimiento
+Atención: Lcdo. Roberto Albarrán — Vicepresidente de Cumplimiento
 
-ASUNTO: RESPUESTA FORMAL A AUDITORÍA BANCARIA Y JUSTIFICACIÓN DE FONDOS OPERATIVOS AGRÍCOLAS - CUENTA CORRIENTE N° 0134-0342-19-3421049281
+ASUNTO: RESPUESTA FORMAL Y DOCUMENTADA A REQUERIMIENTO DE AUDITORÍA BANCARIA — JUSTIFICACIÓN DE FONDOS MOVILIZADOS VS ESTADOS FINANCIEROS (CUENTAS CORRIENTES N° 0134-0342-18-3421089912 EN VES Y N° 0134-0342-12-3420084712 EN USD)
 
 Estimados señores:
 
-Por medio de la presente, en nuestra condición de Representante Legal y Administradores de la sociedad mercantil AGRÍCOLA ONI C.A., inscrita bajo el R.I.F. J-30849201-4, damos respuesta formal y oportuna a su comunicación Nro. BAN-OF-CUMP-2026-0814...
-(Conciliación bancaria al 31/03/2026 saldo exacto Bs. 4,892,150.80).
+Nos dirigimos a ustedes en la oportunidad de dar respuesta integral, rigurosa y documentada al requerimiento de información cursado por esa institución financiera respecto a las cuentas corrientes en bolívares (0134-0342-18-3421089912) y en dólares (0134-0342-12-3420084712) de nuestra representada AGRÍCOLA ONI, C.A. (R.I.F. J-50145638-0).
+
+1. DECLARACIÓN CATEGÓRICA DE OPERACIONES 100% NACIONALES EN VENEZUELA:
+AGRÍCOLA ONI, C.A. actúa exclusivamente como empresa INTERMEDIARIA COMERCIAL EN VENEZUELA. Nuestra actividad consiste en intermediar entre personas naturales y jurídicas, sirviendo de puente mercantil para gestionar la compra, acopio y comercialización de café 100% NACIONAL a productores, asociaciones y empresas venezolanas.
+NUESTRA EMPRESA NO IMPORTA NADA DE COLOMBIA NI DE NINGUNA ENTIDAD DEL EXTERIOR; TODO EL CAFÉ SE COMPRA EN VENEZUELA y los contratos a futuro de café son celebrados exclusivamente con empresas y productores venezolanos, facturados a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV).
+
+2. DEMOSTRACIÓN TÉCNICA DEL CUADRE CONTABLE: FONDOS BANCARIOS VS ESTADOS FINANCIEROS (DIFERENCIA BS. 0,00)
+Certificamos que NO EXISTE OMISIÓN DE INGRESOS NI DISPARIDAD TRIBUTARIA. La movilización bancaria de créditos por USD 2.781.830,18 (Bs. 1.966.597.105,35) se concilia al 100% frente a las Ventas Declaradas en el Estado de Resultados (Bs. 92.641.520,01 / USD 116.531,68) mediante el siguiente desglose auditado:
+
+a) Anticipos en Bolívares de Clientes (78,4% - Bs. 1.542.017.092,63 / USD 2.270.486,23):
+Pasivo Corriente bajo NIIF 15 / Sección 23 NIIF PYMES. Corresponden a anticipos entregados por clientes torrefactores y distribuidores venezolanos a tasa oficial BCV para gestionar la compra y acopio de café en Portuguesa, Lara y Trujillo. En OCTUBRE DE 2026, con la entrega de la cosecha, estos anticipos se sustituyen por Facturas Fiscales Definitivas de Venta SENIAT contra las cuales se eliminan de la contabilidad.
+b) Reintegros Capital Mutuo Manuel Becerra (9,5% - Bs. 186.376.000,00 / USD 286.228,93):
+Amortización de Activo Financiero procedente de la Línea de Crédito Rotativa suscrita el 02/01/2026. Disminuyen la Cuenta por Cobrar Socio/Aliado (saldo en balance: Bs. 325.948.652,96). No constituye venta.
+c) Transferencias entre Cuentas Propias de Agrícola Oni (10,6% - Bs. 208.708.057,73 / USD 308.317,80):
+Traspasos internos de tesorería desde Provincial, Mercantil, Plaza y Bancamiga pertenecientes al mismo titular RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
+d) Aportes Operativos del Socio Propietario Único (1,5% - Bs. 29.495.954,99 / USD 47.335,99):
+Inyecciones de liquidez realizadas por el socio propietario Elías Rafael Trías Abreu (V-18.492.301 / V-23.997.829) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
+e) Ingresos Reales Devengados en el Ejercicio (Bs. 92.641.520,01 / USD 116.531,68):
+Servicios Agrícolas facturados (Bs. 78.717.472,35) e Intereses Ganados del Mutuo Becerra (Bs. 13.924.047,66), coincidiendo al 100% con los Estados Financieros Auditados.
+
+CUADRE FINAL: Total Créditos Banesco (Bs. 1.966.597.105,35) - Pasivos NIIF 15 (Bs. 1.542.017.092,63) - Amortizaciones (Bs. 186.376.000,00) - Traspasos Internos (Bs. 208.708.057,73) - Aportes Socio (Bs. 29.495.954,99) = Ingresos Reales EEFF (Bs. 92.641.520,01). DIFERENCIA: BS. 0,00.
+
+3. FUNDAMENTACIÓN JURÍDICO-FISCAL (SENIAT, SUDEBAN, BCV, CÓDIGO DE COMERCIO):
+- Ley de Impuesto Sobre la Renta (ISLR - Arts. 1, 5 y 16): Principio de disponibilidad del ingreso sobre bases devengadas o causadas. Los anticipos recibidos constituirán ingreso gravable únicamente al perfeccionarse la entrega del café y emitirse la factura fiscal.
+- Providencia Administrativa SENIAT N° SNAT/2011/00071: La obligación de facturación surge con la entrega de los bienes en Octubre de 2026.
+- Objeto Social Constitutivo (Registro Mercantil 2021, Tomo 44-A, N° 12, RIF J-50145638-0): Autoriza expresamente la intermediación comercial y compra de café nacional.
+- Propiedad Accionaria Única: Pertenece 100% al Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301), garantizando total transparencia patrimonial ante Banesco Banco Universal.
+
+Atentamente,
+Ing. Omar Pérez — Director General / Representante Legal (C.I. V-14.892.301)
+Lcda. Carmen Rivas — Contador Público Colegiado (C.P.C. N° 41.802)
+AGRÍCOLA ONI, C.A. — RIF J-50145638-0
     `;
     navigator.clipboard.writeText(textContent.trim());
     setCopied(true);
@@ -150,7 +180,7 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
                 {company.name}
               </h1>
               <p className="text-xs font-semibold text-stone-700 uppercase tracking-widest mt-0.5">
-                INTERMEDIACIÓN COMERCIAL &middot; IMPORTACIÓN DE CAFÉ &middot; DISTRIBUCIÓN NACIONAL
+                INTERMEDIACIÓN COMERCIAL &middot; COMPRA DE CAFÉ NACIONAL A TASA OFICIAL BCV &middot; ACOPIO VENEZUELA
               </p>
               <p className="text-xs text-stone-600 mt-1">
                 R.I.F.: <span className="font-semibold text-stone-900">{company.rif}</span> &middot; {company.registroMercantil}
@@ -199,22 +229,22 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
           </p>
 
           <p>
-            Al respecto, dejamos constancia expresa de que <strong>AGRÍCOLA ONI C.A. actúa como empresa INTERMEDIARIA COMERCIAL E IMPORTADORA</strong>. Nuestra actividad no consiste en la producción agrícola primaria de café, sino en intermediar y gestionar la <strong>adquisición e importación internacional de café verde y pergamino (principalmente desde la República de Colombia u otros orígenes)</strong>, en virtud de que la cosecha nacional venezolana resulta insuficiente para abastecer la demanda requerida por la industria torrefactora y distribuidora nacional.
+            Al respecto, dejamos constancia expresa y categórica de que <strong>AGRÍCOLA ONI C.A. actúa como empresa INTERMEDIARIA COMERCIAL EN VENEZUELA</strong>. Nuestra actividad consiste en intermediar entre personas naturales y jurídicas, sirviendo de puente mercantil para gestionar la <strong>compra, acopio y comercialización de café 100% NACIONAL a productores, asociaciones y empresas venezolanas</strong>. Dejamos formal constancia de que <strong>NUESTRA EMPRESA NO IMPORTA NADA DE COLOMBIA NI DE NINGUNA ENTIDAD DEL EXTERIOR; TODO EL CAFÉ SE COMPRA EN VENEZUELA</strong> y los contratos a futuro de café son celebrados exclusivamente con empresas y productores venezolanos, facturados a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV).
           </p>
 
           <p>
-            Bajo esta estructura de intermediación comercial:
+            Bajo esta estructura de intermediación nacional:
           </p>
 
           <div className="bg-stone-50 border border-stone-200 rounded-lg p-3 text-xs space-y-2">
             <div>
-              <strong>1. Recepción de Anticipos en Ventas (NIIF 15):</strong> Los fondos abonados por clientes nacionales (Bs. 1.368.568.092,62) corresponden estrictamente a <em>Anticipos en Ventas</em>, mediante los cuales las empresas compradoras financian y aseguran el suministro del grano importado.
+              <strong>1. Recepción de Anticipos en Bolívares de Clientes (NIIF 15) a Tasa Oficial BCV:</strong> Los fondos abonados por clientes nacionales (Bs. 1.368.568.092,62) corresponden a <em>Anticipos en Bolívares</em> entregados por clientes para que la empresa opere en el mercado nacional y gestione la compra de café venezolano en las fincas y centros de acopio del eje Portuguesa, Lara y Trujillo.
             </div>
             <div>
-              <strong>2. Compra de Divisas Oficiales a Banesco:</strong> Agrícola Oni C.A. utiliza los bolívares recibidos como anticipos para comprar dólares oficiales a <em>Banesco Banco Universal</em> (Bs. 375.630.000,00 convertidos en $556.890,45 USD vía Mesa de Cambio / Intervención Cambiaria) y cubrir el pago de los proveedores en Colombia, fletes y aduana.
+              <strong>2. Recepción y Asignación de Divisas en Banesco a Tasa BCV:</strong> Los fondos en moneda extranjera acreditados en la cuenta Banesco se utilizan para la compra de tolvas, sacos de yute, repuestos agroindustriales y pago de transporte pesado de carga terrestre nacional, cotizados y liquidados en el país a tasa oficial BCV conforme a la ley cambiaria.
             </div>
             <div>
-              <strong>3. Facturación Definitiva a partir de Octubre:</strong> Los anticipos se mantienen en el pasivo corriente hasta que el café nacionalizado ingresa a almacenes. A partir del mes de <strong>OCTUBRE DE 2026</strong> se inicia la facturación fiscal definitiva y entrega física a los clientes, cruzando y liquidando dichos anticipos con las facturas SENIAT correspondientes.
+              <strong>3. Sustitución de Anticipos por Factura de Ventas en Octubre 2026:</strong> Los anticipos recibidos en bolívares se mantienen como Pasivo Corriente (NIIF 15) durante los meses de procura y acopio. En el mes de <strong>OCTUBRE DE 2026</strong>, al completarse la entrega física de los quintales de café, se emite formalmente la <strong>FACTURA FISCAL DE VENTAS DEFINITIVA CONTRA LA CUAL SE ELIMINA Y EXTINGUE EN SU TOTALIDAD EL ANTICIPO DE CLIENTES</strong>, liquidando el pasivo y declarando el IVA y tributos respectivos ante el SENIAT.
             </div>
           </div>
 
@@ -272,13 +302,13 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
                 <tbody className="divide-y divide-stone-200">
                   <tr className="bg-amber-50/30">
                     <td className="px-3 py-2 font-sans font-semibold text-stone-900">
-                      1. Anticipos en Ventas de Clientes (Importación Café)
+                      1. Anticipos en Bolívares de Clientes (Procura Café Nacional a Tasa BCV)
                     </td>
                     <td className="px-3 py-2 text-right font-bold text-amber-950">Bs. 1.542.017.092,63</td>
                     <td className="px-3 py-2 text-right text-stone-700">$2.270.486,23</td>
                     <td className="px-3 py-2 text-center font-bold text-amber-800">78,4%</td>
                     <td className="px-3 py-2 font-sans text-stone-600">
-                      <strong>Pasivo Corriente (NIIF 15).</strong> Anticipos recibidos de torrefactoras nacionales para intermediar e importar café desde Colombia. Entrega física e inicio de facturación definitiva en <strong>OCTUBRE 2026</strong>.
+                      <strong>Pasivo Corriente (NIIF 15).</strong> Anticipos en bolívares recibidos de empresas y torrefactoras nacionales para gestionar compras de café en el mercado venezolano. Entrega física e inicio de emisión de facturas de ventas definitivas a tasa BCV en <strong>OCTUBRE 2026</strong> (eliminación total del anticipo).
                     </td>
                   </tr>
 
@@ -308,13 +338,13 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
 
                   <tr>
                     <td className="px-3 py-2 font-sans font-semibold text-stone-900">
-                      4. Aportes Operativos de Personas Naturales
+                      4. Aportes Operativos y Cuentas de Socios / Personas Naturales
                     </td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 29.495.954,99</td>
                     <td className="px-3 py-2 text-right text-stone-700">$47.335,99</td>
                     <td className="px-3 py-2 text-center font-bold text-stone-700">1,5%</td>
                     <td className="px-3 py-2 font-sans text-stone-600">
-                      Aportes operativos del titular recurrente V-023997829 (Bs. 7,65M) y 14 titulares personas naturales (Bs. 21,85M) para acopio y reservas de café.
+                      Aportes e ingresos recibidos del socio propietario único Elías Rafael Trías Abreu V-23.997.829 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
                     </td>
                   </tr>
 
@@ -350,10 +380,10 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
                 FUNDAMENTACIÓN JURÍDICO-FISCAL ANTE EL SENIAT Y SUPERINTENDENCIA BANCARIA (SUDEBAN):
               </p>
               <p>
-                <strong>&bull; Ley de Impuesto Sobre la Renta (ISLR - Arts. 1, 5 y 16):</strong> Establece el principio de disponibilidad del ingreso sobre bases devengadas o causadas. Los anticipos entregados por clientes para la procura de bienes en el extranjero constituyen obligaciones de hacer y pasivos exigibles de la empresa intermediaria, no hechos imponibles de enriquecimiento neto gravable sino hasta la efectiva enajenación del producto.
+                <strong>&bull; Ley de Impuesto Sobre la Renta (ISLR - Arts. 1, 5 y 16):</strong> Establece el principio de disponibilidad del ingreso sobre bases devengadas o causadas. Los anticipos entregados por clientes en bolívares a tasa oficial BCV para la intermediación y procura de café en Venezuela constituyen obligaciones de hacer y pasivos exigibles de la empresa intermediaria, no hechos imponibles de enriquecimiento neto gravable sino hasta la efectiva entrega y enajenación del producto.
               </p>
               <p>
-                <strong>&bull; Código Civil Venezolano (Art. 1152) y Código de Comercio:</strong> En las ventas comerciales de cosas genéricas sujetas a peso, cuenta o importación con condición suspensiva, la traslación de propiedad y el perfeccionamiento de la venta operan con la entrega y recepción de las mercancías, evento fijado a partir de <strong>OCTUBRE DE 2026</strong>.
+                <strong>&bull; Código Civil Venezolano (Art. 1152) y Código de Comercio:</strong> En las ventas comerciales de cosas genéricas sujetas a peso, cuenta o contratos a futuro con condición suspensiva, la traslación de propiedad y el perfeccionamiento de la venta operan con la entrega y recepción de las mercancías, evento fijado a partir de <strong>OCTUBRE DE 2026</strong>.
               </p>
               <p>
                 <strong>&bull; Providencia Administrativa SENIAT N° SNAT/2011/00071 (Facturación Fiscal):</strong> La obligación formal de emisión de factura definitiva surge con la entrega de los bienes o prestación de servicios. Los anticipos bancarios se amparan en los contratos comerciales suscritos y se liquidarán con las facturas fiscales SENIAT que se emitirán a partir de octubre.
@@ -367,7 +397,7 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
                 <span className="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded font-mono font-bold">INSCRITA EN 2021</span>
               </p>
               <p>
-                <strong>&bull; Registro Mercantil y Objeto Social Constitutivo (Año 2021):</strong> La sociedad mercantil <strong>AGRÍCOLA ONI, C.A.</strong> fue constituida e inscrita formalmente ante el Registro Mercantil Primero del Estado Portuguesa en fecha <strong>16 de Septiembre de 2021</strong> (Tomo 31-A, N° 18, RIF J-50145638-0). En la Cláusula Segunda de su Acta Constitutiva Orgánica, se le autoriza y faculta de manera amplia e ilimitada desde el año 2021 para la compra, venta, intermediación comercial, procesamiento, importación y exportación de productos agrícolas, café y materias primas, así como la celebración de contratos de financiamiento, mutuos y gestiones bancarias y cambiarias.
+                <strong>&bull; Registro Mercantil y Objeto Social Constitutivo (Año 2021):</strong> La sociedad mercantil <strong>AGRÍCOLA ONI, C.A.</strong> fue constituida e inscrita formalmente ante el Registro Mercantil Primero del Estado Portuguesa en fecha <strong>16 de Septiembre de 2021</strong> (Tomo 31-A, N° 18, RIF J-50145638-0). En la Cláusula Segunda de su Acta Constitutiva Orgánica, se le autoriza y faculta de manera amplia e ilimitada desde el año 2021 para la compra, venta, intermediación comercial, procesamiento, distribución y comercialización de productos agrícolas, café y materias primas, así como la celebración de contratos de financiamiento, mutuos y gestiones bancarias y cambiarias.
               </p>
               <p>
                 <strong>&bull; Propiedad Accionaria Única y Transparencia Operativa:</strong> Consta igualmente en los Libros Mercantiles de la empresa y actas de asamblea posteriores que el <strong>100% de las acciones</strong> de Agrícola Oni, C.A. pertenecen actualmente y de forma exclusiva al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301)</strong>, habiéndose cedido y retirado legalmente a los demás accionistas iniciales en asambleas previas registrales. Esta titularidad única garantiza el control centralizado de los fondos, la legitimidad de las operaciones de apoyo patrimonial y la total transparencia ante el sistema bancario nacional y Banesco Banco Universal.
@@ -396,30 +426,30 @@ Por medio de la presente, en nuestra condición de Representante Legal y Adminis
               <div className="p-3 bg-white border border-stone-200 rounded-lg shadow-sm space-y-1">
                 <span className="font-bold text-stone-900 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-amber-800 text-white flex items-center justify-center text-[10px] font-mono">2</span>
-                  Contratos de Procura y Mandato Comercial Café
+                  Contratos a Futuro de Café con Empresas Venezolanas
                 </span>
                 <p className="text-stone-600 text-[11px]">
-                  Contratos de intermediación de importación de café verde de Colombia suscritos con los clientes torrefactores (Empresa ETN, Comercializadora Café Real, Inversiones Granos Andinos, etc.) respaldando los anticipos del 78,4% recibidos en Banesco.
+                  Contratos de intermediación comercial y compraventa a futuro de café 100% venezolano suscritos con clientes torrefactores (Empresa ETN, Distribuidora DIS, Grupo ORU, Comercializadora RIK) respaldando los anticipos en bolívares a tasa oficial BCV recibidos en Banesco.
                 </p>
               </div>
 
               <div className="p-3 bg-white border border-stone-200 rounded-lg shadow-sm space-y-1">
                 <span className="font-bold text-stone-900 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-amber-800 text-white flex items-center justify-center text-[10px] font-mono">3</span>
-                  Pactos Cambiarios Banesco (USD 556.890,45)
+                  Pactos Cambiarios Banesco e Insumos Agroindustriales (USD 556.890,45)
                 </span>
                 <p className="text-stone-600 text-[11px]">
-                  Comprobantes oficiales de compra de divisas en la Mesa de Cambio de Banesco Banco Universal (Total Bs. 375.630.000,00) y transferencias al exterior a proveedores cafetaleros en Colombia (USD 445.000), fletes (USD 67.380,15) y aduana (USD 35.000).
+                  Comprobantes oficiales de compra de divisas en la Mesa de Cambio de Banesco Banco Universal (Bs. 375.630.000,00) destinados al pago de tolvas, sacos de yute, repuestos de maquinaria agroindustrial, mantenimiento de galpones y transporte terrestre de carga pesada nacional a tasa BCV.
                 </p>
               </div>
 
               <div className="p-3 bg-white border border-stone-200 rounded-lg shadow-sm space-y-1">
                 <span className="font-bold text-stone-900 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-amber-800 text-white flex items-center justify-center text-[10px] font-mono">4</span>
-                  Aduana SENIAT, Guías SICA y Permisos INSAI
+                  Guías de Movilización SICA, Registro CVC y Boletas de Pesaje
                 </span>
                 <p className="text-stone-600 text-[11px]">
-                  Declaraciones Únicas de Aduana (DUA), Cartas de Porte Internacional por Carretera (CPIC), Permisos Fitosanitarios de Importación expedidos por el INSAI y Guías de Movilización SICA que acreditan la legalidad del café importado.
+                  Guías de Movilización Agroalimentaria expedidas por el SICA, licencias y registros de la Corporación Venezolana del Café (CVC), y boletas de pesaje en centros de acopio de Portuguesa que acreditan la legalidad del café nacional.
                 </p>
               </div>
 

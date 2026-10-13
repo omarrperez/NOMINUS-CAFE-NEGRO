@@ -72,7 +72,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
   const [justificationType, setJustificationType] = useState<
     | 'ANTICIPO_CLIENTE'
     | 'COMPRA_DIVISAS_BANESCO'
-    | 'USO_DIVISAS_COLOMBIA'
+    | 'USO_DIVISAS_INSUMOS'
     | 'INGRESO_PERSONA_NATURAL'
     | 'TRANSFERENCIA_INTERNA'
     | 'LINEA_CREDITO_BECERRA'
@@ -813,7 +813,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                   Anticipos Recibidos de Clientes Jurídicos (Intermediación Comercial de Café)
                 </h3>
                 <p className="text-xs text-stone-400 mt-1">
-                  Ante el déficit de cosecha nacional en Venezuela, los clientes transfieren anticipos para que Agrícola Oni C.A. adquiera e importe café en Colombia u otros orígenes. A partir de octubre se emitirán las facturas definitivas.
+                  Los clientes transfieren anticipos en bolívares a tasa oficial BCV para que Agrícola Oni C.A. gestione la compra y acopio de café en Venezuela. A partir de octubre se sustituirán por las facturas definitivas.
                 </p>
               </div>
 
@@ -917,9 +917,9 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                 <span className="text-[11px] text-stone-400 font-sans">Sincronizado con serie oficial</span>
               </div>
               <div className="bg-stone-950 p-3 rounded-lg border border-stone-800">
-                <span className="text-[11px] text-stone-400 block font-sans">Destino Obligatorio</span>
-                <span className="font-bold text-white text-sm block mt-0.5">Procura de Café en Colombia</span>
-                <span className="text-[11px] text-stone-400 font-sans">Fletes y Aduanas Nacionales</span>
+                <span className="text-[11px] text-stone-400 block font-sans">Destino Operativo</span>
+                <span className="font-bold text-white text-sm block mt-0.5">Insumos y Maquinaria en Venezuela</span>
+                <span className="text-[11px] text-stone-400 font-sans">Transporte y Repuestos Nacionales</span>
               </div>
             </div>
 
@@ -1692,7 +1692,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                 >
                   <option value="ANTICIPO_CLIENTE">1. Anticipo de Cliente (Ventas)</option>
                   <option value="COMPRA_DIVISAS_BANESCO">2. Compra de Dólares a Banesco</option>
-                  <option value="USO_DIVISAS_COLOMBIA">3. Pago Proveedor Colombia / Divisas</option>
+                  <option value="USO_DIVISAS_INSUMOS">3. Insumos y Repuestos Café Venezuela</option>
                   <option value="INGRESO_PERSONA_NATURAL">4. Ingreso de Persona Natural</option>
                   <option value="TRANSFERENCIA_INTERNA">5. Transferencia entre Cuentas Internas</option>
                   <option value="LINEA_CREDITO_BECERRA">Línea de Crédito Becerra</option>

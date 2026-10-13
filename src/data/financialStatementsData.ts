@@ -301,11 +301,11 @@ export const BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION = {
   // Demostración formal y matemática de por qué los depósitos no son ingresos devengados
   breakdown: [
     {
-      concept: '1. Anticipos Recibidos de Clientes para Importación de Café (NIIF 15)',
-      nature: 'Pasivo Corriente (Facturación Definitiva a partir de Octubre 2026)',
+      concept: '1. Anticipos Recibidos de Clientes para Compra e Intermediación de Café en Venezuela (NIIF 15)',
+      nature: 'Pasivo Corriente (Sustitución por Facturas de Venta a partir de Octubre 2026)',
       bankAmountVES: 1368568092.62,
       impactOnIncomeStatement: 0.00,
-      legalNotes: 'Fondos de torrefactoras nacionales para compra e importación de café de Colombia ante déficit nacional. No constituyen ingreso gravable devengado al 31/08/2026.'
+      legalNotes: 'Fondos de torrefactoras y empresas nacionales para compra y acopio de café en Venezuela a tasa oficial BCV. No constituyen ingreso gravable devengado al 31/08/2026 sino pasivos a regularizar en octubre.'
     },
     {
       concept: '2. Reintegros / Amortizaciones de Capital Manuel Becerra (Contrato Mutuo)',
@@ -343,7 +343,7 @@ export const BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION = {
       legalNotes: 'Intereses causados por la línea de crédito otorgada a Manuel Becerra, reconocidos en el Estado de Resultados.'
     }
   ],
-  conclusion: 'La aparente discrepancia observada por Banesco se debe a que el banco confunde el Flujo de Caja Bruto (Depósitos Bancarios) con los Ingresos Devengados del Estado de Resultados. Los Bs. 1.542,02 millones de clientes (51.5% transferencias mismo banco + 26.9% terceros con RIF) son pasivos por anticipos según NIIF 15 para importación de café que se facturan en octubre, y los Bs. 186,38 millones son amortizaciones del mutuo de Manuel Becerra. Los ingresos del período son exactamente los Bs. 92.641.520,01 presentados al banco.'
+  conclusion: 'La aparente discrepancia observada por Banesco se debe a que el banco confunde el Flujo de Caja Bruto (Depósitos Bancarios) con los Ingresos Devengados del Estado de Resultados. Los Bs. 1.542,02 millones de clientes (51.5% transferencias mismo banco + 26.9% terceros con RIF) son pasivos por anticipos según NIIF 15 para compra e intermediación de café en Venezuela a tasa BCV que se facturan en octubre, y los Bs. 186,38 millones son amortizaciones del mutuo de Manuel Becerra. Los ingresos del período son exactamente los Bs. 92.641.520,01 presentados al banco.'
 };
 
 // =========================================================================
@@ -490,7 +490,7 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 528578549.25,
       pctDelTotal: 26.9,
       totalUSD: 726080.44,
-      auditExplanation: 'Anticipos en ventas recibidos de empresas clientes jurídicas con RIF (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J) para importación de café de Colombia ante déficit nacional.',
+      auditExplanation: 'Anticipos en ventas recibidos de empresas clientes jurídicas con RIF (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J) para procura y acopio de café en Venezuela a tasa oficial BCV.',
       legalClassification: 'Anticipos en Ventas de Clientes Jurídicos (Pasivo Corriente NIIF 15). Entrega y facturación definitiva en OCTUBRE 2026.'
     },
     {

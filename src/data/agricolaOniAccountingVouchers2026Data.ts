@@ -79,7 +79,7 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
   },
   {
     accountCode: '1.1.01.03',
-    accountName: 'Banesco Cuenta Custodia Divisas USD / Anticipos Procura Café Exterior',
+    accountName: 'Banesco Cuenta Custodia Divisas USD / Adquisición Insumos, Repuestos y Maquinaria Café Venezuela',
     nature: 'ACTIVO',
     totalDebitVES: 375630000.00,
     totalCreditVES: 0,
@@ -145,7 +145,7 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
   },
   {
     accountCode: '2.1.04.01',
-    accountName: 'Anticipos Recibidos de Clientes Jurídicos y Torrefactoras Banesco (NIIF 15 - Facturación Octubre 2026)',
+    accountName: 'Anticipos Recibidos de Clientes Jurídicos y Torrefactoras Banesco (NIIF 15 - Sustitución por Facturas de Venta Octubre 2026 a Tasa BCV)',
     nature: 'PASIVO',
     totalDebitVES: 0,
     totalCreditVES: 1542017092.63,

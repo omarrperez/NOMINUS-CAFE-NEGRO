@@ -117,7 +117,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
         <div className="flex items-start justify-between border-b-2 border-stone-900 pb-3 mb-4">
           <div>
             <h1 className="text-xl font-bold font-serif-doc tracking-tight text-stone-950">{company.name}</h1>
-            <p className="text-[10px] font-bold text-stone-700 uppercase tracking-wider">INTERMEDIACIÓN COMERCIAL & IMPORTACIÓN DE CAFÉ &middot; RIF: {company.rif}</p>
+            <p className="text-[10px] font-bold text-stone-700 uppercase tracking-wider">INTERMEDIACIÓN COMERCIAL & COMPRA DE CAFÉ NACIONAL A TASA BCV &middot; RIF: {company.rif}</p>
             <p className="text-[9.5px] text-stone-600">{company.address}</p>
             <p className="text-[9.5px] text-stone-600">Contacto: {company.phone} | {company.email}</p>
           </div>
@@ -133,20 +133,20 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
           <p className="font-bold text-stone-900">CIUDADANOS: BANESCO BANCO UNIVERSAL, C.A.</p>
           <p className="text-stone-700">Gerencia de Auditoría y Unidad de Prevención LC/FT &mdash; Atención: Lcdo. Roberto Albarrán</p>
           <p className="text-stone-900 text-[10.5px] font-bold pt-0.5">
-            Asunto: Justificación de Disparidad entre Ventas en EEFF (Bs. 92.641.520,01 / USD 116.531,68) y Créditos Movilizados en BBU (USD 2.781.830,18 / Bs. 1.966.597.105,35)
+            Asunto: Justificación de Fondos Movilizados en BBU (USD 2.781.830,18 / Bs. 1.966.597.105,35) vs Ingresos Declarados en EEFF (Bs. 92.641.520,01 / USD 116.531,68) &mdash; Intermediación de Café Nacional a Tasa Oficial BCV
           </p>
         </div>
 
         {/* Concise Declarative Text */}
         <div className="space-y-2 text-justify text-stone-800">
           <p>
-            En representación legal de <strong>{company.name}</strong> (RIF {company.rif}), damos formal respuesta a su requerimiento informando que <strong>no existe omisión de ingresos</strong>. Nuestra empresa opera como <strong>INTERMEDIARIA COMERCIAL E IMPORTADORA DE CAFÉ</strong> (la producción venezolana no cubre la demanda interna) y la disparidad entre los créditos bancarios y los ingresos declarados al 31/08/2026 se justifica técnicamente en:
+            En representación legal de <strong>{company.name}</strong> (RIF {company.rif}), damos formal respuesta a su requerimiento informando que <strong>no existe omisión de ingresos</strong>. Nuestra empresa opera como <strong>INTERMEDIARIA COMERCIAL ENTRE PERSONAS NATURALES Y JURÍDICAS EN VENEZUELA</strong>. No importamos café de Colombia ni del exterior; todo el café se compra en Venezuela a productores y empresas venezolanas a tipo de cambio oficial BCV. La movilización bancaria de 6 meses se justifica con total solidez técnica y contable:
           </p>
 
           <div className="bg-stone-50 border border-stone-300 rounded p-2.5 space-y-1.5 text-[10.5px]">
             <div className="flex items-start gap-1.5">
               <span className="font-bold text-amber-800">1.</span>
-              <span><strong>Anticipos en Ventas de Clientes (78,4% &mdash; Bs. 1.542,02M / USD 2.270.486,23):</strong> Son anticipos de torrefactoras nacionales para intermediar e importar café desde Colombia. Conforme a la <strong>NIIF 15</strong> y el Art. 1152 del Código Civil, son <em>Pasivo Corriente</em>, no ventas devengadas. La entrega física y facturación definitiva SENIAT inician en <strong>OCTUBRE 2026</strong>.</span>
+              <span><strong>Anticipos en Bolívares de Clientes (78,4% &mdash; Bs. 1.542,02M / USD 2.270.486,23):</strong> Son anticipos de torrefactoras y distribuidores venezolanos a tasa BCV para compra y acopio de café en el país. Conforme a la <strong>NIIF 15</strong> y Art. 1152 del Código Civil, son <em>Pasivo Corriente</em>, no ventas devengadas. En <strong>OCTUBRE 2026</strong> se sustituyen por la factura fiscal de ventas definitiva contra la cual se eliminarán en su totalidad.</span>
             </div>
             <div className="flex items-start gap-1.5">
               <span className="font-bold text-amber-800">2.</span>
@@ -158,7 +158,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             </div>
             <div className="flex items-start gap-1.5">
               <span className="font-bold text-amber-800">4.</span>
-              <span><strong>Compra de Divisas en Banesco Mesa de Cambio ($556.890,45 USD):</strong> Empleadas en pagar proveedores en Colombia ($445.000), fletes ($67.380) y aduana ($35.000).</span>
+              <span><strong>Recepción y Uso de Divisas Banesco ($556.890,45 USD):</strong> Aplicados a insumos agroindustriales, tolvas y repuestos de maquinaria en Venezuela ($445.000), transporte pesado terrestre ($67.380) y servicios técnicos ($35.000) a tasa oficial BCV.</span>
             </div>
             <div className="flex items-start gap-1.5">
               <span className="font-bold text-emerald-800">5.</span>
@@ -166,7 +166,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             </div>
             <div className="flex items-start gap-1.5 bg-emerald-50 p-1.5 rounded border border-emerald-200">
               <span className="font-bold text-emerald-900">6.</span>
-              <span><strong>Sustento Legal Constitutivo (Acta 2021) y Accionista Único:</strong> Inscrita en el Registro Mercantil el 16/09/2021 (Tomo 31-A, N° 18, RIF J-50145638-0). Su Objeto Social de 2021 autoriza expresamente la intermediación comercial, importación de café y contratos financieros. El 100% de las acciones pertenecen exclusivamente al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301)</strong>.</span>
+              <span><strong>Sustento Legal Constitutivo (Acta 2021) y Accionista Único:</strong> Inscrita en el Registro Mercantil el 16/09/2021 (Tomo 31-A, N° 18, RIF J-50145638-0). Su Objeto Social de 2021 autoriza plenamente la intermediación comercial y compra de café. El 100% de las acciones pertenecen exclusivamente al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301)</strong>, garantizando legitimidad y transparencia.</span>
             </div>
           </div>
 

@@ -74,7 +74,7 @@ export async function downloadNativeDocx(
       spacing: { after: 120 },
       children: [
         new TextRun({
-          text: `R.I.F.: ${data.companyRif} | INTERMEDIACIÓN COMERCIAL E IMPORTACIÓN DE CAFÉ`,
+          text: `R.I.F.: ${data.companyRif} | INTERMEDIACIÓN COMERCIAL Y COMPRA DE CAFÉ NACIONAL`,
           bold: true,
           size: 19, // 9.5pt
           font: 'Calibri',
@@ -1800,14 +1800,41 @@ export function exportToPdfPrint(): void {
 
 /** Helper para descargar un blob con enlace temporal */
 function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  try {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.target = '_blank';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      if (document.body.contains(a)) {
+        document.body.removeChild(a);
+      }
+      URL.revokeObjectURL(url);
+    }, 3000);
+  } catch (err) {
+    console.error('Error al descargar blob vía ObjectURL, intentando DataURI:', err);
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      const base64data = reader.result as string;
+      const a = document.createElement('a');
+      a.href = base64data;
+      a.download = filename;
+      a.target = '_blank';
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        if (document.body.contains(a)) {
+          document.body.removeChild(a);
+        }
+      }, 3000);
+    };
+    reader.readAsDataURL(blob);
+  }
 }
 
 /** Limpieza de HTML para asegurar compatibilidad con Microsoft Word */

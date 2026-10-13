@@ -86,7 +86,7 @@ Estimados señores:
 En atención a su comunicación sobre la presunta disparidad entre los Ingresos Declarados en Estados Financieros (Bs. 92.641.520,01 / USD 116.531,68) y los Créditos Bancarios Movilizados en BBU (Promedio USD 2.781.830,18 / Total Bs. 1.966.597.105,35), dejamos formal y categórica constancia de lo siguiente:
 
 1. JUSTIFICACIÓN DE LA DIFERENCIA:
-- Bs. 1.542.017.092,63 (78,4%): ANTICIPOS EN VENTAS DE CLIENTES JURÍDICOS (NIIF 15) para la intermediación e importación de café de Colombia (la cosecha venezolana no alcanza). Bajo NIIF 15 constituyen Pasivo Corriente, no ventas gravadas. Se facturan formalmente a partir de OCTUBRE DE 2026 al nacionalizar y entregar el café.
+- Bs. 1.542.017.092,63 (78,4%): ANTICIPOS EN VENTAS DE CLIENTES JURÍDICOS (NIIF 15) para la intermediación y compra de café en Venezuela a tasa oficial BCV. Bajo NIIF 15 constituyen Pasivo Corriente, no ventas gravadas. Se facturan formalmente a partir de OCTUBRE DE 2026 sustituyendo el anticipo contra facturas de venta.
 - Bs. 186.376.000,00 (9,5%): REINTEGROS DE CAPITAL DEL CONTRATO DE PRÉSTAMO MUTUO Y LÍNEA DE CRÉDITO suscrito con el socio Manuel Becerra (Límite Bs. 600.000.000,00). Reducen la cuenta de activo "Cuentas por Cobrar Manuel Becerra" (saldo en balance Bs. 325.948.652,96).
 - Bs. 208.708.057,73 (10,6%): TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE AGRÍCOLA ONI C.A. (Banco Provincial, Mercantil, Plaza, Bancamiga). Impacto patrimonial neto de Bs. 0,00.
 - Bs. 29.495.954,99 (1,5%): APORTES Y RESERVAS DE PERSONAS NATURALES (V-023997829 y 14 titulares).
@@ -94,7 +94,7 @@ En atención a su comunicación sobre la presunta disparidad entre los Ingresos 
 2. INGRESOS FISCALES REALES DEVENGADOS:
 Los ingresos operacionales por Servicios Agrícolas (Bs. 78.717.472,35) más los Ingresos por Intereses del Mutuo Becerra (Bs. 13.924.047,66) totalizan exactamente Bs. 92.641.520,01, tal como refleja fielmente el Estado de Resultados al 31/08/2026.
 
-Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos de Procura e Importación Café, Comprobantes de compra de divisas ($556.890,45 USD), Facturas DIAN, Guías SICA/INSAI y Estados Financieros auditados CPC 41.802.
+Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos a Futuro de Café Nacional, Comprobantes de compra de divisas ($556.890,45 USD), Guías SICA/CVC y Estados Financieros auditados CPC 41.802.
 
 Atentamente,
 Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
@@ -132,7 +132,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
         <strong>Cuadre Oficial del Estado de Cuenta Banesco vs Estados Financieros:</strong><br>
         Total Créditos Movilizados: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
         Ventas e Ingresos Fiscales Declarados: <strong>Bs. 92.641.520,01</strong> ($116.531,68 USD).<br>
-        Anticipos Recibidos para Importación de Café (NIIF 15): <strong>Bs. 1.542.017.092,63 (78,4%)</strong> &mdash; Se facturan a partir de Octubre 2026.
+        Anticipos Recibidos para Compra de Café en Venezuela (NIIF 15): <strong>Bs. 1.542.017.092,63 (78,4%)</strong> &mdash; Se facturan a partir de Octubre 2026.
       </div>
       <table>
         <thead>
@@ -435,7 +435,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
         <strong>Cuadre Oficial del Estado de Cuenta Banesco vs Estados Financieros:</strong><br>
         Total Créditos Movilizados: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
         Ventas e Ingresos Fiscales Declarados: <strong>Bs. 92.641.520,01</strong> ($116.531,68 USD).<br>
-        Anticipos Recibidos para Importación de Café (NIIF 15): <strong>Bs. 1.542.017.092,63 (78,4%)</strong> &mdash; Se facturan a partir de Octubre 2026.
+        Anticipos Recibidos para Compra de Café en Venezuela (NIIF 15): <strong>Bs. 1.542.017.092,63 (78,4%)</strong> &mdash; Se facturan a partir de Octubre 2026.
       </div>
       <table>
         <thead>
@@ -559,7 +559,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
         <strong>Aclaratoria Jurídico-Contable sobre Depósitos vs Ingresos:</strong><br>
         Total Depósitos en Cuenta Corriente BBU: <strong>Bs. ${BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.bankDepositsTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong>.<br>
         Ingresos Fiscales Declarados en Estado de Resultados: <strong>Bs. ${BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.financialStatementRevenuesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong>.<br>
-        La diferencia de Bs. 1.873.955.585,34 corresponde en 82,3% a Anticipos de Clientes para Importación de Café (NIIF 15) que se facturan en Octubre 2026, y a Préstamos de Accionistas/Relacionadas no sujetos a ISLR.
+        La diferencia de Bs. 1.873.955.585,34 corresponde en 82,3% a Anticipos de Clientes para Compra e Intermediación de Café en Venezuela (NIIF 15) que se facturan en Octubre 2026, y a Préstamos de Accionistas/Relacionadas no sujetos a ISLR.
       </div>
       <table>
         <thead>
@@ -1040,7 +1040,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 <span>Actualización Clave: Identificación Total del Renglón Amarillo (51.5%)</span>
               </div>
               <p className="text-stone-300 leading-relaxed">
-                El renglón que anteriormente figuraba como <strong className="text-amber-300 font-mono">«Banesco sin identificar (TRANS,CTAS)»</strong> por <strong>Bs. 1.013.438.543,38 (51.5% del total)</strong> ha sido completamente verificado y clasificado: corresponde a <strong>ANTICIPOS EN VENTAS DE CLIENTES TORREFACTORES INDUSTRIALES</strong> mediante transferencias internas entre cuentas Banesco. Junto al renglón de Terceros con RIF (Bs. 528,58M &middot; 26.9%), suman <strong>Bs. 1.542,02 millones (78.4%)</strong> de anticipos para importación de café bajo la norma <strong>NIIF 15</strong>, cuyo café se entrega y factura en <strong>Octubre de 2026</strong>.
+                El renglón que anteriormente figuraba como <strong className="text-amber-300 font-mono">«Banesco sin identificar (TRANS,CTAS)»</strong> por <strong>Bs. 1.013.438.543,38 (51.5% del total)</strong> ha sido completamente verificado y clasificado: corresponde a <strong>ANTICIPOS EN VENTAS DE CLIENTES TORREFACTORES INDUSTRIALES</strong> mediante transferencias internas entre cuentas Banesco. Junto al renglón de Terceros con RIF (Bs. 528,58M &middot; 26.9%), suman <strong>Bs. 1.542,02 millones (78.4%)</strong> de anticipos para compra e intermediación de café en Venezuela a tasa BCV bajo la norma <strong>NIIF 15</strong>, cuyo café se entrega y factura en <strong>Octubre de 2026</strong>.
               </p>
             </div>
 
@@ -1226,7 +1226,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               </p>
 
               <p>
-                Al respecto, certificamos bajo fe de juramento que <strong>AGRÍCOLA ONI C.A. opera como empresa INTERMEDIARIA COMERCIAL E IMPORTADORA</strong> (no como productora agrícola primaria). La cosecha nacional venezolana no cubre la demanda interna de café, por lo que la empresa gestiona la compra e importación de café verde en la República de Colombia u otros orígenes para entregarlo a la industria torrefactora nacional.
+                Al respecto, certificamos bajo fe de juramento que <strong>AGRÍCOLA ONI C.A. opera como empresa INTERMEDIARIA COMERCIAL</strong> (no como productora agrícola primaria ni importadora). La empresa compra todo el café en Venezuela a empresas, asociaciones y productores nacionales, actuando como intermediaria entre personas naturales y jurídicas, las cuales le otorgan anticipos en bolívares calculados a tasa oficial BCV para que la empresa gestione en el mercado nacional la compra y acopio del grano, sustituyendo estos anticipos en el mes de octubre por facturas fiscales de venta definitivas.
               </p>
 
               {/* Justificación Cuadre Numérico */}
@@ -1273,9 +1273,9 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                 <p className="font-bold text-stone-950 mb-1">RECAUDOS Y SOPORTES DOCUMENTALES CONSIGNADOS:</p>
                 <ol className="list-decimal pl-5 space-y-0.5 text-[11px] text-stone-700">
                   <li>Copia del <strong>Contrato de Préstamo Mutuo y Línea de Crédito Rotativa de Bs. 600.000.000,00</strong> suscrito con el socio Manuel Becerra y relación de 47 movimientos.</li>
-                  <li>Contratos de intermediación y procura de café con clientes torrefactores (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J).</li>
-                  <li>Comprobantes oficiales de compra de divisas a Banesco Mesa de Cambio (Total USD 556.890,45 / Bs. 375.630.000,00) destinadas a proveedores de café en Colombia y fletes.</li>
-                  <li>Facturas de exportación de café de la DIAN Colombia, Manifiestos de Carga Internacional y Declaraciones Únicas de Aduana (DUA).</li>
+                  <li>Contratos de intermediación y compra de café nacional con clientes torrefactores (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J).</li>
+                  <li>Comprobantes oficiales de compra de divisas a Banesco Mesa de Cambio (Total USD 556.890,45 / Bs. 375.630.000,00) destinadas a adquisición de repuestos, maquinaria agroindustrial y logística en Venezuela.</li>
+                  <li>Guías Únicas de Movilización y Acopio SICA / CVC, pesajes de romana y contratos a futuro con asociaciones cafetaleras venezolanas.</li>
                   <li>Estados de Situación Financiera al 31/12/2025 y al 31/08/2026 debidamente auditados y dictaminados por Contador Público Colegiado bajo VEN-NIF.</li>
                 </ol>
               </div>

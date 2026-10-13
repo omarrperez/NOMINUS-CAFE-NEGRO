@@ -43,7 +43,7 @@ export const LEGAL_ENTITIES_CLIENTS_LIST: CorporateClientItem[] = [
     totalAmountUSD: 30115.40,
     taxpayerType: 'Contribuyente Ordinario del IVA / Especial',
     fiscalStatus: 'ACTIVO_VERIFICADO',
-    notes: 'Anticipos para compra e importación de café pergamino de Colombia (NIIF 15).'
+    notes: 'Anticipos para compra e intermediación de café pergamino en Venezuela (NIIF 15).'
   },
   {
     id: 'CLI-JUR-002',
@@ -67,7 +67,7 @@ export const LEGAL_ENTITIES_CLIENTS_LIST: CorporateClientItem[] = [
     totalAmountUSD: 93055.56,
     taxpayerType: 'Contribuyente Especial SENIAT',
     fiscalStatus: 'ACTIVO_VERIFICADO',
-    notes: 'Anticipos para procura y flete de café pergamino importado.'
+    notes: 'Anticipos para procura y flete de café pergamino venezolano a tasa BCV.'
   },
   {
     id: 'CLI-JUR-004',
@@ -79,7 +79,7 @@ export const LEGAL_ENTITIES_CLIENTS_LIST: CorporateClientItem[] = [
     totalAmountUSD: 86148.65,
     taxpayerType: 'Contribuyente Ordinario del IVA',
     fiscalStatus: 'ACTIVO_VERIFICADO',
-    notes: 'Fondeo de operaciones de abastecimiento de grano de café pergamino.'
+    notes: 'Fondeo de operaciones de abastecimiento de grano de café pergamino nacional.'
   },
   {
     id: 'CLI-JUR-005',
@@ -91,7 +91,7 @@ export const LEGAL_ENTITIES_CLIENTS_LIST: CorporateClientItem[] = [
     totalAmountUSD: 131524.32,
     taxpayerType: 'Contribuyente Ordinario del IVA',
     fiscalStatus: 'ACTIVO_VERIFICADO',
-    notes: 'Anticipos recibidos para compra e importación de lotes de café.'
+    notes: 'Anticipos recibidos para compra e intermediación de lotes de café en Venezuela.'
   },
   {
     id: 'CLI-JUR-006',
@@ -103,7 +103,7 @@ export const LEGAL_ENTITIES_CLIENTS_LIST: CorporateClientItem[] = [
     totalAmountUSD: 165327.68,
     taxpayerType: 'Contribuyente Especial SENIAT',
     fiscalStatus: 'ACTIVO_VERIFICADO',
-    notes: 'Reserva y cupo de café importado nacionalizado para despacho.'
+    notes: 'Reserva y cupo de café nacional acopiado a tasa oficial BCV para despacho.'
   },
   {
     id: 'CLI-JUR-007',
@@ -127,7 +127,7 @@ export const LEGAL_ENTITIES_CLIENTS_LIST: CorporateClientItem[] = [
     totalAmountUSD: 412300.50,
     taxpayerType: 'Contribuyente Especial SENIAT',
     fiscalStatus: 'ACTIVO_VERIFICADO',
-    notes: 'Contrato de suministro de café de Colombia ante déficit nacional.'
+    notes: 'Contrato a futuro de suministro de café nacional a tasa oficial BCV.'
   },
   {
     id: 'CLI-JUR-009',
@@ -315,7 +315,7 @@ export function LegalEntitiesSeniatRifListView() {
       sheetName: 'Contratos por Lotes',
       companyName: company.name,
       companyRif: company.rif,
-      title: 'MATRIZ DE CONTRATOS DE MANDATO POR LOTE DE IMPORTACIÓN - PERSONAS JURÍDICAS',
+      title: 'MATRIZ DE CONTRATOS DE MANDATO POR LOTE DE COMPRA Y GESTIÓN NACIONAL - PERSONAS JURÍDICAS',
       subtitle: 'Resguardo Jurídico de Fondos en Custodia (Pasivo NIIF 15), Trazabilidad Bancaria Banesco y Absorción en Octubre 2026',
       headers,
       rows: dataRows,
@@ -341,7 +341,7 @@ export function LegalEntitiesSeniatRifListView() {
             <p style="color:#B45309; font-size:9pt; font-weight:bold; margin:0; font-family:monospace;">CONTRATO DE MANDATO N° ${index + 1} DE 6 &middot; ${ctr.batchCode}</p>
             <h1 style="color:#0F172A; font-size:16pt; margin:3pt 0 0 0; text-transform:uppercase; font-family:Arial, sans-serif;">${company.name}</h1>
             <p style="color:#475569; font-size:9pt; margin:3pt 0;"><strong>R.I.F.:</strong> ${company.rif} &middot; <strong>EXPEDIENTE:</strong> ${ctr.contractCode}</p>
-            <h2 style="color:#B45309; font-size:12pt; margin-top:6pt; text-transform:uppercase; font-family:Arial, sans-serif;">CONTRATO DE MANDATO Y GESTIÓN DE IMPORTACIÓN CON FINANCIAMIENTO MEDIANTE ANTICIPOS</h2>
+            <h2 style="color:#B45309; font-size:12pt; margin-top:6pt; text-transform:uppercase; font-family:Arial, sans-serif;">CONTRATO DE MANDATO Y GESTIÓN DE INTERMEDIACIÓN COMERCIAL CON FINANCIAMIENTO MEDIANTE ANTICIPOS</h2>
           </div>
 
           <table style="width:100%; border-collapse:collapse; margin-bottom:15pt; background-color:#FEF3C7; border:1px solid #F59E0B;">
@@ -350,9 +350,9 @@ export function LegalEntitiesSeniatRifListView() {
                 <strong>1. MANDANTE (CLIENTE JURÍDICO):</strong> ${ctr.companyName} (RIF: ${ctr.rif})<br/>
                 <strong>2. REPRESENTANTE LEGAL:</strong> ${ctr.repName} (C.I. ${ctr.repId})<br/>
                 <strong>3. MANDATARIO (INTERMEDIARIO):</strong> ${company.name} (RIF: ${company.rif})<br/>
-                <strong>4. LOTE DE IMPORTACIÓN ASIGNADO:</strong> ${ctr.batchCode}<br/>
+                <strong>4. LOTE DE CAFÉ NACIONAL ASIGNADO:</strong> ${ctr.batchCode}<br/>
                 <strong>5. MONTO EN CUSTODIA (PASIVO NIIF 15):</strong> Bs. ${ctr.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${ctr.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)<br/>
-                <strong>6. VOLUMEN COMPROMETIDO:</strong> ${ctr.coffeeQtl.toLocaleString('es-VE')} Quintales de Café Pergamino Lavado<br/>
+                <strong>6. VOLUMEN COMPROMETIDO:</strong> ${ctr.coffeeQtl.toLocaleString('es-VE')} Quintales de Café Pergamino Lavado Venezolano<br/>
                 <strong>7. FECHA DE SUSCRIPCIÓN:</strong> ${ctr.date} &middot; <strong>FACTURA DEFINITIVA:</strong> Octubre 2026 (${ctr.octoberInvoiceRef})
               </td>
             </tr>
@@ -387,11 +387,11 @@ export function LegalEntitiesSeniatRifListView() {
         <div style="text-align:center; margin-bottom:25pt; padding-bottom:15pt; border-bottom:3px solid #0F172A;">
           <h1 style="color:#0F172A; font-size:20pt; margin:0; font-family:Arial, sans-serif;">${company.name} &mdash; EXPEDIENTE LEGAL EDITABLE</h1>
           <p style="color:#475569; font-size:11pt; margin-top:4pt;">R.I.F. ${company.rif} &middot; COMPILACIÓN EDITABLE DE CONTRATOS DE MANDATO POR LOTES EN WORD</p>
-          <p style="color:#B45309; font-size:12pt; font-weight:bold; margin-top:6pt;">6 CONTRATOS DE MANDATO DE IMPORTACIÓN DE CAFÉ CON FINANCIAMIENTO MEDIANTE ANTICIPOS</p>
+          <p style="color:#B45309; font-size:12pt; font-weight:bold; margin-top:6pt;">6 CONTRATOS DE MANDATO E INTERMEDIACIÓN DE CAFÉ CON FINANCIAMIENTO MEDIANTE ANTICIPOS</p>
         </div>
 
         <div style="background-color:#F1F5F9; border-left:4px solid #0F172A; padding:10pt 12pt; margin-bottom:25pt; font-size:10pt; color:#334155;">
-          <strong>NOTA EDITABLE DE CUMPLIMIENTO BANCARIO Y FISCAL:</strong> El presente archivo en formato Microsoft Word (.doc / .docx) contiene los seis (6) contratos marco individuales de mandato de gestión de importación suscritos con las empresas jurídicas. Este archivo se proporciona con el fin de permitir la modificación directa de cualquier cláusula, nombre de representante legal o condición comercial específica antes de su impresión o remisión a las autoridades de inspección bancaria (SUDEBAN / Banesco Compliance).
+          <strong>NOTA EDITABLE DE CUMPLIMIENTO BANCARIO Y FISCAL:</strong> El presente archivo en formato Microsoft Word (.doc / .docx) contiene los seis (6) contratos marco individuales de mandato de gestión e intermediación comercial suscritos con las empresas jurídicas. Este archivo se proporciona con el fin de permitir la modificación directa de cualquier cláusula, nombre de representante legal o condición comercial específica antes de su impresión o remisión a las autoridades de inspección bancaria (SUDEBAN / Banesco Compliance).
         </div>
 
         ${contractsHtml}

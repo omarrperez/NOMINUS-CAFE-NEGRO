@@ -47,7 +47,7 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-pj-001',
     batchCode: 'LOTE-2026-CAF-001',
-    contractCode: 'CTR-MAND-2026-ETN-001',
+    contractCode: 'CTR-FUT-2026-ETN-001',
     companyName: 'EMPRESA ETN, C.A.',
     rif: 'J-50100487-0',
     repName: 'Carlos Eduardo Mendoza',
@@ -57,32 +57,32 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
     amountUSD: 311111.11,
     coffeeQtl: 2100,
     date: '15 de Marzo de 2026',
-    status: 'FONDOS EN CUSTODIA / PROCURA INTERNACIONAL',
+    status: 'ANTICIPO EN CUSTODIA / GESTIÓN DE ACOPIO NACIONAL',
     octoberInvoiceRef: 'FAC-OCT-2026-001',
-    summary: 'Contrato de Mandato y Gestión de Importación con Financiamiento Mediante Anticipos suscrito entre AGRÍCOLA ONI, C.A. y EMPRESA ETN, C.A. para la adquisición e importación de 2.100 quintales de café pergamino origen Colombia.',
+    summary: 'Contrato a Futuro de Compraventa e Intermediación de Café Nacional con Financiamiento Mediante Anticipos en Bolívares a Tasa Oficial BCV suscrito entre AGRÍCOLA ONI, C.A. y EMPRESA ETN, C.A. para la reserva y acopio de 2.100 quintales de café verde venezolano.',
     clauses: [
       {
-        title: 'PRIMERA: Objeto, Mandato de Importación y Custodia de Fondos',
-        content: 'EMPRESA ETN, C.A. (EL MANDANTE) otorga mandato comercial expreso e irrevocable a AGRÍCOLA ONI, C.A. (EL MANDATARIO) para gestionar, adquirir e importar desde la República de Colombia lotes de café verde y pergamino lavado ante el déficit estructural de la cosecha nacional. Las partes dejan constancia legal de que los recursos por Bs. 210.000.000,00 transferidos durante los últimos 6 meses constituyen fondos en custodia destinados exclusivamente a la procura internacional de café, registrados contablemente como Pasivo Corriente (Anticipos de Clientes NIIF 15) sin emisión de factura comercial de venta inmediata.'
+        title: 'PRIMERA: Objeto, Intermediación en Venezuela y Custodia de Fondos',
+        content: 'EMPRESA ETN, C.A. (EL COMPRADOR) encomienda formalmente a AGRÍCOLA ONI, C.A. (EL INTERMEDIARIO) la gestión de compra, intermediación y acopio de café verde en el mercado nacional venezolano (zonas productoras de Portuguesa, Lara y Trujillo) con productores y empresas locales. Las partes dejan constancia de que los recursos por Bs. 210.000.000,00 transferidos en cuenta Banesco constituyen un anticipo en bolívares calculado a tasa oficial BCV, registrado contablemente como Pasivo Corriente (Anticipos de Clientes NIIF 15) para operar en el mercado cafetalero.'
       },
       {
-        title: 'SEGUNDA: Código de Lote de Importación y Registro de Rastro de Efectivo',
-        content: 'Los fondos transferidos se asocian de forma unívoca al Código de Lote LOTE-2026-CAF-001. EL MANDATARIO garantiza el rastro transparente de efectivo (Cash Traceability), demostrando que el 100% de los bolívares recibidos en la cuenta Banesco se destinaron a la compra de divisas en la Mesa de Cambio oficial Banesco para el pago de facturas de exportación DIAN a la Cooperativa Cafetera de Cúcuta Ltda.'
+        title: 'SEGUNDA: Código de Lote Nacional y Trazabilidad Bancaria',
+        content: 'Los fondos transferidos se asocian al Código de Lote LOTE-2026-CAF-001. EL INTERMEDIARIO demuestra el rastro íntegro de efectivo, evidenciando que los bolívares recibidos en Banesco se aplican a la liquidación de cosechas a caficultores venezolanos, flete terrestre nacional y pagos operativos a tasa oficial BCV conforme a la ley cambiaria.'
       },
       {
-        title: 'TERCERA: Soporte de Transparencia Bancaria y Prevención de Legitimación',
-        content: 'Para dar cumplimiento a las normativas de prevención de legitimación de capitales (Providencia SUDEBAN / Banesco Compliance), el presente contrato se complementa con los anexos obligatorios: Proforma del Exportador Colombiano, Permisos INSAI N° INSAI-FITOSAN-IMP-2026-904, Declaración Única de Aduana (DUA-2026-ADU-004128) y Carta de Porte Internacional.'
+        title: 'TERCERA: Soporte de Legalidad Agroalimentaria Nacional',
+        content: 'Para estricto cumplimiento ante Banesco, SUDEBAN y SENIAT, la operación se respalda en Guías de Movilización Agroalimentaria SICA N° GUIA-SICA-VE-2026-004128, Registro CVC (Corporación Venezolana del Café) y boletas de recepción y pesaje en galpones de Acarigua/Araure.'
       },
       {
-        title: 'CUARTA: Cláusula de Finiquito, Absorción y Cruce Contable (Octubre 2026)',
-        content: 'Las partes convienen que en el mes de OCTUBRE DE 2026, al concretarse la nacionalización y entrega física de los 2.100 quintales de café en la planta de Araure/Acarigua, AGRÍCOLA ONI, C.A. emitirá la factura definitiva FAC-OCT-2026-001 por el monto total correspondiente. Dicha factura absorberá y extinguirá el saldo de la cuenta de pasivo "Anticipos de Clientes", aplicando el IVA correspondiente y emitiendo los comprobantes de retención de IVA según la Providencia SNAT/2015/0049 e IGTF si aplica.'
+        title: 'CUARTA: Cláusula de Finiquito, Sustitución de Factura y Extinción de Anticipo (Octubre 2026)',
+        content: 'Las partes convienen expresamente que en el mes de OCTUBRE DE 2026, al completarse la entrega física de los 2.100 quintales de café nacional, AGRÍCOLA ONI, C.A. emitirá la factura fiscal de ventas definitiva FAC-OCT-2026-001 a tasa oficial BCV. Dicha factura de ventas sustituirá y eliminará al 100% el saldo del anticipo de cliente, perfeccionando la venta mercantil y liquidando las retenciones de IVA e ISLR ante el SENIAT.'
       }
     ]
   },
   {
     id: 'ctr-pj-002',
     batchCode: 'LOTE-2026-CAF-002',
-    contractCode: 'CTR-MAND-2026-DIS-002',
+    contractCode: 'CTR-FUT-2026-DIS-002',
     companyName: 'DISTRIBUIDORA DIS, C.A.',
     rif: 'J-30643703-7',
     repName: 'Luis Alberto Salazar',
@@ -92,32 +92,24 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
     amountUSD: 355555.56,
     coffeeQtl: 2400,
     date: '10 de Abril de 2026',
-    status: 'FONDOS EN CUSTODIA / PROCURA INTERNACIONAL',
+    status: 'ANTICIPO EN CUSTODIA / GESTIÓN DE ACOPIO NACIONAL',
     octoberInvoiceRef: 'FAC-OCT-2026-002',
-    summary: 'Contrato de Mandato y Gestión de Importación con Financiamiento Mediante Anticipos para la reserva e importación de 2.400 quintales de café pergamino lavado asignados al Lote LOTE-2026-CAF-002.',
+    summary: 'Contrato a Futuro de Compraventa e Intermediación de Café Nacional con Financiamiento Mediante Anticipos en Bolívares a Tasa Oficial BCV para la compra y acopio de 2.400 quintales de café pergamino lavado asignados al Lote LOTE-2026-CAF-002.',
     clauses: [
       {
-        title: 'PRIMERA: Objeto, Mandato de Importación y Custodia de Fondos',
-        content: 'DISTRIBUIDORA DIS, C.A. (EL MANDANTE) suscribe con AGRÍCOLA ONI, C.A. (EL MANDATARIO) el presente contrato de gestión de importación con anticipos. Los fondos por Bs. 240.000.000,00 recibidos a través de transferencias bancarias constituyen abonos en custodia para la procura internacional de grano en Colombia, catalogados como Pasivo Corriente conforme a NIIF 15 sin generar venta inmediata.'
+        title: 'PRIMERA: Objeto, Intermediación en Venezuela y Custodia de Fondos',
+        content: 'DISTRIBUIDORA DIS, C.A. (EL COMPRADOR) entrega fondos en calidad de anticipo en bolívares a AGRÍCOLA ONI, C.A. (EL INTERMEDIARIO) para que gestione compras en el mercado nacional con empresas y caficultores de Portuguesa y Lara. Todo el café se adquiere en territorio venezolano a valor oficial BCV.'
       },
       {
-        title: 'SEGUNDA: Código de Lote de Importación y Rastro de Efectivo',
-        content: 'El presente contrato ampara la asignación prioritaria del Lote de Importación LOTE-2026-CAF-002. AGRÍCOLA ONI, C.A. certifica que los bolívares ingresados fueron canalizados mediante operaciones cambiarias autorizadas ante Banesco Banco Universal para la adquisición de dólares destinados al pago de flete terrestre internacional y compras en frontera.'
-      },
-      {
-        title: 'TERCERA: Documentación Obligatoria de Transparencia y Cumplimiento',
-        content: 'El expediente crediticio y bancario se respalda con copias de los certificados fitosanitarios INSAI, manifiestos de carga terrestre, facturas proforma del proveedor internacional y certificaciones de recepción de aduana en San Antonio del Táchira.'
-      },
-      {
-        title: 'CUARTA: Cláusula de Finiquito y Liquidación de Anticipos (Octubre 2026)',
-        content: 'En OCTUBRE DE 2026, al culminar el proceso de transporte y pesaje en almacén, AGRÍCOLA ONI, C.A. emitirá la factura fiscal definitiva FAC-OCT-2026-002, la cual compensará en su totalidad el pasivo por anticipos recibidos, registrando las retenciones de IVA de la Providencia 0049 e ISLR Decreto 1808.'
+        title: 'SEGUNDA: Liquidación y Sustitución de Factura en Octubre 2026',
+        content: 'En el mes de OCTUBRE DE 2026 se emite la factura de ventas definitiva FAC-OCT-2026-002 a tasa BCV contra la cual se eliminará de la contabilidad el pasivo por anticipo de clientes.'
       }
     ]
   },
   {
     id: 'ctr-pj-003',
     batchCode: 'LOTE-2026-CAF-003',
-    contractCode: 'CTR-MAND-2026-ORU-003',
+    contractCode: 'CTR-FUT-2026-ORU-003',
     companyName: 'GRUPO AGROINDUSTRIAL ORU, C.A.',
     rif: 'J-41100717-0',
     repName: 'Roberto Antonio Guerrero',
@@ -127,32 +119,32 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
     amountUSD: 274074.07,
     coffeeQtl: 1850,
     date: '22 de Abril de 2026',
-    status: 'FONDOS EN CUSTODIA / PROCURA INTERNACIONAL',
+    status: 'ANTICIPO EN CUSTODIA / GESTIÓN DE ACOPIO NACIONAL',
     octoberInvoiceRef: 'FAC-OCT-2026-003',
-    summary: 'Contrato de Mandato e Intermediación Comercial para la compra e importación de 1.850 quintales de café verde arábica en Colombia asignados al Lote LOTE-2026-CAF-003.',
+    summary: 'Contrato a Futuro e Intermediación Comercial para la compra y acopio de 1.850 quintales de café verde arábica venezolano a valor oficial BCV asignados al Lote LOTE-2026-CAF-003.',
     clauses: [
       {
-        title: 'PRIMERA: Objeto, Mandato y Custodia de Anticipos',
-        content: 'GRUPO AGROINDUSTRIAL ORU, C.A. constituye a AGRÍCOLA ONI, C.A. como su agente e intermediario comercial para la importación de café verde. Los aportes por Bs. 185.000.000,00 son entregados en calidad de anticipos financieros en custodia (Pasivo Corriente) para asegurar volumen de molienda.'
+        title: 'PRIMERA: Objeto, Intermediación en Venezuela y Custodia de Anticipos',
+        content: 'GRUPO AGROINDUSTRIAL ORU, C.A. encomienda a AGRÍCOLA ONI, C.A. la intermediación comercial para la compra y acopio de café verde nacional en Venezuela. Los recursos por Bs. 185.000.000,00 se entregan en calidad de anticipos en bolívares a tasa oficial BCV (Pasivo Corriente NIIF 15) para asegurar cosecha nacional.'
       },
       {
-        title: 'SEGUNDA: Vinculación al Lote de Importación y Trazabilidad',
-        content: 'Las transferencias se vinculan estrictamente al Código de Lote LOTE-2026-CAF-003, con trazabilidad completa de los desembolsos cambiarios realizados a través de la cuenta custodia en divisas de Banesco Banco Universal.'
+        title: 'SEGUNDA: Vinculación al Lote Nacional y Trazabilidad',
+        content: 'Las transferencias se vinculan estrictamente al Código de Lote LOTE-2026-CAF-003, demostrando la aplicación de los fondos en la adquisición de cosechas a caficultores de Portuguesa y Lara a tasa oficial BCV.'
       },
       {
-        title: 'TERCERA: Soportes de Cumplimiento Financiero',
-        content: 'Anexo de documentación exigida por la Intendencia de Protección al Sector Bancario: licencias de importación, planillas DUA SENIAT, guías de movilización de café y recibos de pago a transportistas binacionales.'
+        title: 'TERCERA: Soportes de Cumplimiento Agroalimentario Nacional',
+        content: 'Anexo de documentación exigida por la Intendencia de Protección al Sector Bancario: guías de movilización agroalimentaria SICA, permisos CVC y boletas de pesaje en centros de acopio.'
       },
       {
-        title: 'CUARTA: Absorción de Pasivo y Finiquito en Octubre 2026',
-        content: 'La entrega formal de la mercancía en el mes de OCTUBRE DE 2026 activará la emisión de la factura comercial FAC-OCT-2026-003, extinguiendo el anticipo del pasivo e ingresando el débito fiscal IVA con sus respectivas retenciones SENIAT.'
+        title: 'CUARTA: Absorción de Pasivo y Sustitución de Factura en Octubre 2026',
+        content: 'La entrega física del café nacional en el mes de OCTUBRE DE 2026 activará la emisión de la factura de venta definitiva FAC-OCT-2026-003 a tasa BCV, eliminando el anticipo del pasivo contable y liquidando el IVA y tributos SENIAT.'
       }
     ]
   },
   {
     id: 'ctr-pj-004',
     batchCode: 'LOTE-2026-CAF-004',
-    contractCode: 'CTR-MAND-2026-SOL-004',
+    contractCode: 'CTR-FUT-2026-SOL-004',
     companyName: 'INVERSIONES SOLBTR, C.A.',
     rif: 'J-50013440-3',
     repName: 'Gabriel José Torrealba',
@@ -162,32 +154,32 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
     amountUSD: 244444.44,
     coffeeQtl: 1650,
     date: '18 de Mayo de 2026',
-    status: 'FONDOS EN CUSTODIA / PROCURA INTERNACIONAL',
+    status: 'ANTICIPO EN CUSTODIA / GESTIÓN DE ACOPIO NACIONAL',
     octoberInvoiceRef: 'FAC-OCT-2026-004',
-    summary: 'Contrato de Mandato de Importación de Café Pergamino para la procuración de 1.650 quintales destinados a la industria torrefactora nacional (Lote LOTE-2026-CAF-004).',
+    summary: 'Contrato a Futuro de Compraventa e Intermediación de Café Nacional para el acopio de 1.650 quintales destinados a la industria torrefactora nacional a tasa oficial BCV (Lote LOTE-2026-CAF-004).',
     clauses: [
       {
-        title: 'PRIMERA: Mandato Comercial y Naturaleza de los Fondos',
-        content: 'INVERSIONES SOLBTR, C.A. asigna a AGRÍCOLA ONI, C.A. mandato de procura internacional de café. El desembolso de Bs. 165.000.000,00 se registra como Anticipos Recibidos de Clientes (Pasivo NIIF 15) en custodia sin emisión previa de factura de venta.'
+        title: 'PRIMERA: Mandato Comercial de Compra Nacional y Naturaleza de los Fondos',
+        content: 'INVERSIONES SOLBTR, C.A. asigna a AGRÍCOLA ONI, C.A. la gestión de intermediación y procura de café en Venezuela. El desembolso de Bs. 165.000.000,00 se registra como Anticipos Recibidos de Clientes (Pasivo NIIF 15) en bolívares a tasa oficial BCV sin emisión previa de factura de venta.'
       },
       {
-        title: 'SEGUNDA: Asignación de Lote e Intervención Cambiaria Banesco',
-        content: 'Operación asociada al Lote LOTE-2026-CAF-004. Los fondos en moneda nacional se liquidaron en la Mesa de Cambio Banesco para honrar las obligaciones en divisas con proveedores en Norte de Santander, Colombia.'
+        title: 'SEGUNDA: Asignación de Lote y Trazabilidad en Cuenta Banesco',
+        content: 'Operación asociada al Lote LOTE-2026-CAF-004. Los fondos en moneda nacional se emplean para liquidar compras de café y transporte terrestre pesado en el eje cafetalero nacional.'
       },
       {
         title: 'TERCERA: Soportes y Anexos de Transparencia Compliance',
-        content: 'Integración en el expediente bancario de facturas proforma DIAN, constancias de inspecional fitosanitaria INSAI y avales de almacenamiento aduanal.'
+        content: 'Integración en el expediente bancario de guías SICA, constancias de la Corporación Venezolana del Café (CVC) y boletas de recepción en almacén de Araure.'
       },
       {
-        title: 'CUARTA: Cláusula de Finiquito y Absorción en Octubre 2026',
-        content: 'En OCTUBRE DE 2026 se procederá al cruce contable y emisión de la factura legal FAC-OCT-2026-004, absorbiendo en su totalidad la cuenta de pasivo y emitiendo los comprobantes de retención IVA (75%/100%) exigidos por SENIAT.'
+        title: 'CUARTA: Cláusula de Finiquito y Sustitución de Factura en Octubre 2026',
+        content: 'En OCTUBRE DE 2026 se procederá al cruce contable y emisión de la factura de ventas definitiva FAC-OCT-2026-004 a tasa BCV, eliminando en su totalidad la cuenta de pasivo y liquidando el IVA correspondiente ante el SENIAT.'
       }
     ]
   },
   {
     id: 'ctr-pj-005',
     batchCode: 'LOTE-2026-CAF-005',
-    contractCode: 'CTR-MAND-2026-RIK-005',
+    contractCode: 'CTR-FUT-2026-RIK-005',
     companyName: 'COMERCIALIZADORA RIK Y ALIADOS, C.A.',
     rif: 'J-50145725-2',
     repName: 'Ricardo José Morales',
@@ -197,32 +189,32 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
     amountUSD: 281481.48,
     coffeeQtl: 1900,
     date: '05 de Junio de 2026',
-    status: 'FONDOS EN CUSTODIA / PROCURA INTERNACIONAL',
+    status: 'ANTICIPO EN CUSTODIA / GESTIÓN DE ACOPIO NACIONAL',
     octoberInvoiceRef: 'FAC-OCT-2026-005',
-    summary: 'Contrato de Mandato y Procura de Café Verde de Exportación para la atención de 1.900 quintales de café asignados al Lote LOTE-2026-CAF-005.',
+    summary: 'Contrato a Futuro de Compraventa e Intermediación de Café Verde Nacional para la entrega de 1.900 quintales asignados al Lote LOTE-2026-CAF-005 a tasa BCV.',
     clauses: [
       {
         title: 'PRIMERA: Objeto del Mandato e Imputación Contable',
-        content: 'COMERCIALIZADORA RIK Y ALIADOS, C.A. acuerda con AGRÍCOLA ONI, C.A. la intermediación comercial para la importación de café. Los fondos por Bs. 190.000.000,00 entregados en custodia constituyen Pasivo Corriente de conformidad con NIIF 15.'
+        content: 'COMERCIALIZADORA RIK Y ALIADOS, C.A. encomienda a AGRÍCOLA ONI, C.A. la intermediación comercial para la compra de café en Venezuela. Los fondos por Bs. 190.000.000,00 entregados en custodia constituyen Pasivo Corriente por anticipos de clientes de conformidad con NIIF 15 a tasa BCV.'
       },
       {
-        title: 'SEGUNDA: Rastro de Efectivo y Lote de Importación',
-        content: 'Fondos vinculados al Lote LOTE-2026-CAF-005, verificados mediante giros interbancarios desde Bancamiga hacia la cuenta corriente Banesco de Agrícola Oni C.A., convertidos posteriormente en divisas oficiales.'
+        title: 'SEGUNDA: Rastro de Efectivo y Lote Nacional',
+        content: 'Fondos vinculados al Lote LOTE-2026-CAF-005, verificados mediante transferencias bancarias desde Bancamiga hacia Banesco, aplicados íntegramente a compra de cosechas en territorio venezolano.'
       },
       {
-        title: 'TERCERA: Soportes Aduanales y Cumplimiento de Prevención',
-        content: 'Expediente respaldado con certificados fitosanitarios INSAI, facturas internacionales de venta DIAN y cartas de porte terrestre internacional.'
+        title: 'TERCERA: Soportes Agrícolas y Prevención de Legitimación',
+        content: 'Expediente respaldado con licencias de movilización SICA, guías de origen CVC y contratos de transporte terrestre nacional.'
       },
       {
-        title: 'CUARTA: Absorción de Pasivo y Emisión de Factura (Octubre 2026)',
-        content: 'En OCTUBRE DE 2026, con la recepción definitiva del café en almacén, se emitirá la factura FAC-OCT-2026-005 para la extinción del pasivo y acreditación de retenciones de IVA e ISLR.'
+        title: 'CUARTA: Eliminación de Pasivo y Emisión de Factura de Venta (Octubre 2026)',
+        content: 'En OCTUBRE DE 2026, con la entrega definitiva del café, se emitirá la factura fiscal de ventas FAC-OCT-2026-005 para la extinción total del anticipo y liquidación de tributos SENIAT.'
       }
     ]
   },
   {
     id: 'ctr-pj-006',
     batchCode: 'LOTE-2026-CAF-006',
-    contractCode: 'CTR-MAND-2026-JAG-006',
+    contractCode: 'CTR-FUT-2026-JAG-006',
     companyName: 'CORPORACIÓN AGROINDUSTRIAL J, C.A.',
     rif: 'J-50120729-0',
     repName: 'Julio César Benítez',
@@ -232,25 +224,25 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
     amountUSD: 259259.26,
     coffeeQtl: 1750,
     date: '12 de Julio de 2026',
-    status: 'FONDOS EN CUSTODIA / PROCURA INTERNACIONAL',
+    status: 'ANTICIPO EN CUSTODIA / GESTIÓN DE ACOPIO NACIONAL',
     octoberInvoiceRef: 'FAC-OCT-2026-006',
-    summary: 'Contrato de Mandato de Intermediación y Procura Internacional de Café Pergamino para la asignación de 1.750 quintales de café verde (Lote LOTE-2026-CAF-006).',
+    summary: 'Contrato a Futuro de Intermediación y Procura Nacional de Café Pergamino para la asignación de 1.750 quintales de café verde venezolano (Lote LOTE-2026-CAF-006).',
     clauses: [
       {
-        title: 'PRIMERA: Mandato Comercial y Custodia Fiduciaria',
-        content: 'CORPORACIÓN AGROINDUSTRIAL J, C.A. constituye a AGRÍCOLA ONI, C.A. como mandatario e importador. El anticipo de Bs. 175.000.000,00 constituye fondo en custodia sin generar hecho imponible del IVA hasta la entrega formal de la mercancía.'
+        title: 'PRIMERA: Mandato Comercial y Custodia de Anticipo',
+        content: 'CORPORACIÓN AGROINDUSTRIAL J, C.A. designa a AGRÍCOLA ONI, C.A. como su intermediario comercial en Venezuela. El anticipo de Bs. 175.000.000,00 constituye fondo en custodia a tasa BCV sin generar hecho imponible del IVA hasta la entrega formal y facturación de la mercancía.'
       },
       {
-        title: 'SEGUNDA: Código de Lote e Intermediación Cambiaria',
-        content: 'Operación asociada al Lote LOTE-2026-CAF-006. Trazabilidad completa de la reconversión de moneda nacional a USD oficial en Banesco Banco Universal para pago de proveedores en Colombia.'
+        title: 'SEGUNDA: Código de Lote y Trazabilidad Bancaria',
+        content: 'Operación asociada al Lote LOTE-2026-CAF-006. Trazabilidad completa de los desembolsos a productores y pagos operativos a tasa oficial BCV en Banesco Banco Universal.'
       },
       {
-        title: 'TERCERA: Expediente de Transparencia Bancaria',
-        content: 'Respaldado con certificados sanitarios de origen, guías de tránsito nacional SENIAT/INSAI y facturas de flete internacional.'
+        title: 'TERCERA: Expediente de Cumplimiento Bancario',
+        content: 'Respaldado con guías de movilización agroalimentaria SICA, boletas de pesaje CVC y facturas de transporte terrestre nacional.'
       },
       {
-        title: 'CUARTA: Liquidación de Pasivo y Finiquito (Octubre 2026)',
-        content: 'La entrega material de la mercancía en OCTUBRE DE 2026 generará la factura formal FAC-OCT-2026-006, extinguiendo la obligación en pasivo e imputando los comprobantes de retención tributaria.'
+        title: 'CUARTA: Liquidación de Pasivo y Sustitución de Factura (Octubre 2026)',
+        content: 'La entrega física en OCTUBRE DE 2026 generará la factura formal de ventas FAC-OCT-2026-006 a tasa BCV, extinguiendo la obligación en pasivo e imputando los comprobantes de retención tributaria.'
       }
     ]
   }
@@ -426,24 +418,24 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   },
   {
     id: 'ctr-03',
-    batchCode: 'LOTE-IMP-COL-CUCUTA',
-    contractCode: 'CTR-IMP-2026-COL-CUCUTA',
-    companyName: 'COOPERATIVA CAFETERA DE CÚCUTA LTDA.',
-    rif: 'NIT: 890.501.240-3',
-    repName: 'Gerencia de Exportaciones Colombia',
-    repId: 'NIT: 890.501.240-3',
-    bankOrigin: 'Banesco Cuenta Custodia / GIRO DIAN',
+    batchCode: 'LOTE-VE-NAC-UNDA',
+    contractCode: 'CTR-PROCURA-2026-NAC-UNDA',
+    companyName: 'ASOCIACIÓN DE CAFICULTORES DEL MUNICIPIO UNDA (CHABASQUÉN)',
+    rif: 'RIF: J-40192840-1',
+    repName: 'Directorio de Productores Chabasquén',
+    repId: 'RIF: J-40192840-1',
+    bankOrigin: 'Banesco / BDV / Pago Móvil CCE',
     amountVES: 300375000.00,
     amountUSD: 445000.00,
     coffeeQtl: 7500,
     date: '20 de Mayo de 2026',
-    status: 'SUMINISTRO INTERNACIONAL ACTIVO',
-    octoberInvoiceRef: 'FACTURA DIAN EXP-COL-008412',
-    summary: 'Contrato Internacional de Suministro y Compraventa de Café Verde por USD 445.000,00 para abastecer 7.500 quintales de café pergamino lavado.',
+    status: 'ACOPIO NACIONAL ACTIVO',
+    octoberInvoiceRef: 'GUIA-SICA-VE-2026-004128',
+    summary: 'Contrato Marco de Compraventa y Acopio de Café Verde Nacional por USD 445.000,00 a tipo de cambio oficial BCV para abastecer 7.500 quintales de café pergamino lavado de Portuguesa.',
     clauses: [
       {
-        title: 'PRIMERA: Especificaciones y Calidad de Exportación',
-        content: 'Suministro de café arábica pergamino lavado con humedad < 12% y certificado fitosanitario de exportación en frontera Cúcuta - San Antonio.'
+        title: 'PRIMERA: Especificaciones y Calidad de Café Nacional',
+        content: 'Acopio y suministro de café arábica pergamino lavado con humedad < 12% y guía de movilización SICA/CVC en centros de recepción de Chabasquén y Biscucuy, Estado Portuguesa.'
       }
     ]
   }
@@ -482,20 +474,20 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
         <div style="text-align:center; border-bottom:2px solid #0F172A; padding-bottom:10pt; margin-bottom:15pt;">
           <h1 style="color:#0F172A; font-size:16pt; margin:0; text-transform:uppercase; font-family:Arial, sans-serif;">${company.name}</h1>
           <p style="color:#475569; font-size:9pt; margin:3pt 0;"><strong>R.I.F.:</strong> ${company.rif} &middot; <strong>CÓDIGO DE REGISTRO BANCARIO:</strong> ${ctr.contractCode}</p>
-          <h2 style="color:#B45309; font-size:13pt; margin-top:8pt; text-transform:uppercase; font-family:Arial, sans-serif;">CONTRATO DE MANDATO Y GESTIÓN DE IMPORTACIÓN CON FINANCIAMIENTO MEDIANTE ANTICIPOS</h2>
+          <h2 style="color:#B45309; font-size:13pt; margin-top:8pt; text-transform:uppercase; font-family:Arial, sans-serif;">CONTRATO A FUTURO DE COMPRAVENTA E INTERMEDIACIÓN DE CAFÉ NACIONAL CON FINANCIAMIENTO MEDIANTE ANTICIPOS A TASA BCV</h2>
           <p style="color:#1E293B; font-size:10pt; font-weight:bold;">INSTRUMENTO JURÍDICO AUDITABLE SUDEBAN / SENIAT &middot; ${ctr.batchCode}</p>
         </div>
 
         <table style="width:100%; border-collapse:collapse; margin-bottom:15pt; background-color:#FEF3C7; border:1px solid #F59E0B;">
           <tr>
             <td style="padding:10pt; font-size:10pt; color:#78350F; line-height:1.6;">
-              <strong>1. MANDANTE (CLIENTE):</strong> ${ctr.companyName} (RIF: ${ctr.rif})<br/>
+              <strong>1. MANDANTE / COMPRADOR:</strong> ${ctr.companyName} (RIF: ${ctr.rif})<br/>
               <strong>2. REPRESENTANTE LEGAL:</strong> ${ctr.repName} (C.I. ${ctr.repId})<br/>
-              <strong>3. MANDATARIO (INTERMEDIARIO):</strong> ${company.name} (RIF: ${company.rif})<br/>
-              <strong>4. LOTE DE IMPORTACIÓN ASIGNADO:</strong> ${ctr.batchCode}<br/>
-              <strong>5. MONTO EN CUSTODIA (PASIVO NIIF 15):</strong> Bs. ${ctr.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${ctr.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)<br/>
-              <strong>6. VOLUMEN COMPROMETIDO:</strong> ${ctr.coffeeQtl.toLocaleString('es-VE')} Quintales de Café Pergamino Lavado<br/>
-              <strong>7. FECHA DE SUSCRIPCIÓN:</strong> ${ctr.date} &middot; <strong>FACTURA DEFINITIVA:</strong> Octubre 2026 (${ctr.octoberInvoiceRef})
+              <strong>3. INTERMEDIARIO COMERCIAL:</strong> ${company.name} (RIF: ${company.rif})<br/>
+              <strong>4. LOTE DE ACOPIO NACIONAL ASIGNADO:</strong> ${ctr.batchCode}<br/>
+              <strong>5. MONTO EN CUSTODIA (PASIVO NIIF 15 A TASA BCV):</strong> Bs. ${ctr.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${ctr.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)<br/>
+              <strong>6. VOLUMEN COMPROMETIDO:</strong> ${ctr.coffeeQtl.toLocaleString('es-VE')} Quintales de Café Pergamino Lavado Nacional<br/>
+              <strong>7. FECHA DE SUSCRIPCIÓN:</strong> ${ctr.date} &middot; <strong>SUSTITUCIÓN POR FACTURA DE VENTAS:</strong> Octubre 2026 (${ctr.octoberInvoiceRef})
             </td>
           </tr>
         </table>
@@ -547,22 +539,22 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
       return `
         <div style="${index > 0 ? 'page-break-before:always; margin-top:30pt;' : ''} margin-bottom:30pt;">
           <div style="text-align:center; border-bottom:2px solid #0F172A; padding-bottom:10pt; margin-bottom:15pt;">
-            <p style="color:#B45309; font-size:9pt; font-weight:bold; margin:0; font-family:monospace;">CONTRATO DE MANDATO N° ${index + 1} DE 6 &middot; ${ctr.batchCode}</p>
+            <p style="color:#B45309; font-size:9pt; font-weight:bold; margin:0; font-family:monospace;">CONTRATO A FUTURO N° ${index + 1} DE 6 &middot; ${ctr.batchCode}</p>
             <h1 style="color:#0F172A; font-size:16pt; margin:3pt 0 0 0; text-transform:uppercase; font-family:Arial, sans-serif;">${company.name}</h1>
             <p style="color:#475569; font-size:9pt; margin:3pt 0;"><strong>R.I.F.:</strong> ${company.rif} &middot; <strong>EXPEDIENTE:</strong> ${ctr.contractCode}</p>
-            <h2 style="color:#B45309; font-size:12pt; margin-top:6pt; text-transform:uppercase; font-family:Arial, sans-serif;">CONTRATO DE MANDATO Y GESTIÓN DE IMPORTACIÓN CON FINANCIAMIENTO MEDIANTE ANTICIPOS</h2>
+            <h2 style="color:#B45309; font-size:12pt; margin-top:6pt; text-transform:uppercase; font-family:Arial, sans-serif;">CONTRATO A FUTURO DE COMPRAVENTA E INTERMEDIACIÓN DE CAFÉ NACIONAL CON FINANCIAMIENTO MEDIANTE ANTICIPOS A TASA BCV</h2>
           </div>
 
           <table style="width:100%; border-collapse:collapse; margin-bottom:15pt; background-color:#FEF3C7; border:1px solid #F59E0B;">
             <tr>
               <td style="padding:10pt; font-size:10pt; color:#78350F; line-height:1.6;">
-                <strong>1. MANDANTE (CLIENTE JURÍDICO):</strong> ${ctr.companyName} (RIF: ${ctr.rif})<br/>
+                <strong>1. MANDANTE / COMPRADOR (CLIENTE JURÍDICO):</strong> ${ctr.companyName} (RIF: ${ctr.rif})<br/>
                 <strong>2. REPRESENTANTE LEGAL:</strong> ${ctr.repName} (C.I. ${ctr.repId})<br/>
-                <strong>3. MANDATARIO (INTERMEDIARIO):</strong> ${company.name} (RIF: ${company.rif})<br/>
-                <strong>4. LOTE DE IMPORTACIÓN ASIGNADO:</strong> ${ctr.batchCode}<br/>
-                <strong>5. MONTO EN CUSTODIA (PASIVO NIIF 15):</strong> Bs. ${ctr.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${ctr.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)<br/>
-                <strong>6. VOLUMEN COMPROMETIDO:</strong> ${ctr.coffeeQtl.toLocaleString('es-VE')} Quintales de Café Pergamino Lavado<br/>
-                <strong>7. FECHA DE SUSCRIPCIÓN:</strong> ${ctr.date} &middot; <strong>FACTURA DEFINITIVA:</strong> Octubre 2026 (${ctr.octoberInvoiceRef})
+                <strong>3. INTERMEDIARIO COMERCIAL:</strong> ${company.name} (RIF: ${company.rif})<br/>
+                <strong>4. LOTE DE ACOPIO NACIONAL ASIGNADO:</strong> ${ctr.batchCode}<br/>
+                <strong>5. MONTO EN CUSTODIA (PASIVO NIIF 15 A TASA BCV):</strong> Bs. ${ctr.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${ctr.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)<br/>
+                <strong>6. VOLUMEN COMPROMETIDO:</strong> ${ctr.coffeeQtl.toLocaleString('es-VE')} Quintales de Café Pergamino Lavado Nacional<br/>
+                <strong>7. FECHA DE SUSCRIPCIÓN:</strong> ${ctr.date} &middot; <strong>SUSTITUCIÓN POR FACTURA DE VENTAS:</strong> Octubre 2026 (${ctr.octoberInvoiceRef})
               </td>
             </tr>
           </table>
@@ -595,19 +587,19 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
       <div style="font-family:Calibri, Arial, sans-serif; padding:15pt;">
         <div style="text-align:center; margin-bottom:25pt; padding-bottom:15pt; border-bottom:3px solid #0F172A;">
           <h1 style="color:#0F172A; font-size:20pt; margin:0; font-family:Arial, sans-serif;">${company.name} &mdash; EXPEDIENTE LEGAL EDITABLE</h1>
-          <p style="color:#475569; font-size:11pt; margin-top:4pt;">R.I.F. ${company.rif} &middot; COMPILACIÓN EDITABLE DE CONTRATOS DE MANDATO POR LOTES EN WORD</p>
-          <p style="color:#B45309; font-size:12pt; font-weight:bold; margin-top:6pt;">6 CONTRATOS DE MANDATO DE IMPORTACIÓN DE CAFÉ CON FINANCIAMIENTO MEDIANTE ANTICIPOS</p>
+          <p style="color:#475569; font-size:11pt; margin-top:4pt;">R.I.F. ${company.rif} &middot; COMPILACIÓN EDITABLE DE CONTRATOS A FUTURO POR LOTES EN WORD</p>
+          <p style="color:#B45309; font-size:12pt; font-weight:bold; margin-top:6pt;">6 CONTRATOS A FUTURO DE COMPRAVENTA E INTERMEDIACIÓN DE CAFÉ NACIONAL CON FINANCIAMIENTO MEDIANTE ANTICIPOS A TASA BCV</p>
         </div>
 
         <div style="background-color:#F1F5F9; border-left:4px solid #0F172A; padding:10pt 12pt; margin-bottom:25pt; font-size:10pt; color:#334155;">
-          <strong>NOTA EDITABLE DE CUMPLIMIENTO BANCARIO Y FISCAL:</strong> El presente archivo en formato Microsoft Word (.doc / .docx) contiene los seis (6) contratos marco individuales de mandato de gestión de importación suscritos con las empresas jurídicas. Este archivo se proporciona con el fin de permitir la modificación directa de cualquier cláusula, nombre de representante legal o condición comercial específica antes de su impresión o remisión a las autoridades de inspección bancaria (SUDEBAN / Banesco Compliance).
+          <strong>NOTA EDITABLE DE CUMPLIMIENTO BANCARIO Y FISCAL:</strong> El presente archivo en formato Microsoft Word (.doc / .docx) contiene los seis (6) contratos marco individuales de compraventa e intermediación de café nacional suscritos con las empresas jurídicas venezolanas. Este archivo se proporciona con el fin de permitir la modificación directa de cualquier cláusula, nombre de representante legal o condición comercial específica antes de su impresión o remisión a las autoridades de inspección bancaria (SUDEBAN / Banesco Compliance).
         </div>
 
         ${contractsHtml}
       </div>
     `;
 
-    exportToWord('Contratos_de_Mandato_por_Lotes_Personas_Juridicas_Agricola_Oni.doc', 'Contratos de Mandato por Lotes Word', fullHtml);
+    exportToWord('Contratos_a_Futuro_Cafe_Nacional_Personas_Juridicas_Agricola_Oni.doc', 'Contratos a Futuro por Lotes Word', fullHtml);
   };
 
   const handleExportBatchContractsExcel = () => {
@@ -661,7 +653,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
       sheetName: 'Contratos por Lotes',
       companyName: company.name,
       companyRif: company.rif,
-      title: 'MATRIZ DE CONTRATOS DE MANDATO POR LOTE DE IMPORTACIÓN - PERSONAS JURÍDICAS',
+      title: 'MATRIZ DE CONTRATOS DE MANDATO POR LOTE DE COMPRA Y GESTIÓN NACIONAL - PERSONAS JURÍDICAS',
       subtitle: 'Resguardo Jurídico de Fondos en Custodia (Pasivo NIIF 15), Trazabilidad Bancaria Banesco y Absorción en Octubre 2026',
       headers,
       rows: dataRows,
@@ -682,7 +674,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
             </h2>
           </div>
           <p className="text-xs text-slate-300 mt-1">
-            Contratos de Mandato de Importación para las 6 Personas Jurídicas &middot; Blindaje SUDEBAN, SENIAT, NIIF 15 y Prevención de Legitimación
+            Contratos de Mandato e Intermediación Comercial para las 6 Personas Jurídicas &middot; Blindaje SUDEBAN, SENIAT, NIIF 15 y Prevención de Legitimación
           </p>
         </div>
 
@@ -762,7 +754,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                 {totalQtl.toLocaleString('es-VE')} Quintales
               </span>
               <span className="text-[10px] text-slate-500 mt-0.5 block">
-                Café Arábica Pergamino Lavado Colombia
+                Café Arábica Pergamino Lavado Venezolano (Tasa Oficial BCV)
               </span>
             </div>
 
@@ -982,7 +974,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
 
                     const htmlContent = `
                       <h1>${company.name} &mdash; RIF ${company.rif}</h1>
-                      <h2>CONTRATO DE MANDATO Y GESTIÓN DE IMPORTACIÓN (${selectedContract.batchCode})</h2>
+                      <h2>CONTRATO DE MANDATO Y GESTIÓN DE INTERMEDIACIÓN COMERCIAL (${selectedContract.batchCode})</h2>
                       <p><strong>Código de Registro:</strong> ${selectedContract.contractCode} &middot; <strong>Fecha:</strong> ${selectedContract.date}</p>
                       <div class="highlight-box">
                         <strong>Mandante:</strong> ${selectedContract.companyName} (RIF: ${selectedContract.rif})<br>
@@ -1033,7 +1025,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   INSTRUMENTO JURÍDICO AUDITABLE &middot; {selectedContract.batchCode}
                 </span>
                 <h2 className="text-xl font-bold mt-2 text-stone-950 uppercase tracking-tight">
-                  Contrato de Mandato y Gestión de Importación con Financiamiento Mediante Anticipos
+                  Contrato de Mandato y Gestión de Intermediación Comercial con Financiamiento Mediante Anticipos
                 </h2>
                 <p className="text-xs font-semibold text-stone-700 mt-1">
                   Entre: AGRÍCOLA ONI C.A. (Mandatario) y {selectedContract.companyName} (Mandante)

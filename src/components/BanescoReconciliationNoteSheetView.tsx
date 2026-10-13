@@ -288,7 +288,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                 </h1>
               </div>
               <p className="text-xs font-sans text-slate-700 mt-1 font-semibold">
-                R.I.F.: {company.rif} &middot; INTERMEDIACIÓN COMERCIAL E IMPORTACIÓN DE CAFÉ
+                R.I.F.: {company.rif} &middot; INTERMEDIACIÓN COMERCIAL Y COMPRA DE CAFÉ NACIONAL
               </p>
               <p className="text-[11px] font-sans text-slate-600">
                 Sector Pan de Azúcar, Carretera Sanare - El Tocuyo, Edo. Lara, Venezuela
@@ -513,10 +513,10 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
 
             <div>
               <p className="font-bold text-slate-900">
-                2. Custodia y Tratamiento de Anticipos de Clientes para Procuración e Importación de Café:
+                2. Custodia y Tratamiento de Anticipos de Clientes para Intermediación y Compra de Café en Venezuela:
               </p>
               <p className="text-slate-700 mt-0.5">
-                El 100% de los fondos recibidos de nuestros 6 clientes corporativos principales (Agrocomercial B.A., C.A., Inversiones San Gabriel, Inversora Agromarket, etc.) y personas naturales responden al modelo de <strong>Contrato de Mandato y Gestión de Importación con Financiamiento Mediante Anticipos</strong>. Dichos fondos se registran en el pasivo como <em>"Anticipos de Clientes"</em> y se destinaron a la adquisición de divisas en la Mesa de Cambio de Banesco para pagar directamente al exportador colombiano. No generan hecho imponible ni débito fiscal IVA hasta su facturación definitiva en Octubre de 2026.
+                El 100% de los fondos recibidos de nuestros 6 clientes corporativos principales (Agrocomercial B.A., C.A., Inversiones San Gabriel, Inversora Agromarket, etc.) y personas naturales responden al modelo de <strong>Contrato de Mandato y Gestión de Intermediación Comercial con Financiamiento Mediante Anticipos</strong>. Dichos fondos se registran en el pasivo como <em>"Anticipos de Clientes"</em> y se destinaron a la gestión de compra, acopio de lotes de café a productores venezolanos y pagos de insumos a tasa oficial BCV. No generan hecho imponible ni débito fiscal IVA hasta su facturación definitiva en Octubre de 2026, fecha en la cual se emiten las facturas de venta y se elimina el anticipo de la contabilidad.
               </p>
             </div>
 

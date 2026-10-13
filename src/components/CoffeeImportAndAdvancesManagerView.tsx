@@ -72,20 +72,20 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
   const [fxRate, setFxRate] = useState<number>(currentRate.rateUsd);
   const [fxCommissionVES, setFxCommissionVES] = useState<number>(0);
   const [fxRef, setFxRef] = useState('');
-  const [fxPurpose, setFxPurpose] = useState<'PAGO_PROVEEDOR_COLOMBIA' | 'FLETE_INTERNACIONAL' | 'GASTOS_ADUANEROS'>('PAGO_PROVEEDOR_COLOMBIA');
+  const [fxPurpose, setFxPurpose] = useState<'PAGO_INSUMOS_MAQUINARIA_VE' | 'FLETE_TRANSPORTE_NACIONAL' | 'SERVICIOS_AGROINDUSTRIALES_VE'>('PAGO_INSUMOS_MAQUINARIA_VE');
 
-  // Form states for Colombia Import Shipment
+  // Form states for National Coffee Batch Purchase
   const [showImportModal, setShowImportModal] = useState(false);
-  const [impCode, setImpCode] = useState(`IMP-COL-2026-${String(importShipments.length + 1).padStart(3, '0')}`);
+  const [impCode, setImpCode] = useState(`LOTE-VE-2026-${String(importShipments.length + 1).padStart(3, '0')}`);
   const [impDate, setImpDate] = useState('2026-03-31');
-  const [impSupplier, setImpSupplier] = useState('Cooperativa Cafetera de Cúcuta Ltda.');
-  const [impNit, setImpNit] = useState('NIT: 890.501.240-3');
-  const [impVariety, setImpVariety] = useState('Café Arábica Pergamino Lavado (Huila / Santander)');
+  const [impSupplier, setImpSupplier] = useState('Asociación de Caficultores del Municipio Unda (Chabasquén)');
+  const [impNit, setImpNit] = useState('RIF: J-40192840-1');
+  const [impVariety, setImpVariety] = useState('Café Arábica Pergamino Lavado (Portuguesa / Lara)');
   const [impVolumeQtl, setImpVolumeQtl] = useState<number>(500);
   const [impInvoiceUSD, setImpInvoiceUSD] = useState<number>(27000);
-  const [impInvoiceRef, setImpInvoiceRef] = useState('EXP-COL-008412');
-  const [impDuaSeniat, setImpDuaSeniat] = useState('DUA-2026-ADU-004128');
-  const [impInsai, setImpInsai] = useState('INSAI-FITOSAN-IMP-2026-904');
+  const [impInvoiceRef, setImpInvoiceRef] = useState('CONTR-PROCURA-VE-001');
+  const [impDuaSeniat, setImpDuaSeniat] = useState('GUIA-SICA-VE-2026-004128');
+  const [impInsai, setImpInsai] = useState('CVC-GUIA-NAC-2026-904');
   const [impFreightUSD, setImpFreightUSD] = useState<number>(1800);
   const [impCustomsUSD, setImpCustomsUSD] = useState<number>(1200);
 
@@ -109,7 +109,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
   const totalFxSpentVES = fxPurchases.reduce((acc, f) => acc + f.banescoDebitVES, 0);
 
   const totalImportVolumeQtl = importShipments.reduce((acc, i) => acc + i.volumeQtl, 0);
-  const totalImportCostUSD = importShipments.reduce((acc, i) => acc + i.totalInvoiceUSD + i.internationalFreightUSD + i.customsCostsUSD, 0);
+  const totalImportCostUSD = importShipments.reduce((acc, i) => acc + (i.totalAmountUSD || 0) + ((i.nationalFreightVES || 0) / (currentRate.rateUsd || 1)), 0);
 
   const totalInvoicedOctoberVES = octoberInvoices.reduce((acc, i) => acc + i.totalInvoiceVES, 0);
 
@@ -133,7 +133,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       coffeeVolumeTargetQtl: advCoffeeQtl,
       bankReference: advBankRef || 'Transf. Banesco',
       status: 'RECIBIDO',
-      notes: 'Anticipo recibido para intermediación e importación de café.'
+      notes: 'Anticipo recibido para intermediación comercial y compra de café en Venezuela a tasa oficial BCV.'
     };
 
     addCustomerAdvance(newAdvance);
@@ -154,7 +154,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         supportDocType: 'Comprobante de Anticipo & Contrato',
         supportDocRef: advNumber,
         auditStatus: 'VERIFICADO_CONFORME',
-        notes: `Anticipo recibido de cliente para importación de café de Colombia por déficit nacional.`
+        notes: `Anticipo recibido en bolívares de cliente para procura y acopio de café en Venezuela a tasa BCV.`
       });
 
       addVoucher({
@@ -163,7 +163,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         voucherType: 'INGRESO',
         date: advDate,
         bcvRate: rate,
-        concept: `Recepción de anticipo en ventas de cliente ${advClient} para importación de café`,
+        concept: `Recepción de anticipo en ventas de cliente ${advClient} para compra de café en Venezuela`,
         beneficiaryOrThirdParty: advClient,
         rifThirdParty: advRif || 'J-00000000-0',
         documentRef: advBankRef,
@@ -185,7 +185,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           {
             accountCode: '2.1.04.01.001',
             accountName: 'Anticipos Recibidos de Clientes Nacionales (Pasivo Corriente)',
-            reference: `Compromiso entrega café importado`,
+            reference: `Compromiso entrega café nacional sustitución octubre`,
             debitVES: 0,
             creditVES: advAmountVES,
             debitUSD: 0,
@@ -196,7 +196,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         totalCreditVES: advAmountVES,
         totalDebitUSD: countervalueUSD,
         totalCreditUSD: countervalueUSD,
-        notes: 'Pasivo corriente por anticipo de cliente para importación.'
+        notes: 'Pasivo corriente por anticipo de cliente para compra de café en Venezuela a regularizar en octubre.'
       });
     }
 
@@ -224,7 +224,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       banescoCommissionVES: fxCommissionVES,
       banescoRef: fxRef || 'MESA-BANESCO',
       destinationPurpose: fxPurpose,
-      notes: 'Compra de divisas en Banesco con fondos de anticipos para importación.'
+      notes: 'Compra de divisas en Banesco para insumos, maquinaria y repuestos agroindustriales en Venezuela.'
     };
 
     addFxPurchase(newFx);
@@ -244,7 +244,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       supportDocType: 'Comprobante Operación Cambiaria Banesco',
       supportDocRef: fxRef || fxNumber,
       auditStatus: 'VERIFICADO_CONFORME',
-      notes: `Compra de ${usdCredited.toFixed(2)} USD a Banesco para pagar importación y gastos de café.`
+      notes: `Compra de ${usdCredited.toFixed(2)} USD a Banesco para maquinaria, insumos y transporte de café en Venezuela.`
     });
 
     // Auto voucher: Débito Banco Banesco USD / Crédito Banco Banesco VES
@@ -254,7 +254,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       voucherType: 'EGRESO',
       date: fxDate,
       bcvRate: fxRate,
-      concept: `Adquisición de divisas oficiales a Banesco Banco Universal para importación de café`,
+      concept: `Adquisición de divisas oficiales a Banesco Banco Universal para insumos y maquinaria de café en Venezuela`,
       beneficiaryOrThirdParty: 'Banesco Banco Universal, C.A.',
       rifThirdParty: 'J-07013380-5',
       documentRef: fxRef || fxNumber,
@@ -305,17 +305,18 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       shipmentCode: impCode,
       date: impDate,
       supplierName: impSupplier,
-      supplierNit: impNit,
-      originCountry: 'Colombia',
+      supplierRif: impNit,
+      locationState: 'Portuguesa',
       coffeeVariety: impVariety,
       volumeQtl: impVolumeQtl,
-      totalInvoiceUSD: impInvoiceUSD,
-      invoiceCommercialRef: impInvoiceRef,
-      duaSeniatNumber: impDuaSeniat,
-      insaiPermit: impInsai,
-      internationalFreightUSD: impFreightUSD,
-      customsCostsUSD: impCustomsUSD,
-      status: 'NACIONALIZADO_EN_ALMACEN'
+      pricePerQtlUSD: impVolumeQtl > 0 ? impInvoiceUSD / impVolumeQtl : 0,
+      totalAmountUSD: impInvoiceUSD,
+      totalAmountVES: impInvoiceUSD * currentRate.rateUsd,
+      bcvRate: currentRate.rateUsd,
+      sicaPermitNumber: impDuaSeniat,
+      cvcPermit: impInsai,
+      nationalFreightVES: impFreightUSD * currentRate.rateUsd,
+      status: 'ACOPIADO_EN_ALMACEN'
     };
 
     addImportShipment(newShipment);
@@ -354,7 +355,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       voucherType: 'DIARIO',
       date: invDate,
       bcvRate: rate,
-      concept: `Facturación y entrega de café importado a cliente ${invClient} cruzando anticipo recibido`,
+      concept: `Facturación formal y entrega de café nacional a cliente ${invClient} a tasa BCV sustituyendo anticipo previo`,
       beneficiaryOrThirdParty: invClient,
       rifThirdParty: invRif,
       documentRef: invNumber,
@@ -365,7 +366,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       lines: [
         {
           accountCode: '2.1.04.01.001',
-          accountName: 'Anticipos Recibidos de Clientes (Amortización Pasivo)',
+          accountName: 'Anticipos Recibidos de Clientes (Amortización Pasivo NIIF 15)',
           reference: `Cruzamiento con Factura ${invNumber}`,
           debitVES: invAmortizedVES,
           creditVES: 0,
@@ -383,8 +384,8 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         }] : []),
         {
           accountCode: '4.1.01.01.002',
-          accountName: 'Ingresos por Venta y Distribución de Café Importado',
-          reference: `${invCoffeeQtl} Qtl Café Colombia entregados`,
+          accountName: 'Ingresos por Venta y Distribución de Café Nacional a Tasa BCV',
+          reference: `${invCoffeeQtl} Qtl Café Nacional entregados`,
           debitVES: 0,
           creditVES: totalVES,
           debitUSD: 0,
@@ -395,7 +396,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       totalCreditVES: totalVES,
       totalDebitUSD: invTotalUSD,
       totalCreditUSD: invTotalUSD,
-      notes: 'Facturación formal de octubre regularizando anticipo previo.'
+      notes: 'Facturación formal de octubre sustituyendo anticipo previo en bolívares a tasa oficial BCV.'
     });
 
     setShowInvoiceModal(false);
@@ -412,15 +413,15 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4 text-white shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-blue-900 text-blue-200 border border-blue-700 rounded">
+            <span className="p-1.5 bg-emerald-900 text-emerald-200 border border-emerald-700 rounded">
               <Globe className="w-5 h-5" />
             </span>
             <h2 className="text-xl font-bold text-white tracking-tight">
-              Intermediación Comercial & Importación de Café
+              Intermediación Comercial & Compra de Café 100% Nacional (Venezuela)
             </h2>
           </div>
           <p className="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
-            <strong className="text-amber-300 font-semibold">{company.name}</strong> es intermediaria e importadora: recibe <strong className="text-white">Anticipos en Ventas</strong> de clientes nacionales para suplir el déficit de la cosecha venezolana, <strong className="text-white">compra dólares a Banesco</strong> para adquirir café en Colombia y fletes internacionales, y factura a los clientes el café importado <strong className="text-emerald-300 font-semibold">a partir de Octubre</strong>.
+            <strong className="text-amber-300 font-semibold">{company.name}</strong> es intermediaria comercial entre personas naturales y jurídicas en Venezuela: <strong className="text-white">NO importa café de Colombia ni del exterior; todo el café se compra en Venezuela</strong> a empresas y productores venezolanos. Recibe <strong className="text-white">Anticipos en Bolívares a Tasa Oficial BCV</strong> para operar en el mercado y acopiar el grano, y en el mes de <strong className="text-emerald-300 font-semibold">OCTUBRE DE 2026</strong> estos anticipos son <strong className="text-white">sustituidos por facturas de ventas definitivas</strong> contra las cuales se eliminan de la contabilidad.
           </p>
         </div>
 
@@ -454,12 +455,13 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
 
               const htmlContent = `
                 <h1>${company.name} &mdash; RIF ${company.rif}</h1>
-                <h2>INFORME OFICIAL DE INTERMEDIACIÓN, ANTICIPOS EN VENTAS Y COMPRA DE DIVISAS</h2>
+                <h2>INFORME OFICIAL DE INTERMEDIACIÓN, ANTICIPOS EN BOLÍVARES Y COMPRA DE CAFÉ NACIONAL</h2>
                 <div class="highlight-box">
                   <strong>Resumen de Operaciones Enero &ndash; Agosto 2026:</strong><br>
-                  Total Anticipos Recibidos de Clientes (NIIF 15): <strong>Bs. ${totalAdvancesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totalAdvancesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD)<br>
-                  Total Dólares Comprados a Banesco (Mesa de Cambio): <strong>$${totalFxPurchasedUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</strong> (Bs. ${totalFxSpentVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })})<br>
-                  Destino de Divisas: Pago de importaciones de café a proveedores en Colombia, fletes y aduana.
+                  Total Anticipos en Bolívares Recibidos de Clientes (NIIF 15): <strong>Bs. ${totalAdvancesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totalAdvancesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD a Tasa Oficial BCV)<br>
+                  Total Dólares Adquiridos en Banesco (Mesa de Cambio): <strong>$${totalFxPurchasedUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</strong> (Bs. ${totalFxSpentVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })})<br>
+                  Destino de Divisas: Insumos agroindustriales, tolvas, repuestos de maquinaria, mantenimiento y transporte pesado en Venezuela.<br>
+                  Régimen de Regularización: En OCTUBRE 2026 los anticipos se sustituyen por FACTURAS DE VENTAS definitivas a tasa BCV, eliminándose el pasivo.
                 </div>
                 <h3>1. Relación de Anticipos en Ventas Recibidos (Pasivo Corriente)</h3>
                 <table>
@@ -494,7 +496,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                 </table>
               `;
 
-              exportToWord('Informe_Anticipos_Importacion_Cafe_Agricola_Oni.doc', 'Informe de Anticipos e Importación', htmlContent);
+              exportToWord('Informe_Anticipos_Procura_Cafe_Agricola_Oni.doc', 'Informe de Anticipos y Gestión de Café', htmlContent);
             }}
             className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
             title="Exportar informe a Microsoft Word (.doc)"
@@ -516,7 +518,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                 a.bankReference,
                 a.status
               ]);
-              exportToCsv('Anticipos_Clientes_Importacion_Cafe.csv', headers, rows);
+              exportToCsv('Anticipos_Clientes_Procura_Cafe.csv', headers, rows);
             }}
             className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
             title="Exportar anticipos a Excel (CSV)"
@@ -543,10 +545,10 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               const htmlContent = `
                 <h1>${company.name}</h1>
                 <p><strong>RIF:</strong> ${company.rif} &middot; R.N.C.: 010049247</p>
-                <h2>INFORME OFICIAL DE ANTICIPOS DE CLIENTES E IMPORTACIÓN DE CAFÉ (NIIF 15)</h2>
+                <h2>INFORME OFICIAL DE ANTICIPOS DE CLIENTES Y COMPRA DE CAFÉ NACIONAL (NIIF 15)</h2>
                 <div class="highlight-box">
-                  Total Anticipos en Custodia Banesco: <strong>Bs. ${totalAdvancesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totalAdvancesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
-                  Los anticipos no constituyen ingresos devengados gravables al corte de Agosto 2026; se facturan en Octubre de 2026 contra entrega física de café verde importado.
+                  Total Anticipos en Custodia Banesco: <strong>Bs. ${totalAdvancesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totalAdvancesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD a Tasa BCV).<br>
+                  Los anticipos no constituyen ingresos devengados gravables al corte de Agosto 2026; se sustituyen en Octubre de 2026 contra facturas de venta definitivas por entrega de café acopiado en Venezuela.
                 </div>
                 <table>
                   <thead>
@@ -565,7 +567,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                   <tbody>${rowsHtml}</tbody>
                 </table>
               `;
-              await exportHtmlToPdf('Informe_Anticipos_Importacion_Cafe_Agricola_Oni.pdf', 'Informe de Anticipos de Café', htmlContent);
+              await exportHtmlToPdf('Informe_Anticipos_Procura_Cafe_Agricola_Oni.pdf', 'Informe de Anticipos de Café', htmlContent);
             }}
             className="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
             title="Descargar informe en archivo PDF directo"
@@ -613,14 +615,14 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
 
         <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
           <div className="flex items-center justify-between text-xs font-sans text-slate-600 mb-1">
-            <span>3. Importación Colombia</span>
+            <span>3. Procura Nacional Venezuela</span>
             <span className="text-indigo-600 font-bold">{importShipments.length} Lotes</span>
           </div>
           <span className="text-lg font-bold text-slate-900 block mt-1">
             {totalImportVolumeQtl} Qtl Café
           </span>
           <span className="text-[11px] text-slate-500 font-sans">
-            Costo CIF: ${totalImportCostUSD.toFixed(2)} USD
+            Valoración Oficial BCV: ${totalImportCostUSD.toFixed(2)} USD
           </span>
         </div>
 
@@ -672,8 +674,8 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100'
           }`}
         >
-          <Ship className="w-4 h-4" />
-          <span>3. Café Importado (Colombia) ({importShipments.length})</span>
+          <Layers className="w-4 h-4" />
+          <span>3. Café Nacional Acopiado en Venezuela ({importShipments.length})</span>
         </button>
 
         <button
@@ -685,7 +687,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           }`}
         >
           <Calendar className="w-4 h-4" />
-          <span>4. Facturación a Partir de Octubre ({octoberInvoices.length})</span>
+          <span>4. Facturación de Ventas en Octubre (Eliminación de Anticipos) ({octoberInvoices.length})</span>
         </button>
       </div>
 
@@ -698,7 +700,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                 Registro de Anticipos en Ventas Recibidos de Clientes
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                Los clientes transfieren bolívares a Banesco como anticipo para asegurar la importación de café por falta de cosecha nacional.
+                Los clientes transfieren bolívares a Banesco como anticipo para asegurar la compra y acopio de café en Venezuela a tasa oficial BCV.
               </p>
             </div>
             <button
@@ -869,10 +871,10 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-stone-900 border border-stone-800 p-4 rounded-xl">
             <div>
               <h3 className="text-sm font-bold text-white">
-                Expedientes de Importación de Café (Colombia u otro país)
+                Expedientes y Lotes de Café Acopiado en Venezuela (Productores y Asociaciones Nacionales)
               </h3>
               <p className="text-xs text-stone-400 mt-0.5">
-                Compras internacionales pagadas en dólares a proveedores extranjeros, flete internacional y nacionalización DUA / INSAI.
+                Compras y acopio a productores y asociaciones venezolanas, pesaje, flete terrestre nacional y guías SICA / CVC a tasa oficial BCV.
               </p>
             </div>
             <button
@@ -880,18 +882,18 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
             >
               <Plus className="w-3.5 h-3.5" />
-              Registrar Lote Importado
+              Registrar Lote de Café Nacional
             </button>
           </div>
 
           {importShipments.length === 0 ? (
             <div className="bg-stone-900 border border-dashed border-stone-700 rounded-xl p-10 text-center text-xs text-stone-400 space-y-3">
-              <p>No hay lotes de importación registrados.</p>
+              <p>No hay lotes de café registrados.</p>
               <button
                 onClick={() => setShowImportModal(true)}
                 className="px-4 py-2 bg-amber-600 text-stone-950 font-bold rounded-lg text-xs"
               >
-                + Registrar Primer Lote de Colombia
+                + Registrar Primer Lote de Café Nacional
               </button>
             </div>
           ) : (
@@ -901,13 +903,13 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                   <thead className="bg-stone-950 text-stone-400 uppercase text-[10px] tracking-wider border-b border-stone-800">
                     <tr>
                       <th className="px-4 py-3">Código Lote</th>
-                      <th className="px-4 py-3 font-sans">Proveedor Extranjero</th>
+                      <th className="px-4 py-3 font-sans">Proveedor / Asociación Venezolana</th>
                       <th className="px-4 py-3 font-sans">Variedad</th>
                       <th className="px-4 py-3 text-right">Volumen Qtl</th>
-                      <th className="px-4 py-3 text-right">Factura FOB USD</th>
-                      <th className="px-4 py-3 text-right">Flete & Aduana USD</th>
-                      <th className="px-4 py-3">DUA SENIAT</th>
-                      <th className="px-4 py-3">Permiso INSAI</th>
+                      <th className="px-4 py-3 text-right">Valoración BCV USD</th>
+                      <th className="px-4 py-3 text-right">Flete & Acopio USD</th>
+                      <th className="px-4 py-3">Guía SICA</th>
+                      <th className="px-4 py-3">Guía CVC</th>
                       <th className="px-4 py-3 text-center font-sans">Estatus</th>
                       <th className="px-4 py-3 text-center font-sans">Acción</th>
                     </tr>
@@ -915,17 +917,17 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                   <tbody className="divide-y divide-stone-800">
                     {importShipments.map((imp) => (
                       <tr key={imp.id} className="hover:bg-stone-800/40">
-                        <td className="px-4 py-3 font-bold text-amber-400">{imp.shipmentCode}</td>
+                        <td className="px-4 py-3 font-bold text-amber-400">{imp.shipmentCode || imp.batchCode}</td>
                         <td className="px-4 py-3 font-sans">
                           <div className="font-semibold text-white">{imp.supplierName}</div>
-                          <div className="text-[10px] text-stone-400">{imp.supplierNit} ({imp.originCountry})</div>
+                          <div className="text-[10px] text-stone-400">{imp.supplierNit || imp.supplierRif} ({imp.originCountry || imp.locationState || 'Venezuela'})</div>
                         </td>
                         <td className="px-4 py-3 font-sans text-stone-200">{imp.coffeeVariety}</td>
                         <td className="px-4 py-3 text-right font-bold text-amber-300">{imp.volumeQtl} Qtl</td>
-                        <td className="px-4 py-3 text-right font-bold text-emerald-400">${imp.totalInvoiceUSD.toLocaleString()}</td>
-                        <td className="px-4 py-3 text-right text-stone-300">${(imp.internationalFreightUSD + imp.customsCostsUSD).toLocaleString()}</td>
-                        <td className="px-4 py-3 text-amber-500 font-mono text-[11px]">{imp.duaSeniatNumber}</td>
-                        <td className="px-4 py-3 text-stone-400 text-[11px]">{imp.insaiPermit}</td>
+                        <td className="px-4 py-3 text-right font-bold text-emerald-400">${(imp.totalInvoiceUSD || imp.totalAmountUSD || 0).toLocaleString()}</td>
+                        <td className="px-4 py-3 text-right text-stone-300">${((imp.internationalFreightUSD || 0) + (imp.customsCostsUSD || 0)).toLocaleString()}</td>
+                        <td className="px-4 py-3 text-amber-500 font-mono text-[11px]">{imp.duaSeniatNumber || imp.sicaPermitNumber}</td>
+                        <td className="px-4 py-3 text-stone-400 text-[11px]">{imp.insaiPermit || imp.cvcPermit}</td>
                         <td className="px-4 py-3 text-center">
                           <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-950 text-indigo-300 border border-indigo-800">
                             {imp.status}
@@ -964,7 +966,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                 </h3>
               </div>
               <p className="text-xs text-stone-400 mt-0.5">
-                A partir de octubre se factura formalmente a los clientes el café importado entregado, amortizando y cruzando los anticipos en ventas recibidos previamente.
+                A partir de octubre se factura formalmente a los clientes el café acopiado y entregado en Venezuela a tasa oficial BCV, sustituyendo y eliminando los anticipos en ventas recibidos previamente.
               </p>
             </div>
             <button
@@ -1274,9 +1276,9 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                     onChange={(e) => setFxPurpose(e.target.value as any)}
                     className="w-full bg-stone-950 border border-stone-700 rounded px-2.5 py-1.5"
                   >
-                    <option value="PAGO_PROVEEDOR_COLOMBIA">Pago a Proveedor Colombia</option>
-                    <option value="FLETE_INTERNACIONAL">Flete Internacional</option>
-                    <option value="GASTOS_ADUANEROS">Gastos Aduaneros / DUA</option>
+                    <option value="PAGO_PROVEEDOR_VENEZUELA">Insumos y Maquinaria en Venezuela</option>
+                    <option value="FLETE_INTERNACIONAL">Transporte y Flete Pesado Nacional</option>
+                    <option value="GASTOS_ADUANEROS">Repuestos y Mantenimiento Agroindustrial</option>
                   </select>
                 </div>
               </div>
@@ -1301,7 +1303,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         </div>
       )}
 
-      {/* MODAL 3: ADD IMPORT SHIPMENT (COLOMBIA) */}
+      {/* MODAL 3: ADD NATIONAL COFFEE BATCH (VENEZUELA) */}
       {showImportModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-stone-900 border border-stone-800 rounded-xl max-w-lg w-full p-6 text-stone-200 shadow-2xl relative">
@@ -1312,7 +1314,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               &times;
             </button>
 
-            <h3 className="text-sm font-bold text-white mb-3">Registrar Lote de Café Importado (Colombia)</h3>
+            <h3 className="text-sm font-bold text-white mb-3">Registrar Lote de Café Acopiado (Venezuela)</h3>
 
             <form onSubmit={handleCreateImportShipment} className="space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-2">
@@ -1339,7 +1341,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               </div>
 
               <div>
-                <label className="text-stone-400 block mb-1">Proveedor en Colombia:</label>
+                <label className="text-stone-400 block mb-1">Proveedor / Asociación Venezolana:</label>
                 <input
                   type="text"
                   required
@@ -1426,7 +1428,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                   type="submit"
                   className="px-4 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded shadow"
                 >
-                  Guardar Lote de Importación
+                  Guardar Lote de Café Nacional
                 </button>
               </div>
             </form>
@@ -1445,7 +1447,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
               &times;
             </button>
 
-            <h3 className="text-sm font-bold text-white mb-3">Emitir Factura de Café Importado (Octubre)</h3>
+            <h3 className="text-sm font-bold text-white mb-3">Emitir Factura Definitiva de Café a Tasa BCV (Octubre)</h3>
 
             <form onSubmit={handleCreateOctoberInvoice} className="space-y-3 text-xs">
               <div className="grid grid-cols-2 gap-2">
