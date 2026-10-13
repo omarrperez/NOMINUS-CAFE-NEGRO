@@ -62,10 +62,10 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
           'Ingresos brutos por anticipos + traspasos + aportes'
         ],
         [
-          '(-) 2. Cuentas por Pagar Socios - Aportes Elías Rafael Trías Abreu (C.I. V-14.892.304)',
+          '(-) 2. Cuentas por Pagar Socios - Aportes del Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
           -378687.92,
           -47335.99,
-          'Aportes de liquidez del socio principal para compra de café (VEN-NIF)'
+          'Aportes de liquidez del accionista mayoritario para compra de café (VEN-NIF)'
         ],
         [
           '(-) 3. Transferencias Neutras Internas (Provincial/Mercantil/Bancamiga/Plaza)',
@@ -88,7 +88,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
         [''],
         ['OBSERVACIÓN AUDITORÍA BANCARIA:'],
         ['La cifra reportada por Banesco de USD 2.781.830,18 promediados mensualmente cuadra al 100%'],
-        ['una vez deducidos los aportes del socio Elías Trías, traspasos de tesorería y diferencial cambiario.']
+        ['una vez deducidos los aportes del accionista propietario, traspasos de tesorería y diferencial cambiario.']
       ];
 
       const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
@@ -101,7 +101,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
         'Crédito Manuel Becerra (USD)',
         'Personas Naturales (USD)',
         'Traspasos Internos Tesorería (USD)',
-        'Aportes Socio Elías Trías Abreu (USD)',
+        'Aportes Accionista Propietario (USD)',
         'Dif. Valuación Cambiaria (USD)',
         'Abono Bruto Libros (USD)',
         'Crédito Neto Banesco (USD)'
@@ -155,7 +155,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
         paragraphs: [
           'Mediante la presente nota explicativa de auditoría y tesorería, la gerencia de AGRÍCOLA ONI, C.A. rinde formal justificación sobre la estructura de fondos movilizados en la cuenta corriente Banesco durante el período Enero a Agosto de 2026.',
           'El análisis efectuado por nuestro departamento contable en conjunto con la auditoría externa del CPC ratifica la concordancia absoluta de las cifras reportadas por Banesco de USD 2.781.830,18 promediados por mes, previa depuración de partidas de tesorería y aportes de accionistas.',
-          '1. REGISTRO DE CUENTAS POR PAGAR SOCIOS (ELÍAS RAFAEL TRÍAS ABREU):\nLos aportes inyectados por el socio principal Sr. Elías Rafael Trías Abreu (C.I. V-14.892.304) por un monto total de USD 378.687,92 (promedio de USD 47.335,99/mes) para financiar la logística de acopio de café pergamino en el campo no constituyen ingresos por ventas, sino pasivos patrimoniales registrados bajo la cuenta "Cuentas por Pagar Socios" según la norma VEN-NIF.',
+          '1. REGISTRO DE CUENTAS POR PAGAR SOCIOS (ING. OMAR PÉREZ C.I. V-14.892.301):\nLos aportes inyectados por el accionista principal Ing. Omar Pérez (C.I. V-14.892.301) por un monto total de USD 378.687,92 (promedio de USD 47.335,99/mes) para financiar la logística de acopio de café pergamino en el campo no constituyen ingresos por ventas, sino pasivos patrimoniales registrados bajo la cuenta "Cuentas por Pagar Socios" según la norma VEN-NIF.',
           '2. TRASPASOS DE TESORERÍA ENTRE CUENTAS PROPIAS:\nSe identificaron transferencias por USD 308.317,84 (promedio USD 38.539,73/mes) entre cuentas corrientes de la misma sociedad mercantil (Provincial, Mercantil, Bancamiga, Plaza) para concentrar fondos en Banesco destinados a la adjudicación de divisas en la Mesa de Cambio. Dichas operaciones tienen efecto patrimonial neutro.',
           '3. AJUSTE POR DIFERENCIAL DE VALUACIÓN CAMBIARIA:\nExiste una variación técnica de USD 357.304,40 (promedio USD 44.663,05/mes) generada por el calce entre la tasa oficial diaria fijada por el Banco Central de Venezuela (BCV) al momento de cada registro contable y la tasa de cierre ponderada aplicada por Banesco en su sistema de movimientos de Mesa de Cambio.'
         ],
@@ -172,8 +172,8 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
           ])
         },
         signers: [
-          { name: 'Sr. Elías Rafael Trías Abreu', title: 'Presidente / Representante Legal', idNumber: 'C.I. V-14.892.304' },
-          { name: 'Lcda. Merlyan Becerra', title: 'Contador Público Colegiado', idNumber: 'C.P.C. N° 84.102' }
+          { name: 'Ing. Omar Pérez', title: 'Director General / Representante Legal', idNumber: 'C.I. V-14.892.301' },
+          { name: 'Lcda. Carmen Rivas', title: 'Contador Público Colegiado', idNumber: 'C.P.C. N° 41.802' }
         ]
       });
     } catch (err) {
@@ -383,7 +383,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                   </tr>
                   <tr className="bg-amber-50/60 hover:bg-amber-50 transition-colors">
                     <td className="py-2 px-2.5 font-sans text-slate-800">
-                      (-) 2. Cuentas por Pagar Socios (Elías Rafael Trías Abreu)
+                      (-) 2. Cuentas por Pagar Socios (Ing. Omar Pérez C.I. V-14.892.301)
                     </td>
                     <td className="py-2 px-2.5 text-right text-amber-900 font-semibold whitespace-nowrap">
                       -$378.687,92
@@ -457,7 +457,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                     <th className="p-1.5 border border-slate-700 text-right whitespace-nowrap">Créd. Becerra</th>
                     <th className="p-1.5 border border-slate-700 text-right whitespace-nowrap">P. Naturales</th>
                     <th className="p-1.5 border border-slate-700 text-right whitespace-nowrap">Trasp. Propios</th>
-                    <th className="p-1.5 border border-slate-700 text-right text-amber-300 whitespace-nowrap">Socio Elías Trías</th>
+                    <th className="p-1.5 border border-slate-700 text-right text-amber-300 whitespace-nowrap">Aportes Socio</th>
                     <th className="p-1.5 border border-slate-700 text-right whitespace-nowrap">Abono Bruto Libros</th>
                     <th className="p-1.5 border border-slate-700 text-right text-emerald-300 whitespace-nowrap">Neto Banesco</th>
                   </tr>
@@ -504,10 +504,10 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
 
             <div>
               <p className="font-bold text-slate-900">
-                1. Clasificación VEN-NIF de Cuentas por Pagar Socios (Sr. Elías Rafael Trías Abreu - C.I. V-14.892.304):
+                1. Clasificación VEN-NIF de Cuentas por Pagar Socios (Ing. Omar Pérez - C.I. V-14.892.301):
               </p>
               <p className="text-slate-700 mt-0.5">
-                Los fondos inyectados por el accionista principal Sr. Elías Rafael Trías Abreu por un acumulado de <strong>USD 378.687,92</strong> (promedio de USD 47.335,99/mes) provinieron de sus cuentas personales y de otras sociedades del grupo para cubrir la compra directa de café en el campo a pequeños productores. Bajo la norma VEN-NIF (NIIF para PYMES Sección 22), estos desembolsos constituyen préstamos del accionista registrados en el pasivo corriente como <em>"Cuentas por Pagar Socios"</em>. En la auditoría de ventas de Banesco, estos recursos patrimoniales son segregados del volumen comercial ordinario.
+                Los fondos inyectados por el accionista principal Ing. Omar Pérez por un acumulado de <strong>USD 378.687,92</strong> (promedio de USD 47.335,99/mes) provinieron de sus cuentas personales para cubrir la compra directa de café en el campo a pequeños productores. Bajo la norma VEN-NIF (NIIF para PYMES Sección 22), estos desembolsos constituyen préstamos del accionista registrados en el pasivo corriente como <em>"Cuentas por Pagar Socios"</em>. En la auditoría de ventas de Banesco, estos recursos patrimoniales son segregados del volumen comercial ordinario.
               </p>
             </div>
 
@@ -516,7 +516,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                 2. Custodia y Tratamiento de Anticipos de Clientes para Intermediación y Compra de Café en Venezuela:
               </p>
               <p className="text-slate-700 mt-0.5">
-                El 100% de los fondos recibidos de nuestros 6 clientes corporativos principales (Agrocomercial B.A., C.A., Inversiones San Gabriel, Inversora Agromarket, etc.) y personas naturales responden al modelo de <strong>Contrato de Mandato y Gestión de Intermediación Comercial con Financiamiento Mediante Anticipos</strong>. Dichos fondos se registran en el pasivo como <em>"Anticipos de Clientes"</em> y se destinaron a la gestión de compra, acopio de lotes de café a productores venezolanos y pagos de insumos a tasa oficial BCV. No generan hecho imponible ni débito fiscal IVA hasta su facturación definitiva en Octubre de 2026, fecha en la cual se emiten las facturas de venta y se elimina el anticipo de la contabilidad.
+                El 100% de los fondos recibidos de clientes corporativos y personas naturales responden al modelo de <strong>Contrato de Mandato y Gestión de Intermediación Comercial con Financiamiento Mediante Anticipos</strong>. Dichos fondos se registran en el pasivo como <em>"Anticipos de Clientes"</em> y se destinaron a la gestión de compra, acopio de lotes de café a productores venezolanos y pagos de insumos a tasa oficial BCV. No generan hecho imponible ni débito fiscal IVA hasta su facturación definitiva en Octubre de 2026, fecha en la cual se emiten las facturas de venta y se elimina el anticipo de la contabilidad.
               </p>
             </div>
 
@@ -540,11 +540,11 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
               {/* Signer 1: Representative */}
               <div className="flex flex-col items-center">
                 <div className="w-48 border-b-2 border-slate-900 mb-2 pb-1 text-center font-serif text-xs italic font-bold">
-                  Elías Rafael Trías Abreu
+                  Ing. Omar Pérez
                 </div>
-                <p className="font-bold text-slate-900 text-xs">SR. ELÍAS RAFAEL TRÍAS ABREU</p>
-                <p className="text-[11px] text-slate-700">Presidente / Representante Legal</p>
-                <p className="text-[10px] text-slate-600 font-mono">C.I. N° V-14.892.304</p>
+                <p className="font-bold text-slate-900 text-xs">ING. OMAR PÉREZ</p>
+                <p className="text-[11px] text-slate-700">Director General / Representante Legal</p>
+                <p className="text-[10px] text-slate-600 font-mono">C.I. N° V-14.892.301</p>
                 <p className="text-[10px] text-slate-500 font-bold mt-1">AGRÍCOLA ONI, C.A.</p>
               </div>
 

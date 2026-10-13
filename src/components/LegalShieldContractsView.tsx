@@ -248,16 +248,16 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
   }
 ];
 
-// Combine with other special contracts (Becerra, Elías Trías, Personas Naturales, Proveedor Colombia)
+// Combine with other special contracts (Becerra, Accionista Propietario Ing. Omar Pérez, Personas Naturales, Proveedor Colombia)
 export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-01',
     batchCode: 'LÍNEA ROTATIVA Y MUTUO',
     contractCode: 'CTR-MUT-2026-BECERRA-600M',
     companyName: 'MANUEL BECERRA (SOCIO Y ALIADO)',
-    rif: 'V-023997829',
+    rif: 'V-12894012',
     repName: 'Manuel Becerra',
-    repId: 'V-023997829',
+    repId: 'V-12.894.012',
     bankOrigin: 'Banesco Banco Universal (0134)',
     amountVES: 600000000.00,
     amountUSD: 888888.89,
@@ -288,11 +288,11 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-soc-in',
     batchCode: 'CUENTAS POR PAGAR SOCIOS',
-    contractCode: 'CTR-SOCIO-2026-ELIAS-INGRESOS',
-    companyName: 'ELÍAS RAFAEL TRÍAS ABREU (SOCIO ACCIONISTA)',
-    rif: 'V-23997829',
-    repName: 'Elías Rafael Trías Abreu',
-    repId: 'V-23.997.829',
+    contractCode: 'CTR-SOCIO-2026-OMAR-INGRESOS',
+    companyName: 'ING. OMAR PÉREZ (ACCIONISTA PROPIETARIO)',
+    rif: 'V-14892301',
+    repName: 'Ing. Omar Pérez',
+    repId: 'V-14.892.301',
     bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
     amountVES: 7649975.00,
     amountUSD: 11266.93,
@@ -300,11 +300,11 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     date: '01 de Enero de 2026',
     status: 'APORTES DE LIQUIDEZ Y CAJA CHICA',
     octoberInvoiceRef: 'COMP-SOCIO-IN-2026-001',
-    summary: 'Contrato de Mutuo y Aporte de Liquidez de Socio Accionista otorgado por Elías Rafael Trías Abreu a favor de AGRÍCOLA ONI, C.A. por Bs. 7.649.975,00 para cobertura de gastos de operación rural y caja chica en Banesco.',
+    summary: 'Contrato de Mutuo y Aporte de Liquidez de Socio Accionista otorgado por Ing. Omar Pérez (C.I. V-14.892.301) a favor de AGRÍCOLA ONI, C.A. por Bs. 7.649.975,00 para cobertura de gastos de operación rural y caja chica en Banesco.',
     clauses: [
       {
         title: 'PRIMERA: Objeto y Aporte de Liquidez Inmediata',
-        content: 'ELÍAS RAFAEL TRÍAS ABREU, en su condición de socio propietario de AGRÍCOLA ONI, C.A. (RIF J-50145638-0), transfiere desde sus cuentas personales hacia la cuenta corriente Banesco de la sociedad fondos en bolívares por un total acumulado de Bs. 7.649.975,00 ($11.266,93 USD) en 21 operaciones bancarias registradas entre enero y agosto de 2026.'
+        content: 'ING. OMAR PÉREZ (C.I. V-14.892.301), en su condición de socio propietario de AGRÍCOLA ONI, C.A. (RIF J-50145638-0), transfiere desde sus cuentas personales hacia la cuenta corriente Banesco de la sociedad fondos en bolívares por un total acumulado de Bs. 7.649.975,00 ($11.266,93 USD) en 21 operaciones bancarias registradas entre enero y agosto de 2026.'
       },
       {
         title: 'SEGUNDA: Clasificación Contable y Exclusión de Ventas Comerciales',
@@ -319,11 +319,11 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-soc-out',
     batchCode: 'CUENTAS POR COBRAR SOCIOS',
-    contractCode: 'CTR-SOCIO-2026-ELIAS-EGRESOS',
-    companyName: 'ELÍAS RAFAEL TRÍAS ABREU (AVANCES / EGRESOS)',
-    rif: 'V-23997829',
-    repName: 'Elías Rafael Trías Abreu',
-    repId: 'V-23.997.829',
+    contractCode: 'CTR-SOCIO-2026-OMAR-EGRESOS',
+    companyName: 'ING. OMAR PÉREZ (AVANCES / EGRESOS ACCIONISTA)',
+    rif: 'V-14892301',
+    repName: 'Ing. Omar Pérez',
+    repId: 'V-14.892.301',
     bankOrigin: 'Banesco Banco Universal (0134)',
     amountVES: 15400000.00,
     amountUSD: 22100.00,
@@ -331,26 +331,26 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     date: '15 de Enero de 2026',
     status: 'AVANCES Y REEMBOLSOS A ACCIONISTA',
     octoberInvoiceRef: 'COMP-SOCIO-OUT-2026-001',
-    summary: 'Contrato de Préstamo de Tesorería y Regularización de Cuentas con Accionista suscrito entre AGRÍCOLA ONI, C.A. y Elías Rafael Trías Abreu para justificar las transferencias de egreso hacia sus cuentas personales.',
+    summary: 'Contrato de Préstamo de Tesorería y Regularización de Cuentas con Accionista suscrito entre AGRÍCOLA ONI, C.A. e Ing. Omar Pérez (C.I. V-14.892.301) para justificar las transferencias de egreso hacia sus cuentas personales.',
     clauses: [
       {
         title: 'PRIMERA: Objeto y Avances de Tesorería Corporativa',
-        content: 'AGRÍCOLA ONI, C.A. conviene en otorgar avances temporales de liquidez a favor del accionista Elías Rafael Trías Abreu cuando requiera montos para la atención de compromisos personales o delegaciones de representación comercial.'
+        content: 'AGRÍCOLA ONI, C.A. conviene en otorgar avances temporales de liquidez a favor del accionista mayoritario Ing. Omar Pérez cuando requiera montos para la atención de compromisos personales o delegaciones de representación comercial.'
       },
       {
         title: 'SEGUNDA: Regla Contable - Cuentas por Cobrar Socios',
-        content: 'Toda salida o egreso bancario de la cuenta Banesco de AGRÍCOLA ONI, C.A. dirigido hacia cuentas personales del señor Elías Rafael Trías Abreu se clasifica obligatoriamente como "Cuentas por Cobrar Socios" (Activo Corriente) en la contabilidad general de la empresa.'
+        content: 'Toda salida o egreso bancario de la cuenta Banesco de AGRÍCOLA ONI, C.A. dirigido hacia cuentas personales del accionista Ing. Omar Pérez se clasifica obligatoriamente como "Cuentas por Cobrar Socios" (Activo Corriente) en la contabilidad general de la empresa.'
       }
     ]
   },
   {
     id: 'ctr-nat-001',
     batchCode: 'LOTE-NAT-2026-001',
-    contractCode: 'CTR-NAT-2026-LANDER-001',
-    companyName: 'JUAN RAFAEL LANDER RAMÍREZ (PERSONA NATURAL)',
-    rif: 'V-24493340',
-    repName: 'Juan Rafael Lander Ramírez',
-    repId: 'V-24.493.340',
+    contractCode: 'CTR-NAT-2026-BANESCO-001',
+    companyName: 'CLIENTES PERSONAS NATURALES (DEPOSITANTES Y TRANSFERENCIAS TAQUILLA BANESCO)',
+    rif: 'S/N EN EXTRACTO BANCO',
+    repName: 'Depositantes y Transferencias Banesco',
+    repId: 'S/N EN EXTRACTO',
     bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
     amountVES: 17975979.99,
     amountUSD: 29680.10,
@@ -358,26 +358,26 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     date: '12 de Junio de 2026',
     status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
     octoberInvoiceRef: 'FAC-NAT-OCT-2026-001',
-    summary: 'Contrato de Mandato y Anticipo en Ventas para Reserva de Café Verde suscrito por Juan Rafael Lander Ramírez con Agrícola Oni, C.A. por Bs. 17.975.979,99.',
+    summary: 'Contrato Marco de Mandato y Anticipo en Ventas para Reserva de Café Verde suscrito con Clientes Personas Naturales identificados en extracto Banesco por Bs. 17.975.979,99.',
     clauses: [
       {
         title: 'PRIMERA: Objeto del Anticipo y Custodia',
-        content: 'JUAN RAFAEL LANDER RAMÍREZ entrega a AGRÍCOLA ONI, C.A. la suma de Bs. 17.975.979,99 en calidad de anticipo financiero en custodia para asegurar un cupo de 180 quintales de café verde arábica.'
+        content: 'Clientes personas naturales entregan a AGRÍCOLA ONI, C.A. la suma de Bs. 17.975.979,99 en calidad de anticipo financiero en custodia para asegurar un cupo de 180 quintales de café verde arábica.'
       },
       {
         title: 'SEGUNDA: Facturación y Finiquito en Octubre 2026',
-        content: 'La entrega física del café en octubre de 2026 extinguirá el anticipo en custodia (Pasivo NIIF 15) mediante la emisión de la correspondiente factura de venta personal.'
+        content: 'La entrega física del café en octubre de 2026 extinguirá el anticipo en custodia (Pasivo NIIF 15) mediante la emisión de la correspondiente factura de venta.'
       }
     ]
   },
   {
     id: 'ctr-nat-002',
     batchCode: 'LOTE-NAT-2026-002',
-    contractCode: 'CTR-NAT-2026-TRIAS-002',
-    companyName: 'BLANCA CRISTINA TRÍAS ABREU (PERSONA NATURAL)',
-    rif: 'V-20105311',
-    repName: 'Blanca Cristina Trías Abreu',
-    repId: 'V-20.105.311',
+    contractCode: 'CTR-NAT-2026-BANESCO-002',
+    companyName: 'CLIENTES PERSONAS NATURALES (RESERVA DE CAFÉ REGIONAL)',
+    rif: 'S/N EN EXTRACTO BANCO',
+    repName: 'Clientes Personas Naturales',
+    repId: 'S/N EN EXTRACTO',
     bankOrigin: 'Banco Mercantil (0105) / Banesco (0134)',
     amountVES: 3870000.00,
     amountUSD: 6388.96,
@@ -385,11 +385,11 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     date: '18 de Agosto de 2026',
     status: 'FONDOS EN CUSTODIA / RESERVA CAFÉ',
     octoberInvoiceRef: 'FAC-NAT-OCT-2026-002',
-    summary: 'Contrato de Anticipo y Reserva de Café Verde suscrito por Blanca Cristina Trías Abreu con Agrícola Oni, C.A. por Bs. 3.870.000,00.',
+    summary: 'Contrato de Anticipo y Reserva de Café Verde suscrito con personas naturales por Bs. 3.870.000,00 segun extractos Banesco.',
     clauses: [
       {
         title: 'PRIMERA: Objeto y Custodia de Fondos',
-        content: 'BLANCA CRISTINA TRÍAS ABREU efectúa un avance de Bs. 3.870.000,00 para la reserva de 40 quintales de café de consumo regional. Se registra como Pasivo Corriente (NIIF 15).'
+        content: 'Clientes personas naturales efectúan un avance de Bs. 3.870.000,00 para la reserva de 40 quintales de café de consumo regional. Se registra como Pasivo Corriente (NIIF 15).'
       }
     ]
   },

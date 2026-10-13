@@ -1563,12 +1563,12 @@ export async function exportFinancialStatementsDualXlsx(params: {
   const s1 = ws1.addRow(['____________________________________________', '', '', '____________________________________________']);
   s1.getCell(1).alignment = { horizontal: 'center' };
   s1.getCell(4).alignment = { horizontal: 'center' };
-  const s2 = ws1.addRow(['Elías Rafael Trias Abreu', '', '', 'Lcda. Carmen Rivas']);
+  const s2 = ws1.addRow(['Ing. Omar Pérez', '', '', 'Lcda. Carmen Rivas']);
   s2.getCell(1).font = { bold: true };
   s2.getCell(4).font = { bold: true };
   s2.getCell(1).alignment = { horizontal: 'center' };
   s2.getCell(4).alignment = { horizontal: 'center' };
-  const s3 = ws1.addRow(['Presidente - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Colegiado CPC 41.802']);
+  const s3 = ws1.addRow(['Director General - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Colegiado CPC 41.802']);
   s3.getCell(1).alignment = { horizontal: 'center' };
   s3.getCell(4).alignment = { horizontal: 'center' };
 
@@ -1591,7 +1591,7 @@ export async function exportFinancialStatementsDualXlsx(params: {
   const s2_1 = ws2.addRow(['____________________________________________', '', '', '____________________________________________']);
   s2_1.getCell(1).alignment = { horizontal: 'center' };
   s2_1.getCell(4).alignment = { horizontal: 'center' };
-  const s2_2 = ws2.addRow(['Elías Rafael Trias Abreu (Presidente)', '', '', 'Lcda. Carmen Rivas (CPC 41.802)']);
+  const s2_2 = ws2.addRow(['Ing. Omar Pérez (Director General)', '', '', 'Lcda. Carmen Rivas (CPC 41.802)']);
   s2_2.getCell(1).font = { bold: true };
   s2_2.getCell(4).font = { bold: true };
   s2_2.getCell(1).alignment = { horizontal: 'center' };

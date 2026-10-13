@@ -75,9 +75,7 @@ OFICIO: AO-EXP-BAN-2026-0831
 FECHA: 31 de Agosto de 2026
 EXPEDIENTE: AUD-BAN-2026-ONI-094
 
-A: BANESCO BANCO UNIVERSAL, C.A.
-Gerencia de Cumplimiento / UPCLC/FT / Auditoría Interna
-Atención: Lcdo. Roberto Albarrán
+Atención: Gerencia Senior de Cumplimiento Banesco Banco Universal
 
 ASUNTO: RESPUESTA FORMAL A REQUERIMIENTO SOBRE DISPARIDAD ENTRE INGRESOS DECLARADOS EN ESTADOS FINANCIEROS Y CRÉDITOS BANCARIOS MOVILIZADOS EN BBU (PERÍODO ENERO - AGOSTO 2026)
 
@@ -89,7 +87,7 @@ En atención a su comunicación sobre la presunta disparidad entre los Ingresos 
 - Bs. 1.542.017.092,63 (78,4%): ANTICIPOS EN VENTAS DE CLIENTES JURÍDICOS (NIIF 15) para la intermediación y compra de café en Venezuela a tasa oficial BCV. Bajo NIIF 15 constituyen Pasivo Corriente, no ventas gravadas. Se facturan formalmente a partir de OCTUBRE DE 2026 sustituyendo el anticipo contra facturas de venta.
 - Bs. 186.376.000,00 (9,5%): REINTEGROS DE CAPITAL DEL CONTRATO DE PRÉSTAMO MUTUO Y LÍNEA DE CRÉDITO suscrito con el socio Manuel Becerra (Límite Bs. 600.000.000,00). Reducen la cuenta de activo "Cuentas por Cobrar Manuel Becerra" (saldo en balance Bs. 325.948.652,96).
 - Bs. 208.708.057,73 (10,6%): TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE AGRÍCOLA ONI C.A. (Banco Provincial, Mercantil, Plaza, Bancamiga). Impacto patrimonial neto de Bs. 0,00.
-- Bs. 29.495.954,99 (1,5%): APORTES Y RESERVAS DE PERSONAS NATURALES (V-023997829 y 14 titulares).
+- Bs. 29.495.954,99 (1,5%): APORTES DE ACCIONISTA PROPIETARIO ING. OMAR PÉREZ Y RESERVAS DE PERSONAS NATURALES.
 
 2. INGRESOS FISCALES REALES DEVENGADOS:
 Los ingresos operacionales por Servicios Agrícolas (Bs. 78.717.472,35) más los Ingresos por Intereses del Mutuo Becerra (Bs. 13.924.047,66) totalizan exactamente Bs. 92.641.520,01, tal como refleja fielmente el Estado de Resultados al 31/08/2026.
@@ -1213,7 +1211,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
               <p className="font-bold text-stone-950">CIUDADANOS:</p>
               <p className="font-bold text-stone-900">BANESCO BANCO UNIVERSAL, C.A.</p>
               <p className="text-stone-700">Unidad de Prevención y Control de Legitimación de Capitales (UPCLC/FT) / Auditoría Interna</p>
-              <p className="text-stone-700">Atención: Lcdo. Roberto Albarrán &mdash; Gerente Senior de Cumplimiento</p>
+              <p className="text-stone-700 font-bold">Atención: Gerencia Senior de Cumplimiento Banesco Banco Universal</p>
               <p className="text-stone-700 font-bold pt-1">
                 ASUNTO: JUSTIFICACIÓN DOCUMENTADA DE LA DISPARIDAD ENTRE VENTAS REPORTADAS EN EEFF (BS. 92.641.520,01) Y FONDOS MOVILIZADOS EN CUENTA CORRIENTE (USD 2.781.830,18 / BS. 1.966.597.105,35) &ndash; PERÍODO ENERO A AGOSTO 2026
               </p>
@@ -1257,7 +1255,7 @@ Omar Pérez C. (Representante Legal) & Lcda. Carmen Rivas (CPC 41.802)
                   <div>
                     <strong>4. Aportes Operativos de Personas Naturales &mdash; Bs. 29.495.954,99 (1,5%):</strong>
                     <br />
-                    Integrados por el titular recurrente V-023997829 (Bs. 7.649.975,00) y 14 personas naturales (Bs. 21.845.979,99) por reservas menores y suministros de campo.
+                    Integrados por el accionista propietario Ing. Omar Pérez C.I. V-14.892.301 (Bs. 7.649.975,00) y compradores personas naturales identificadas en extractos Banesco (Bs. 21.845.979,99) por reservas menores y suministros de campo.
                   </div>
 
                   <div>

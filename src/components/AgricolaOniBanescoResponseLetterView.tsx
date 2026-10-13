@@ -30,7 +30,7 @@ EXPEDIENTE BANCARIO: AUD-BAN-2026-ONI-094
 A: BANESCO BANCO UNIVERSAL, C.A.
 Unidad de Prevención y Control de Legitimación de Capitales (UPCLC/FT)
 Gerencia de Auditoría Interna & Cumplimiento
-Atención: Lcdo. Roberto Albarrán — Vicepresidente de Cumplimiento
+Atención: Gerencia Senior de Cumplimiento y Prevención LC/FT
 
 ASUNTO: RESPUESTA FORMAL Y DOCUMENTADA A REQUERIMIENTO DE AUDITORÍA BANCARIA — JUSTIFICACIÓN DE FONDOS MOVILIZADOS VS ESTADOS FINANCIEROS (CUENTAS CORRIENTES N° 0134-0342-18-3421089912 EN VES Y N° 0134-0342-12-3420084712 EN USD)
 
@@ -51,8 +51,8 @@ b) Reintegros Capital Mutuo Manuel Becerra (9,5% - Bs. 186.376.000,00 / USD 286.
 Amortización de Activo Financiero procedente de la Línea de Crédito Rotativa suscrita el 02/01/2026. Disminuyen la Cuenta por Cobrar Socio/Aliado (saldo en balance: Bs. 325.948.652,96). No constituye venta.
 c) Transferencias entre Cuentas Propias de Agrícola Oni (10,6% - Bs. 208.708.057,73 / USD 308.317,80):
 Traspasos internos de tesorería desde Provincial, Mercantil, Plaza y Bancamiga pertenecientes al mismo titular RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
-d) Aportes Operativos del Socio Propietario Único (1,5% - Bs. 29.495.954,99 / USD 47.335,99):
-Inyecciones de liquidez realizadas por el socio propietario Elías Rafael Trías Abreu (V-18.492.301 / V-23.997.829) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
+d) Aportes Operativos del Accionista Propietario (1,5% - Bs. 29.495.954,99 / USD 47.335,99):
+Inyecciones de liquidez realizadas por el accionista propietario Ing. Omar Pérez (C.I. V-14.892.301) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
 e) Ingresos Reales Devengados en el Ejercicio (Bs. 92.641.520,01 / USD 116.531,68):
 Servicios Agrícolas facturados (Bs. 78.717.472,35) e Intereses Ganados del Mutuo Becerra (Bs. 13.924.047,66), coincidiendo al 100% con los Estados Financieros Auditados.
 
@@ -62,7 +62,7 @@ CUADRE FINAL: Total Créditos Banesco (Bs. 1.966.597.105,35) - Pasivos NIIF 15 (
 - Ley de Impuesto Sobre la Renta (ISLR - Arts. 1, 5 y 16): Principio de disponibilidad del ingreso sobre bases devengadas o causadas. Los anticipos recibidos constituirán ingreso gravable únicamente al perfeccionarse la entrega del café y emitirse la factura fiscal.
 - Providencia Administrativa SENIAT N° SNAT/2011/00071: La obligación de facturación surge con la entrega de los bienes en Octubre de 2026.
 - Objeto Social Constitutivo (Registro Mercantil 2021, Tomo 44-A, N° 12, RIF J-50145638-0): Autoriza expresamente la intermediación comercial y compra de café nacional.
-- Propiedad Accionaria Única: Pertenece 100% al Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301), garantizando total transparencia patrimonial ante Banesco Banco Universal.
+- Propiedad Accionaria Única: Pertenece 100% al Ing. OMAR PÉREZ (C.I. V-14.892.301), garantizando total transparencia patrimonial ante Banesco Banco Universal.
 
 Atentamente,
 Ing. Omar Pérez — Director General / Representante Legal (C.I. V-14.892.301)
@@ -344,7 +344,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
                     <td className="px-3 py-2 text-right text-stone-700">$47.335,99</td>
                     <td className="px-3 py-2 text-center font-bold text-stone-700">1,5%</td>
                     <td className="px-3 py-2 font-sans text-stone-600">
-                      Aportes e ingresos recibidos del socio propietario único Elías Rafael Trías Abreu V-23.997.829 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
+                      Aportes e ingresos recibidos del accionista propietario Ing. Omar Pérez C.I. V-14.892.301 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
                     </td>
                   </tr>
 

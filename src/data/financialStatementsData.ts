@@ -326,7 +326,7 @@ export const BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION = {
       nature: 'Aportes de Campo y Reserva de Quintales',
       bankAmountVES: 29495954.99,
       impactOnIncomeStatement: 0.00,
-      legalNotes: 'Aportes de titular V-023997829 y 14 titulares para operaciones y fletes de café.'
+      legalNotes: 'Aportes de socio accionista (Ing. Omar Pérez C.I. V-14.892.301) y clientes depositantes para operaciones de acopio de café.'
     },
     {
       concept: '5. Ingresos Devengados por Servicios Agrícolas Realizados',
@@ -343,7 +343,7 @@ export const BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION = {
       legalNotes: 'Intereses causados por la línea de crédito otorgada a Manuel Becerra, reconocidos en el Estado de Resultados.'
     }
   ],
-  conclusion: 'La aparente discrepancia observada por Banesco se debe a que el banco confunde el Flujo de Caja Bruto (Depósitos Bancarios) con los Ingresos Devengados del Estado de Resultados. Los Bs. 1.542,02 millones de clientes (51.5% transferencias mismo banco + 26.9% terceros con RIF) son pasivos por anticipos según NIIF 15 para compra e intermediación de café en Venezuela a tasa BCV que se facturan en octubre, y los Bs. 186,38 millones son amortizaciones del mutuo de Manuel Becerra. Los ingresos del período son exactamente los Bs. 92.641.520,01 presentados al banco.'
+  conclusion: 'La aparente discrepancia observada por Banesco se debe a que el banco confunde el Flujo de Caja Bruto (Depósitos Bancarios) con los Ingresos Devengados del Estado de Resultados. Los Bs. 1.542,02 millones de clientes (51.5% transferencias mismo banco + 26.9% terceros identificados en extracto) son pasivos por anticipos según NIIF 15 para compra e intermediación de café en Venezuela a tasa BCV que se facturan en octubre, y los Bs. 186,38 millones son amortizaciones del mutuo de Manuel Becerra. Los ingresos del período son exactamente los Bs. 92.641.520,01 presentados al banco.'
 };
 
 // =========================================================================
@@ -441,7 +441,7 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
     },
     {
       id: 'ORIG-03',
-      origen: 'Persona V-023997829 (Socio Propietario Agrícola Oni C.A.)',
+      origen: 'Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
       category: 'PERSONA_NATURAL_V023',
       ene: 14000.00,
       feb: 500000.00,
@@ -454,12 +454,12 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 7649975.00,
       pctDelTotal: 0.4,
       totalUSD: 11266.93,
-      auditExplanation: '21 transferencias de abonos del socio propietario V-23.997.829 para inyección de liquidez y operación de la empresa.',
-      legalClassification: 'Cuentas por Pagar Socios (Pasivo Corriente) / Aportes del Socio Propietario V-23.997.829.'
+      auditExplanation: '21 transferencias de abonos del socio propietario mayoritario para inyección de liquidez y operación de la empresa.',
+      legalClassification: 'Cuentas por Pagar Socios (Pasivo Corriente) / Aportes del Accionista Propietario (C.I. V-14.892.301).'
     },
     {
       id: 'ORIG-04',
-      origen: 'Personas Naturales (V-24493340 Juan Lander / V-20105311 Blanca Trías)',
+      origen: 'Personas Naturales (Clientes y Depositantes en Taquilla Banesco)',
       category: 'PERSONAS_NATURALES_V',
       ene: 0,
       feb: 0,
@@ -472,12 +472,12 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 21845979.99,
       pctDelTotal: 1.1,
       totalUSD: 36069.06,
-      auditExplanation: '15 abonos bancarios de personas naturales por concepto de anticipos para reserva de café (Juan Rafael Lander Ramírez V-24.493.340, Blanca Cristina Trías Abreu V-20.105.311 y otros).',
+      auditExplanation: '15 abonos bancarios de personas naturales por concepto de anticipos para reserva de café según extractos Banesco.',
       legalClassification: 'Anticipos de Clientes Personas Naturales (Pasivo Corriente NIIF 15). Comprobante COMP-ANT-NAT-2026-002.'
     },
     {
       id: 'ORIG-05',
-      origen: 'Terceros con RIF (PPV/SGLBTR/INM)',
+      origen: 'Terceros Jurídicos (Abonos Registrados en Extracto Banesco)',
       category: 'TERCEROS_RIF',
       ene: 0,
       feb: 0,
@@ -490,7 +490,7 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 528578549.25,
       pctDelTotal: 26.9,
       totalUSD: 726080.44,
-      auditExplanation: 'Anticipos en ventas recibidos de empresas clientes jurídicas con RIF (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J) para procura y acopio de café en Venezuela a tasa oficial BCV.',
+      auditExplanation: 'Anticipos en ventas recibidos de empresas clientes jurídicas registradas en los extractos bancarios Banesco para procura y acopio de café en Venezuela a tasa oficial BCV.',
       legalClassification: 'Anticipos en Ventas de Clientes Jurídicos (Pasivo Corriente NIIF 15). Entrega y facturación definitiva en OCTUBRE 2026.'
     },
     {
@@ -651,7 +651,7 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
     },
     {
       code: '2.1.01',
-      accountName: 'Cuentas por Pagar Socios (Elías Rafael Trias Abreu)',
+      accountName: 'Cuentas por Pagar Socios (Ing. Omar Pérez C.I. V-14.892.301)',
       category: 'PASIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 0.00, creditVES: 246572875.38 },

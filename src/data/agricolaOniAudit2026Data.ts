@@ -60,8 +60,8 @@ export const BANESCO_AUDIT_INFO_2026 = {
   bankName: 'Banesco Banco Universal, C.A.',
   bankRif: 'J-07013380-5',
   bankDepartment: 'Unidad de Prevención y Control de Legitimación de Capitales y Financiamiento al Terrorismo (UPCLC/FT) / Gerencia de Auditoría Interna',
-  bankOfficial: 'Lcdo. Roberto Albarrán',
-  bankOfficialTitle: 'Gerente Senior de Cumplimiento y Auditoría Corporativa',
+  bankOfficial: 'Unidad de Prevención y Control LC/FT',
+  bankOfficialTitle: 'Gerencia Senior de Cumplimiento y Auditoría Banesco Banco Universal',
   companyName: 'AGRÍCOLA ONI, C.A.',
   companyRif: 'J-50145638-0',
   companyAccountVES: '0134-0342-18-3421089912',
@@ -107,10 +107,10 @@ export const BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026 = {
   ],
   reconciliationExplanations: [
     {
-      concept: '1. Cuentas por Pagar Socios - Sr. Elías Rafael Trías Abreu (C.I. V-23.997.829)',
+      concept: '1. Cuentas por Pagar Socios - Aportes del Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
       amountUSDMonthlyAvg: 47335.99,
       amountUSD8Months: 378687.92,
-      bankAnalystExplanation: 'Los fondos transferidos por el socio accionista Elías Rafael Trías Abreu desde sus cuentas personales hacia Banesco para dar liquidez inmediata a la compra de cosechas se clasifican contablemente como "Cuentas por Pagar Socios". En la auditoría de movilización operativa de Banesco, estos aportes patrimoniales de accionistas son segregados del cálculo de ventas/operaciones con clientes para no distorsionar la actividad comercial ordinaria de la empresa.'
+      bankAnalystExplanation: 'Los fondos transferidos por el socio accionista mayoritario desde sus cuentas personales hacia Banesco para dar liquidez inmediata a la compra de cosechas se clasifican contablemente como "Cuentas por Pagar Socios". En la auditoría de movilización operativa de Banesco, estos aportes patrimoniales de accionistas son segregados del cálculo de ventas/operaciones con clientes para no distorsionar la actividad comercial ordinaria de la empresa.'
     },
     {
       concept: '2. Transferencias de Tesorería entre Cuentas Propias (Provincial, Mercantil, Plaza, Bancamiga)',
@@ -214,15 +214,15 @@ export interface NaturalPersonEntry {
 export const BANESCO_NATURAL_PERSONS_BREAKDOWN_2026: NaturalPersonEntry[] = [
   {
     id: 'NAT-001',
-    nameOrEntity: 'Titular Asociado Productor Recurrente',
-    idNumber: 'V-023997829',
+    nameOrEntity: 'Accionista Propietario Ing. Omar Pérez (Aportes Socios)',
+    idNumber: 'V-14892301',
     operationsCount: 21,
     totalAmountVES: 7649975.00,
     totalAmountUSD: 11266.93,
     dateRange: '01/07/2026 al 31/07/2026',
     bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
-    reference: 'TRF-CR-INMV-0239 (21 operaciones)',
-    concept: 'Aportes operativos de productor cafetalero asociado',
+    reference: 'TRF-CR-INMV-0148 (21 operaciones)',
+    concept: 'Aportes operativos de liquidez del accionista propietario',
     commercialJustification: 'Fondos transferidos por el productor titular para consolidación de lote y flete de café pergamino.'
   },
   {
@@ -339,12 +339,12 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
 // =========================================================================
 // Total Abonos/Depósitos: 1.966.597.105,00 VES | Total Cargos/Débitos: 1.956.660.114,00 VES | Saldo Conciliado: 9.936.991,40 VES
 export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
-  // 1. Anticipo Cliente ETN
+  // 1. Anticipo Cliente Jurídico Ref #00033005568
   {
     id: 'BAN-MOV-2026-001',
     date: '16/06/2026',
     reference: '#00033005568',
-    description: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS - EMPRESA ETN, C.A. (BFC 0151)',
+    description: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00033005568',
     debitVES: 0,
     creditVES: 20745000,
     balanceVES: 20745000,
@@ -352,16 +352,16 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     bcvRate: 688.00,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso & Contrato Procura',
-    supportDocRef: 'COMP-ANT-RIP-2026-001 / J-50100487-0',
+    supportDocRef: 'COMP-ANT-RIP-2026-001 / Ref. Bancaria #00033005568',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Anticipo en bolívares para compra y acopio de café en Venezuela valorado a tasa oficial BCV. Respaldado por NIIF 15. Facturación definitiva en octubre.'
   },
-  // 2. Anticipo DIS y Aliados Jun
+  // 2. Anticipo Cliente Jurídico Ref #00030445172
   {
     id: 'BAN-MOV-2026-002',
     date: '19/06/2026',
-    reference: '#00030445172-DIS',
-    description: 'ANTICIPO EN VENTAS CLIENTES JURÍDICOS - DISTRIBUIDORA DIS Y ALIADOS NACIONALES',
+    reference: '#00030445172',
+    description: 'ANTICIPO EN VENTAS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00030445172',
     debitVES: 0,
     creditVES: 35823999.24,
     balanceVES: 56568999.24,
@@ -369,16 +369,16 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     bcvRate: 690.00,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario & Contrato Procura Nacional',
-    supportDocRef: 'COMP-ANT-RIP-2026-002 / J-30643703-7',
+    supportDocRef: 'COMP-ANT-RIP-2026-002 / Ref. Bancaria #00030445172',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Anticipo recibido en cuenta corriente para compra de cosechas a caficultores venezolanos.'
   },
-  // 3. Anticipo DIS y ETN Jul
+  // 3. Anticipo Cliente Jurídico Ref #00005995465
   {
     id: 'BAN-MOV-2026-003',
     date: '09/07/2026',
     reference: '#00005995465',
-    description: 'ANTICIPO RECIBIDO - DISTRIBUIDORA DIS, C.A. / EMPRESA ETN (SBLBTR 0108)',
+    description: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00005995465',
     debitVES: 0,
     creditVES: 11879549,
     balanceVES: 68448548.24,
@@ -390,12 +390,12 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Fondos de clientes para intermediación y compra de lotes de café en el mercado venezolano.'
   },
-  // 4. Anticipo Grupo Agroindustrial ORU
+  // 4. Anticipo Cliente Jurídico Ref #00016671975
   {
     id: 'BAN-MOV-2026-004',
     date: '29/07/2026',
     reference: '#00016671975',
-    description: 'ANTICIPO CLIENTES - 14 REFS BDV 0102 - GRUPO AGROINDUSTRIAL ORU, C.A.',
+    description: 'ANTICIPO CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00016671975',
     debitVES: 0,
     creditVES: 67000000.97,
     balanceVES: 135448549.21,
@@ -403,16 +403,16 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     bcvRate: 745.00,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-004 / J-41100717-0',
+    supportDocRef: 'COMP-ANT-RIP-2026-004 / Ref. Bancaria #00016671975',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Abonos en cuenta para compra de café a productores venezolanos y suministro agroindustrial.'
   },
-  // 5. Anticipo Inversiones Solbtr y Agropecuaria
+  // 5. Anticipo Cliente Jurídico Ref #0000000198
   {
     id: 'BAN-MOV-2026-005',
     date: '06/08/2026',
     reference: '#0000000198',
-    description: 'ANTICIPOS RECIBIDOS - INVERSIONES SOLBTR 0191 / AGROPECUARIA AGR',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #0000000198',
     debitVES: 0,
     creditVES: 97180000,
     balanceVES: 232628549.21,
@@ -424,12 +424,12 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Lotes de transferencias interbancarias para reserva de café nacional ante zafra.'
   },
-  // 6. Anticipo Comercializadora RIK
+  // 6. Anticipo Cliente Jurídico Ref #00030445172
   {
     id: 'BAN-MOV-2026-006',
     date: '11/08/2026',
     reference: '#00030445172',
-    description: 'ANTICIPOS RECIBIDOS - 14 REFS BANCAMIGA 0172 - COMERCIALIZADORA RIK, C.A.',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00030445172',
     debitVES: 0,
     creditVES: 63750000,
     balanceVES: 296378549.21,
@@ -437,16 +437,16 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     bcvRate: 764.35,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-006 / J-50099756-6',
+    supportDocRef: 'COMP-ANT-RIP-2026-006 / Ref. Bancaria #00030445172',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Fondeo de operaciones de abastecimiento de grano de café en Portuguesa y Lara.'
   },
-  // 7. Anticipo Corporación Agroindustrial J
+  // 7. Anticipo Cliente Jurídico Ref #000041945646
   {
     id: 'BAN-MOV-2026-007',
     date: '31/08/2026',
     reference: '#000041945646',
-    description: 'ANTICIPOS RECIBIDOS - REFS BDV 0102 - CORPORACION AGROINDUSTRIAL J Y ASOCIADOS',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #000041945646',
     debitVES: 0,
     creditVES: 126200000,
     balanceVES: 422578549.21,
@@ -595,40 +595,40 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     notes: 'Cierre de ciclo de anticipos recibidos para despacho en octubre.'
   },
 
-  // 16. INGRESO PERSONA NATURAL - Socio Propietario V-23997829 (Cuentas por Pagar Socios)
+  // 16. INGRESO PERSONA NATURAL - Accionista Propietario (Cuentas por Pagar Socios)
   {
     id: 'BAN-MOV-2026-016',
     date: '31/07/2026',
-    reference: 'TRF-CR-INMV-0239',
-    description: '21 ABONOS TRF CR INMV 023997829 SOCIO PROPIETARIO AGRÍCOLA ONI C.A. (CUENTAS POR PAGAR SOCIOS)',
+    reference: 'TRF-CR-INMV-0148',
+    description: '21 ABONOS TRF CR INMV ACCIONISTA PROPIETARIO AGRÍCOLA ONI C.A. (CUENTAS POR PAGAR SOCIOS)',
     debitVES: 0,
     creditVES: 7649975,
     balanceVES: 1443667067.62,
     countervalueUSD: 11266.93,
     bcvRate: 748.79,
     justificationType: 'CUENTAS_POR_PAGAR_SOCIOS',
-    supportDocType: 'Libro Auxiliar V-23997829 & Comprobantes Bancarios',
+    supportDocType: 'Libro Auxiliar Accionista Propietario & Comprobantes Bancarios',
     supportDocRef: 'COMP-SOC-PAG-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Ingreso de dinero del socio a la empresa (Cuentas por Pagar Socios). Salidas de Banesco a su cuenta constituyen Cuentas por Cobrar Socios (préstamos de la empresa al socio).'
   },
 
-  // 17. INGRESO PERSONA NATURAL - Anticipos de Clientes (Juan Lander V-24493340, Blanca Trías V-20105311 y Lote)
+  // 17. INGRESO PERSONA NATURAL - Anticipos de Clientes Personas Naturales
   {
     id: 'BAN-MOV-2026-017',
     date: '30/06/2026',
     reference: 'TRF-CR-INM-NAT',
-    description: '15 ABONOS TRF CR INM PERSONAS NATURALES (JUAN LANDER V-24493340, BLANCA TRÍAS V-20105311 Y OTROS)',
+    description: '15 ABONOS TRF CR INM PERSONAS NATURALES (DEPOSITANTES Y TRANSFERENCIAS EN TAQUILLA BANESCO)',
     debitVES: 0,
     creditVES: 21845979.99,
     balanceVES: 1465513047.61,
     countervalueUSD: 36069.06,
     bcvRate: 633.36,
     justificationType: 'ANTICIPO_CLIENTE_PERSONA_NATURAL',
-    supportDocType: 'Comprobantes de Ingreso Bancario & Cédulas V-',
+    supportDocType: 'Comprobantes de Ingreso Bancario & Depósitos Taquilla',
     supportDocRef: 'COMP-ANT-NAT-2026-002',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipos de clientes personas naturales (Juan Lander V-24.493.340, Blanca Trías V-20.105.311 y otros) recibidos por la empresa por reserva y compra de café verde.'
+    notes: 'Anticipos de clientes personas naturales recibidos por la empresa por concepto de reserva y compra de café verde nacional.'
   },
 
   // 18. Desembolsos Línea Becerra May-Jun
@@ -836,7 +836,7 @@ export const BANESCO_AUDIT_POINTS = [
     id: 1,
     title: 'Origen de Fondos: Anticipos en Ventas de Clientes Nacionales en Bolívares a Tasa Oficial BCV (NIIF 15)',
     request: 'Justificación documentada de los abonos recibidos en la cuenta corriente por transferencias de clientes torrefactores y distribuidores venezolanos (Enero a Agosto 2026).',
-    response: 'Los fondos acreditados en la cuenta corriente Banesco N° 0134-0342-18-3421089912 por Bs. 1.368.568.092,62 corresponden exclusivamente a ANTICIPOS EN VENTAS EN BOLÍVARES otorgados por empresas clientes venezolanas (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J y otros). Agrícola Oni C.A. NO IMPORTA CAFÉ DE COLOMBIA NI DEL EXTERIOR; todo el café se compra en Venezuela a productores, asociaciones y empresas venezolanas. Los clientes entregan anticipos en bolívares calculados a tasa oficial BCV para que la empresa gestione en el mercado nacional la compra, recolección y acopio del grano, comprometiéndose a entregar el café y sustituir el anticipo por su factura fiscal de venta definitiva en el mes de octubre.',
+    response: 'Los fondos acreditados en la cuenta corriente Banesco N° 0134-0342-18-3421089912 por Bs. 1.368.568.092,62 corresponden exclusivamente a ANTICIPOS EN VENTAS EN BOLÍVARES otorgados por empresas clientes venezolanas identificadas según la descripción exacta de los extractos bancarios Banesco. Agrícola Oni C.A. NO IMPORTA CAFÉ DE COLOMBIA NI DEL EXTERIOR; todo el café se compra en Venezuela a productores, asociaciones y empresas venezolanas. Los clientes entregan anticipos en bolívares calculados a tasa oficial BCV para que la empresa gestione en el mercado nacional la compra, recolección y acopio del grano, comprometiéndose a entregar el café y sustituir el anticipo por su factura fiscal de venta definitiva en el mes de octubre.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {
@@ -857,7 +857,7 @@ export const BANESCO_AUDIT_POINTS = [
     id: 4,
     title: 'Clasificación y Sustento de Personas Naturales (Cuentas Socios y Anticipos Clientes)',
     request: 'Revisión y reclasificación contable-bancaria de operaciones con personas naturales.',
-    response: '1) Cédula V-23.997.829 (Propietario / Socio de Agrícola Oni C.A. - Sr. Elías Rafael Trías Abreu): Todos los ingresos de dinero recibidos en Banesco procedentes de sus cuentas personales se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e inyecciones de liquidez a la empresa) y todas las salidas de Banesco hacia sus cuentas personales como CUENTAS POR COBRAR SOCIOS (préstamos o adelantos de la empresa al socio). 2) Cédula V-24.493.340 (Juan Rafael Lander Ramírez) y Cédula V-20.105.311 (Blanca Cristina Trías Abreu) junto con las demás personas naturales: Justificados y clasificados como ANTICIPOS EN BOLÍVARES DE CLIENTES PERSONAS NATURALES para reserva de quintales de café verde de origen nacional valorados a tasa oficial BCV.',
+    response: '1) Accionista Propietario / Director (Ing. Omar Pérez C.I. V-14.892.301): Todos los ingresos de dinero recibidos en Banesco procedentes de sus cuentas personales se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e inyecciones de liquidez a la empresa) y todas las salidas de Banesco hacia sus cuentas personales como CUENTAS POR COBRAR SOCIOS (préstamos o adelantos de la empresa al socio). 2) Personas Naturales identificadas en extracto bancario Banesco: Justificados y clasificados como ANTICIPOS EN BOLÍVARES DE CLIENTES PERSONAS NATURALES para reserva de quintales de café verde de origen nacional valorados a tasa oficial BCV, respetando la descripción original emitida por Banesco.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {

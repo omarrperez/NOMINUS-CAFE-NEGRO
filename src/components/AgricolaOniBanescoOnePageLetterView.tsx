@@ -131,7 +131,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
         {/* Addressee & Subject */}
         <div className="mb-2.5">
           <p className="font-bold text-stone-900">CIUDADANOS: BANESCO BANCO UNIVERSAL, C.A.</p>
-          <p className="text-stone-700">Gerencia de Auditoría y Unidad de Prevención LC/FT &mdash; Atención: Lcdo. Roberto Albarrán</p>
+          <p className="text-stone-700">Gerencia de Auditoría y Unidad de Prevención LC/FT Banesco Banco Universal</p>
           <p className="text-stone-900 text-[10.5px] font-bold pt-0.5">
             Asunto: Justificación de Fondos Movilizados en BBU (USD 2.781.830,18 / Bs. 1.966.597.105,35) vs Ingresos Declarados en EEFF (Bs. 92.641.520,01 / USD 116.531,68) &mdash; Intermediación de Café Nacional a Tasa Oficial BCV
           </p>

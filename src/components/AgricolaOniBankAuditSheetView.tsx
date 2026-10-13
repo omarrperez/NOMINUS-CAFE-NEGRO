@@ -512,7 +512,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-[11px] text-stone-400 mt-1">
-                    <span>${totalNaturalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD &middot; V-023997829 y 14 Cédulas</span>
+                    <span>${totalNaturalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD &middot; Accionista Omar Pérez y Extractos Banesco</span>
                     <span className="text-amber-400 font-mono font-semibold">
                       {totalCredits > 0 ? ((totalNaturalVES / totalCredits) * 100).toFixed(2) : 0}%
                     </span>
@@ -717,7 +717,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                     <th className="px-3 py-2.5 text-right">Anticipos Clientes ($)</th>
                     <th className="px-3 py-2.5 text-right">Línea Becerra ($)</th>
                     <th className="px-3 py-2.5 text-right">Traspasos Internos ($)</th>
-                    <th className="px-3 py-2.5 text-right">Pers. Nat. / Socio Elías ($)</th>
+                    <th className="px-3 py-2.5 text-right">Pers. Nat. / Accionista ($)</th>
                     <th className="px-3 py-2.5 text-right">Diferencial BCV ($)</th>
                     <th className="px-3 py-2.5 text-right font-bold text-amber-400">Total Bruto Libros ($)</th>
                     <th className="px-3 py-2.5 text-right font-bold text-emerald-400">Créditos Banesco ($)</th>

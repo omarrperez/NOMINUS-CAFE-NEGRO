@@ -921,7 +921,7 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
                   <strong>Anticipos de Clientes (NIIF 15):</strong> Todos los abonos de personas jurídicas por USD $116.531,68 y de personas naturales por USD $1.092.368,95 están contabilizados como Pasivos por Anticipos en Ventas a diferir contra ventas en Octubre 2026.
                 </li>
                 <li>
-                  <strong>Movilizaciones de Socios:</strong> Se verificó la debida clasificación de las cuentas por pagar/cobrar del accionista Elías Rafael Trías Abreu.
+                  <strong>Movilizaciones de Socios:</strong> Se verificó la debida clasificación de las cuentas por pagar/cobrar del accionista propietario Ing. Omar Pérez (C.I. V-14.892.301).
                 </li>
               </ul>
             </div>
