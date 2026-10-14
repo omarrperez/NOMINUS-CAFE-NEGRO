@@ -37,7 +37,7 @@ export const COMPANIES: CompanyProfile[] = [
     tradeName: 'Agrícola Oni',
     rif: 'J-50145638-0',
     registroMercantil: 'Registro Mercantil Primero del Estado Anzoátegui, Tomo 44-A, Nro. 12',
-    address: 'Av. Intercomunal Jorge Rodríguez, Sector Las Garzas, Barcelona / Lechería, Edo. Anzoátegui, Venezuela',
+    address: 'Calle Las Flores, Quinta Blanquita, Local 2, Crucero de Lechería, Barcelona, Estado Anzoátegui.',
     phone: '+58 (281) 286-8492 / +58 (414) 819-1044',
     email: 'administracion@agricolaoni.com.ve',
     legalRepresentative: 'Elias Rafael Trías Abreu',

@@ -25,10 +25,23 @@ import {
   Copy,
   Check,
   Eye,
-  X
+  X,
+  FileDown,
+  Loader2
 } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
-import { exportToWord, downloadNativeDocx } from '../utils/exportUtils';
+import {
+  exportToWord,
+  downloadNativeDocx,
+  exportMasterBanescoComplianceFolderPdf,
+  exportMasterBanescoComplianceFolderWord,
+  exportCarta1Pdf,
+  exportCarta1Word,
+  exportCarta2Pdf,
+  exportCarta2Word,
+  exportSeparadoresBanescoWord,
+  exportSeparadoresBanescoPdf
+} from '../utils/exportUtils';
 
 interface Props {
   company: CompanyProfile;
@@ -41,6 +54,7 @@ export const BanescoFolderWorkflowView: React.FC<Props> = ({ company, currentRat
   const [copiedStatus, setCopiedStatus] = useState<string | null>(null);
   const [downloadNotification, setDownloadNotification] = useState<string | null>(null);
   const [showPreviewModal, setShowPreviewModal] = useState<boolean>(false);
+  const [downloadingMaster, setDownloadingMaster] = useState<boolean>(false);
 
   // Interactive Checklist State
   const [checklist, setChecklist] = useState({
@@ -75,18 +89,17 @@ GUÍA Y FLUJO DE ARMADO DE CARPETA DE CUMPLIMIENTO - BANESCO BANCO UNIVERSAL
 EMPRESA: ${company.name}
 R.I.F.: ${company.rif}
 CUENTA CORRIENTE BANESCO: ${company.banescoAccountVES}
-EXPEDIENTE BANCARIO: AUD-BAN-2026-ONI-094
-FECHA DE EMISIÓN: 31 de Agosto de 2026
+LUGAR Y FECHA DE EMISIÓN: Barcelona, 31 de Agosto de 2026
 TASA OFICIAL BCV: Bs. ${currentRate.rateUsd.toFixed(2)} / USD
 ================================================================================
 
 1. ESTRUCTURA Y MODELO DE LA CARPETA FÍSICA (SEPARADORES A - E)
 --------------------------------------------------------------------------------
 
-SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA
-- Carta de Respuesta Oficial (Oficio AO-DIR-BAN-2026-042): Firmada en físico por el Presidente (Elias Rafael Trías Abreu) y el Contador Público Colegiado (Licdo. Omar Pérez Castillo, C.P.C. 16.336).
-- Nota de Conciliación Bancaria Certificada: Reporte firmado y sellado por el CPC explicando la diferencia de Bs. 0,00 en omisión de ingresos y la naturaleza de Pasivo Exigible en Café bajo NIIF 15 / Sección 23.
-- Dictamen de Auditoría Fiscal y Contable: Informe de cumplimiento tributario e ISLR/IGTF ante SENIAT y SUDEBAN.
+SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y ESTADOS FINANCIEROS
+- Carta de Respuesta Oficial: Firmada en físico por el Presidente y Representante Legal (Elias Rafael Trías Abreu).
+- Nota de Conciliación Bancaria Certificada: Reporte explicando la diferencia de Bs. 0,00 en omisión de ingresos y la naturaleza de Pasivo Exigible en Café bajo NIIF 15 / Sección 23.
+- Informe Contable: Cumplimiento tributario e ISLR/IGTF ante SENIAT y SUDEBAN.
 
 SEPARADOR B: RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (Bs. 427.800.000,00)
 - 6 Contratos Marco de Mandato e Intermediación Comercial suscritos con empresas compradoras.
@@ -112,7 +125,7 @@ SEPARADOR E: REGISTRO LEGAL Y ESTADOS FINANCIEROS AUDITADOS DE AGRÍCOLA ONI C.A
 --------------------------------------------------------------------------------
 2. FLUJO DE TRABAJO PARA ENTREGA EN TAQUILLA DE CUMPLIMIENTO BANESCO
 --------------------------------------------------------------------------------
-Paso 1 - Impresión y Firmas: Imprimir 2 ejemplares de la Carta Explicativa (1 para entregar a Banesco y 1 copia de recibimiento para la empresa). Firmar con bolígrafo azul y colocar sello húmedo del CPC.
+Paso 1 - Impresión y Firmas: Imprimir 2 ejemplares de la Carta Explicativa (1 para entregar a Banesco y 1 copia de recibimiento para la empresa). Firmar con bolígrafo azul el Representante Legal.
 Paso 2 - Compaginación: Insertar separadores de cartulina con pestañas rotuladas (A a E) en una carpeta de gancho marrón o azul tipo lomo ancho.
 Paso 3 - Verificación de Soportes: Cotejar cada comprobante bancario contra la Nota de Conciliación.
 Paso 4 - Entrega Física: Consignar la carpeta en la taquilla de la Unidad de Prevención de Legitimación de Capitales (UPCL) en la Agencia Banesco.
@@ -137,8 +150,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
 
       <p><strong>Empresa Titular:</strong> ${company.name} (RIF: ${company.rif})</p>
       <p><strong>Cuenta Corriente Banesco:</strong> ${company.banescoAccountVES}</p>
-      <p><strong>Expediente Bancario:</strong> AUD-BAN-2026-ONI-094</p>
-      <p><strong>Fecha de Emisión:</strong> 31 de Agosto de 2026</p>
+      <p><strong>Lugar y Fecha:</strong> Barcelona, 31 de Agosto de 2026</p>
       <p><strong>Tasa Oficial BCV:</strong> Bs. ${currentRate.rateUsd.toFixed(2)} / USD</p>
 
       <hr style="border: 0; border-top: 1px solid #cbd5e1; margin: 15px 0;" />
@@ -147,11 +159,11 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
         1. ESTRUCTURA Y MODELO DE LA CARPETA FÍSICA (SEPARADORES A - E)
       </h2>
 
-      <h3>SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA</h3>
+      <h3>SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y INFORMES CONTABLES</h3>
       <ul>
-        <li><strong>Carta de Respuesta Oficial (Oficio AO-DIR-BAN-2026-042):</strong> Firmada en físico por el Presidente (Elias Rafael Trías Abreu) y el Contador Público Colegiado (Licdo. Omar Pérez Castillo, C.P.C. 16.336).</li>
-        <li><strong>Nota de Conciliación Bancaria Certificada:</strong> Reporte con firma y sello del CPC explicando la diferencia de Bs. 0,00 en omisiones de ingresos.</li>
-        <li><strong>Dictamen de Auditoría Fiscal y Contable:</strong> Informe de cumplimiento de VEN-NIF (NIIF 15 / Sección 23) sobre Pasivos Exigibles en Café.</li>
+        <li><strong>Carta de Respuesta Oficial:</strong> Firmada en físico por el Presidente (Elias Rafael Trías Abreu).</li>
+        <li><strong>Nota de Conciliación Bancaria Certificada:</strong> Reporte explicando la diferencia de Bs. 0,00 en omisiones de ingresos.</li>
+        <li><strong>Informe de Cumplimiento:</strong> Informe de cumplimiento de VEN-NIF (NIIF 15 / Sección 23) sobre Pasivos Exigibles en Café.</li>
       </ul>
 
       <h3>SEPARADOR B: RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (Bs. 427.800.000,00)</h3>
@@ -202,6 +214,116 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
     </div>
   `;
 
+  // Export Master PDF Dossier (Función de Exportación Maestra Unificada Banesco)
+  const handleExportMasterPdf = async () => {
+    try {
+      setDownloadingMaster(true);
+      await exportMasterBanescoComplianceFolderPdf({
+        companyName: company.name,
+        companyRif: company.rif,
+        address: company.address,
+        dateStr: 'Barcelona, 31 de Agosto de 2026',
+        bcvRate: currentRate.rateUsd,
+        filename: 'CARPETA_DE_CUMPLIMIENTO_BANESCO_AGRICOLA_ONI_31-08-2026.pdf'
+      });
+      setDownloadNotification('¡Expediente Maestro PDF Banesco compilado y descargado exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error('Error al exportar Expediente PDF:', err);
+      setDownloadNotification('Error al generar PDF del Expediente. Por favor reintente.');
+    } finally {
+      setDownloadingMaster(false);
+    }
+  };
+
+  // Export Master Word (.docx / .doc) Dossier (Función de Exportación Maestra Unificada Banesco)
+  const handleExportMasterWord = async () => {
+    try {
+      setDownloadingMaster(true);
+      await exportMasterBanescoComplianceFolderWord({
+        companyName: company.name,
+        companyRif: company.rif,
+        address: company.address,
+        dateStr: 'Barcelona, 31 de Agosto de 2026',
+        bcvRate: currentRate.rateUsd,
+        filename: 'CARPETA_DE_CUMPLIMIENTO_BANESCO_AGRICOLA_ONI_31-08-2026.docx'
+      });
+      setDownloadNotification('¡Expediente Maestro Word (.docx) compilado y descargado exitosamente! Listo para editar e imprimir.');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error('Error al exportar Expediente Word:', err);
+      setDownloadNotification('Error al generar Word del Expediente. Por favor reintente.');
+    } finally {
+      setDownloadingMaster(false);
+    }
+  };
+
+  const handleExportCarta1Pdf = async () => {
+    try {
+      await exportCarta1Pdf(company);
+      setDownloadNotification('¡Carta 1 (Extendida) PDF descargada exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setDownloadNotification('Error al generar PDF de Carta 1.');
+    }
+  };
+
+  const handleExportCarta1Word = async () => {
+    try {
+      await exportCarta1Word(company);
+      setDownloadNotification('¡Carta 1 (Extendida) Word (.docx) descargada exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setDownloadNotification('Error al generar Word de Carta 1.');
+    }
+  };
+
+  const handleExportCarta2Pdf = async () => {
+    try {
+      await exportCarta2Pdf(company, currentRate);
+      setDownloadNotification('¡Carta 2 (1 Página) PDF descargada exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setDownloadNotification('Error al generar PDF de Carta 2.');
+    }
+  };
+
+  const handleExportCarta2Word = async () => {
+    try {
+      await exportCarta2Word(company, currentRate);
+      setDownloadNotification('¡Carta 2 (1 Página) Word (.docx) descargada exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setDownloadNotification('Error al generar Word de Carta 2.');
+    }
+  };
+
+  const handleExportSeparadoresWord = async () => {
+    try {
+      await exportSeparadoresBanescoWord(company, currentRate);
+      setDownloadNotification('¡Separadores Físicos (A - E) Word (.docx) descargados exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setDownloadNotification('Error al generar Word de los Separadores.');
+    }
+  };
+
+  const handleExportSeparadoresPdf = async () => {
+    try {
+      await exportSeparadoresBanescoPdf(company, currentRate);
+      setDownloadNotification('¡Separadores Físicos (A - E) PDF descargados exitosamente!');
+      setTimeout(() => setDownloadNotification(null), 5000);
+    } catch (err) {
+      console.error(err);
+      setDownloadNotification('Error al generar PDF de los Separadores.');
+    }
+  };
+
   // Export to Word (.doc)
   const handleExportWordDoc = async () => {
     try {
@@ -223,21 +345,19 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
         companyRif: company.rif,
         title: 'GUÍA Y FLUJO DE ARMADO DE CARPETA DE CUMPLIMIENTO - BANESCO BANCO UNIVERSAL',
         subtitle: 'Modelo de Entrega y Separadores para la Unidad de Prevención de Legitimación de Capitales (UPCL)',
-        fileReference: 'EXPEDIENTE BANCARIO: AUD-BAN-2026-ONI-094',
-        date: '31 de Agosto de 2026',
+        date: 'Barcelona, 31 de Agosto de 2026',
         paragraphs: [
           `Empresa Titular: ${company.name} (RIF: ${company.rif})`,
           `Cuenta Corriente Banesco: ${company.banescoAccountVES}`,
           `Tasa Oficial BCV: Bs. ${currentRate.rateUsd.toFixed(2)} / USD`,
-          'SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y DICTAMEN DE AUDITORÍA (Oficio AO-DIR-BAN-2026-042 firmada por Elias Rafael Trías Abreu y Licdo. Omar Pérez Castillo C.P.C. 16.336).',
+          'SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y ESTADOS FINANCIEROS (Firmada por el Representante Legal Elias Rafael Trías Abreu).',
           'SEPARADOR B: RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (6 Contratos Marco, Transferencias Bs. 427.80M y RIF SENIAT).',
           'SEPARADOR C: RESPALDO DE ANTICIPOS DE PERSONAS NATURALES Y PRODUCTORES (Fichas, Recibos Bs. 326.41M, Cédulas y Guías SUNAGRO).',
           'SEPARADOR D: ADQUISICIÓN DE DIVISAS EN MESA DE CAMBIO BANESCO Y USO DE FONDOS ($18.42M USD en insumos comprados 100% en Venezuela).',
-          'SEPARADOR E: REGISTRO LEGAL Y ESTADOS FINANCIEROS AUDITADOS DE AGRÍCOLA ONI C.A. (Acta Constitutiva, RIF, EEFF Duales al 31/08/2026 y Libro Auxiliar Banesco).'
+          'SEPARADOR E: REGISTRO LEGAL Y ESTADOS FINANCIEROS DE AGRÍCOLA ONI C.A. (Acta Constitutiva, RIF, EEFF Duales al 31/08/2026 y Libro Auxiliar Banesco).'
         ],
         signers: [
-          { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario - Agrícola Oni C.A.', idNumber: 'V-14.892.301' },
-          { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Colegiado', idNumber: 'C.P.C. 16.336' }
+          { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario - Agrícola Oni C.A.', idNumber: 'V-23.997.829' }
         ]
       });
       setDownloadNotification('¡Archivo Microsoft Word (.docx) descargado exitosamente!');
@@ -315,10 +435,10 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
             <div className="flex flex-wrap items-center gap-2">
               <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                 <FolderArchive className="w-3.5 h-3.5 text-emerald-400" />
-                Instructivo Oficial de Entrega Banesco
+                Instructivo y Expediente de Entrega Banesco
               </span>
               <span className="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider font-mono">
-                Expediente: AUD-BAN-2026-ONI-094
+                Carpeta de Cumplimiento Unificada 2026
               </span>
             </div>
 
@@ -335,12 +455,32 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0 no-print">
             
             <button
+              onClick={handleExportMasterPdf}
+              disabled={downloadingMaster}
+              title="Descargar la Carpeta Completa Unificada lista para Banesco en PDF"
+              className="px-4 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer active:scale-95 border border-amber-300 disabled:opacity-50"
+            >
+              {downloadingMaster ? <Loader2 className="w-4 h-4 text-slate-950 animate-spin" /> : <Download className="w-4 h-4 text-slate-950" />}
+              <span>{downloadingMaster ? 'Compilando...' : 'Descargar Expediente PDF'}</span>
+            </button>
+
+            <button
+              onClick={handleExportMasterWord}
+              disabled={downloadingMaster}
+              title="Descargar la Carpeta Completa Unificada en Microsoft Word (.docx) editable"
+              className="px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-extrabold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer active:scale-95 border border-blue-400 disabled:opacity-50"
+            >
+              {downloadingMaster ? <Loader2 className="w-4 h-4 text-white animate-spin" /> : <FileDown className="w-4 h-4 text-white" />}
+              <span>{downloadingMaster ? 'Compilando...' : 'Descargar Expediente Word'}</span>
+            </button>
+
+            <button
               onClick={handleExportWordDoc}
-              title="Descargar archivo en formato Word .doc"
-              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer active:scale-95"
+              title="Descargar guía de armado en formato Word .doc"
+              className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl text-xs transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer active:scale-95"
             >
               <Download className="w-4 h-4" />
-              <span>Descargar Guía Word (.doc)</span>
+              <span>Guía Word</span>
             </button>
 
             <button
@@ -395,40 +535,126 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
       </div>
 
       {/* Direct Export & Copy Options Box */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-3 no-print">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="bg-white border-2 border-emerald-200 rounded-2xl p-5 shadow-sm space-y-4 no-print">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-3">
           <div className="flex items-center gap-3">
-            <span className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 font-bold">
+            <span className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold shadow-xs">
               <Download className="w-5 h-5" />
             </span>
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">Opciones de Exportación Directa e Impresión</h3>
-              <p className="text-xs text-slate-600">Si tu navegador restringe la descarga directa de archivos, utiliza el botón "Copiar Texto a Word" para pegarlo directamente en Microsoft Word con <code className="bg-slate-100 px-1 py-0.5 rounded text-slate-800 font-mono">Ctrl + V</code>.</p>
+              <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                <span>Descarga Directa de Cartas Oficiales Banesco y Expediente</span>
+                <span className="bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5 rounded-full font-bold">100% Funcionales</span>
+              </h3>
+              <p className="text-xs text-slate-600">Archivos PDF y Microsoft Word (.docx/.doc) calibrados e imprimibles directamente para Banesco Banco Universal</p>
+            </div>
+          </div>
+        </div>
+
+        {/* CARTA 1, CARTA 2, SEPARADORES & EXPEDIENTE BUTTON GROUPS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {/* CARTA 1 */}
+          <div className="bg-stone-50 p-3 rounded-xl border border-stone-200 space-y-2">
+            <div className="text-xs font-bold text-stone-900 flex items-center justify-between">
+              <span>📄 Carta 1 (Respuesta Extendida)</span>
+              <span className="text-[10px] text-stone-500 font-normal">Anexos</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleExportCarta1Pdf}
+                className="flex-1 px-2 py-2 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar Carta 1 Extendida en PDF"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Carta 1 (PDF)</span>
+              </button>
+              <button
+                onClick={handleExportCarta1Word}
+                className="flex-1 px-2 py-2 bg-blue-700 hover:bg-blue-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar Carta 1 Extendida en Word"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                <span>Carta 1 (Word)</span>
+              </button>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <button
-              onClick={handleExportWordDoc}
-              className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Descargar .doc</span>
-            </button>
-            <button
-              onClick={handleExportNativeDocx}
-              className="px-3.5 py-2 bg-teal-700 hover:bg-teal-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Descargar .docx</span>
-            </button>
-            <button
-              onClick={handleCopyText}
-              className="px-3.5 py-2 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-2xs cursor-pointer"
-            >
-              <Copy className="w-3.5 h-3.5" />
-              <span>Copiar Texto</span>
-            </button>
+          {/* CARTA 2 */}
+          <div className="bg-stone-50 p-3 rounded-xl border border-stone-200 space-y-2">
+            <div className="text-xs font-bold text-stone-900 flex items-center justify-between">
+              <span>📄 Carta 2 (Ejecutiva 1 Pág.)</span>
+              <span className="text-[10px] text-stone-500 font-normal">1 Hoja</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleExportCarta2Pdf}
+                className="flex-1 px-2 py-2 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar Carta 2 (1 Página) en PDF"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Carta 2 (PDF)</span>
+              </button>
+              <button
+                onClick={handleExportCarta2Word}
+                className="flex-1 px-2 py-2 bg-blue-700 hover:bg-blue-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar Carta 2 (1 Página) en Word"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                <span>Carta 2 (Word)</span>
+              </button>
+            </div>
+          </div>
+
+          {/* SEPARADORES FÍSICOS A - E */}
+          <div className="bg-indigo-50/80 p-3 rounded-xl border border-indigo-200 space-y-2">
+            <div className="text-xs font-bold text-indigo-950 flex items-center justify-between">
+              <span>📑 Separadores A - E</span>
+              <span className="text-[10px] text-indigo-800 font-normal">5 Hojas</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleExportSeparadoresPdf}
+                className="flex-1 px-2 py-2 bg-indigo-700 hover:bg-indigo-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar las 5 Hojas Separadoras (A-E) en PDF"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Separadores (PDF)</span>
+              </button>
+              <button
+                onClick={handleExportSeparadoresWord}
+                className="flex-1 px-2 py-2 bg-violet-700 hover:bg-violet-600 text-white font-bold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar las 5 Hojas Separadoras (A-E) en Word"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                <span>Separadores (Word)</span>
+              </button>
+            </div>
+          </div>
+
+          {/* EXPEDIENTE COMPLETO */}
+          <div className="bg-amber-50/80 p-3 rounded-xl border border-amber-200 space-y-2">
+            <div className="text-xs font-bold text-amber-950 flex items-center justify-between">
+              <span>📁 Expediente Unificado</span>
+              <span className="text-[10px] text-amber-800 font-normal">Completo</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleExportMasterPdf}
+                className="flex-1 px-2 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar Expediente Completo en PDF"
+              >
+                <Download className="w-3.5 h-3.5 text-slate-950" />
+                <span>Expediente (PDF)</span>
+              </button>
+              <button
+                onClick={handleExportMasterWord}
+                className="flex-1 px-2 py-2 bg-sky-700 hover:bg-sky-600 text-white font-extrabold rounded-lg text-[11px] flex items-center justify-center gap-1 shadow-2xs transition-colors"
+                title="Descargar Expediente Completo en Word"
+              >
+                <FileDown className="w-3.5 h-3.5" />
+                <span>Expediente (Word)</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -663,13 +889,13 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
                   <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs">
                     <FileText className="w-4 h-4" />
-                    <span>1. Carta Oficial de Respuesta (Oficio AO-DIR-BAN-2026-042)</span>
+                    <span>1. Carta Oficial de Respuesta</span>
                   </div>
                   <p className="text-[11px] text-slate-600 leading-relaxed">
                     Carta dirigida a Banesco UPCL en papel membretado. Contiene la explicación exhaustiva de las operaciones de intermediación comercial y compra de café nacional.
                   </p>
                   <div className="pt-2 text-[10px] font-mono text-emerald-900 font-semibold bg-emerald-50 p-2 rounded-lg border border-emerald-200">
-                    &bull; Firmas: Elias Rafael Trías Abreu (Presidente) y Licdo. Omar Pérez Castillo (C.P.C. 16.336).
+                    &bull; Firma: Elias Rafael Trías Abreu (Presidente y Representante Legal).
                   </div>
                 </div>
 

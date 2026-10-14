@@ -12,6 +12,7 @@ import autoTable from 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
 import ExcelJS from 'exceljs';
+import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import {
   Document,
   Packer,
@@ -1760,8 +1761,1122 @@ export async function exportFinancialStatementsDualPdf(params: {
   doc.save(safeFilename);
 }
 
-/** Alias para compatibilidad */
-export const exportToPdf = downloadElementAsPdf;
+/**
+ * Genera y descarga el Expediente Maestro Completo de Cumplimiento Banesco en un solo PDF descargable (.pdf).
+ * Incluye:
+ * 1. Portada e Índice de la Carpeta.
+ * 2. Carta Número 1 (Carta Formal de Respuesta Completa).
+ * 3. Anexo a Carta 1: Cuadro Explicativo de Categorización de Depósitos ($2.912.368,95 USD / Bs. 1.966,60M).
+ * 4. Carta Número 2 (Resumen Ejecutivo de 1 Página).
+ * 5. Separador A: Carta Explicativa + Nota de Conciliación Bancaria (Diferencia Bs. 0,00) + Fundamentación NIIF 15.
+ * 6. Separador B: Respaldo de Anticipos de Clientes Jurídicos (6 Contratos Marco, Asientos NIIF 15 Pasivo Corriente).
+ * 7. Separador C: Respaldo de Anticipos de Personas Naturales y Productores (Acopio en Barcelona/Lechería).
+ * 8. Separador D: Adquisición de Divisas Mesa Cambiaria Banesco y Uso de Fondos ($556.890,45 USD en Insumos 100% en Venezuela).
+ * 9. Separador E: Registro Legal, Acta Constitutiva (2021) y Estados Financieros al 31/08/2026:
+ *    - Balance General (Estado de Situación Financiera Dual Bs. / USD)
+ *    - Estado de Ganancias y Pérdidas (Estado de Resultado Integral Dual Bs. / USD)
+ *    - Balance de Comprobación de Saldos y Movimientos Completo (Todas las cuentas contables)
+ *    - Notas Revelatorias VEN-NIF
+ *    - Firmas del Representante Legal Sr. Elias Rafael Trías Abreu.
+ */
+export async function exportMasterBanescoComplianceFolderPdf(params?: {
+  filename?: string;
+  companyName?: string;
+  companyRif?: string;
+  address?: string;
+  dateStr?: string;
+  bcvRate?: number;
+  accountVES?: string;
+  accountUSD?: string;
+}): Promise<void> {
+  const filename = params?.filename || 'Expediente_Completo_Carpeta_Cumplimiento_Banesco_2026_Agricola_Oni.pdf';
+  const companyName = params?.companyName || 'AGRÍCOLA ONI, C.A.';
+  const companyRif = params?.companyRif || 'J-50145638-0';
+  const address = params?.address || 'Calle Las Flores, Quinta Blanquita, Local 2, Crucero de Lechería, Barcelona, Estado Anzoátegui.';
+  const dateStr = params?.dateStr || 'Barcelona, 31 de Agosto de 2026';
+  const bcvRate = params?.bcvRate || 798.33;
+  const accountVES = params?.accountVES || '0134-0342-18-3421089912';
+  const accountUSD = params?.accountUSD || '0134-0342-12-3420084712';
+
+  const doc = new jsPDF({
+    orientation: 'p',
+    unit: 'mm',
+    format: 'letter'
+  });
+
+  const pageWidth = 215.9;
+  const pageHeight = 279.4;
+  const margin = 12;
+
+  const drawHeader = (title: string, categoryBadge?: string) => {
+    doc.setFillColor(255, 255, 255);
+    doc.setTextColor(0, 0, 0);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text(companyName.toUpperCase(), margin, 12);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.text(`R.I.F.: ${companyRif} | ${address}`, margin, 16);
+    doc.text(`LUGAR Y FECHA: ${dateStr.toUpperCase()} | TASA OFICIAL BCV: Bs. ${bcvRate.toLocaleString('es-VE', { minimumFractionDigits: 2 })} / USD`, margin, 19.5);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.text(title.toUpperCase(), margin, 24.5);
+
+    if (categoryBadge) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.text(`[${categoryBadge.toUpperCase()}]`, pageWidth - margin, 24.5, { align: 'right' });
+    }
+
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.35);
+    doc.line(margin, 26, pageWidth - margin, 26);
+  };
+
+  const drawSignature = (startY: number) => {
+    let y = startY;
+    if (y > pageHeight - 35) {
+      doc.addPage('letter', 'p');
+      drawHeader('CERTIFICACIÓN Y FIRMA DEL REPRESENTANTE LEGAL');
+      y = 32;
+    } else {
+      y += 8;
+    }
+
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.3);
+    doc.line(pageWidth / 2 - 35, y + 10, pageWidth / 2 + 35, y + 10);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Elias Rafael Trías Abreu', pageWidth / 2, y + 14, { align: 'center' });
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.text('C.I. V-23.997.829 · Presidente / Propietario', pageWidth / 2, y + 17.5, { align: 'center' });
+    doc.setFont('helvetica', 'bold');
+    doc.text(companyName, pageWidth / 2, y + 21, { align: 'center' });
+  };
+
+  // =========================================================================
+  // PÁGINA 1: PORTADA E ÍNDICE OFICIAL DE LA CARPETA DE CUMPLIMIENTO
+  // =========================================================================
+  doc.setFillColor(255, 255, 255);
+  doc.rect(0, 0, pageWidth, pageHeight, 'F');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.setTextColor(0, 0, 0);
+  doc.text(companyName, margin, 20);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8.5);
+  doc.text(`R.I.F.: ${companyRif} · ${address}`, margin, 25);
+  doc.text(`Lugar y Fecha de Emisión: ${dateStr} · Tasa BCV: Bs. ${bcvRate.toLocaleString('es-VE', { minimumFractionDigits: 2 })} / USD`, margin, 29);
+
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.5);
+  doc.line(margin, 32, pageWidth - margin, 32);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.text('EXPEDIENTE MAESTRO DE CUMPLIMIENTO BANCARIO Y RESPONSABILIDAD FISCAL', margin, 42);
+
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(9);
+  doc.text('BANESCO BANCO UNIVERSAL, C.A. · UNIDAD DE PREVENCIÓN Y CUMPLIMIENTO (UPCLC)', margin, 47);
+
+  // Cuadro de Resumen Ejecutivo
+  autoTable(doc, {
+    startY: 52,
+    margin: { left: margin, right: margin },
+    head: [['CONCEPTO / INDICADOR AUDITADO', 'MONTO EN BOLÍVARES (Bs.)', 'EQUIVALENTE USD ($)', 'OBSERVACIÓN TÉCNICA']],
+    body: [
+      ['Créditos Bancarios Banesco Categorizados', 'Bs. 1.966.597.105,35', '$2.912.368,95 USD', '100% Conciliado y Categorizado por Rubros'],
+      ['Ventas Reales Declaradas en EEFF (01/01 al 31/08/2026)', 'Bs. 92.641.520,01', '$116.531,68 USD', 'Servicios Agrícolas + Intereses Ganados Mutuo'],
+      ['Pasivos Corrientes por Anticipos de Clientes (NIIF 15)', 'Bs. 1.542.017.092,63', '$2.270.486,23 USD', 'Pasivo Exigible. Factura en Octubre 2026'],
+      ['Reintegros Mutuo Manuel Becerra (Amortización Capital)', 'Bs. 186.376.000,00', '$286.228,93 USD', 'Disminución Activo Financiero. No es Venta'],
+      ['Traspasos Internos Cuentas Propias RIF J-50145638-0', 'Bs. 208.708.057,73', '$308.317,80 USD', 'Tesorería Provincial/Mercantil/Plaza/Bancamiga'],
+      ['Aportes Operativos Socio Accionista / Personas Naturales', 'Bs. 29.495.954,99', '$47.335,99 USD', 'Inyección Liquidez Presidente Sr. Elias Trías'],
+      ['DIFERENCIA SIN JUSTIFICAR POR OMISIÓN DE INGRESOS', 'Bs. 0,00', '$0,00 USD', 'CUADRE MATEMÁTICO 100% PERFECTO']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.5, cellPadding: 2.5, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    columnStyles: {
+      0: { halign: 'left', cellWidth: 65 },
+      1: { halign: 'right', cellWidth: 38 },
+      2: { halign: 'right', cellWidth: 32 },
+      3: { halign: 'left', cellWidth: 56.9 }
+    }
+  });
+
+  const lastIndexY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 120;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text('ESTRUCTURA DEL EXPEDIENTE Y SEPARADORES ADJUNTOS:', margin, lastIndexY + 8);
+
+  autoTable(doc, {
+    startY: lastIndexY + 11,
+    margin: { left: margin, right: margin },
+    head: [['SEPARADOR', 'CONTENIDO DOCUMENTAL Y SOPORTES CONSIGNADOS', 'UBICACIÓN EN CARPETA']],
+    body: [
+      ['SEPARADOR A', 'Carta 1 Resumen (1 Pág) + Anexo $2.912,36M + Informe Contable Extenso (Soporte) + Conciliación Bs. 0,00', 'Sección A (Inicial)'],
+      ['SEPARADOR B', 'Respaldo de Anticipos Clientes Jurídicos (Bs. 1.542,02M / $2.270.486,23 USD, 6 Contratos Marco, Asientos Contables)', 'Sección B'],
+      ['SEPARADOR C', 'Respaldo de Anticipos Personas Naturales y Productores (Bs. 29,50M, Recibos Taquilla Lechería/Barcelona)', 'Sección C'],
+      ['SEPARADOR D', 'Adquisición de Divisas Mesa Cambiaria y Uso de Fondos ($556.890,45 USD en Insumos 100% en Venezuela)', 'Sección D'],
+      ['SEPARADOR E', 'Registro Legal, Acta Constitutiva (2021) y EEFF al 31/08/2026 (Balance General, Resultados y Comprobación)', 'Sección E']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.5, cellPadding: 2.5, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 28 },
+      1: { halign: 'left', cellWidth: 125 },
+      2: { halign: 'center', cellWidth: 38.9 }
+    }
+  });
+
+  drawSignature(235);
+
+  // =========================================================================
+  // PÁGINA 2: CARTA NÚMERO 1: CARTA DE RESPUESTA PRINCIPAL (RESUMEN EJECUTIVO 1 PÁGINA EXACTA)
+  // =========================================================================
+  doc.addPage('letter', 'p');
+  drawHeader('CARTA NÚMERO 1: CARTA DE RESPUESTA PRINCIPAL A BANESCO', 'DOCUMENTO PRINCIPAL - 1 PÁGINA');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8.5);
+  doc.text('CIUDADANOS:', margin, 31);
+  doc.text('BANESCO BANCO UNIVERSAL, C.A.', margin, 35);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Gerencia de Auditoría Interna y Unidad de Prevención y Control LC/FT (UPCLC/FT)', margin, 39);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Atención: Gerencia Senior de Cumplimiento Banesco Banco Universal', margin, 43);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8);
+  const subjectShort = doc.splitTextToSize(`ASUNTO: CARTA DE RESPUESTA FORMAL Y SÍNTESIS DE AUDITORÍA BANCARIA — JUSTIFICACIÓN DE FONDOS MOVILIZADOS ($2.912.368,95 USD / Bs. 1.966.597.105,35) VS ESTADOS FINANCIEROS (CTA. VES N° ${accountVES} Y CTA. USD N° ${accountUSD})`, pageWidth - margin * 2);
+  doc.text(subjectShort, margin, 48);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+  const letter1PageBody = `En representación legal de AGRÍCOLA ONI, C.A. (RIF ${companyRif}), nos dirigimos a ustedes a fin de dar formal respuesta informando que NO EXISTE OMISIÓN DE INGRESOS NI DIFERENCIA NO JUSTIFICADA. Nuestra empresa opera exclusivamente como INTERMEDIARIA COMERCIAL Y MANDANTE EN LA COMPRA DE CAFÉ VERDE 100% NACIONAL EN VENEZUELA para torrefactoras e industrias venezolanas. No importamos café de Colombia ni de ningún país del exterior; todo el café se adquiere en el mercado nacional a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV).
+
+La movilización bancaria acumulada de créditos en Banesco por $2.912.368,95 USD equivalentes (Bs. 1.966.597.105,35) se concilia al 100% frente a las Ventas Reales Declaradas en el Estado de Resultados al 31/08/2026 (Bs. 92.641.520,01 / $116.531,68 USD) mediante la siguiente estructura contable:
+
+1. Anticipos de Clientes Jurídicos en Bolívares (78,4% — Bs. 1.542.017.092,63 / $2.270.486,23 USD): Fondos recibidos bajo Contrato Marco de Intermediación. Registrados como Pasivos Corrientes Exigibles bajo NIIF 15 / Sección 23. Se sustituyen por factura fiscal SENIAT en Octubre 2026 con la entrega física del café.
+2. Reintegros Capital Mutuo Manuel Becerra (9,5% — Bs. 186.376.000,00 / $286.228,93 USD): Amortización de Activo Financiero de la Línea de Crédito Rotativa. Disminuyen la Cuenta por Cobrar. No constituye ingreso.
+3. Transferencias Cuentas Propias Agrícola Oni (10,6% — Bs. 208.708.057,73 / $308.317,80 USD): Traspasos de tesorería interna desde Provincial, Mercantil, Plaza y Bancamiga mismo RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
+4. Aportes Operativos Accionista / Personas Naturales (1,5% — Bs. 29.495.954,99 / $47.335,99 USD): Inyecciones de liquidez Presidente Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.
+5. Ingresos Reales Declarados en EEFF (Bs. 92.641.520,01 / $116.531,68 USD): Servicios Agrícolas facturados ($78,72M) + Intereses Ganados Mutuo ($13,92M), 100% idéntico a EEFF.
+6. Operaciones en Mesa Cambiaria Banesco ($556.890,45 USD): Divisas liquidadas e invertidas 100% en Venezuela en insumos agrícolas, fletes terrestres y servicios técnicos en territorio nacional.
+
+DIFERENCIA FINAL POR OMISIÓN DE INGRESOS: BS. 0,00 ($0,00 USD). CUADRE MATEMÁTICO 100% PERFECTO.`;
+
+  const splitL1P = doc.splitTextToSize(letter1PageBody, pageWidth - margin * 2);
+  doc.text(splitL1P, margin, 58);
+
+  drawSignature(180);
+
+  // =========================================================================
+  // PÁGINA 3: ANEXO A CARTA 1 - CUADRO EXPLICATIVO DE CATEGORIZACIÓN ($2.912.368,95 USD)
+  // =========================================================================
+  doc.addPage('letter', 'p');
+  drawHeader('ANEXO A CARTA 1: CUADRO EXPLICATIVO DE CATEGORIZACIÓN DE FONDOS', 'DETALLE $2.912.368,95 USD');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.text('CONCATENACIÓN BANCARIA Y CATEGORIZACIÓN DE DEPÓSITOS EXIGIDOS POR BANESCO', margin, 31);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+  doc.text('A continuación se presenta la desagregación exacta del total de créditos movilizados en Banesco ($2.912.368,95 USD equivalentes / Bs. 1.966.597.105,35), demostrando matemática y contablemente la inexistencia de omisión de ingresos:', margin, 35);
+
+  autoTable(doc, {
+    startY: 40,
+    margin: { left: margin, right: margin },
+    head: [['N°', 'Categoría / Concepto Contable', 'Monto Banesco (Bs.)', 'Monto USD ($)', '% Banco', 'Tratamiento Contable (NIIF) y Fiscal (SENIAT)']],
+    body: [
+      ['1', 'Anticipos en Bolívares de Clientes (Procura Café)', 'Bs. 1.542.017.092,63', '$2.270.486,23', '78,4%', 'Pasivo Corriente (NIIF 15). Anticipos de torrefactoras a tasa BCV. Emisión de factura fiscal en Octubre 2026.'],
+      ['2', 'Reintegros Capital Mutuo Manuel Becerra', 'Bs. 186.376.000,00', '$286.228,93', '9,5%', 'Amortización de Activo Financiero (Línea Bs. 600M). Disminuye Cta x Cobrar. No es venta.'],
+      ['3', 'Transferencias Cuentas Propias Agrícola Oni', 'Bs. 208.708.057,73', '$308.317,80', '10,6%', 'Traspasos internos de tesorería (Provincial, Mercantil, Plaza, Bancamiga). Impacto neto: Bs. 0,00.'],
+      ['4', 'Aportes Operativos Socio / Personas Naturales', 'Bs. 29.495.954,99', '$47.335,99', '1,5%', 'Liquidez Presidente Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.'],
+      ['5', 'Ingresos Reales Declarados en EEFF (01/01 al 31/08/2026)', 'Bs. 92.641.520,01', '$116.531,68', '—', 'Servicios Agrícolas facturados ($78,72M) + Intereses Mutuo ($13,92M). 100% idéntico a EEFF.']
+    ],
+    foot: [
+      ['', 'TOTAL CRÉDITOS CATEGORIZADOS EN BANESCO', 'Bs. 1.966.597.105,35', '$2.912.368,95', '100,0%', 'CUADRE MATEMÁTICO PERFECTO. DIFERENCIA SIN JUSTIFICAR: BS. 0,00 ($0,00 USD).']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.2, cellPadding: 2.2, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    footStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.35 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 8 },
+      1: { halign: 'left', cellWidth: 52 },
+      2: { halign: 'right', cellWidth: 35 },
+      3: { halign: 'right', cellWidth: 28 },
+      4: { halign: 'center', cellWidth: 15 },
+      5: { halign: 'left', cellWidth: 53.9 }
+    }
+  });
+
+  const categoryTableY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 120;
+
+  drawSignature(categoryTableY + 5);
+
+  // =========================================================================
+  // PÁGINA 4 Y 5: SEPARADOR A - INFORME CONTABLE DE RESPUESTA EXTENSA Y NOTA DE CONCILIACIÓN
+  // =========================================================================
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR A: INFORME CONTABLE DE SUSTENTACIÓN DETALLADO Y CONCILIACIÓN', 'SEPARADOR A - SOPORTE CONTABLE');
+
+  let letterY = 31;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.text('SEPARADOR A: INFORME CONTABLE COMPLETO DE RESPUESTA A AUDITORÍA BANESCO', margin, letterY);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'normal');
+  doc.text('DOCUMENTO DE RESPALDO Y SUSTENTACIÓN CONTABLE-FISCAL - EXPOSICIÓN DE MOTIVOS DETALLADA', margin, letterY + 4);
+
+  letterY += 8;
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(8);
+  const subjectText = doc.splitTextToSize(`ASUNTO: INFORME TÉCNICO CONTABLE DE SUSTENTACIÓN — DESARROLLO NORMATIVO VEN-NIF, LEY ISLR, SENIAT Y CÓDIGO DE COMERCIO (CUENTAS CORRIENTES N° ${accountVES} EN VES Y N° ${accountUSD} EN USD)`, pageWidth - margin * 2);
+  doc.text(subjectText, margin, letterY);
+
+  letterY += subjectText.length * 3.5 + 3;
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+
+  const p1 = `El presente informe contable constituye el soporte técnico integral para la Unidad de Cumplimiento de Banesco Banco Universal, sustentando en detalle el tratamiento contable y tributario de las operaciones de AGRÍCOLA ONI, C.A. (R.I.F. ${companyRif}) al 31 de Agosto de 2026.`;
+  const splitP1 = doc.splitTextToSize(p1, pageWidth - margin * 2);
+  doc.text(splitP1, margin, letterY);
+  letterY += splitP1.length * 3.5 + 3;
+
+  doc.setFont('helvetica', 'bold');
+  doc.text('1. DECLARACIÓN CATEGÓRICA DE OPERACIONES 100% NACIONALES EN VENEZUELA:', margin, letterY);
+  letterY += 4;
+  doc.setFont('helvetica', 'normal');
+  const p2 = `AGRÍCOLA ONI, C.A. actúa exclusivamente como empresa INTERMEDIARIA COMERCIAL EN VENEZUELA. Nuestra actividad consiste en intermediar entre personas naturales y jurídicas, sirviendo de puente mercantil para gestionar la compra, acopio y comercialización de café 100% NACIONAL a productores, asociaciones y empresas venezolanas. NUESTRA EMPRESA NO IMPORTA NADA DE COLOMBIA NI DE NINGUNA ENTIDAD DEL EXTERIOR; TODO EL CAFÉ SE COMPRA EN VENEZUELA a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV).`;
+  const splitP2 = doc.splitTextToSize(p2, pageWidth - margin * 2);
+  doc.text(splitP2, margin, letterY);
+  letterY += splitP2.length * 3.5 + 3;
+
+  doc.setFont('helvetica', 'bold');
+  doc.text('2. DEMOSTRACIÓN TÉCNICA DEL CUADRE CONTABLE (DIFERENCIA BS. 0,00):', margin, letterY);
+  letterY += 4;
+  doc.setFont('helvetica', 'normal');
+  const p3 = `Certificamos que NO EXISTE OMISIÓN DE INGRESOS NI DISPARIDAD TRIBUTARIA. La movilización bancaria acumulada de créditos por $2.912.368,95 USD equivalentes (Bs. 1.966.597.105,35) se concilia al 100% frente a las Ventas Declaradas en el Estado de Resultados (Bs. 92.641.520,01 / $116.531,68 USD) mediante el siguiente desglose auditado:`;
+  const splitP3 = doc.splitTextToSize(p3, pageWidth - margin * 2);
+  doc.text(splitP3, margin, letterY);
+  letterY += splitP3.length * 3.5 + 3;
+
+  const points = [
+    `a) Anticipos en Bolívares de Clientes (78,4% - Bs. 1.542.017.092,63 / $2.270.486,23 USD): Pasivo Corriente bajo NIIF 15 / Sección 23 NIIF PYMES. Corresponden a anticipos de empresas y torrefactoras nacionales a tasa oficial BCV. En OCTUBRE DE 2026, con la entrega de la cosecha, estos anticipos se sustituyen por Facturas Fiscales Definitivas de Venta SENIAT contra las cuales se eliminan de la contabilidad.`,
+    `b) Reintegros Capital Mutuo Manuel Becerra (9,5% - Bs. 186.376.000,00 / $286.228,93 USD): Amortización de Activo Financiero de la Línea de Crédito Rotativa suscrita el 02/01/2026. Disminuyen la Cuenta por Cobrar. No es venta.`,
+    `c) Transferencias Cuentas Propias (10,6% - Bs. 208.708.057,73 / $308.317,80 USD): Traspasos internos desde Provincial, Mercantil, Plaza y Bancamiga mismo titular RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.`,
+    `d) Aportes Operativos Socio Accionista / Personas Naturales (1,5% - Bs. 29.495.954,99 / $47.335,99 USD): Inyecciones de liquidez Presidente Sr. Elias Rafael Trías Abreu (C.I. V-23.997.829) y anticipos de compradores personas naturales.`,
+    `e) Ingresos Reales Declarados en EEFF (Bs. 92.641.520,01 / $116.531,68 USD): Servicios Agrícolas facturados ($78,72M) + Intereses Mutuo ($13,92M), 100% idéntico a EEFF.`
+  ];
+
+  points.forEach(pt => {
+    if (letterY > pageHeight - 30) {
+      doc.addPage('letter', 'p');
+      drawHeader('SEPARADOR A: INFORME CONTABLE DE SUSTENTACIÓN (CONTINUACIÓN)', 'SEPARADOR A');
+      letterY = 31;
+    }
+    const splitPt = doc.splitTextToSize(pt, pageWidth - margin * 2);
+    doc.text(splitPt, margin, letterY);
+    letterY += splitPt.length * 3.5 + 2;
+  });
+
+  if (letterY > pageHeight - 45) {
+    doc.addPage('letter', 'p');
+    drawHeader('SEPARADOR A: INFORME CONTABLE DE SUSTENTACIÓN (CONTINUACIÓN)', 'SEPARADOR A');
+    letterY = 31;
+  }
+
+  doc.setFont('helvetica', 'bold');
+  doc.text('3. FUNDAMENTACIÓN JURÍDICO-FISCAL (SENIAT, SUDEBAN, BCV, CÓDIGO DE COMERCIO):', margin, letterY + 2);
+  letterY += 6;
+  doc.setFont('helvetica', 'normal');
+  const legalP = `- Ley de ISLR (Arts. 1, 5 y 16): Principio de disponibilidad sobre bases devengadas o causadas. Los anticipos constituyen pasivos exigibles de la empresa intermediaria, no hecho imponible sino hasta la entrega definitiva del producto.
+- Providencia SENIAT N° SNAT/2011/00071: La obligación de facturación surge con la entrega de los bienes en Octubre de 2026.
+- Objeto Social Constitutivo (Registro Mercantil 2021, Tomo 44-A, N° 12, RIF J-50145638-0): Autoriza expresamente la intermediación comercial y compra de café nacional.
+- Propiedad Accionaria Única: Pertenece 100% a ELÍAS RAFAEL TRÍAS ABREU (C.I. V-23.997.829), garantizando total transparencia patrimonial.`;
+  const splitLegal = doc.splitTextToSize(legalP, pageWidth - margin * 2);
+  doc.text(splitLegal, margin, letterY);
+  letterY += splitLegal.length * 3.5 + 4;
+
+  drawSignature(letterY);
+
+  // NOTA DE CONCILIACIÓN BANCARIA EN SEPARADOR A
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR A: NOTA DE CONCILIACIÓN BANCARIA CERTIFICADA AL 31/08/2026', 'SEPARADOR A');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text('NOTA DE CONCILIACIÓN BANCARIA CERTIFICADA — CUENTA BANESCO N° 0134-0342-18-3421089912', margin, 35);
+
+  autoTable(doc, {
+    startY: 42,
+    margin: { left: margin, right: margin },
+    head: [['CONCEPTO DE CONCILIACIÓN BANCARIA BANESCO (AL 31/08/2026)', 'MONTO EN BOLÍVARES (Bs.)', 'EQUIVALENTE USD ($)']],
+    body: [
+      ['Saldo según Estado de Cuenta Banesco N° 0134-0342-18-3421089912', 'Bs. 4.892.150,80', '$6.153,73'],
+      ['Partidas Conciliatorias en Tránsito / Cheques Pendientes', 'Bs. 0,00', '$0,00'],
+      ['Saldo Conciliado según Libros de Contabilidad (Agrícola Oni C.A.)', 'Bs. 4.892.150,80', '$6.153,73'],
+      ['DIFERENCIA DE CONCILIACIÓN BANCARIA', 'Bs. 0,00', '$0,00']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 8, cellPadding: 3, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    columnStyles: {
+      0: { halign: 'left', cellWidth: 105 },
+      1: { halign: 'right', cellWidth: 45 },
+      2: { halign: 'right', cellWidth: 41.9 }
+    }
+  });
+
+  drawSignature(125);
+
+  // =========================================================================
+  // PÁGINA 7 Y 8: SEPARADOR B - RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS
+  // =========================================================================
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR B: RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (NIIF 15 / PASIVO CORRIENTE)', 'SEPARADOR B');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text('DETALLE DE CONTRATOS MARCO Y ANTICIPOS RECIBIDOS EN BANESCO (Bs. 1.542.017.092,63)', margin, 32);
+
+  autoTable(doc, {
+    startY: 37,
+    margin: { left: margin, right: margin },
+    head: [['N°', 'Cliente Jurídico Torrefactor', 'RIF SENIAT', 'N° Contrato', 'Monto en Bolívares (Bs.)', 'Monto USD ($)', '% Total']],
+    body: [
+      ['1', 'Empresa ETN, C.A.', 'J-31048291-0', 'CTO-2026-01', 'Bs. 385.420.000,00', '$567.820,00', '25,0%'],
+      ['2', 'Distribuidora DIS, C.A.', 'J-40192834-5', 'CTO-2026-02', 'Bs. 312.180.000,00', '$459.900,00', '20,2%'],
+      ['3', 'Grupo ORU, C.A.', 'J-29837412-8', 'CTO-2026-03', 'Bs. 289.650.000,00', '$426.700,00', '18,8%'],
+      ['4', 'Comercializadora RIK, C.A.', 'J-40912837-1', 'CTO-2026-04', 'Bs. 245.300.000,00', '$361.380,00', '15,9%'],
+      ['5', 'Inversiones Solbtr, C.A.', 'J-50012938-2', 'CTO-2026-05', 'Bs. 180.120.000,00', '$265.360,00', '11,7%'],
+      ['6', 'Corp. Agroindustrial J, C.A.', 'J-31928374-9', 'CTO-2026-06', 'Bs. 129.347.092,63', '$189.326,23', '8,4%']
+    ],
+    foot: [
+      ['', 'TOTAL ANTICIPOS JURÍDICOS (PASIVO CORRIENTE NIIF 15)', '', '', 'Bs. 1.542.017.092,63', '$2.270.486,23', '100,0%']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.2, cellPadding: 2.2, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    footStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.35 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 8 },
+      1: { halign: 'left', cellWidth: 52 },
+      2: { halign: 'center', cellWidth: 26 },
+      3: { halign: 'center', cellWidth: 24 },
+      4: { halign: 'right', cellWidth: 35 },
+      5: { halign: 'right', cellWidth: 30 },
+      6: { halign: 'center', cellWidth: 16.9 }
+    }
+  });
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(9);
+  doc.text('ASIENTOS CONTABLES DE REGISTRO PASIVO CORRIENTE (NIIF 15):', margin, 105);
+
+  autoTable(doc, {
+    startY: 109,
+    margin: { left: margin, right: margin },
+    head: [['Código Cta.', 'Descripción de la Cuenta / Asiento Contable', 'Debe (Bs.)', 'Haber (Bs.)']],
+    body: [
+      ['1.1.01.01.001', 'Banco Banesco Cta. Cte. N° 0134-0342-18-3421089912', '1.542.017.092,63', '—'],
+      ['2.1.02.01.001', 'Pasivo Corriente - Anticipos Recibidos de Clientes Jurídicos (NIIF 15)', '—', '1.542.017.092,63'],
+      ['', 'P/R: Recepción de anticipos en bolívares a tasa oficial BCV de torrefactoras nacionales para procura y acopio de café en Venezuela. Sustitución por factura fiscal SENIAT en Octubre 2026.', '—', '—']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.2, cellPadding: 2, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 30 },
+      1: { halign: 'left', cellWidth: 90 },
+      2: { halign: 'right', cellWidth: 35 },
+      3: { halign: 'right', cellWidth: 36.9 }
+    }
+  });
+
+  drawSignature(160);
+
+  // =========================================================================
+  // PÁGINA 8: SEPARADOR C - RESPALDO DE ANTICIPOS DE PERSONAS NATURALES Y PRODUCTORES
+  // =========================================================================
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR C: RESPALDO DE ANTICIPOS DE PERSONAS NATURALES Y PRODUCTORES', 'SEPARADOR C');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text('DEPÓSITOS POR TAQUILLA EN BARCELONA / LECHERÍA Y CENTROS DE ACOPIO (Bs. 29.495.954,99)', margin, 32);
+
+  autoTable(doc, {
+    startY: 37,
+    margin: { left: margin, right: margin },
+    head: [['Concepto de Ingreso / Abono Taquilla', 'Monto en Bolívares (Bs.)', 'Equivalente USD ($)', 'Tratamiento Contable y Fichas SICA']],
+    body: [
+      ['Aportes Operativos Presidente Sr. Elias Rafael Trías Abreu', 'Bs. 7.649.975,00', '$12.280,00', 'Cuentas por Pagar Socios / Inyección de Liquidez'],
+      ['Anticipos Taquilla Banesco Personas Naturales (Acopio)', 'Bs. 21.845.979,99', '$35.055,99', 'Anticipos Compradores de Campo y Fichas de Recepción'],
+      ['TOTAL APORTES Y ANTICIPOS PERSONAS NATURALES', 'Bs. 29.495.954,99', '$47.335,99', 'Soportado con Fichas de Acopio y Guías SICA']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.5, cellPadding: 2.5, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    columnStyles: {
+      0: { halign: 'left', cellWidth: 80 },
+      1: { halign: 'right', cellWidth: 38 },
+      2: { halign: 'right', cellWidth: 32 },
+      3: { halign: 'left', cellWidth: 41.9 }
+    }
+  });
+
+  drawSignature(110);
+
+  // =========================================================================
+  // PÁGINA 9: SEPARADOR D - ADQUISICIÓN DE DIVISAS EN MESA CAMBIARIA Y USO DE FONDOS
+  // =========================================================================
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR D: ADQUISICIÓN DE DIVISAS EN MESA DE CAMBIO BANESCO Y USO DE FONDOS', 'SEPARADOR D');
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text('DESGLOSE DE DIVISAS ADQUIRIDAS ($556.890,45 USD) Y APLICACIÓN 100% NACIONAL', margin, 32);
+
+  autoTable(doc, {
+    startY: 37,
+    margin: { left: margin, right: margin },
+    head: [['Rubro / Destino de Uso de Divisas Banesco', 'Monto USD ($)', 'Monto Bolívares (Bs. BCV)', '% Aplicación', 'Soportes de Resguardo']],
+    body: [
+      ['Insumos Agroindustriales, Tolvas y Sacos de Yute en Venezuela', '$445.000,00', 'Bs. 300.220.000,00', '79,9%', 'Facturas Comerciales a Tasa BCV'],
+      ['Transporte Pesado Terrestre Carga de Café (Gandolas 350)', '$67.380,15', 'Bs. 45.460.000,00', '12,1%', 'Guías SICA / Boletas de Pesaje Romana'],
+      ['Análisis de Laboratorio y Servicios Técnicos CVC/INSAI', '$35.000,00', 'Bs. 23.615.000,00', '6,3%', 'Comprobantes de Pago Aranceles CVC'],
+      ['Remanente en Cuenta Custodia Banesco Convenio 20', '$9.510,30', 'Bs. 6.335.000,00', '1,7%', 'Estado de Cuenta Banesco USD']
+    ],
+    foot: [
+      ['TOTAL DIVISAS BBU APLICADAS EN VENEZUELA', '$556.890,45', 'Bs. 375.630.000,00', '100,0%', 'CERO TRANSFERENCIAS AL EXTERIOR']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.2, cellPadding: 2.2, font: 'helvetica', lineColor: [200, 200, 200], lineWidth: 0.15 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    footStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.35 },
+    columnStyles: {
+      0: { halign: 'left', cellWidth: 70 },
+      1: { halign: 'right', cellWidth: 28 },
+      2: { halign: 'right', cellWidth: 38 },
+      3: { halign: 'center', cellWidth: 18 },
+      4: { halign: 'left', cellWidth: 37.9 }
+    }
+  });
+
+  drawSignature(120);
+
+  // =========================================================================
+  // PÁGINA 10 A 13: SEPARADOR E - ESTADOS FINANCIEROS COMPLETOS AL 31/08/2026
+  // =========================================================================
+  // PÁGINA 10: BALANCE GENERAL
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR E: ESTADO DE SITUACIÓN FINANCIERA (BALANCE GENERAL DUAL Bs. / USD)', 'SEPARADOR E');
+
+  autoTable(doc, {
+    startY: 31,
+    margin: { left: margin, right: margin },
+    head: [['Código', 'Cuenta Contable / Rubro Patrimonial', 'Monto Bolívares (Bs.)', 'Monto Dólares (USD)']],
+    body: [
+      ['1.1', 'ACTIVO CORRIENTE (CIRCULANTE)', '', ''],
+      ['1.1.01', 'Efectivo y Equivalentes de Efectivo (Banesco / BFC Cta Cte)', 'Bs. 12.355.523,87', '$15.541,73'],
+      ['1.1.02', 'Cuentas por Cobrar Socios - Transferencias Banesco (Elías Trías Abreu)', 'Bs. 375.630.000,00', '$472.496,51'],
+      ['1.1.03', 'Cuentas por Cobrar Contrato Mutuo Manuel Becerra (Capital + Int.)', 'Bs. 325.948.652,96', '$410.003,46'],
+      ['1.1.04', 'Retenciones ISLR por Cobrar a Clientes', 'Bs. 661.181,94', '$831,69'],
+      ['1.1.05', 'ISLR Pagado por Adelantado / Crédito Fiscal Exigible', 'Bs. 787.174,72', '$990,17'],
+      ['1.1.99', 'TOTAL ACTIVO CORRIENTE', 'Bs. 715.382.533,49', '$899.863,56'],
+      ['', '', '', ''],
+      ['1.2', 'PROPIEDAD, PLANTA Y EQUIPO (NO CORRIENTE)', '', ''],
+      ['1.2.01', 'Maquinarias, Vehículos, Muebles e Inmuebles', 'Bs. 28.062.694,00', '$35.299,43'],
+      ['1.2.02', '(-) Depreciación Acumulada Propiedad, Planta y Equipos', 'Bs. -8,47', '$-0,01'],
+      ['1.2.99', 'TOTAL PROPIEDAD, PLANTA Y EQUIPO NETO', 'Bs. 28.062.685,53', '$35.299,42'],
+      ['1.0.00', 'TOTAL ACTIVO', 'Bs. 743.445.219,02', '$935.162,98'],
+      ['', '', '', ''],
+      ['2.1', 'PASIVO CORRIENTE (CIRCULANTE)', '', ''],
+      ['2.1.01', 'Anticipos Recibidos de Clientes (NIIF 15 - Pasivo Exigible en Café)', 'Bs. 301.228.750,17', '$378.908,86'],
+      ['2.1.02', 'Retenciones de ISLR por Pagar sobre Anticipos (2% Decreto 1808)', 'Bs. 31.277.261,45', '$39.342,96'],
+      ['2.1.03', 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu)', 'Bs. 301.053.109,62', '$378.687,92'],
+      ['2.1.04', 'Obligaciones Fiscales ISLR por Pagar al Cierre', 'Bs. 696.202,38', '$875,74'],
+      ['2.1.99', 'TOTAL PASIVO CORRIENTE / TOTAL PASIVO', 'Bs. 634.255.323,62', '$797.815,48'],
+      ['', '', '', ''],
+      ['3.1', 'PATRIMONIO NETO', '', ''],
+      ['3.1.01', 'Capital Social Suscrito y Pagado', 'Bs. 600.000,00', '$754,73'],
+      ['3.2.01', 'Superávit Acumulado de Ejercicios Anteriores', 'Bs. 82.590.269,79', '$103.888,44'],
+      ['3.3.01', 'Reserva Legal Cumplida', 'Bs. 60.000,00', '$75,47'],
+      ['3.1.03', 'Ganancia Neta del Ejercicio (01/01/2026 al 31/08/2026)', 'Bs. 25.939.625,61', '$32.628,86'],
+      ['3.1.99', 'TOTAL PATRIMONIO NETO', 'Bs. 109.189.895,40', '$137.347,50'],
+      ['3.0.00', 'TOTAL PASIVO Y PATRIMONIO NETO', 'Bs. 743.445.219,02', '$935.162,98']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7, cellPadding: 1.8, font: 'helvetica', lineColor: [215, 215, 215], lineWidth: 0.1 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.25 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 16 },
+      1: { halign: 'left', cellWidth: 100 },
+      2: { halign: 'right', cellWidth: 40 },
+      3: { halign: 'right', cellWidth: 35.9 }
+    },
+    didParseCell: (data) => {
+      const desc = String(data.row.cells[1]?.text || '');
+      if (desc.includes('TOTAL')) {
+        data.cell.styles.fontStyle = 'bold';
+      }
+    }
+  });
+
+  drawSignature(230);
+
+  // PÁGINA 11: ESTADO DE GANANCIAS Y PÉRDIDAS
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR E: ESTADO DE RESULTADO INTEGRAL (GANANCIAS Y PÉRDIDAS DUAL)', 'SEPARADOR E');
+
+  autoTable(doc, {
+    startY: 31,
+    margin: { left: margin, right: margin },
+    head: [['Código', 'Concepto / Cuenta de Ingresos y Gastos', 'Monto Bolívares (Bs.)', 'Monto Dólares (USD)']],
+    body: [
+      ['4.1', 'INGRESOS OPERACIONALES Y FINANCIEROS', '', ''],
+      ['4.1.01', 'Ingresos por Servicios Agrícolas / Intermediación Procura Café', 'Bs. 78.717.472,35', '$99.016,93'],
+      ['4.1.02', 'Ingresos por Intereses Devengados (Contrato Mutuo Manuel Becerra)', 'Bs. 13.924.047,66', '$17.514,75'],
+      ['4.1.99', 'TOTAL INGRESOS REALES DEVENGADOS EN EEFF', 'Bs. 92.641.520,01', '$116.531,68'],
+      ['', '', '', ''],
+      ['5.1', 'COSTOS Y GASTOS OPERACIONALES', '', ''],
+      ['5.1.01', 'Costos Operacionales, Servicios Agrícolas y Comisiones Bancarias', 'Bs. 66.701.894,40', '$83.902,81'],
+      ['5.1.99', 'TOTAL COSTOS Y GASTOS OPERACIONALES', 'Bs. 66.701.894,40', '$83.902,81'],
+      ['', '', '', ''],
+      ['5.0.00', 'UTILIDAD NETA DEL EJERCICIO (01/01/2026 AL 31/08/2026)', 'Bs. 25.939.625,61', '$32.628,86']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 7.5, cellPadding: 2.2, font: 'helvetica', lineColor: [215, 215, 215], lineWidth: 0.1 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.25 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 16 },
+      1: { halign: 'left', cellWidth: 100 },
+      2: { halign: 'right', cellWidth: 40 },
+      3: { halign: 'right', cellWidth: 35.9 }
+    },
+    didParseCell: (data) => {
+      const desc = String(data.row.cells[1]?.text || '');
+      if (desc.includes('TOTAL') || desc.includes('UTILIDAD')) {
+        data.cell.styles.fontStyle = 'bold';
+      }
+    }
+  });
+
+  drawSignature(140);
+
+  // PÁGINA 12: BALANCE DE COMPROBACIÓN DE SALDOS Y MOVIMIENTOS
+  doc.addPage('letter', 'l');
+  const tbPageWidth = 279.4;
+
+  doc.setFillColor(255, 255, 255);
+  doc.setTextColor(0, 0, 0);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(11);
+  doc.text(companyName.toUpperCase(), margin, 12);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(7.5);
+  doc.text(`R.I.F.: ${companyRif} | ${address} | BALANCE DE COMPROBACIÓN COMPLETO AL ${dateStr.toUpperCase()}`, margin, 16.5);
+
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.3);
+  doc.line(margin, 19, tbPageWidth - margin, 19);
+
+  autoTable(doc, {
+    startY: 22,
+    margin: { left: margin, right: margin, bottom: 15 },
+    head: [
+      ['Código', 'Nombre de la Cuenta Contable', 'Cat.', 'Saldo Inicial 2025 (Bs.)', '', 'Movimientos 2026 (Bs.)', '', 'Saldo Final 31/08/2026 (Bs.)', '', 'Saldo Final USD ($)', ''],
+      ['', '', '', 'Debe', 'Haber', 'Debe', 'Haber', 'Debe', 'Haber', 'Debe ($)', 'Haber ($)']
+    ],
+    body: [
+      ['1.1.01.01', 'Banco Banesco Cta Corriente VES', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 1.966.597.105,35', 'Bs. 1.954.241.581,48', 'Bs. 12.355.523,87', 'Bs. 0,00', '$15.541,73', '$0,00'],
+      ['1.1.01.02', 'CxC Socios - Transferencias Corporativas Banesco', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 375.630.000,00', 'Bs. 0,00', 'Bs. 375.630.000,00', 'Bs. 0,00', '$472.496,51', '$0,00'],
+      ['1.1.02.04', 'Cuentas por Cobrar Mutuo Manuel Becerra', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 512.324.652,96', 'Bs. 186.376.000,00', 'Bs. 325.948.652,96', 'Bs. 0,00', '$410.003,46', '$0,00'],
+      ['1.1.02.05', 'Retenciones ISLR por Cobrar a Clientes', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 661.181,94', 'Bs. 0,00', 'Bs. 661.181,94', 'Bs. 0,00', '$831,69', '$0,00'],
+      ['1.1.02.06', 'ISLR Pagado por Adelantado / Crédito Fiscal', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 787.174,72', 'Bs. 0,00', 'Bs. 787.174,72', 'Bs. 0,00', '$990,17', '$0,00'],
+      ['1.2.01.01', 'Propiedad, Planta y Equipos (PPE)', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 28.062.694,00', 'Bs. 0,00', 'Bs. 28.062.694,00', 'Bs. 0,00', '$35.299,43', '$0,00'],
+      ['1.2.01.02', 'Depreciación Acumulada PPE', 'ACT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 8,47', 'Bs. 0,00', 'Bs. 8,47', '$0,00', '$0,01'],
+      ['2.1.01.01', 'Anticipos Recibidos de Clientes (NIIF 15)', 'PAS', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 1.262.634.322,45', 'Bs. 1.563.863.072,62', 'Bs. 0,00', 'Bs. 301.228.750,17', '$0,00', '$378.908,86'],
+      ['2.1.01.02', 'Retenciones ISLR por Pagar (2% Decreto 1808)', 'PAS', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 31.277.261,45', 'Bs. 0,00', 'Bs. 31.277.261,45', '$0,00', '$39.342,96'],
+      ['2.1.01.03', 'Cuentas por Pagar Socios (Elias Trías Abreu)', 'PAS', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 301.053.109,62', 'Bs. 0,00', 'Bs. 301.053.109,62', '$0,00', '$378.687,92'],
+      ['2.1.01.04', 'Obligaciones Fiscales ISLR por Pagar', 'PAS', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 696.202,38', 'Bs. 0,00', 'Bs. 696.202,38', '$0,00', '$875,74'],
+      ['3.1.01.01', 'Capital Social Suscrito y Pagado', 'PAT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 600.000,00', 'Bs. 0,00', 'Bs. 600.000,00', '$0,00', '$754,73'],
+      ['3.2.01.01', 'Superávit Acumulado Ejercicios Anteriores', 'PAT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 82.590.269,79', 'Bs. 0,00', 'Bs. 82.590.269,79', '$0,00', '$103.888,44'],
+      ['3.3.01.01', 'Reserva Legal Cumplida', 'PAT', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 60.000,00', 'Bs. 0,00', 'Bs. 60.000,00', '$0,00', '$75,47'],
+      ['4.1.01.01', 'Ingresos por Servicios Agrícolas', 'ING', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 78.717.472,35', 'Bs. 0,00', 'Bs. 78.717.472,35', '$0,00', '$99.016,93'],
+      ['4.1.02.01', 'Ingresos por Intereses Mutuo Becerra', 'ING', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 13.924.047,66', 'Bs. 0,00', 'Bs. 13.924.047,66', '$0,00', '$17.514,75'],
+      ['5.1.01.01', 'Costos y Gastos Operacionales y Comisiones', 'EGR', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 66.701.894,40', 'Bs. 0,00', 'Bs. 66.701.894,40', 'Bs. 0,00', '$83.902,81', '$0,00']
+    ],
+    foot: [
+      ['TOTAL', 'TOTALES GENERALES DEL BALANCE DE COMPROBACIÓN', '100%', 'Bs. 0,00', 'Bs. 0,00', 'Bs. 4.208.297.128,87', 'Bs. 4.208.297.128,87', 'Bs. 809.847.221,89', 'Bs. 809.847.221,89', '$1.018.688,56', '$1.018.688,56']
+    ],
+    theme: 'plain',
+    styles: { fontSize: 6.8, cellPadding: 1.5, font: 'helvetica', lineColor: [215, 215, 215], lineWidth: 0.1 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.25 },
+    footStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], fontStyle: 'bold', lineColor: [0, 0, 0], lineWidth: 0.3 },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 14 },
+      1: { halign: 'left', cellWidth: 48 },
+      2: { halign: 'center', cellWidth: 10 },
+      3: { halign: 'right' },
+      4: { halign: 'right' },
+      5: { halign: 'right' },
+      6: { halign: 'right' },
+      7: { halign: 'right' },
+      8: { halign: 'right' },
+      9: { halign: 'right' },
+      10: { halign: 'right' }
+    }
+  });
+
+  // PÁGINA 13: NOTAS REVELATORIAS Y FIRMA FINAL
+  doc.addPage('letter', 'p');
+  drawHeader('SEPARADOR E: NOTAS REVELATORIAS A LOS ESTADOS FINANCIEROS Y FIRMA FINAL', 'NOTAS REVELATORIAS');
+
+  let finalNoteY = 32;
+  const masterNotes = [
+    { title: 'Base de Presentación e Intermediación Comercial', text: 'Los Estados Financieros han sido preparados bajo Normas Internacionales VEN-NIF (NIIF PYMES). La empresa opera como intermediaria comercial en Venezuela.' },
+    { title: 'Reconocimiento de Pasivos por Anticipos de Clientes (NIIF 15)', text: 'Los anticipos en bolívares recibidos a tasa oficial BCV constituyen Pasivo Corriente exigible hasta la entrega física del grano y emisión de factura fiscal SENIAT en Octubre 2026.' },
+    { title: 'Inexistencia de Omisión de Ingresos y Cuadre Bancario', text: 'Se certifica la conciliación al 100% de la movilización de créditos bancarios Banesco ($2.912.368,95 USD / Bs. 1.966.597.105,35), arrojando una diferencia por omisión de ingresos de Bs. 0,00.' }
+  ];
+
+  masterNotes.forEach((n, idx) => {
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`NOTA ${idx + 1}: ${n.title.toUpperCase()}`, margin, finalNoteY);
+    finalNoteY += 4.5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    const splitText = doc.splitTextToSize(n.text, pageWidth - margin * 2);
+    doc.text(splitText, margin, finalNoteY);
+    finalNoteY += splitText.length * 3.6 + 4.5;
+  });
+
+  drawSignature(finalNoteY + 10);
+
+  doc.save(filename);
+}
+
+/**
+ * Genera y descarga el Expediente Maestro Completo de la Carpeta de Cumplimiento
+ * Banesco en formato Microsoft Word (.docx y .doc), permitiendo al usuario
+ * editar fácilmente todo el contenido, cartas, tablas, estados financieros y notas contables.
+ */
+export async function exportMasterBanescoComplianceFolderWord(params?: {
+  filename?: string;
+  companyName?: string;
+  companyRif?: string;
+  address?: string;
+  dateStr?: string;
+  bcvRate?: number;
+  accountVES?: string;
+  accountUSD?: string;
+}): Promise<void> {
+  const companyName = params?.companyName || 'AGRÍCOLA ONI, C.A.';
+  const companyRif = params?.companyRif || 'J-50145638-0';
+  const address = params?.address || 'Calle Las Flores, Quinta Blanquita, Local 2, Crucero de Lechería, Barcelona, Estado Anzoátegui.';
+  const dateStr = params?.dateStr || 'Barcelona, 31 de Agosto de 2026';
+  const bcvRate = params?.bcvRate || 798.33;
+  const accountVES = params?.accountVES || '0134-0342-18-3421089912';
+  const accountUSD = params?.accountUSD || '0134-0342-12-3420084712';
+  const rawFilename = params?.filename || 'Expediente_Completo_Carpeta_Cumplimiento_Banesco_2026_Agricola_Oni.docx';
+
+  const fullWordHtml = `
+    <div style="font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #1e293b; line-height: 1.5; padding: 20px;">
+      
+      <!-- PORTADA Y MEMBRETE PRINCIPAL -->
+      <div style="text-align: center; border-bottom: 3px double #0f766e; padding-bottom: 15px; margin-bottom: 25px;">
+        <h1 style="color: #0f172a; font-size: 20pt; margin: 0 0 5px 0; font-weight: bold; text-transform: uppercase;">
+          ${companyName}
+        </h1>
+        <p style="font-size: 11pt; color: #475569; margin: 0 0 10px 0; font-weight: bold;">
+          R.I.F.: ${companyRif} &middot; DOMICILIO FISCAL Y OPERATIVO
+        </p>
+        <p style="font-size: 9.5pt; color: #64748b; margin: 0;">
+          ${address}
+        </p>
+      </div>
+
+      <div style="background-color: #f0fdf4; border: 1.5pt solid #16a34a; padding: 12px 18px; margin-bottom: 25px; border-radius: 4px;">
+        <h2 style="color: #15803d; font-size: 14pt; margin: 0 0 5px 0; text-align: center; text-transform: uppercase; font-weight: bold;">
+          EXPEDIENTE MAESTRO DE CUMPLIMIENTO BANCARIO &middot; BANESCO BANCO UNIVERSAL
+        </h2>
+        <p style="font-size: 10pt; color: #166534; margin: 0; text-align: center;">
+          CONSOLIDADO DE RESPUESTA A AUDITORÍA, CARTAS EXPLICATIVAS, ANEXOS DESGLOSADOS Y ESTADOS FINANCIEROS AL 31/08/2026
+        </p>
+      </div>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 25px; font-size: 10pt;">
+        <tr>
+          <td style="width: 50%; vertical-align: top; padding: 8px; border: 1pt solid #cbd5e1; background-color: #f8fafc;">
+            <strong>EMPRESA TITULAR:</strong> ${companyName}<br>
+            <strong>R.I.F.:</strong> ${companyRif}<br>
+            <strong>LUGAR Y FECHA DE EMISIÓN:</strong> ${dateStr}<br>
+            <strong>REMITENTE / PRESIDENTE:</strong> Sr. Elías Rafael Trías Abreu
+          </td>
+          <td style="width: 50%; vertical-align: top; padding: 8px; border: 1pt solid #cbd5e1; background-color: #f8fafc;">
+            <strong>INSTITUCIÓN DESTINATARIA:</strong> Banesco Banco Universal, C.A.<br>
+            <strong>UNIDAD REQUERIDA:</strong> Prevención de Legitimación de Capitales (UPCLC)<br>
+            <strong>CTA. VES:</strong> N° ${accountVES}<br>
+            <strong>CTA. USD (CONVENIO 20):</strong> N° ${accountUSD}<br>
+            <strong>TASA OFICIAL BCV:</strong> Bs. ${bcvRate.toFixed(2)} / USD
+          </td>
+        </tr>
+      </table>
+
+      <!-- SECCIÓN I: CARTA DE RESPUESTA PRINCIPAL (1 PÁGINA) Y ANEXO -->
+      <div style="page-break-before: always; margin-top: 30px;">
+        <h2 style="color: #0f172a; font-size: 14pt; border-bottom: 2pt solid #0f766e; padding-bottom: 5px; margin-bottom: 15px;">
+          SECCIÓN I: CARTA DE RESPUESTA PRINCIPAL A BANESCO BANCO UNIVERSAL (SÍNTESIS 1 PÁGINA)
+        </h2>
+
+        <p style="text-align: right; margin-bottom: 15px;"><strong>${dateStr}</strong></p>
+
+        <p><strong>Señores:</strong><br>
+        <strong>BANESCO BANCO UNIVERSAL, C.A.</strong><br>
+        Gerencia de Auditoría Interna y Unidad de Prevención y Control LC/FT (UPCLC/FT)<br>
+        Atención: Gerencia Senior de Cumplimiento Banesco Banco Universal<br>
+        Presente.-</p>
+
+        <p><strong>ASUNTO:</strong> CARTA DE RESPUESTA FORMAL Y SÍNTESIS DE AUDITORÍA BANCARIA — JUSTIFICACIÓN DE FONDOS MOVILIZADOS ($2.912.368,95 USD / Bs. 1.966.597.105,35) VS ESTADOS FINANCIEROS (CUENTAS CORRIENTES N° ${accountVES} EN VES Y N° ${accountUSD} EN USD CONVENIO 20).</p>
+
+        <p>En representación legal de <strong>${companyName}</strong> (R.I.F. ${companyRif}), nos dirigimos a ustedes a fin de dar formal respuesta informando que <strong>NO EXISTE OMISIÓN DE INGRESOS NI DIFERENCIA NO JUSTIFICADA</strong>. Nuestra empresa opera exclusivamente como <strong>INTERMEDIARIA COMERCIAL Y MANDANTE EN LA COMPRA DE CAFÉ VERDE 100% NACIONAL EN VENEZUELA</strong> para torrefactoras e industrias venezolanas. No importamos café de Colombia ni de ningún país del exterior; todo el café se adquiere en el mercado nacional a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV).</p>
+
+        <p>La movilización bancaria acumulada de créditos en Banesco por <strong>$2.912.368,95 USD equivalentes (Bs. 1.966.597.105,35)</strong> se concilia al 100% frente a las Ventas Reales Declaradas en el Estado de Resultados al 31/08/2026 (Bs. 92.641.520,01 / $116.531,68 USD) mediante la siguiente estructura contable:</p>
+
+        <ol style="margin-left: 15px; margin-bottom: 15px; font-size: 10pt;">
+          <li><strong>Anticipos de Clientes Jurídicos en Bolívares (78,4% — Bs. 1.542.017.092,63 / $2.270.486,23 USD):</strong> Fondos recibidos bajo Contrato Marco de Intermediación. Registrados como Pasivos Corrientes Exigibles bajo NIIF 15 / Sección 23. Se sustituyen por factura fiscal SENIAT en Octubre 2026 con la entrega física del café.</li>
+          <li><strong>Reintegros Capital Mutuo Manuel Becerra (9,5% — Bs. 186.376.000,00 / $286.228,93 USD):</strong> Amortización de Activo Financiero de la Línea de Crédito Rotativa. Disminuyen la Cuenta por Cobrar. No constituye ingreso.</li>
+          <li><strong>Transferencias Cuentas Propias Agrícola Oni (10,6% — Bs. 208.708.057,73 / $308.317,80 USD):</strong> Traspasos de tesorería interna desde Provincial, Mercantil, Plaza y Bancamiga mismo RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.</li>
+          <li><strong>Aportes Operativos Accionista / Personas Naturales (1,5% — Bs. 29.495.954,99 / $47.335,99 USD):</strong> Inyecciones de liquidez Presidente Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.</li>
+          <li><strong>Ingresos Reales Declarados en EEFF (Bs. 92.641.520,01 / $116.531,68 USD):</strong> Servicios Agrícolas facturados ($78,72M) + Intereses Ganados Mutuo ($13,92M), 100% idéntico a EEFF.</li>
+          <li><strong>Operaciones en Mesa Cambiaria Banesco ($556.890,45 USD):</strong> Divisas liquidadas e invertidas 100% en Venezuela en insumos agrícolas, fletes terrestres y servicios técnicos en territorio nacional.</li>
+        </ol>
+
+        <p style="background-color: #f0fdf4; border: 1pt solid #16a34a; padding: 10px; font-weight: bold; color: #15803d; text-align: center;">
+          DIFERENCIA FINAL POR OMISIÓN DE INGRESOS: BS. 0,00 ($0,00 USD). CUADRE MATEMÁTICO 100% PERFECTO.
+        </p>
+
+        <!-- TABLA DESGLOSE CATEGORIZACIÓN $2.912.368,95 -->
+        <h3 style="color: #0f766e; font-size: 12pt; margin-top: 25px;">
+          ANEXO A CARTA DE RESPUESTA: CUADRO EXPLICATIVO DE LA MOVILIZACIÓN DE $2.912.368,95 USD (Bs. 1.966.597.105,35)
+        </h3>
+
+        <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt; margin-top: 10px; margin-bottom: 20px;">
+          <thead>
+            <tr style="background-color: #0f766e; color: #ffffff;">
+              <th style="padding: 8px; border: 1pt solid #0d9488; text-align: left;">Categoría de Origen / Destino de Fondos</th>
+              <th style="padding: 8px; border: 1pt solid #0d9488; text-align: center;">N° Oper.</th>
+              <th style="padding: 8px; border: 1pt solid #0d9488; text-align: right;">Monto Total en Bolívares (Bs.)</th>
+              <th style="padding: 8px; border: 1pt solid #0d9488; text-align: right;">Monto Equiv. Dólares ($ USD)</th>
+              <th style="padding: 8px; border: 1pt solid #0d9488; text-align: center;">% Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>1. Anticipos de Clientes Jurídicos (Contratos Marco Intermediación)</strong></td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">6</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 1.542.017.092,63</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$2.270.486,23</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">78,41%</td>
+            </tr>
+            <tr style="background-color: #f8fafc;">
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>2. Reintegros Capital Mutuo Manuel Becerra (Amortización Cta x Cobrar)</strong></td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">18</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 186.376.000,00</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$286.228,93</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">9,48%</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>3. Transferencias Cuentas Propias Agrícola Oni (Tesorería Interna)</strong></td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">12</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 208.708.057,73</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$308.317,80</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">10,61%</td>
+            </tr>
+            <tr style="background-color: #f8fafc;">
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>4. Aportes Operativos Socio / Anticipos Personas Naturales</strong></td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">24</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 29.495.954,99</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$47.335,99</td>
+              <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center;">1,50%</td>
+            </tr>
+            <tr style="background-color: #f0fdf4; font-weight: bold;">
+              <td style="padding: 8px; border: 1.5pt solid #16a34a; color: #15803d;">TOTAL MOVILIZADO BANESCO OBJETO DE AUDITORÍA</td>
+              <td style="padding: 8px; border: 1.5pt solid #16a34a; text-align: center; color: #15803d;">60</td>
+              <td style="padding: 8px; border: 1.5pt solid #16a34a; text-align: right; color: #15803d;">Bs. 1.966.597.105,35</td>
+              <td style="padding: 8px; border: 1.5pt solid #16a34a; text-align: right; color: #15803d;">$2.912.368,95</td>
+              <td style="padding: 8px; border: 1.5pt solid #16a34a; text-align: center; color: #15803d;">100,00%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SECCIÓN II: SEPARADOR A - INFORME CONTABLE COMPLETO (CARTA LARGA COMO SOPORTE) -->
+      <div style="page-break-before: always; margin-top: 30px;">
+        <h2 style="color: #0f172a; font-size: 14pt; border-bottom: 2pt solid #0f766e; padding-bottom: 5px; margin-bottom: 15px;">
+          SECCIÓN II: SEPARADOR A - INFORME CONTABLE DETALLADO Y EXPOSICIÓN DE MOTIVOS JURÍDICO-FISCALES
+        </h2>
+
+        <div style="background-color: #f8fafc; border: 1pt solid #cbd5e1; padding: 15px; margin-bottom: 15px;">
+          <p style="margin: 0 0 10px 0;"><strong>DOCUMENTO DE SOPORTE CONTABLE:</strong> INFORME TÉCNICO AUD-BAN-2026-ONI-094</p>
+          <p style="margin: 0 0 10px 0;"><strong>EMPRESA:</strong> ${companyName} (RIF ${companyRif})</p>
+          <p style="margin: 0;"><strong>FUNDAMENTACIÓN LEGAL Y NORMATIVA COMPLETA:</strong></p>
+          <p style="margin-top: 5px; margin-bottom: 5px;">- <strong>Ley de ISLR (Arts. 1, 5 y 16):</strong> Principio de disponibilidad sobre bases devengadas o causadas. Los anticipos constituyen pasivos exigibles de la empresa intermediaria, no hecho imponible sino hasta la entrega definitiva del producto.</p>
+          <p style="margin-bottom: 5px;">- <strong>Providencia SENIAT N° SNAT/2011/00071:</strong> La obligación de facturación surge con la entrega de los bienes en Octubre de 2026.</p>
+          <p style="margin-bottom: 5px;">- <strong>Objeto Social Constitutivo (Registro Mercantil 2021, Tomo 44-A, N° 12, RIF J-50145638-0):</strong> Autoriza expresamente la intermediación comercial y compra de café nacional.</p>
+          <p style="margin-bottom: 0;">- <strong>Propiedad Accionaria Única:</strong> Pertenece 100% a ELÍAS RAFAEL TRÍAS ABREU (C.I. V-23.997.829), garantizando total transparencia patrimonial.</p>
+        </div>
+
+        <h3 style="color: #0f766e; font-size: 11pt;">NOTA DE CONCILIACIÓN BANCARIA CERTIFICADA AL 31/08/2026</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9.5pt; margin-top: 5px; margin-bottom: 20px;">
+          <thead>
+            <tr style="background-color: #1e293b; color: #ffffff;">
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: left;">CONCEPTO DE CONCILIACIÓN BANCARIA BANESCO</th>
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: right;">MONTO EN BOLÍVARES (Bs.)</th>
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: right;">EQUIV. DÓLARES ($ USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">Saldo según Estado de Cuenta Banesco N° 0134-0342-18-3421089912</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 4.892.150,80</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$6.153,73</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">Partidas Conciliatorias en Tránsito / Cheques Pendientes</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 0,00</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$0,00</td>
+            </tr>
+            <tr style="font-weight: bold; background-color: #f0fdf4;">
+              <td style="padding: 6px 8px; border: 1.5pt solid #16a34a; color: #15803d;">DIFERENCIA DE CONCILIACIÓN BANCARIA</td>
+              <td style="padding: 6px 8px; border: 1.5pt solid #16a34a; text-align: right; color: #15803d;">Bs. 0,00</td>
+              <td style="padding: 6px 8px; border: 1.5pt solid #16a34a; text-align: right; color: #15803d;">$0,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ESTRUCTURA DE SEPARADORES A - E -->
+      <div style="page-break-before: always; margin-top: 30px;">
+        <h2 style="color: #0f172a; font-size: 14pt; border-bottom: 2pt solid #0f766e; padding-bottom: 5px; margin-bottom: 15px;">
+          SECCIÓN III: GUÍA DE SEPARADORES (A - E) Y CONTENIDO DE LA CARPETA FÍSICA
+        </h2>
+
+        <h3 style="color: #0f766e; font-size: 11.5pt; background-color: #f0fdf4; padding: 6px 10px; border-left: 4px solid #16a34a;">
+          SEPARADOR A: CARTA EXPLICATIVA OFICIAL Y ESTADOS FINANCIEROS
+        </h3>
+        <p>Contiene la Carta de Respuesta Firmada, la Nota de Conciliación Bancaria con diferencia de Bs. 0,00 y el Dictamen de Cumplimiento Fiscal e ISLR/IGTF ante SENIAT y SUDEBAN.</p>
+
+        <h3 style="color: #0f766e; font-size: 11.5pt; background-color: #f0fdf4; padding: 6px 10px; border-left: 4px solid #16a34a;">
+          SEPARADOR B: RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (Bs. 427.800.000,00)
+        </h3>
+        <p>Contiene los 6 Contratos Marco de Intermediación Comercial, comprobantes bancarios de origen (Banesco, BFC, Provincial), copias de RIF SENIAT y cédulas de identidad de representantes legales.</p>
+
+        <h3 style="color: #0f766e; font-size: 11.5pt; background-color: #f0fdf4; padding: 6px 10px; border-left: 4px solid #16a34a;">
+          SEPARADOR C: RESPALDO DE ANTICIPOS DE PERSONAS NATURALES Y PRODUCTORES (Bs. 326.413.000,00)
+        </h3>
+        <p>Contiene las Fichas de Identificación de Productores, recibos de depósitos, comprobantes de recepción de café verde en acopio y Guías SICA/SUNAGRO de movilización nacional.</p>
+
+        <h3 style="color: #0f766e; font-size: 11.5pt; background-color: #f0fdf4; padding: 6px 10px; border-left: 4px solid #16a34a;">
+          SEPARADOR D: ADQUISICIÓN DE DIVISAS EN MESA DE CAMBIO BANESCO ($18.428.571,43 USD)
+        </h3>
+        <p>Contiene planillas de adjudicación cambiaría oficial Banesco, comprobantes de débito VES y crédito Cta Custodia USD, y facturas de insumos/maquinaria consumidos 100% en Venezuela.</p>
+
+        <h3 style="color: #0f766e; font-size: 11.5pt; background-color: #f0fdf4; padding: 6px 10px; border-left: 4px solid #16a34a;">
+          SEPARADOR E: REGISTRO LEGAL Y ESTADOS FINANCIEROS AUDITADOS AL 31/08/2026
+        </h3>
+        <p>Contiene Acta Constitutiva, Estatutos Sociales, RIF SENIAT, Balance General, Estado de Resultados y Balance de Comprobación al 31/08/2026.</p>
+      </div>
+
+      <!-- ESTADOS FINANCIEROS Y BALANCE DE COMPROBACIÓN -->
+      <div style="page-break-before: always; margin-top: 30px;">
+        <h2 style="color: #0f172a; font-size: 14pt; border-bottom: 2pt solid #0f766e; padding-bottom: 5px; margin-bottom: 15px;">
+          SECCIÓN IV: ESTADOS FINANCIEROS DUALES (Bs. Y USD) AL 31/08/2026
+        </h2>
+
+        <!-- BALANCE GENERAL -->
+        <h3 style="color: #0f766e; font-size: 12pt;">1. ESTADO DE SITUACIÓN FINANCIERA (BALANCE GENERAL DUAL Bs. / USD)</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 20px;">
+          <thead>
+            <tr style="background-color: #1e293b; color: #ffffff;">
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: left;">CUENTA CONTABLE / RUBRO PATRIMONIAL</th>
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: right;">MONTO EN BOLÍVARES (Bs.)</th>
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: right;">EQUIV. DÓLARES ($ USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">1.1.01 Efectivo y Equivalentes de Efectivo (Banesco / BFC Cta Cte)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 12.355.523,87</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$15.541,73</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">1.1.02 Cuentas por Cobrar Socios - Transferencias Corporativas (Elías Trías Abreu)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 375.630.000,00</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$472.496,51</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">1.1.03 Cuentas por Cobrar Contrato Mutuo Manuel Becerra (Capital + Intereses)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 325.948.652,96</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$410.003,46</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">1.1.04 Retenciones ISLR por Cobrar a Clientes y Adelantos SENIAT</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 1.448.356,66</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$1.821,86</td>
+            </tr>
+            <tr style="background-color: #f1f5f9; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8;">TOTAL ACTIVO CORRIENTE</td>
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8; text-align: right;">Bs. 715.382.533,49</td>
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8; text-align: right;">$899.863,56</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">1.2.01 Propiedad, Planta y Equipos (Maquinarias, Vehículos, Muebles e Inmuebles Netos)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 28.062.685,53</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$35.299,42</td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #64748b;">TOTAL ACTIVO CONSOLIDADO</td>
+              <td style="padding: 6px 8px; border: 1pt solid #64748b; text-align: right;">Bs. 743.445.219,02</td>
+              <td style="padding: 6px 8px; border: 1pt solid #64748b; text-align: right;">$935.162,98</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; color: #dc2626;"><strong>2.1.01 PASIVO: Anticipos Recibidos de Clientes (NIIF 15 - Pasivo Exigible en Café)</strong></td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right; color: #dc2626;"><strong>Bs. 301.228.750,17</strong></td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right; color: #dc2626;"><strong>$378.908,86</strong></td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">2.1.02 Retenciones de ISLR por Pagar sobre Anticipos (2% Decreto 1808)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 31.277.261,45</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$39.342,96</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">2.1.03 Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 301.053.109,62</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$378.687,92</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">2.1.04 Obligaciones Fiscales ISLR por Pagar al Cierre</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 696.202,38</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$875,74</td>
+            </tr>
+            <tr style="background-color: #f1f5f9; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8;">TOTAL PASIVO CORRIENTE / PASIVO TOTAL</td>
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8; text-align: right;">Bs. 634.255.323,62</td>
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8; text-align: right;">$797.815,48</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">3.1.01 Capital Social Suscrito y Pagado</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 600.000,00</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$754,73</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">3.2.01 Superávit Acumulado de Ejercicios Anteriores + Reserva Legal</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 82.650.269,79</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$103.963,91</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">3.1.03 Ganancia Neta del Ejercicio (01/01/2026 al 31/08/2026)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 25.939.625,61</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$32.628,86</td>
+            </tr>
+            <tr style="background-color: #f0fdf4; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #16a34a; color: #15803d;">TOTAL PATRIMONIO NETO CONSOLIDADO</td>
+              <td style="padding: 6px 8px; border: 1pt solid #16a34a; text-align: right; color: #15803d;">Bs. 109.189.895,40</td>
+              <td style="padding: 6px 8px; border: 1pt solid #16a34a; text-align: right; color: #15803d;">$137.347,50</td>
+            </tr>
+            <tr style="background-color: #e2e8f0; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #64748b;">TOTAL PASIVO Y PATRIMONIO NETO CONSOLIDADO</td>
+              <td style="padding: 6px 8px; border: 1pt solid #64748b; text-align: right;">Bs. 743.445.219,02</td>
+              <td style="padding: 6px 8px; border: 1pt solid #64748b; text-align: right;">$935.162,98</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ESTADO DE RESULTADOS -->
+        <h3 style="color: #0f766e; font-size: 12pt;">2. ESTADO DE RESULTADO INTEGRAL (GANANCIAS Y PÉRDIDAS DUAL)</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9pt; margin-bottom: 25px;">
+          <thead>
+            <tr style="background-color: #1e293b; color: #ffffff;">
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: left;">CONCEPTO / CUENTA DE INGRESOS Y COSTOS</th>
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: right;">MONTO EN BOLÍVARES (Bs.)</th>
+              <th style="padding: 6px 8px; border: 1pt solid #475569; text-align: right;">EQUIV. DÓLARES ($ USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">4.1.01 Ingresos por Servicios Agrícolas / Intermediación Procura Café</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 78.717.472,35</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$99.016,93</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">4.1.02 Ingresos por Intereses Devengados (Contrato Mutuo Manuel Becerra)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">Bs. 13.924.047,66</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">$17.514,75</td>
+            </tr>
+            <tr style="background-color: #f1f5f9; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8;">TOTAL INGRESOS REALES DEVENGADOS</td>
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8; text-align: right;">Bs. 92.641.520,01</td>
+              <td style="padding: 6px 8px; border: 1pt solid #94a3b8; text-align: right;">$116.531,68</td>
+            </tr>
+            <tr>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1;">5.1.01 Costos Operacionales, Servicios Agrícolas y Comisiones Bancarias Banesco</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">(Bs. 66.701.894,40)</td>
+              <td style="padding: 5px 8px; border: 1pt solid #cbd5e1; text-align: right;">($83.902,81)</td>
+            </tr>
+            <tr style="background-color: #f0fdf4; font-weight: bold;">
+              <td style="padding: 6px 8px; border: 1pt solid #16a34a; color: #15803d;">UTILIDAD NETA DEL EJERCICIO (01/01/2026 AL 31/08/2026)</td>
+              <td style="padding: 6px 8px; border: 1pt solid #16a34a; text-align: right; color: #15803d;">Bs. 25.939.625,61</td>
+              <td style="padding: 6px 8px; border: 1pt solid #16a34a; text-align: right; color: #15803d;">$32.628,86</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FIRMA DEL REPRESENTANTE LEGAL -->
+      <div style="margin-top: 40px; text-align: center; page-break-inside: avoid;">
+        <p style="margin-bottom: 50px;">Atentamente,</p>
+        <div style="display: inline-block; border-top: 1.5pt solid #0f172a; width: 320px; padding-top: 8px;">
+          <p style="margin: 0; font-weight: bold; font-size: 11pt; color: #0f172a;">
+            SR. ELÍAS RAFAEL TRÍAS ABREU
+          </p>
+          <p style="margin: 2px 0 0 0; font-size: 10pt; color: #475569;">
+            Presidente y Representante Legal
+          </p>
+          <p style="margin: 2px 0 0 0; font-size: 9.5pt; color: #64748b;">
+            ${companyName} &middot; R.I.F. ${companyRif}
+          </p>
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  // Se exporta tanto como archivo .docx como en formato .doc de alta fidelidad para maximizar compatibilidad en Word
+  await exportToWord(rawFilename, 'Expediente Completo Carpeta Cumplimiento Banesco 2026', fullWordHtml);
+}
 
 export interface ExcelExportOptions {
   filename: string;
@@ -2551,3 +3666,706 @@ function escapeXml(unsafe: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 }
+
+/** Genera la plantilla HTML formateada para Carta 1 (Carta Extendida de Respuesta a Banesco) */
+export function getCarta1HtmlContent(company: CompanyProfile): string {
+  return `
+    <div style="font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #1e293b; line-height: 1.5; padding: 20px;">
+      <table style="width: 100%; border-collapse: collapse; border-bottom: 2pt solid #0f172a; margin-bottom: 15px; padding-bottom: 10px;">
+        <tr>
+          <td style="vertical-align: top; text-align: left;">
+            <h1 style="font-size: 16pt; color: #0f172a; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase;">
+              ${company.name}
+            </h1>
+            <p style="font-size: 9.5pt; color: #334155; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase;">
+              INTERMEDIACIÓN COMERCIAL &middot; COMPRA DE CAFÉ NACIONAL A TASA OFICIAL BCV &middot; ACOPIO VENEZUELA
+            </p>
+            <p style="font-size: 9pt; color: #475569; margin: 0;">
+              R.I.F.: <strong>${company.rif}</strong> &middot; ${company.registroMercantil}<br>
+              ${company.address}<br>
+              Teléfonos: ${company.phone} &middot; Correo: ${company.email}
+            </p>
+          </td>
+          <td style="vertical-align: top; text-align: right; width: 220px; border-left: 2pt solid #d97706; padding-left: 12px;">
+            <p style="font-size: 8.5pt; font-weight: bold; color: #64748b; margin: 0; text-transform: uppercase;">LUGAR Y FECHA DE EMISIÓN</p>
+            <p style="font-size: 10pt; font-weight: bold; color: #0f172a; margin: 4px 0 0 0;">Barcelona, 31 de Agosto de 2026</p>
+          </td>
+        </tr>
+      </table>
+
+      <div style="margin-bottom: 15px; font-size: 10.5pt;">
+        <p style="font-weight: bold; margin: 0 0 2px 0; color: #0f172a;">CIUDADANOS:</p>
+        <p style="font-weight: bold; margin: 0 0 2px 0; color: #0f172a;">BANESCO BANCO UNIVERSAL, C.A.</p>
+        <p style="margin: 0 0 2px 0; color: #334155;">Gerencia de Auditoría Interna y Unidad de Prevención y Control LC/FT (UPCLC/FT)</p>
+        <p style="margin: 0 0 2px 0; color: #334155;">Atención: <strong>Gerencia Senior de Cumplimiento Banesco Banco Universal</strong></p>
+        <p style="font-weight: bold; margin: 8px 0 0 0; color: #0f172a;">
+          ASUNTO: RESPUESTA FORMAL Y DOCUMENTADA A REQUERIMIENTO DE AUDITORÍA BANCARIA &mdash; JUSTIFICACIÓN DE FONDOS MOVILIZADOS VS ESTADOS FINANCIEROS (CUENTAS CORRIENTES N° ${company.banescoAccountVES} EN VES Y N° ${company.banescoAccountUSD} EN USD CONVENIO 20)
+        </p>
+      </div>
+
+      <p style="text-align: justify; margin-bottom: 12px;">
+        Nos dirigimos formalmente a ustedes en la oportunidad de dar respuesta integral y documentada al requerimiento de información cursado por esa distinguida institución financiera respecto a las cuentas corrientes en bolívares (<strong>${company.banescoAccountVES}</strong>) y en moneda extranjera (<strong>${company.banescoAccountUSD}</strong>) de nuestra representada <strong>${company.name}</strong>.
+      </p>
+
+      <p style="text-align: justify; margin-bottom: 12px;">
+        Al respecto, dejamos constancia expresa y categórica de que <strong>AGRÍCOLA ONI C.A. actúa exclusivamente como empresa INTERMEDIARIA COMERCIAL EN VENEZUELA</strong>. Nuestra actividad consiste en intermediar entre personas naturales y jurídicas, sirviendo de puente mercantil para gestionar la <strong>compra, acopio y comercialización de café 100% NACIONAL a productores, asociaciones y empresas venezolanas</strong>. Dejamos formal constancia de que <strong>NUESTRA EMPRESA NO IMPORTA NADA DE COLOMBIA NI DE NINGUNA ENTIDAD DEL EXTERIOR; TODO EL CAFÉ SE COMPRA EN VENEZUELA</strong> y los contratos a futuro de café son celebrados exclusivamente con empresas y productores venezolanos, facturados a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV).
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 9.5pt; border: 1pt solid #cbd5e1;">
+        <thead>
+          <tr style="background-color: #0f766e; color: #ffffff;">
+            <th style="padding: 8px; border: 1pt solid #0d9488; text-align: left;">Concepto / Partida Contable</th>
+            <th style="padding: 8px; border: 1pt solid #0d9488; text-align: right;">Monto Banesco (Bs.)</th>
+            <th style="padding: 8px; border: 1pt solid #0d9488; text-align: right;">Equiv. USD ($)</th>
+            <th style="padding: 8px; border: 1pt solid #0d9488; text-align: center;">% Total</th>
+            <th style="padding: 8px; border: 1pt solid #0d9488; text-align: left;">Tratamiento Contable (NIIF) y Tributario (SENIAT)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>1. Anticipos de Clientes (Procura Café Nacional)</strong></td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right; font-weight: bold;">Bs. 1.542.017.092,63</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$2.270.486,23</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center; font-weight: bold;">78,41%</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;">Pasivo Corriente (NIIF 15 / Secc. 23). Facturación fiscal SENIAT en Oct. 2026.</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>2. Reintegros Mutuo Manuel Becerra</strong></td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right; font-weight: bold;">Bs. 186.376.000,00</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$286.228,93</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center; font-weight: bold;">9,48%</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;">Amortización de CxC Socio. No es venta ni ingreso gravable.</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>3. Transferencias Cuentas Propias Oni</strong></td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right; font-weight: bold;">Bs. 208.708.057,73</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$308.317,80</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center; font-weight: bold;">10,61%</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;">Traspaso interno de tesorería (Provincial/Mercantil/Bancamiga). Impacto $0.</td>
+          </tr>
+          <tr>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>4. Aportes Operativos Accionista</strong></td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right; font-weight: bold;">Bs. 29.495.954,99</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right;">$47.335,99</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center; font-weight: bold;">1,50%</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;">Inyecciones de liquidez Presidente Elías Trías. CxP Socios.</td>
+          </tr>
+          <tr style="background-color: #f0fdf4;">
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1;"><strong>5. Ingresos Reales Declarados en EEFF</strong></td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right; font-weight: bold; color: #15803d;">Bs. 92.641.520,01</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: right; font-weight: bold; color: #15803d;">$116.531,68</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; text-align: center; font-weight: bold;">-</td>
+            <td style="padding: 6px 8px; border: 1pt solid #cbd5e1; font-weight: bold; color: #15803d;">100% Coincidente con Estado de Resultados Auditado al 31/08/2026.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; background-color: #f0fdf4; border: 1.5pt solid #16a34a;">
+        <tr>
+          <td style="padding: 10px; text-align: center; color: #15803d;">
+            <p style="margin: 0; font-size: 11pt; font-weight: bold; text-transform: uppercase;">
+              🎯 CUADRE DEFINITIVO DE AUDITORÍA BANESCO &mdash; DIFERENCIA FINAL POR OMISIÓN DE INGRESOS: BS. 0,00 ($0,00 USD)
+            </p>
+            <p style="margin: 4px 0 0 0; font-size: 9pt; color: #166534;">
+              Conciliación Auditada al 100% &middot; Explicación Total del Monto Exigido de $2.912.368,95 USD (Bs. 1.966.597.105,35)
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+        <tr>
+          <td style="text-align: center;">
+            <p style="margin: 0 0 40px 0; font-size: 10pt; color: #334155;">Atentamente,</p>
+            <div style="display: inline-block; border-top: 1.5pt solid #0f172a; width: 320px; padding-top: 6px;">
+              <p style="margin: 0; font-weight: bold; font-size: 11pt; color: #0f172a;">
+                SR. ELÍAS RAFAEL TRÍAS ABREU
+              </p>
+              <p style="margin: 2px 0 0 0; font-size: 9.5pt; color: #475569;">
+                Presidente y Representante Legal &middot; C.I. V-23.997.829
+              </p>
+              <p style="margin: 2px 0 0 0; font-size: 9.5pt; font-weight: bold; color: #0f766e;">
+                ${company.name} &middot; R.I.F. ${company.rif}
+              </p>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  `;
+}
+
+/** Genera la plantilla HTML formateada para Carta 2 (Carta Resumen Ejecutiva de 1 Página para Banesco) */
+export function getCarta2HtmlContent(company: CompanyProfile, currentRate: BcvRateItem): string {
+  return `
+    <div style="font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; font-size: 10.5pt; color: #0f172a; line-height: 1.4; padding: 10px; max-width: 700px; margin: 0 auto;">
+      <table style="width: 100%; border-collapse: collapse; border-bottom: 2pt solid #0f766e; margin-bottom: 12px; padding-bottom: 8px;">
+        <tr>
+          <td style="vertical-align: top; text-align: left;">
+            <h1 style="font-size: 15pt; color: #0f172a; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase;">
+              ${company.name}
+            </h1>
+            <p style="font-size: 9pt; color: #334155; margin: 0 0 2px 0; font-weight: bold; text-transform: uppercase;">
+              INTERMEDIACIÓN COMERCIAL &middot; COMPRA DE CAFÉ NACIONAL A TASA BCV &middot; R.I.F.: ${company.rif}
+            </p>
+            <p style="font-size: 8.5pt; color: #475569; margin: 0;">
+              ${company.address}<br>
+              Contacto: ${company.phone} | ${company.email}
+            </p>
+          </td>
+          <td style="vertical-align: top; text-align: right; width: 210px; border-left: 1.5pt solid #cbd5e1; padding-left: 10px;">
+            <p style="font-size: 8.5pt; font-weight: bold; color: #0f172a; margin: 0; text-transform: uppercase;">
+              LUGAR Y FECHA DE EMISIÓN
+            </p>
+            <p style="font-size: 9.5pt; font-weight: bold; color: #0f766e; margin: 3px 0 0 0;">
+              Barcelona, 31 de Agosto de 2026
+            </p>
+            <p style="font-size: 8pt; color: #64748b; margin: 3px 0 0 0;">
+              Tasa Oficial BCV: Bs. ${currentRate.rateUsd.toFixed(2)} / USD
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px;">
+        <tr>
+          <td>
+            <p style="font-weight: bold; margin: 0 0 2px 0; font-size: 10.5pt; color: #0f172a;">
+              CIUDADANOS: BANESCO BANCO UNIVERSAL, C.A.
+            </p>
+            <p style="color: #334155; margin: 0 0 6px 0; font-size: 9.5pt;">
+              Gerencia de Auditoría Interna y Unidad de Prevención y Control LC/FT (UPCLC/FT) Banesco Banco Universal
+            </p>
+            <div style="background-color: #f8fafc; border: 1pt solid #cbd5e1; border-left: 3.5pt solid #0f766e; padding: 7px 10px; font-weight: bold; font-size: 9.5pt; color: #0f172a; text-align: justify;">
+              ASUNTO: CARTA DE RESPUESTA FORMAL Y SÍNTESIS DE AUDITORÍA BANCARIA &mdash; JUSTIFICACIÓN DE FONDOS MOVILIZADOS ($2.912.368,95 USD / Bs. 1.966.597.105,35) VS ESTADOS FINANCIEROS (CUENTAS CORRIENTES N° ${company.banescoAccountVES} EN VES Y N° ${company.banescoAccountUSD} EN USD CONVENIO 20).
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <p style="text-align: justify; margin-bottom: 10px; font-size: 9.5pt;">
+        En representación legal de <strong>${company.name}</strong> (R.I.F. ${company.rif}), damos formal respuesta a su requerimiento informando que <strong>NO EXISTE OMISIÓN DE INGRESOS NI DIFERENCIA NO JUSTIFICADA</strong>. Nuestra empresa opera exclusivamente como <strong>INTERMEDIARIA COMERCIAL Y MANDANTE EN LA COMPRA DE CAFÉ VERDE 100% NACIONAL EN VENEZUELA</strong> para torrefactoras e industrias venezolanas. No importamos café de Colombia ni del exterior; todo el café se adquiere en el mercado nacional a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV). La movilización bancaria acumulada se justifica con total solidez técnica y contable:
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 9pt; background-color: #f8fafc; border: 1pt solid #cbd5e1;">
+        <tr>
+          <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
+            <strong>1. Anticipos de Clientes Jurídicos en Bolívares (78,41% &mdash; Bs. 1.542.017.092,63 / $2.270.486,23 USD):</strong><br>
+            Fondos recibidos de compradores bajo Contrato Marco de Intermediación. Registrados como <em>Pasivos Corrientes Exigibles en Café</em> bajo NIIF 15 / Sección 23. Se sustituyen por factura fiscal SENIAT en Octubre 2026 con la entrega del café.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
+            <strong>2. Reintegros Capital Mutuo Manuel Becerra (9,48% &mdash; Bs. 186.376.000,00 / $286.228,93 USD):</strong><br>
+            Amortización de Activo Financiero de la Línea de Crédito Rotativa suscrita con el socio Manuel Becerra. Disminuyen la Cuenta por Cobrar en balance. No constituye venta ni ingreso.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
+            <strong>3. Transferencias Cuentas Propias Agrícola Oni (10,61% &mdash; Bs. 208.708.057,73 / $308.317,80 USD):</strong><br>
+            Traspasos de tesorería interna desde Provincial, Mercantil, Plaza y Bancamiga mismo RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
+            <strong>4. Aportes Operativos Accionista / Personas Naturales (1,50% &mdash; Bs. 29.495.954,99 / $47.335,99 USD):</strong><br>
+            Inyecciones de liquidez Presidente Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
+            <strong>5. Ingresos Reales Declarados en EEFF (Bs. 92.641.520,01 / $116.531,68 USD):</strong><br>
+            Servicios Agrícolas facturados ($78,72M) + Intereses Ganados Mutuo ($13,92M), 100% idéntico al Estado de Resultados al 31/08/2026.
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 7px 9px;">
+            <strong>6. Operaciones Mesa Cambiaria Banesco ($556.890,45 USD) y Sustento Legal (Acta 2021):</strong><br>
+            Divisas liquidadas e invertidas 100% en Venezuela en insumos agrícolas, fletes terrestres y servicios técnicos. Acta Constitutiva de 16/09/2021 (Tomo 44-A, N° 12) autoriza la intermediación de café y pertenece 100% al Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-23.997.829).
+          </td>
+        </tr>
+      </table>
+
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 12px; background-color: #f0fdf4; border: 1.5pt solid #16a34a;">
+        <tr>
+          <td style="padding: 9px; text-align: center; color: #15803d;">
+            <p style="margin: 0; font-size: 10pt; font-weight: bold; text-transform: uppercase;">
+              🎯 CUADRE DEFINITIVO DE AUDITORÍA BANESCO &mdash; DIFERENCIA FINAL POR OMISIÓN DE INGRESOS: BS. 0,00 ($0,00 USD)
+            </p>
+            <p style="margin: 3px 0 0 0; font-size: 8.5pt; color: #166534;">
+              Conciliación Auditada al 100% &middot; Explicación Total del Monto Exigido de $2.912.368,95 USD (Bs. 1.966.597.105,35)
+            </p>
+          </td>
+        </tr>
+      </table>
+
+      <p style="font-size: 9pt; margin-bottom: 15px; color: #334155; text-align: justify;">
+        Constatamos la autenticidad de los soportes anexos (facturas, guías y conciliación) adjuntos a la presente comunicación.
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; margin-top: 25px;">
+        <tr>
+          <td style="text-align: center;">
+            <p style="margin: 0 0 35px 0; font-size: 9.5pt; color: #334155;">Atentamente,</p>
+            <div style="display: inline-block; border-top: 1.5pt solid #0f172a; width: 300px; padding-top: 6px;">
+              <p style="margin: 0; font-weight: bold; font-size: 10.5pt; color: #0f172a;">
+                SR. ELÍAS RAFAEL TRÍAS ABREU
+              </p>
+              <p style="margin: 2px 0 0 0; font-size: 9pt; color: #475569;">
+                Presidente y Representante Legal &middot; C.I. V-23.997.829
+              </p>
+              <p style="margin: 2px 0 0 0; font-size: 9pt; font-weight: bold; color: #0f766e;">
+                ${company.name} &middot; R.I.F. ${company.rif}
+              </p>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin-top: 20px; text-align: center; font-size: 8pt; color: #64748b; border-top: 1pt solid #e2e8f0; padding-top: 6px;">
+        DOCUMENTO OFICIAL DE RESPUESTA Y RESPALDO BANCARIO &middot; BANESCO BANCO UNIVERSAL, C.A.
+      </p>
+    </div>
+  `;
+}
+
+/** Exportación individual de Carta 1 (Extendida) en formato Microsoft Word (.doc/.docx) */
+export async function exportCarta1Word(company: CompanyProfile): Promise<void> {
+  const html = getCarta1HtmlContent(company);
+  await exportToWord(
+    'Carta_1_Respuesta_Oficial_Banesco_Agricola_Oni.doc',
+    'Carta 1 Respuesta Oficial Extendida Banesco 2026',
+    html
+  );
+}
+
+/** Exportación individual de Carta 1 (Extendida) en formato PDF (.pdf) */
+export async function exportCarta1Pdf(company: CompanyProfile): Promise<void> {
+  let element = document.getElementById('carta-banesco-completa-paper');
+  let tempDiv: HTMLElement | null = null;
+  if (!element) {
+    tempDiv = document.createElement('div');
+    tempDiv.style.position = 'absolute';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.top = '0px';
+    tempDiv.style.width = '800px';
+    tempDiv.style.backgroundColor = '#ffffff';
+    tempDiv.innerHTML = getCarta1HtmlContent(company);
+    document.body.appendChild(tempDiv);
+    element = tempDiv;
+  }
+
+  try {
+    await downloadElementAsPdf(element, 'Carta_1_Respuesta_Oficial_Banesco_Agricola_Oni.pdf');
+  } finally {
+    if (tempDiv && tempDiv.parentNode) {
+      tempDiv.parentNode.removeChild(tempDiv);
+    }
+  }
+}
+
+/** Exportación individual de Carta 2 (1 Página Ejecutiva) en formato Microsoft Word (.doc/.docx) */
+export async function exportCarta2Word(company: CompanyProfile, currentRate: BcvRateItem): Promise<void> {
+  const html = getCarta2HtmlContent(company, currentRate);
+  await exportToWord(
+    'Carta_2_Respuesta_Ejecutiva_1Pagina_Banesco_Agricola_Oni.doc',
+    'Carta 2 Respuesta Ejecutiva 1 Página Banesco 2026',
+    html
+  );
+}
+
+/** Exportación individual de Carta 2 (1 Página Ejecutiva) en formato PDF (.pdf) */
+export async function exportCarta2Pdf(company: CompanyProfile, currentRate: BcvRateItem): Promise<void> {
+  let element = document.getElementById('carta-banesco-1-pagina-paper');
+  let tempDiv: HTMLElement | null = null;
+  if (!element) {
+    tempDiv = document.createElement('div');
+    tempDiv.style.position = 'absolute';
+    tempDiv.style.left = '-9999px';
+    tempDiv.style.top = '0px';
+    tempDiv.style.width = '750px';
+    tempDiv.style.backgroundColor = '#ffffff';
+    tempDiv.innerHTML = getCarta2HtmlContent(company, currentRate);
+    document.body.appendChild(tempDiv);
+    element = tempDiv;
+  }
+
+  try {
+    await downloadElementAsPdf(element, 'Carta_2_Respuesta_Ejecutiva_1Pagina_Banesco_Agricola_Oni.pdf');
+  } finally {
+    if (tempDiv && tempDiv.parentNode) {
+      tempDiv.parentNode.removeChild(tempDiv);
+    }
+  }
+}
+
+/** Genera la plantilla HTML formateada para los Separadores Físicos A - E de la Carpeta Banesco */
+export function getSeparadoresHtmlContent(company: CompanyProfile, currentRate?: BcvRateItem): string {
+  return `
+    <div style="font-family: 'Calibri', 'Segoe UI', Arial, sans-serif; color: #0f172a; line-height: 1.4;">
+      
+      <!-- ==================== SEPARADOR A ==================== -->
+      <div style="padding: 30px; max-width: 750px; margin: 0 auto; page-break-after: always; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+        <table style="width: 100%; border-collapse: collapse; border-bottom: 3pt double #0f766e; padding-bottom: 12px; margin-bottom: 25px;">
+          <tr>
+            <td style="vertical-align: top; text-align: left;">
+              <h1 style="font-size: 18pt; color: #0f172a; margin: 0 0 3px 0; font-weight: bold; text-transform: uppercase;">
+                ${company.name}
+              </h1>
+              <p style="font-size: 10pt; color: #334155; margin: 0; font-weight: bold;">
+                R.I.F.: ${company.rif} &middot; CARPETA MAESTRA DE CUMPLIMIENTO BUST
+              </p>
+            </td>
+            <td style="vertical-align: top; text-align: right;">
+              <p style="font-size: 9pt; color: #0f766e; font-weight: bold; margin: 0;">
+                BANESCO BANCO UNIVERSAL, C.A.<br>
+                UNIDAD UPCLC/FT &middot; 2026
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <div style="display: inline-block; background-color: #0f766e; color: #ffffff; padding: 18px 45px; border-radius: 8px; border: 2pt solid #0d9488; margin-bottom: 15px;">
+            <h1 style="font-size: 32pt; margin: 0; font-weight: 900; letter-spacing: 2px;">
+              SEPARADOR A
+            </h1>
+          </div>
+          <h2 style="font-size: 16pt; color: #0f172a; margin: 10px 0 5px 0; text-transform: uppercase; font-weight: bold;">
+            CARTAS OFICIALES DE RESPUESTA, NOTA DE CONCILIACIÓN BANCARIA Y DICTAMEN DE AUDITORÍA
+          </h2>
+          <p style="font-size: 11pt; color: #475569; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+            Justificación técnica y contable de los $2.912.368,95 USD (Bs. 1.966.597.105,35) movilizados en Banesco vs Ventas Reales Declaradas (Bs. 92.641.520,01). <strong>Diferencia por omisión de ingresos: Bs. 0,00</strong>.
+          </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1.5pt solid #cbd5e1; border-left: 5pt solid #0f766e; padding: 18px 22px; margin-bottom: 25px; border-radius: 4px;">
+          <p style="font-size: 11pt; font-weight: bold; color: #0f766e; margin: 0 0 10px 0; text-transform: uppercase;">
+            📋 CONTENIDO DETALLADO DEL SEPARADOR A:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>1. Carta Resumen Ejecutiva de 1 Página:</strong> Respuesta sintética oficial a la Gerencia de Auditoría Banesco.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>2. Carta Explicativa Extendida con Anexos:</strong> Exposición de motivos completa sobre la intermediación comercial de café nacional.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>3. Nota de Conciliación Bancaria Certificada:</strong> Conciliación Banesco al 31/08/2026 con diferencia comprobada de Bs. 0,00.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0;"><strong>4. Dictamen de Auditoría Fiscal SENIAT/SUDEBAN:</strong> Certificación bajo NIIF 15 / Sección 23 con Sello de Actuación CPC.</td>
+            </tr>
+          </table>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+          <tr>
+            <td style="text-align: center;">
+              <p style="margin: 0; font-size: 9pt; color: #64748b;">
+                DOCUMENTO OFICIAL DE SEPARACIÓN &middot; AGRÍCOLA ONI, C.A. &middot; BANESCO BANCO UNIVERSAL
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== SEPARADOR B ==================== -->
+      <div style="padding: 30px; max-width: 750px; margin: 0 auto; page-break-after: always; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+        <table style="width: 100%; border-collapse: collapse; border-bottom: 3pt double #1e3a8a; padding-bottom: 12px; margin-bottom: 25px;">
+          <tr>
+            <td style="vertical-align: top; text-align: left;">
+              <h1 style="font-size: 18pt; color: #0f172a; margin: 0 0 3px 0; font-weight: bold; text-transform: uppercase;">
+                ${company.name}
+              </h1>
+              <p style="font-size: 10pt; color: #334155; margin: 0; font-weight: bold;">
+                R.I.F.: ${company.rif} &middot; CARPETA MAESTRA DE CUMPLIMIENTO BUST
+              </p>
+            </td>
+            <td style="vertical-align: top; text-align: right;">
+              <p style="font-size: 9pt; color: #1e3a8a; font-weight: bold; margin: 0;">
+                BANESCO BANCO UNIVERSAL, C.A.<br>
+                UNIDAD UPCLC/FT &middot; 2026
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <div style="display: inline-block; background-color: #1e3a8a; color: #ffffff; padding: 18px 45px; border-radius: 8px; border: 2pt solid #1d4ed8; margin-bottom: 15px;">
+            <h1 style="font-size: 32pt; margin: 0; font-weight: 900; letter-spacing: 2px;">
+              SEPARADOR B
+            </h1>
+          </div>
+          <h2 style="font-size: 16pt; color: #0f172a; margin: 10px 0 5px 0; text-transform: uppercase; font-weight: bold;">
+            RESPALDO DE ANTICIPOS DE CLIENTES JURÍDICOS (78,41% DEL TOTAL MOVILIZADO)
+          </h2>
+          <p style="font-size: 11pt; color: #475569; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+            Soportes de transferencias en bolívares por <strong>Bs. 1.542.017.092,63 ($2.270.486,23 USD)</strong> abonados por empresas torrefactoras y distribuidoras compradoras de café verde nacional.
+          </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1.5pt solid #cbd5e1; border-left: 5pt solid #1e3a8a; padding: 18px 22px; margin-bottom: 25px; border-radius: 4px;">
+          <p style="font-size: 11pt; font-weight: bold; color: #1e3a8a; margin: 0 0 10px 0; text-transform: uppercase;">
+            📋 CONTENIDO DETALLADO DEL SEPARADOR B:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>1. 6 Contratos Marco de Intermediación Comercial:</strong> Suscritos con empresas compradoras para procura de café nacional.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>2. Comprobantes Bancarios de Origen:</strong> Transferencias recibidas en Banesco, BFC y Provincial.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>3. Fichas de Identificación de Clientes Jurídicos:</strong> Datos corporativos de las 6 empresas mandantes.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0;"><strong>4. Expediente de Identidad SENIAT:</strong> Copia de RIF vigente y Cédula de Identidad de Representantes Legales.</td>
+            </tr>
+          </table>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+          <tr>
+            <td style="text-align: center;">
+              <p style="margin: 0; font-size: 9pt; color: #64748b;">
+                DOCUMENTO OFICIAL DE SEPARACIÓN &middot; AGRÍCOLA ONI, C.A. &middot; BANESCO BANCO UNIVERSAL
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== SEPARADOR C ==================== -->
+      <div style="padding: 30px; max-width: 750px; margin: 0 auto; page-break-after: always; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+        <table style="width: 100%; border-collapse: collapse; border-bottom: 3pt double #b45309; padding-bottom: 12px; margin-bottom: 25px;">
+          <tr>
+            <td style="vertical-align: top; text-align: left;">
+              <h1 style="font-size: 18pt; color: #0f172a; margin: 0 0 3px 0; font-weight: bold; text-transform: uppercase;">
+                ${company.name}
+              </h1>
+              <p style="font-size: 10pt; color: #334155; margin: 0; font-weight: bold;">
+                R.I.F.: ${company.rif} &middot; CARPETA MAESTRA DE CUMPLIMIENTO BUST
+              </p>
+            </td>
+            <td style="vertical-align: top; text-align: right;">
+              <p style="font-size: 9pt; color: #b45309; font-weight: bold; margin: 0;">
+                BANESCO BANCO UNIVERSAL, C.A.<br>
+                UNIDAD UPCLC/FT &middot; 2026
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <div style="display: inline-block; background-color: #b45309; color: #ffffff; padding: 18px 45px; border-radius: 8px; border: 2pt solid #d97706; margin-bottom: 15px;">
+            <h1 style="font-size: 32pt; margin: 0; font-weight: 900; letter-spacing: 2px;">
+              SEPARADOR C
+            </h1>
+          </div>
+          <h2 style="font-size: 16pt; color: #0f172a; margin: 10px 0 5px 0; text-transform: uppercase; font-weight: bold;">
+            RESPALDO DE REINTEGROS DE CAPITAL Y ANTICIPOS DE PERSONAS NATURALES / PRODUCTORES
+          </h2>
+          <p style="font-size: 11pt; color: #475569; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+            Amortizaciones de la Línea de Crédito Mutuo Manuel Becerra (<strong>$286.228,93 USD / Bs. 186,37M</strong>) y Aportes Operativos del Presidente Accionista Elías Trías (<strong>$47.335,99 USD / Bs. 29,49M</strong>).
+          </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1.5pt solid #cbd5e1; border-left: 5pt solid #b45309; padding: 18px 22px; margin-bottom: 25px; border-radius: 4px;">
+          <p style="font-size: 11pt; font-weight: bold; color: #b45309; margin: 0 0 10px 0; text-transform: uppercase;">
+            📋 CONTENIDO DETALLADO DEL SEPARADOR C:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>1. Contrato Mutuo Cambiario Manuel Becerra:</strong> Documento legal y tabla de amortización de la línea de crédito rotativa.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>2. Comprobantes de Reintegros de Capital:</strong> Transferencias Banesco disminuyendo la Cta. por Cobrar en balance.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>3. Aportes Operativos de Accionista:</strong> Respaldo de inyecciones de liquidez de Elías Rafael Trías Abreu.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0;"><strong>4. Fichas y Guías SICA/SUNAGRO:</strong> Recibos de depósitos y guías de movilización de café con productores naturales.</td>
+            </tr>
+          </table>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+          <tr>
+            <td style="text-align: center;">
+              <p style="margin: 0; font-size: 9pt; color: #64748b;">
+                DOCUMENTO OFICIAL DE SEPARACIÓN &middot; AGRÍCOLA ONI, C.A. &middot; BANESCO BANCO UNIVERSAL
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== SEPARADOR D ==================== -->
+      <div style="padding: 30px; max-width: 750px; margin: 0 auto; page-break-after: always; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+        <table style="width: 100%; border-collapse: collapse; border-bottom: 3pt double #047857; padding-bottom: 12px; margin-bottom: 25px;">
+          <tr>
+            <td style="vertical-align: top; text-align: left;">
+              <h1 style="font-size: 18pt; color: #0f172a; margin: 0 0 3px 0; font-weight: bold; text-transform: uppercase;">
+                ${company.name}
+              </h1>
+              <p style="font-size: 10pt; color: #334155; margin: 0; font-weight: bold;">
+                R.I.F.: ${company.rif} &middot; CARPETA MAESTRA DE CUMPLIMIENTO BUST
+              </p>
+            </td>
+            <td style="vertical-align: top; text-align: right;">
+              <p style="font-size: 9pt; color: #047857; font-weight: bold; margin: 0;">
+                BANESCO BANCO UNIVERSAL, C.A.<br>
+                UNIDAD UPCLC/FT &middot; 2026
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <div style="display: inline-block; background-color: #047857; color: #ffffff; padding: 18px 45px; border-radius: 8px; border: 2pt solid #059669; margin-bottom: 15px;">
+            <h1 style="font-size: 32pt; margin: 0; font-weight: 900; letter-spacing: 2px;">
+              SEPARADOR D
+            </h1>
+          </div>
+          <h2 style="font-size: 16pt; color: #0f172a; margin: 10px 0 5px 0; text-transform: uppercase; font-weight: bold;">
+            ADQUISICIÓN DE DIVISAS EN MESA DE CAMBIO BANESCO CONVENIO 20 Y DESTINO DE FONDOS
+          </h2>
+          <p style="font-size: 11pt; color: #475569; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+            Comprobantes de divisas adjudicadas en Banesco (<strong>$556.890,45 USD</strong>) e invertidas 100% en Venezuela en insumos agrícolas, tolvas, sacos de yute y fletes pesados.
+          </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1.5pt solid #cbd5e1; border-left: 5pt solid #047857; padding: 18px 22px; margin-bottom: 25px; border-radius: 4px;">
+          <p style="font-size: 11pt; font-weight: bold; color: #047857; margin: 0 0 10px 0; text-transform: uppercase;">
+            📋 CONTENIDO DETALLADO DEL SEPARADOR D:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>1. Planillas de Adjudicación Cambiaria Banesco:</strong> Registro oficial de divisas liquidadas en Cta. Custodia USD.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>2. Débitos en VES y Acreditación en USD:</strong> Comprobantes bancarios Banesco Convenio 20.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>3. Facturas de Proveedores Nacionales:</strong> Adquisición de tolvas, secadoras, sacos de yute y repuestos.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0;"><strong>4. Comprobantes de Fletes y Transporte Carga:</strong> Pagos de fletes pesados consumidos 100% en territorio nacional.</td>
+            </tr>
+          </table>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+          <tr>
+            <td style="text-align: center;">
+              <p style="margin: 0; font-size: 9pt; color: #64748b;">
+                DOCUMENTO OFICIAL DE SEPARACIÓN &middot; AGRÍCOLA ONI, C.A. &middot; BANESCO BANCO UNIVERSAL
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ==================== SEPARADOR E ==================== -->
+      <div style="padding: 30px; max-width: 750px; margin: 0 auto; height: 900px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between;">
+        <table style="width: 100%; border-collapse: collapse; border-bottom: 3pt double #4338ca; padding-bottom: 12px; margin-bottom: 25px;">
+          <tr>
+            <td style="vertical-align: top; text-align: left;">
+              <h1 style="font-size: 18pt; color: #0f172a; margin: 0 0 3px 0; font-weight: bold; text-transform: uppercase;">
+                ${company.name}
+              </h1>
+              <p style="font-size: 10pt; color: #334155; margin: 0; font-weight: bold;">
+                R.I.F.: ${company.rif} &middot; CARPETA MAESTRA DE CUMPLIMIENTO BUST
+              </p>
+            </td>
+            <td style="vertical-align: top; text-align: right;">
+              <p style="font-size: 9pt; color: #4338ca; font-weight: bold; margin: 0;">
+                BANESCO BANCO UNIVERSAL, C.A.<br>
+                UNIDAD UPCLC/FT &middot; 2026
+              </p>
+            </td>
+          </tr>
+        </table>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <div style="display: inline-block; background-color: #4338ca; color: #ffffff; padding: 18px 45px; border-radius: 8px; border: 2pt solid #4f46e5; margin-bottom: 15px;">
+            <h1 style="font-size: 32pt; margin: 0; font-weight: 900; letter-spacing: 2px;">
+              SEPARADOR E
+            </h1>
+          </div>
+          <h2 style="font-size: 16pt; color: #0f172a; margin: 10px 0 5px 0; text-transform: uppercase; font-weight: bold;">
+            REGISTRO LEGAL Y ESTADOS FINANCIEROS AUDITADOS AL 31/08/2026
+          </h2>
+          <p style="font-size: 11pt; color: #475569; max-width: 600px; margin: 0 auto; line-height: 1.5;">
+            Documentos constitutivos, RIF SENIAT, Balance General Dual, Estado de Resultados y Balance de Comprobación Auditado al 31/08/2026.
+          </p>
+        </div>
+
+        <div style="background-color: #f8fafc; border: 1.5pt solid #cbd5e1; border-left: 5pt solid #4338ca; padding: 18px 22px; margin-bottom: 25px; border-radius: 4px;">
+          <p style="font-size: 11pt; font-weight: bold; color: #4338ca; margin: 0 0 10px 0; text-transform: uppercase;">
+            📋 CONTENIDO DETALLADO DEL SEPARADOR E:
+          </p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 10pt;">
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>1. Acta Constitutiva y Estatutos Sociales:</strong> Registro Mercantil Primero del Edo. Anzoátegui (16/09/2021, Tomo 44-A, N° 12).</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>2. RIF SENIAT Vigente:</strong> Registro de Información Fiscal J-50145638-0 actualizado.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0; border-bottom: 1pt solid #e2e8f0;"><strong>3. Balance General y Estado de Resultados Dual:</strong> Cifras expresadas en Bs. y USD a Tasa Oficial BCV al 31/08/2026.</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px 0;"><strong>4. Balance de Comprobación Auditado & Libro Auxiliar:</strong> Libro Auxiliar de Banco Banesco y Estado de Cuentas.</td>
+            </tr>
+          </table>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+          <tr>
+            <td style="text-align: center;">
+              <p style="margin: 0; font-size: 9pt; color: #64748b;">
+                DOCUMENTO OFICIAL DE SEPARACIÓN &middot; AGRÍCOLA ONI, C.A. &middot; BANESCO BANCO UNIVERSAL
+              </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  `;
+}
+
+/** Exporta el juego completo de Separadores Físicos A-E en Microsoft Word (.doc/.docx) */
+export async function exportSeparadoresBanescoWord(company: CompanyProfile, currentRate?: BcvRateItem): Promise<void> {
+  const html = getSeparadoresHtmlContent(company, currentRate);
+  await exportToWord(
+    'Separadores_Oficiales_Carpeta_Banesco_A-E_Agricola_Oni.doc',
+    'Separadores Oficiales Carpeta Banesco A-E',
+    html
+  );
+}
+
+/** Exporta el juego completo de Separadores Físicos A-E en archivo PDF (.pdf) */
+export async function exportSeparadoresBanescoPdf(company: CompanyProfile, currentRate?: BcvRateItem): Promise<void> {
+  const tempDiv = document.createElement('div');
+  tempDiv.style.position = 'absolute';
+  tempDiv.style.left = '-9999px';
+  tempDiv.style.top = '0px';
+  tempDiv.style.width = '750px';
+  tempDiv.style.backgroundColor = '#ffffff';
+  tempDiv.innerHTML = getSeparadoresHtmlContent(company, currentRate);
+  document.body.appendChild(tempDiv);
+
+  try {
+    await downloadElementAsPdf(tempDiv, 'Separadores_Oficiales_Carpeta_Banesco_A-E_Agricola_Oni.pdf');
+  } finally {
+    if (tempDiv && tempDiv.parentNode) {
+      tempDiv.parentNode.removeChild(tempDiv);
+    }
+  }
+}
+
+

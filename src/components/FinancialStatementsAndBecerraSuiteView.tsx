@@ -25,7 +25,7 @@ import {
   Check,
   FileDown
 } from 'lucide-react';
-import { exportToWord, exportToCsv, exportToExcelXlsx, exportToPdfPrint, downloadElementAsPdf, exportHtmlToPdf } from '../utils/exportUtils';
+import { exportToWord, exportToCsv, exportToExcelXlsx, exportToPdfPrint, downloadElementAsPdf, exportHtmlToPdf, exportMasterBanescoComplianceFolderPdf, exportMasterBanescoComplianceFolderWord } from '../utils/exportUtils';
 import {
   BALANCE_SHEET_2025,
   INCOME_STATEMENT_2025,
@@ -75,9 +75,7 @@ export const FinancialStatementsAndBecerraSuiteView: React.FC<Props> = ({ compan
 
   const handleCopyLetter = () => {
     const textContent = `
-OFICIO: AO-EXP-BAN-2026-0831
-FECHA: 31 de Agosto de 2026
-EXPEDIENTE: AUD-BAN-2026-ONI-094
+LUGAR Y FECHA: Barcelona, 31 de Agosto de 2026
 
 Atención: Gerencia Senior de Cumplimiento Banesco Banco Universal
 
@@ -432,7 +430,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
       <div class="highlight-box">
         <strong>Resumen Auditado de Débitos en Banesco:</strong><br>
         Total Cargos Movilizados en Banesco: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
-        Costo de Ventas Directo (Materia Prima / Café Verde): <strong>Bs. 1.161.270.000,00 (59,3%)</strong>.<br>
+        Procura Directa de Café / Pagos a Productores (Intermediación): <strong>Bs. 1.161.270.000,00 (59,3%)</strong>.<br>
         Préstamos Accionista (Omar Pérez C.I. V-14.892.301): <strong>Bs. 375.630.000,00 (19,2%)</strong> &middot; Cuentas por Cobrar Socios.
       </div>
       <table>
@@ -1153,7 +1151,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               </h2>
             </div>
             <p className="text-xs text-amber-900/80 font-medium mt-1.5 flex flex-wrap items-center gap-1">
-              <span>{company.name}</span> &middot; <span>RIF <strong className="font-mono text-amber-950">{company.rif}</strong></span> &middot; <span>Expediente Banesco AUD-BAN-2026-ONI-094</span>
+              <span>{company.name}</span> &middot; <span>RIF <strong className="font-mono text-amber-950">{company.rif}</strong></span>
             </p>
           </div>
 
@@ -1975,16 +1973,46 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               </button>
               <button
                 onClick={async () => {
+                  await exportMasterBanescoComplianceFolderPdf({
+                    companyName: company.name,
+                    companyRif: company.rif,
+                    address: company.address,
+                    bcvRate: currentRate.rateUsd
+                  });
+                }}
+                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold rounded-lg text-xs flex items-center gap-1.5 shadow-sm border border-amber-300 cursor-pointer"
+                title="Descargar Expediente Completo Banesco en un solo PDF (Cartas, Anexos, Separadores A-E, EEFF y Balance de Comprobación)"
+              >
+                <Download className="w-4 h-4 text-slate-950" />
+                Descargar Expediente PDF Completo
+              </button>
+              <button
+                onClick={async () => {
+                  await exportMasterBanescoComplianceFolderWord({
+                    companyName: company.name,
+                    companyRif: company.rif,
+                    address: company.address,
+                    bcvRate: currentRate.rateUsd
+                  });
+                }}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-extrabold rounded-lg text-xs flex items-center gap-1.5 shadow-sm border border-blue-400 cursor-pointer"
+                title="Descargar Expediente Completo Banesco en Microsoft Word (.docx) editable"
+              >
+                <FileDown className="w-4 h-4 text-white" />
+                Descargar Expediente Word (.docx)
+              </button>
+              <button
+                onClick={async () => {
                   const letterElement = document.getElementById('carta-banesco-doc-container');
                   if (letterElement) {
                     await downloadElementAsPdf(letterElement, 'Carta_Explicativa_Oficial_Banesco_Agricola_Oni_2026.pdf');
                   }
                 }}
-                className="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs flex items-center gap-1.5 shadow-xs"
+                className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg text-xs flex items-center gap-1.5 shadow-xs border border-slate-700"
                 title="Descargar carta oficial en archivo PDF directo"
               >
                 <Download className="w-4 h-4" />
-                Descargar PDF
+                Descargar Carta PDF
               </button>
               <button
                 onClick={() => exportToPdfPrint()}
@@ -2009,9 +2037,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               </div>
 
               <div className="text-right font-mono text-[10px] border-l-2 border-amber-600 pl-3">
-                <p className="font-bold text-stone-950">OFICIO N° AO-EXP-BAN-2026-0831</p>
-                <p className="text-stone-600">EXPEDIENTE: AUD-BAN-2026-ONI-094</p>
-                <p className="text-stone-800 mt-1 font-semibold">Acarigua, 31 de Agosto de 2026</p>
+                <p className="font-bold text-stone-900 uppercase font-sans">LUGAR Y FECHA</p>
+                <p className="text-stone-800 font-bold mt-0.5">Barcelona, 31 de Agosto de 2026</p>
               </div>
             </div>
 
@@ -2083,7 +2110,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                   <li>Contratos de intermediación y compra de café nacional con clientes torrefactores (ETN C.A., Distribuidora DIS, Grupo ORU, Comercializadora RIK, Inversiones Solbtr, Corp. Agroindustrial J).</li>
                   <li>Comprobantes oficiales de compra de divisas a Banesco Mesa de Cambio (Total USD 556.890,45 / Bs. 375.630.000,00) destinadas a adquisición de repuestos, maquinaria agroindustrial y logística en Venezuela.</li>
                   <li>Guías Únicas de Movilización y Acopio SICA / CVC, pesajes de romana y contratos a futuro con asociaciones cafetaleras venezolanas.</li>
-                  <li>Estados de Situación Financiera al 31/12/2025 y al 31/08/2026 debidamente auditados y dictaminados por Contador Público Colegiado bajo VEN-NIF.</li>
+                  <li>Estados de Situación Financiera al 31/12/2025 y al 31/08/2026 con sus respectivas notas revelatorias bajo VEN-NIF.</li>
                 </ol>
               </div>
 
@@ -2092,28 +2119,17 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               </p>
             </div>
 
-            {/* Firmas Oficiales */}
-            <div className="mt-8 pt-6 border-t border-stone-400 grid grid-cols-2 gap-8 items-end">
-              <div>
-                <div className="h-10 flex items-center">
-                  <span className="font-serif italic text-amber-900 text-xs border-b border-stone-700 px-4">
+            {/* Firmas Oficiales - Sole Remitente / Firmante */}
+            <div className="mt-8 pt-6 border-t border-stone-400 flex justify-center text-center">
+              <div className="max-w-xs w-full">
+                <div className="h-10 flex items-center justify-center">
+                  <span className="font-serif italic text-amber-900 text-xs border-b border-stone-700 px-6">
                     Elias Rafael Trías Abreu &mdash; Presidente / Propietario
                   </span>
                 </div>
                 <p className="font-bold text-stone-950 mt-1">{company.legalRepresentative}</p>
                 <p className="text-[10px] text-stone-600">C.I.: {company.idNumber}</p>
                 <p className="text-[10px] text-stone-700 font-semibold">{company.name}</p>
-              </div>
-
-              <div className="text-right">
-                <div className="h-10 flex items-center justify-end">
-                  <span className="font-mono text-emerald-800 text-[10px] border-b border-stone-700 px-4">
-                    Licdo. Omar Pérez Castillo &middot; Matrícula C.P.C. 16.336
-                  </span>
-                </div>
-                <p className="font-bold text-stone-950 mt-1">Licdo. Omar Pérez Castillo</p>
-                <p className="text-[10px] text-stone-600">Contador Público C.P.C. 16.336</p>
-                <p className="text-[10px] text-stone-700 font-semibold">Contador Público Independiente, Ven-Nif</p>
               </div>
             </div>
           </div>

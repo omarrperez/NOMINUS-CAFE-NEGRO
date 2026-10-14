@@ -111,7 +111,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
     },
     {
       title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elias Rafael Trías Abreu V-23.997.829)',
-      text: `Registra las obligaciones financieras a corto plazo con el Presidente y accionista Elias Rafael Trías Abreu (C.I. V-23.997.829) por un saldo consolidado de Bs. 301.053.109,62 ($378.687,92 USD). Dichos fondos corresponden a aportes directos de capital de trabajo transferidos a la cuenta corriente Banesco de la empresa para cubrir compras de inventario de café y costos operativos en Venezuela.`
+      text: `Registra las obligaciones financieras a corto plazo con el Presidente y accionista Elias Rafael Trías Abreu (C.I. V-23.997.829) por un saldo consolidado de Bs. 301.053.109,62 ($378.687,92 USD). Dichos fondos corresponden a aportes directos de capital de trabajo transferidos a la cuenta corriente Banesco de la empresa para cubrir procura de café y costos operativos en Venezuela.`
     },
     {
       title: 'Anticipos en Bolívares Recibidos de Clientes a Tasa BCV (NIIF 15 / Pasivos Operacionales)',

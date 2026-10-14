@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
-import { Printer, Download, Copy, Check, FileCheck, Shield, ExternalLink, ChevronRight, Stamp, FileDown } from 'lucide-react';
-import { exportToWord, downloadElementAsPdf } from '../utils/exportUtils';
+import { Printer, Download, Copy, Check, FileCheck, Shield, ExternalLink, ChevronRight, Stamp, FileDown, Loader2 } from 'lucide-react';
+import {
+  exportToWord,
+  downloadElementAsPdf,
+  exportMasterBanescoComplianceFolderPdf,
+  exportMasterBanescoComplianceFolderWord,
+  exportCarta1Pdf,
+  exportCarta1Word,
+  exportCarta2Pdf,
+  exportCarta2Word
+} from '../utils/exportUtils';
 import { BANESCO_AUDIT_INFO_2026, BANESCO_AUDIT_POINTS } from '../data/agricolaOniAudit2026Data';
 import { CompanyProfile } from '../data/nominusData';
 import { useAppData } from '../context/AppDataContext';
@@ -23,9 +32,7 @@ export const AgricolaOniBanescoResponseLetterView: React.FC<Props> = ({ company,
 
   const handleCopyText = () => {
     const textContent = `
-OFICIO Nº: AO-DIR-BAN-2026-042
-FECHA: 31 de Agosto de 2026
-EXPEDIENTE BANCARIO: AUD-BAN-2026-ONI-094
+LUGAR Y FECHA: Barcelona, 31 de Agosto de 2026
 
 A: BANESCO BANCO UNIVERSAL, C.A.
 Unidad de Prevención y Control de Legitimación de Capitales (UPCLC/FT)
@@ -66,7 +73,6 @@ CUADRE FINAL: Total Créditos Banesco (Bs. 1.966.597.105,35) - Pasivos NIIF 15 (
 
 Atentamente,
 Elias Rafael Trías Abreu — Presidente / Propietario (C.I. V-23.997.829)
-Licdo. Omar Pérez Castillo — Contador Público C.P.C. 16.336
 AGRÍCOLA ONI, C.A. — RIF J-50145638-0
     `;
     navigator.clipboard.writeText(textContent.trim());
@@ -121,46 +127,155 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
             Carta Formal de Respuesta a Auditoría Banesco 2026
           </h2>
           <p className="text-xs text-stone-400 mt-0.5">
-            Documento jurídico-bancario con sustento probatorio ante la UPCLC/FT y SUDEBAN &middot; Expediente {BANESCO_AUDIT_INFO_2026.fileNumber}
+            Documento jurídico-bancario con sustento probatorio ante la UPCLC/FT y SUDEBAN
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={onSwitchToOnePage}
-            className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-amber-400 border border-stone-700 rounded-md text-xs font-semibold transition-colors flex items-center gap-1.5"
+            className="px-3 py-1.5 bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 border border-amber-700/80 rounded-md text-xs font-semibold transition-colors flex items-center gap-1.5"
           >
-            Ver Formato 1 Página (Resumen)
+            Ver Formato 1 Página (Carta 2)
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
+
+          {/* CARTA 1 DOWNLOADS */}
           <button
-            onClick={handleExportWord}
-            disabled={downloadingWord}
-            className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Descargar carta completa en Microsoft Word (.docx)"
-          >
-            <FileDown className="w-3.5 h-3.5" />
-            {downloadingWord ? 'Generando Word...' : 'Descargar Word (.docx)'}
-          </button>
-          <button
-            onClick={handleExportPdf}
+            onClick={async () => {
+              try {
+                setDownloadingPdf(true);
+                await exportCarta1Pdf(company);
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingPdf(false);
+              }
+            }}
             disabled={downloadingPdf}
-            className="px-3.5 py-1.5 bg-red-700 hover:bg-red-600 disabled:opacity-50 text-white font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Descargar carta completa en archivo PDF (.pdf)"
+            className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar Carta 1 (Extendida) en PDF (.pdf)"
+          >
+            {downloadingPdf ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+            Descargar Carta 1 (PDF)
+          </button>
+
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingWord(true);
+                await exportCarta1Word(company);
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingWord(false);
+              }
+            }}
+            disabled={downloadingWord}
+            className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar Carta 1 (Extendida) en Word (.docx/.doc)"
+          >
+            {downloadingWord ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <FileDown className="w-3.5 h-3.5" />}
+            Descargar Carta 1 (Word)
+          </button>
+
+          {/* CARTA 2 DOWNLOADS */}
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingPdf(true);
+                await exportCarta2Pdf(company, { date: '2026-08-31', rateUsd: 798.33, rateEur: 870.0, variationPct: 0, source: 'BCV' });
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingPdf(false);
+              }
+            }}
+            disabled={downloadingPdf}
+            className="px-3 py-1.5 bg-teal-800 hover:bg-teal-700 text-teal-100 border border-teal-600 font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar Carta 2 (1 Página) en PDF (.pdf)"
           >
             <Download className="w-3.5 h-3.5" />
-            {downloadingPdf ? 'Generando PDF...' : 'Descargar PDF (.pdf)'}
+            Descargar Carta 2 (PDF)
           </button>
+
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingWord(true);
+                await exportCarta2Word(company, { date: '2026-08-31', rateUsd: 798.33, rateEur: 870.0, variationPct: 0, source: 'BCV' });
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingWord(false);
+              }
+            }}
+            disabled={downloadingWord}
+            className="px-3 py-1.5 bg-indigo-800 hover:bg-indigo-700 text-indigo-100 border border-indigo-600 font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar Carta 2 (1 Página) en Word (.docx/.doc)"
+          >
+            <FileDown className="w-3.5 h-3.5" />
+            Descargar Carta 2 (Word)
+          </button>
+
+          {/* FULL FOLDER DOWNLOADS */}
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingPdf(true);
+                await exportMasterBanescoComplianceFolderPdf({
+                  companyName: company.name,
+                  companyRif: company.rif,
+                  address: company.address
+                });
+              } catch (e) {
+                console.error(e);
+              } finally {
+                setDownloadingPdf(false);
+              }
+            }}
+            disabled={downloadingPdf}
+            className="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+            title="Descargar Expediente Completo con Cartas, Anexos, Separadores A-E y EEFF en PDF"
+          >
+            <Download className="w-3.5 h-3.5 text-slate-950" />
+            Expediente Completo (PDF)
+          </button>
+
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingWord(true);
+                await exportMasterBanescoComplianceFolderWord({
+                  companyName: company.name,
+                  companyRif: company.rif,
+                  address: company.address
+                });
+              } catch (e) {
+                console.error(e);
+              } finally {
+                setDownloadingWord(false);
+              }
+            }}
+            disabled={downloadingWord}
+            className="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+            title="Descargar Expediente Completo en Microsoft Word (.docx) editable"
+          >
+            <FileDown className="w-3.5 h-3.5" />
+            Expediente Completo (Word)
+          </button>
+
           <button
             onClick={handleCopyText}
             className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-            {copied ? 'Copiado al Portapapeles' : 'Copiar Texto'}
+            {copied ? 'Copiado' : 'Copiar Texto'}
           </button>
+
           <button
             onClick={handlePrint}
-            className="px-3.5 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5"
+            className="px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 rounded-md text-xs font-medium transition-colors flex items-center gap-1.5"
             title="Imprimir en impresora física (Ctrl+P)"
           >
             <Printer className="w-3.5 h-3.5" />
@@ -193,18 +308,10 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               </p>
             </div>
 
-            <div className="text-right border-l-2 border-amber-600 pl-4 py-1 self-stretch flex flex-col justify-between sm:items-end">
+            <div className="text-right border-l-2 border-amber-600 pl-4 py-1 self-stretch flex flex-col justify-center sm:items-end">
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-wider text-amber-900 block">OFICIO Nº</span>
-                <span className="font-mono-num font-bold text-sm text-stone-950">AO-DIR-BAN-2026-042</span>
-              </div>
-              <div className="mt-2">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-stone-500 block">EXPEDIENTE BANCARIO</span>
-                <span className="font-mono-num text-xs font-semibold text-stone-800">{BANESCO_AUDIT_INFO_2026.fileNumber}</span>
-              </div>
-              <div className="mt-2">
-                <span className="text-[10px] uppercase font-bold tracking-wider text-stone-500 block">FECHA DE EMISIÓN</span>
-                <span className="text-xs font-medium text-stone-800">Acarigua, 31 de Agosto de 2026</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider text-stone-500 block">LUGAR Y FECHA DE EMISIÓN</span>
+                <span className="text-xs font-bold text-stone-900">Barcelona, 31 de Agosto de 2026</span>
               </div>
             </div>
           </div>
@@ -253,9 +360,6 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
             <div className="flex items-center justify-between border-b border-red-200 pb-2">
               <span className="font-bold text-red-950 text-sm flex items-center gap-1.5 uppercase font-mono">
                 <span>⚠️ REQUERIMIENTO OFICIAL DE BANESCO BANCO UNIVERSAL (BBU) RECIBIDO</span>
-              </span>
-              <span className="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded border border-red-300">
-                AUD-BAN-2026-ONI-094
               </span>
             </div>
             
@@ -456,10 +560,10 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               <div className="p-3 bg-white border border-stone-200 rounded-lg shadow-sm space-y-1">
                 <span className="font-bold text-stone-900 flex items-center gap-1.5">
                   <span className="w-5 h-5 rounded-full bg-amber-800 text-white flex items-center justify-center text-[10px] font-mono">5</span>
-                  Estados Financieros Auditados VEN-NIF (2025 - 2026)
+                  Estados Financieros VEN-NIF (2025 - 2026)
                 </span>
                 <p className="text-stone-600 text-[11px]">
-                  Balance General y Estado de Resultados al 31/12/2025 y al 31/08/2026, con dictamen de auditoría y notas revelatorias suscrito por Contador Público Colegiado (Licdo. Omar Pérez Castillo, C.P.C. 16.336).
+                  Balance General y Estado de Resultados al 31/12/2025 y al 31/08/2026 con sus respectivas notas revelatorias suscrito por la Presidencia de la empresa.
                 </p>
               </div>
 
@@ -537,45 +641,26 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
           </p>
         </div>
 
-        {/* Signatures & Seals Section */}
-        <div className="mt-14 pt-8 border-t border-stone-300 grid grid-cols-1 sm:grid-cols-2 gap-8 items-end">
-          {/* Legal Representative Signature */}
-          <div className="text-center sm:text-left">
-            <div className="h-16 flex items-center justify-center sm:justify-start">
-              {/* Digitized stamp/signature representation */}
-              <div className="border border-stone-400 border-dashed rounded px-3 py-1 bg-stone-50 inline-block rotate-[-2deg] text-amber-900 font-serif italic text-sm">
+        {/* Signatures Section - Sole Remitente / Firmante */}
+        <div className="mt-14 pt-8 border-t border-stone-300 flex justify-center">
+          <div className="text-center max-w-xs w-full">
+            <div className="h-16 flex items-center justify-center">
+              <div className="border border-stone-400 border-dashed rounded px-4 py-1.5 bg-stone-50 inline-block rotate-[-1deg] text-amber-900 font-serif italic text-sm shadow-xs">
                 Elias Rafael Trías Abreu &mdash; Firma Digital
               </div>
             </div>
-            <div className="border-t border-stone-800 pt-2 mt-2">
-              <p className="font-bold text-stone-950 text-xs">{company.legalRepresentative}</p>
-              <p className="text-[11px] text-stone-600">C.I.: {company.idNumber}</p>
-              <p className="text-[11px] text-stone-600">{company.role}</p>
-              <p className="text-[11px] font-semibold text-stone-800">{company.name}</p>
-            </div>
-          </div>
-
-          {/* Certified Public Accountant Signature */}
-          <div className="text-center sm:text-right">
-            <div className="h-16 flex items-center justify-center sm:justify-end">
-              <div className="border-2 border-emerald-800 rounded-full w-16 h-16 flex flex-col items-center justify-center text-[8px] font-bold text-emerald-900 uppercase rotate-6 bg-emerald-50/50">
-                <span>Colegio</span>
-                <span>Contadores</span>
-                <span className="font-mono">CPC 16.336</span>
-              </div>
-            </div>
-            <div className="border-t border-stone-800 pt-2 mt-2">
-              <p className="font-bold text-stone-950 text-xs">Licdo. Omar Pérez Castillo</p>
-              <p className="text-[11px] text-stone-600">Contador Público Colegiado</p>
-              <p className="text-[11px] text-stone-600">Matrícula C.P.C. Nº 16.336</p>
-              <p className="text-[11px] font-semibold text-stone-800">Contador Público Independiente, Ven-Nif</p>
+            <div className="border-t-2 border-stone-900 pt-2 mt-2">
+              <p className="font-bold text-stone-950 text-sm">{company.legalRepresentative}</p>
+              <p className="text-xs text-stone-700">C.I.: {company.idNumber}</p>
+              <p className="text-xs font-semibold text-stone-800">{company.role}</p>
+              <p className="text-xs font-bold text-stone-900 mt-0.5">{company.name}</p>
             </div>
           </div>
         </div>
 
         {/* Footer Notice */}
         <div className="mt-10 pt-4 border-t border-stone-200 text-[10px] text-stone-500 text-center flex flex-wrap justify-between items-center gap-2">
-          <span>Expediente Banesco AUD-BAN-2026-ONI-094 &middot; Código de Verificación Hash: SHA256-89410A82F109</span>
+          <span>Código de Verificación Hash: SHA256-89410A82F109</span>
           <span>Página 1 de 1 &middot; Documento Oficial de Respaldo Bancario</span>
         </div>
       </div>

@@ -49,7 +49,7 @@ export const AgricolaOniAccountingAndVouchersSuiteView: React.FC<Props> = ({ com
   const [documentRef, setDocumentRef] = useState('');
   const [bankRef, setBankRef] = useState('');
   const [amountVES, setAmountVES] = useState<number>(0);
-  const [accountDebit, setAccountDebit] = useState('1.1.03.01.002 - Inventario Café Pergamino');
+  const [accountDebit, setAccountDebit] = useState('2.1.01.01 - Anticipos Recibidos de Clientes (NIIF 15)');
   const [accountCredit, setAccountCredit] = useState('1.1.01.01.001 - Banco Banesco Cuenta Corriente VES');
 
   // Filtered entries
@@ -86,7 +86,7 @@ export const AgricolaOniAccountingAndVouchersSuiteView: React.FC<Props> = ({ com
       status: 'CONFIRMADO',
       lines: [
         {
-          accountCode: accountDebit.split(' - ')[0] || '1.1.03.01',
+          accountCode: accountDebit.split(' - ')[0] || '2.1.01.01',
           accountName: accountDebit.split(' - ')[1] || 'Cuenta de Débito',
           reference: documentRef || 'Asiento real',
           debitVES: amountVES,

@@ -24,10 +24,13 @@ import {
   ChevronRight,
   PieChart,
   Layers,
-  FolderArchive
+  FolderArchive,
+  Download,
+  FileDown
 } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { ActiveModule } from '../App';
+import { exportMasterBanescoComplianceFolderPdf, exportMasterBanescoComplianceFolderWord } from '../utils/exportUtils';
 
 interface DashboardOverviewViewProps {
   company: CompanyProfile;
@@ -140,7 +143,7 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
         {
           id: 'RECEIPT_GENERATOR' as ActiveModule,
           title: 'Recibos & Pesaje de Café',
-          subtitle: 'Generación de recibos de recepción de materia prima y pesaje',
+          subtitle: 'Generación de recibos de recepción y pesaje de café en lote',
           icon: Receipt,
           badge: 'Campo',
           pastelBg: 'bg-orange-50/80 hover:bg-orange-100/80 border-orange-200/80 text-orange-950',
@@ -247,6 +250,60 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
 
   return (
     <div className="space-y-8 pb-10">
+      {/* Master Expediente Completo Unificado Banner */}
+      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-slate-900 text-white rounded-2xl p-6 shadow-xl border-2 border-amber-500/60 relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/40 uppercase tracking-wider font-mono">
+              <FolderArchive className="w-4 h-4 text-amber-400" />
+              <span>EXPEDIENTE COMPLETO UNIFICADO BANESCO 2026</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight font-serif-doc">
+              Carpeta de Cumplimiento Consolidada para Entregar a Banesco
+            </h2>
+            <p className="text-xs sm:text-sm text-stone-300 max-w-3xl leading-relaxed">
+              Descarga en <strong>UN SOLO ARCHIVO UNIFICADO</strong> todo el expediente listo para imprimir (Portadas, Carta 1 Extendida, Carta 2 Ejecutiva de 1 Hoja, Conciliación $2,91M USD vs EEFF, Dictamen CPC, Soportes de Clientes y EEFF Auditados al 31/08/2026).
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+            <button
+              onClick={async () => {
+                await exportMasterBanescoComplianceFolderPdf({
+                  companyName: company.name,
+                  companyRif: company.rif,
+                  address: company.address,
+                  bcvRate: currentRate.rateUsd
+                });
+              }}
+              className="px-5 py-3 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-extrabold rounded-xl text-xs transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer active:scale-95 border border-amber-300"
+              title="Descargar todo el expediente unido en 1 solo archivo PDF"
+            >
+              <Download className="w-4 h-4 text-slate-950" />
+              <span>Descargar Expediente COMPLETO (PDF)</span>
+            </button>
+
+            <button
+              onClick={async () => {
+                await exportMasterBanescoComplianceFolderWord({
+                  companyName: company.name,
+                  companyRif: company.rif,
+                  address: company.address,
+                  bcvRate: currentRate.rateUsd
+                });
+              }}
+              className="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white font-extrabold rounded-xl text-xs transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer active:scale-95 border border-blue-400"
+              title="Descargar todo el expediente unido en 1 solo archivo Word (.docx) editable"
+            >
+              <FileDown className="w-4 h-4 text-white" />
+              <span>Descargar Expediente COMPLETO (Word)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Welcome Hero / Pastel Banner */}
       <div className="bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border border-emerald-200/80 rounded-2xl p-6 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
