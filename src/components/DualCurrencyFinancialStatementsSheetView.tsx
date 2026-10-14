@@ -26,7 +26,7 @@ import {
   MANUEL_BECERRA_SUMMARY_2026,
   TRIAL_BALANCE_AUGUST_2026
 } from '../data/financialStatementsData';
-import { exportFinancialStatementsDualXlsx, exportToPdfPrint, downloadNativeDocx } from '../utils/exportUtils';
+import { exportFinancialStatementsDualXlsx, exportFinancialStatementsDualPdf, exportToPdfPrint, downloadNativeDocx } from '../utils/exportUtils';
 
 interface Props {
   company: CompanyProfile;
@@ -91,35 +91,43 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
   const notesList = [
     {
       title: 'Identificación de la Empresa y Objeto Social',
-      text: `${company.name} (R.I.F. ${company.rif}) es una sociedad mercantil venezolana inscrita en el Registro Mercantil en 2021, cuyo objeto social comprende la compra, venta, acopio, procesamiento, intermediación comercial y servicios agrícolas de café en el territorio nacional. La empresa actúa como intermediaria entre personas naturales y jurídicas en Venezuela, comprando café exclusivamente a productores y empresas venezolanas a tipo de cambio oficial BCV. Su representante legal, Presidente y Director General es Elias Rafael Trías Abreu (C.I. V-14.892.301).`
+      text: `${company.name} (R.I.F. ${company.rif}) es una sociedad mercantil venezolana inscrita en el Registro Mercantil en 2021, cuyo objeto social comprende la compra, venta, acopio, procesamiento, intermediación comercial y servicios agrícolas de café en el territorio nacional. La empresa actúa como intermediaria en Venezuela, comprando café exclusivamente a productores y empresas venezolanas a tipo de cambio oficial BCV. Su representante legal, Presidente y Director General es Elias Rafael Trías Abreu (C.I. V-23.997.829).`
     },
     {
       title: 'Bases de Presentación y Expresión Dual en Moneda Extranjera',
       text: `Los Estados Financieros se presentan de acuerdo con Normas de Información Financiera de Venezuela (VEN-NIF GE). A los efectos de cumplir con el requerimiento de análisis de riesgo crediticio del Banco (Banesco Banco Universal, C.A.), todas las partidas expresadas en Bolívares (Bs.) han sido traducidas a Dólares de los Estados Unidos de América (USD) utilizando la tasa de cambio oficial publicada por el Banco Central de Venezuela (BCV) al 31 de agosto de 2026, equivalente a 794,99 Bs./USD.`
     },
     {
-      title: 'Efectivo y Equivalentes de Efectivo',
-      text: `Representa el saldo de fondos líquidos en la cuenta corriente Banesco Banco Universal (Bs. 999.278,01 / $1.256,97 USD) destinados a gastos operativos de caja chica y pagos de tributos locales.`
+      title: 'Efectivo y Equivalentes de Efectivo (Banesco)',
+      text: `Representa el saldo de fondos disponibles en la cuenta corriente de Banesco Banco Universal (Bs. 12.355.523,87 / $15.541,74 USD) al 31 de agosto de 2026, resultante de la conciliación bancaria integral de todos los ingresos y egresos del período enero - agosto 2026.`
     },
     {
       title: 'Cuentas por Cobrar Socios y Línea de Crédito Mutuo Manuel Becerra',
-      text: `Refleja el saldo acumulado por cobrar bajo el Contrato de Préstamo Mutuo y Línea de Crédito Rotativa suscrito con el socio y aliado estratégico Sr. Manuel Becerra (límite Bs. 600.000.000,00). Al 31/08/2026 el saldo de capital asciende a Bs. 312.024.605,30 más intereses devengados de Bs. 13.924.047,66, totalizando Bs. 325.948.652,96 ($410.003,46 USD). Durante el período se recibieron reintegros de capital por Bs. 186.376.000,00 que ingresaron a Banesco.`
+      text: `Refleja el saldo acumulado por cobrar bajo el Contrato de Préstamo Mutuo y Línea de Crédito Rotativa suscrito con el socio y aliado estratégico Sr. Manuel Becerra (límite Bs. 600.000.000,00). Al 31/08/2026 el saldo de capital asciende a Bs. 312.024.605,30 más intereses devengados de Bs. 13.924.047,66, totalizando Bs. 325.948.652,96 ($410.003,46 USD). Durante el período se recibieron amortizaciones y reintegros de capital por Bs. 186.376.000,00 que ingresaron a Banesco.`
     },
     {
       title: 'Propiedad, Planta y Equipos Netos',
       text: `Comprende bienes de capital registrados al costo histórico (Inmuebles Bs. 1.317.600,00, Vehículos y Unidades de Carga Bs. 26.145.094,00, Equipos de Oficina y Maquinarias Bs. 600.000,00) menos su correspondiente depreciación acumulada de Bs. 8,47, para un saldo neto de Bs. 28.062.685,53 ($35.299,42 USD).`
     },
     {
-      title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elias Rafael Trías Abreu)',
-      text: `Registra las obligaciones financieras a corto plazo con el Presidente y socio accionista mayoritario Elias Rafael Trías Abreu (C.I. V-14.892.301) por un monto de Bs. 246.572.875,38 ($310.158,46 USD). Dichos fondos corresponden a aportes directos de capital de trabajo enviados desde sus cuentas personales hacia la cuenta corriente Banesco de la empresa para cubrir compras de materia prima y costos operativos en Venezuela.`
+      title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elias Rafael Trías Abreu V-23.997.829)',
+      text: `Registra las obligaciones financieras a corto plazo con el Presidente y accionista Elias Rafael Trías Abreu (C.I. V-23.997.829) por un saldo consolidado de Bs. 301.053.109,62 ($378.687,92 USD). Dichos fondos corresponden a aportes directos de capital de trabajo transferidos a la cuenta corriente Banesco de la empresa para cubrir compras de inventario de café y costos operativos en Venezuela.`
     },
     {
-      title: 'Anticipos en Bolívares Recibidos de Clientes a Tasa BCV para Compra de Café Nacional (NIIF 15 / Pasivos Operacionales)',
-      text: `Durante el período Enero - Agosto 2026, la empresa recibió Bs. 1.542.017.092,63 (78,4% de las acreditaciones bancarias) por concepto de anticipos comerciales en bolívares otorgados por clientes jurídicos nacionales calculados a tasa oficial BCV. La empresa no importa café del exterior; actúa como intermediaria en el mercado nacional para comprar y acopiar cosechas de café a productores y empresas venezolanas. Según la NIIF 15, estos fondos constituyen Pasivo Corriente (Obligaciones de Desempeño) y NO forman parte de los ingresos del período. En el mes de OCTUBRE DE 2026 dichos anticipos son sustituidos por una FACTURA DE VENTAS definitiva a tasa oficial BCV contra la cual se eliminará y extinguirá el pasivo al 100%.`
+      title: 'Anticipos en Bolívares Recibidos de Clientes a Tasa BCV (NIIF 15 / Pasivos Operacionales)',
+      text: `Durante el período Enero - Agosto 2026, la empresa recibió Bs. 1.563.863.072,62 ($1.967.148,10 USD) por concepto de anticipos comerciales en bolívares otorgados por clientes jurídicos nacionales (Torrefactoras y Comercializadoras) a tasa oficial BCV. La empresa actúa formalmente como intermediaria comercial y gestora administrativa/legal en la compra y procura de café en Venezuela por cuenta de clientes. De estos recursos, la empresa ejecutó pagos a comercializadoras primarias y productores por Bs. 1.266.765.000,00 por cuenta de los clientes, quedando un saldo neto exigible de anticipos por ejecutar al 31/08/2026 de Bs. 297.098.072,62 ($373.712,97 USD). La empresa NO mantiene inventarios físicos en su patrimonio.`
     },
     {
-      title: 'Reconciliación de Movilización Bancaria Banesco ($2.781.830,18 USD promedio) vs Ingresos ($116.531,68 USD)',
-      text: `La totalidad de la movilización acreditada en Banesco (Bs. 1.966.597.105,35 / $2.473.738,15 USD nominal) se compone strictly de: 1) Anticipos de clientes para compra de café nacional NIIF 15: Bs. 1.542.017.092,63 (78,4%); 2) Reintegros Mutuo Becerra: Bs. 186.376.000,00 (9,5%); 3) Transferencias entre Cuentas Propias: Bs. 208.708.057,73 (10,6%); 4) Aportes del socio accionista y personas naturales: Bs. 29.495.954,99 (1,5%). Los únicos ingresos gravables reales del período son Bs. 92.641.520,01 ($116.531,68 USD), compuestos por Servicios Agrícolas facturados en Venezuela (Bs. 78.717.472,35) e Intereses del Mutuo Becerra (Bs. 13.924.047,66).`
+      title: 'Retención de ISLR sobre Anticipos de Clientes (2% Decreto 1808)',
+      text: `Corresponde al pasivo tributario de Bs. 31.277.261,45 ($39.342,96 USD) originado por la retención en la fuente del 2% de Impuesto Sobre la Renta (ISLR) aplicable sobre los anticipos recibidos de clientes personas jurídicas conforme al Decreto 1808 de Retenciones de ISLR.`
+    },
+    {
+      title: 'Tratamiento Tributario del IGTF (Derogado 2% Bancario / Vigente 3% Efectivo)',
+      text: `Conforme a la reforma publicada en Gaceta Oficial N° 6.821 y Decreto Presidencial N° 4.970, la alícuota del 2% del Impuesto a las Grandes Transacciones Financieras (IGTF) sobre débitos y transferencias bancarias en bolívares y cuentas bancarias nacionales fue derogada y fijada en 0%. Únicamente permanece vigente la alícuota del 3% para pagos realizados en divisas o moneda extranjera en efectivo. Como la empresa realiza todas sus operaciones formalmente a través del sistema bancario nacional, el saldo por pagar de IGTF es Bs. 0,00.`
+    },
+    {
+      title: 'Reconciliación de Movilización Bancaria Banesco vs Ingresos Operacionales',
+      text: `La totalidad de los fondos movilizados en Banesco (Créditos Bs. 1.966.597.105,35 / Débitos Bs. 1.956.660.113,95) corresponden a anticipos comerciales NIIF 15 (78,4%), reintegros y desembolsos del préstamo mutuo Becerra (9,5%), transferencias entre cuentas propias (10,6%) y aportes del accionista Elias Rafael Trías Abreu (1,5%). Los únicos ingresos operacionales y financieros reales del período son Bs. 92.641.520,01 ($116.531,68 USD), compuestos por Servicios Agrícolas facturados en Venezuela (Bs. 78.717.472,35) e Intereses del Mutuo Becerra (Bs. 13.924.047,66).`
     }
   ];
 
@@ -134,10 +142,11 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       balanceSheetData: {
         assets: {
           current: [
-            ['1.1.01', 'Efectivo y Bancos (Banesco / Caja)', bs.assets.current.cashAndBanks, toUSD(bs.assets.current.cashAndBanks)],
-            ['1.1.02', 'Cuentas por Cobrar Socios - Mutuo Manuel Becerra', bs.assets.current.manuelBecerraReceivable, toUSD(bs.assets.current.manuelBecerraReceivable)],
-            ['1.1.03', 'Retenciones ISLR Clientes', bs.assets.current.islrWithholdingClients, toUSD(bs.assets.current.islrWithholdingClients)],
-            ['1.1.04', 'ISLR Pagado por Anticipado', bs.assets.current.prepaidISLR, toUSD(bs.assets.current.prepaidISLR)]
+            ['1.1.01', 'Efectivo y Bancos (Banesco / Cta. Cte.)', bs.assets.current.cashAndBanks, toUSD(bs.assets.current.cashAndBanks)],
+            ['1.1.02', 'Cuentas por Cobrar Socios - Transferencias Fondos Banesco', bs.assets.current.shareholderAdvancesReceivable || 0, toUSD(bs.assets.current.shareholderAdvancesReceivable || 0)],
+            ['1.1.03', 'Cuentas por Cobrar Socios - Mutuo Manuel Becerra', bs.assets.current.manuelBecerraReceivable, toUSD(bs.assets.current.manuelBecerraReceivable)],
+            ['1.1.04', 'Retenciones ISLR Clientes', bs.assets.current.islrWithholdingClients, toUSD(bs.assets.current.islrWithholdingClients)],
+            ['1.1.05', 'ISLR Pagado por Anticipado', bs.assets.current.prepaidISLR, toUSD(bs.assets.current.prepaidISLR)]
           ],
           currentTotal: assetsCurrentBs,
           currentTotalUSD: assetsCurrentUSD,
@@ -155,8 +164,86 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         },
         liabilities: {
           current: [
-            ['2.1.01', 'Cuentas por Pagar Socios (Elias Rafael Trías Abreu)', bs.liabilities.current.shareholderPayables, toUSD(bs.liabilities.current.shareholderPayables)],
-            ['2.1.02', 'ISLR por Pagar / Tributos Retenidos', bs.liabilities.current.islrPayable, toUSD(bs.liabilities.current.islrPayable)]
+            ['2.1.01', 'Anticipos Recibidos de Clientes (NIIF 15 - Torrefactoras y Clientes Jurídicos Banesco)', bs.liabilities.current.customerAdvances || 0, toUSD(bs.liabilities.current.customerAdvances || 0)],
+            ['2.1.02', 'Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)', bs.liabilities.current.islrWithheldOnAdvancesPayable || 0, toUSD(bs.liabilities.current.islrWithheldOnAdvancesPayable || 0)],
+            ['2.1.03', 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)', bs.liabilities.current.shareholderPayables, toUSD(bs.liabilities.current.shareholderPayables)],
+            ['2.1.04', 'ISLR por Pagar / Tributos Retenidos', bs.liabilities.current.islrPayable, toUSD(bs.liabilities.current.islrPayable)],
+            ['2.1.05', 'IGTF por Pagar (3% Efectivo Divisas / Derogado 2% Bancario)', bs.liabilities.current.igtfPayable || 0, toUSD(bs.liabilities.current.igtfPayable || 0)]
+          ],
+          currentTotal: liabilitiesCurrentBs,
+          currentTotalUSD: liabilitiesCurrentUSD,
+          totalLiabilities: totalLiabilitiesBs,
+          totalLiabilitiesUSD: totalLiabilitiesUSD
+        },
+        equity: {
+          items: [
+            ['3.1.01', 'Capital Social Suscrito y Pagado', bs.equity.subscribedCapital, toUSD(bs.equity.subscribedCapital)],
+            ['3.1.02', 'Resultados Acumulados (Ejercicios Anteriores)', bs.equity.accumulatedSurplus, toUSD(bs.equity.accumulatedSurplus)],
+            ['3.1.03', 'Ganancia Neta del Ejercicio (Ene-Ago 2026)', bs.equity.periodProfit, toUSD(bs.equity.periodProfit)],
+            ['3.1.04', 'Reserva Legal (5%)', bs.equity.legalReserve, toUSD(bs.equity.legalReserve)]
+          ],
+          totalEquity: totalEquityBs,
+          totalEquityUSD: totalEquityUSD
+        },
+        totalLiabilitiesAndEquity: totalLiabEqBs,
+        totalLiabilitiesAndEquityUSD: totalLiabEqUSD
+      },
+      incomeStatementData: {
+        rows: [
+          ['4.1.01', 'Ingresos por Servicios Agrícolas y Procesamiento', revServicesBs, revServicesUSD],
+          ['4.1.02', 'Ingresos por Intereses Rendidos (Mutuo Becerra)', revInterestBs, revInterestUSD],
+          ['4.1.99', 'TOTAL INGRESOS OPERACIONALES Y FINANCIEROS', totalRevenuesBs, totalRevenuesUSD],
+          ['4.2.01', 'Costos de Servicios Agrícolas y Mantenimiento', serviceCostsBs, serviceCostsUSD],
+          ['4.3.00', 'UTILIDAD BRUTA EN VENTAS', inc.costs.grossProfit, toUSD(inc.costs.grossProfit)]
+        ],
+        totalRevenuesBs: totalRevenuesBs,
+        totalRevenuesUSD: totalRevenuesUSD,
+        netIncomeBs: netIncomeBs,
+        netIncomeUSD: netIncomeUSD
+      },
+      trialBalanceData: TRIAL_BALANCE_AUGUST_2026,
+      notes: notesList
+    });
+  };
+
+  // PDF Download Handler
+  const handleExportPdf = async () => {
+    await exportFinancialStatementsDualPdf({
+      filename: 'EEFF_Agricola_Oni_31-08-2026_Bs_USD.pdf',
+      companyName: company.name,
+      companyRif: company.rif,
+      periodDate: '31 de agosto de 2026',
+      exchangeRateBCV: rate,
+      balanceSheetData: {
+        assets: {
+          current: [
+            ['1.1.01', 'Efectivo y Bancos (Banesco / Cta. Cte.)', bs.assets.current.cashAndBanks, toUSD(bs.assets.current.cashAndBanks)],
+            ['1.1.02', 'Cuentas por Cobrar Socios - Transferencias Fondos Banesco', bs.assets.current.shareholderAdvancesReceivable || 0, toUSD(bs.assets.current.shareholderAdvancesReceivable || 0)],
+            ['1.1.03', 'Cuentas por Cobrar Socios - Mutuo Manuel Becerra', bs.assets.current.manuelBecerraReceivable, toUSD(bs.assets.current.manuelBecerraReceivable)],
+            ['1.1.04', 'Retenciones ISLR Clientes', bs.assets.current.islrWithholdingClients, toUSD(bs.assets.current.islrWithholdingClients)],
+            ['1.1.05', 'ISLR Pagado por Anticipado', bs.assets.current.prepaidISLR, toUSD(bs.assets.current.prepaidISLR)]
+          ],
+          currentTotal: assetsCurrentBs,
+          currentTotalUSD: assetsCurrentUSD,
+          ppe: [
+            ['1.2.01', 'Maquinarias y Equipos Agrícolas', bs.assets.propertyPlantEquipment.machinery, toUSD(bs.assets.propertyPlantEquipment.machinery)],
+            ['1.2.02', 'Vehículos y Flota de Carga', bs.assets.propertyPlantEquipment.vehicles, toUSD(bs.assets.propertyPlantEquipment.vehicles)],
+            ['1.2.03', 'Muebles y Equipos de Oficina', bs.assets.propertyPlantEquipment.furnitureAndOfficeEquipment, toUSD(bs.assets.propertyPlantEquipment.furnitureAndOfficeEquipment)],
+            ['1.2.04', 'Edificaciones e Inmuebles Industriales', bs.assets.propertyPlantEquipment.realEstateBuildings, toUSD(bs.assets.propertyPlantEquipment.realEstateBuildings)],
+            ['1.2.05', 'Depreciación Acumulada', bs.assets.propertyPlantEquipment.accumulatedDepreciation, toUSD(bs.assets.propertyPlantEquipment.accumulatedDepreciation)]
+          ],
+          ppeTotal: assetsPpeBs,
+          ppeTotalUSD: assetsPpeUSD,
+          totalAssets: totalAssetsBs,
+          totalAssetsUSD: totalAssetsUSD
+        },
+        liabilities: {
+          current: [
+            ['2.1.01', 'Anticipos Recibidos de Clientes (NIIF 15 - Torrefactoras y Clientes Jurídicos Banesco)', bs.liabilities.current.customerAdvances || 0, toUSD(bs.liabilities.current.customerAdvances || 0)],
+            ['2.1.02', 'Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)', bs.liabilities.current.islrWithheldOnAdvancesPayable || 0, toUSD(bs.liabilities.current.islrWithheldOnAdvancesPayable || 0)],
+            ['2.1.03', 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)', bs.liabilities.current.shareholderPayables, toUSD(bs.liabilities.current.shareholderPayables)],
+            ['2.1.04', 'ISLR por Pagar / Tributos Retenidos', bs.liabilities.current.islrPayable, toUSD(bs.liabilities.current.islrPayable)],
+            ['2.1.05', 'IGTF por Pagar (3% Efectivo Divisas / Derogado 2% Bancario)', bs.liabilities.current.igtfPayable || 0, toUSD(bs.liabilities.current.igtfPayable || 0)]
           ],
           currentTotal: liabilitiesCurrentBs,
           currentTotalUSD: liabilitiesCurrentUSD,
@@ -214,7 +301,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD promedio responde a Anticipos de Clientes para Compra e Intermediación de Café en Venezuela bajo NIIF 15 a Tasa Oficial BCV (78,4% / Bs. 1.542.017.092,63), los cuales constituyen Pasivo Corriente a ser sustituidos por facturas de venta en octubre de 2026 y no ventas gravables anticipadas.`,
       signers: [
         { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario' },
-        { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Colegiado', idNumber: 'C.P.C. 16.336' }
+        { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. 16.336' }
       ]
     });
   };
@@ -227,27 +314,27 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
 
   return (
     <div className="space-y-6">
-      {/* HEADER BAR SIEVEX COLOR THEME */}
-      <div className="bg-slate-900 text-white rounded-xl p-6 shadow-xl border border-slate-800">
+      {/* HEADER BAR MONOCHROME / TONER-SAVING PROFESSIONAL THEME */}
+      <div className="bg-white text-slate-900 rounded-xl p-6 shadow-xs border border-slate-300">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/30 uppercase tracking-wider">
+              <span className="bg-slate-100 text-slate-800 text-xs font-bold px-3 py-1 rounded-md border border-slate-300 uppercase tracking-wider">
                 Corte Oficial al 31-08-2026
               </span>
-              <span className="bg-emerald-500/20 text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/30">
-                VEN-NIF GE / SUDEBAN
+              <span className="bg-slate-100 text-slate-800 text-xs font-semibold px-3 py-1 rounded-md border border-slate-300">
+                VEN-NIF
               </span>
-              <span className="bg-blue-500/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full border border-blue-500/30">
+              <span className="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-md border border-slate-300">
                 Tasa BCV: {rate.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
-              <Scale className="w-8 h-8 text-amber-400" />
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+              <Scale className="w-8 h-8 text-slate-800" />
               Estados Financieros Duales (Bs. & USD)
             </h1>
-            <p className="text-slate-300 text-sm mt-1">
-              {company.name} &middot; RIF: <strong className="text-amber-400">{company.rif}</strong> &middot; Preparados para presentación ante <strong className="text-white">Banesco Banco Universal, C.A.</strong>
+            <p className="text-slate-600 text-sm mt-1">
+              {company.name} &middot; RIF: <strong className="text-slate-900">{company.rif}</strong> &middot; Preparados para presentación ante <strong className="text-slate-900">Banesco Banco Universal, C.A.</strong> &middot; Normas VEN-NIF
             </p>
           </div>
 
@@ -255,71 +342,80 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
           <div className="flex flex-wrap items-center gap-2 no-print">
             <button
               onClick={handleExportExcel}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-md transition-all flex items-center gap-2 border border-emerald-400/30"
-              title="Descargar libro Excel oficial con Balance, Resultados y Notas"
+              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-4 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
+              title="Descargar libro Excel oficial (.xlsx) con fondo blanco y formato profesional"
             >
-              <FileSpreadsheet className="w-4 h-4 text-emerald-100" />
+              <FileSpreadsheet className="w-4 h-4 text-black" />
               <span>Descargar Excel (.xlsx)</span>
             </button>
 
             <button
-              onClick={exportToPdfPrint}
-              className="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-md transition-all flex items-center gap-2 border border-amber-400/30"
-              title="Imprimir o guardar como PDF"
+              onClick={handleExportPdf}
+              className="bg-black hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-black"
+              title="Descargar archivo PDF oficial (.pdf) directo"
             >
-              <Printer className="w-4 h-4" />
-              <span>Imprimir / PDF</span>
+              <Download className="w-4 h-4 text-white" />
+              <span>Descargar PDF (.pdf)</span>
+            </button>
+
+            <button
+              onClick={exportToPdfPrint}
+              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
+              title="Imprimir documento físico (Ctrl+P)"
+            >
+              <Printer className="w-4 h-4 text-black" />
+              <span>Imprimir</span>
             </button>
 
             <button
               onClick={handleExportWord}
-              className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-md transition-all flex items-center gap-2 border border-blue-400/30"
-              title="Descargar informe en Microsoft Word"
+              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
+              title="Descargar informe en Microsoft Word (.docx)"
             >
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4 text-black" />
               <span>Exportar Word</span>
             </button>
           </div>
         </div>
 
         {/* SUMMARY STAT CARDS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-800">
-          <div className="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700/60">
-            <p className="text-xs text-slate-400 font-medium uppercase">Total Activo</p>
-            <p className="text-lg font-bold text-white mt-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6 pt-6 border-t border-slate-200">
+          <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-300">
+            <p className="text-xs text-slate-500 font-semibold uppercase">Total Activo</p>
+            <p className="text-lg font-bold text-slate-900 mt-1">
               Bs. {totalAssetsBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </p>
-            <p className="text-xs text-emerald-400 font-semibold mt-0.5">
+            <p className="text-xs text-slate-600 font-mono mt-0.5">
               ${totalAssetsUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
             </p>
           </div>
 
-          <div className="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700/60">
-            <p className="text-xs text-slate-400 font-medium uppercase">Total Pasivo</p>
-            <p className="text-lg font-bold text-amber-300 mt-1">
+          <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-300">
+            <p className="text-xs text-slate-500 font-semibold uppercase">Total Pasivo</p>
+            <p className="text-lg font-bold text-slate-900 mt-1">
               Bs. {totalLiabilitiesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </p>
-            <p className="text-xs text-amber-400 font-semibold mt-0.5">
+            <p className="text-xs text-slate-600 font-mono mt-0.5">
               ${totalLiabilitiesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
             </p>
           </div>
 
-          <div className="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700/60">
-            <p className="text-xs text-slate-400 font-medium uppercase">Patrimonio Neto</p>
-            <p className="text-lg font-bold text-emerald-300 mt-1">
+          <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-300">
+            <p className="text-xs text-slate-500 font-semibold uppercase">Patrimonio Neto</p>
+            <p className="text-lg font-bold text-slate-900 mt-1">
               Bs. {totalEquityBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </p>
-            <p className="text-xs text-emerald-400 font-semibold mt-0.5">
+            <p className="text-xs text-slate-600 font-mono mt-0.5">
               ${totalEquityUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
             </p>
           </div>
 
-          <div className="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700/60">
-            <p className="text-xs text-slate-400 font-medium uppercase">Ingresos Fiscales 2026</p>
-            <p className="text-lg font-bold text-blue-300 mt-1">
+          <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-300">
+            <p className="text-xs text-slate-500 font-semibold uppercase">Ingresos Fiscales 2026</p>
+            <p className="text-lg font-bold text-slate-900 mt-1">
               Bs. {totalRevenuesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </p>
-            <p className="text-xs text-blue-400 font-semibold mt-0.5">
+            <p className="text-xs text-slate-600 font-mono mt-0.5">
               ${totalRevenuesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
             </p>
           </div>
@@ -348,7 +444,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
           }`}
         >
-          <TrendingUp className="w-4 h-4 text-amber-600" />
+          <TrendingUp className="w-4 h-4 text-slate-800" />
           <span>2. Ganancias y Pérdidas (Resultado Integral)</span>
         </button>
 
@@ -360,7 +456,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
           }`}
         >
-          <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+          <FileSpreadsheet className="w-4 h-4 text-slate-800" />
           <span>3. Balance de Comprobación (Saldos 2025 & Movimientos 2026)</span>
         </button>
 
@@ -372,7 +468,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
           }`}
         >
-          <BookOpen className="w-4 h-4 text-blue-600" />
+          <BookOpen className="w-4 h-4 text-slate-800" />
           <span>4. Notas Explicativas (VEN-NIF)</span>
         </button>
 
@@ -384,7 +480,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50'
           }`}
         >
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <ShieldCheck className="w-4 h-4 text-slate-800" />
           <span>5. Anexo Conciliación Banesco</span>
         </button>
       </div>
@@ -407,7 +503,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               <p className="text-xs font-semibold text-slate-500 mt-0.5">
                 AL 31 DE AGOSTO DE 2026 Y AL 31 DE DICIEMBRE DE 2025
               </p>
-              <p className="text-xs font-medium text-amber-700 bg-amber-50 inline-block px-3 py-1 rounded-md mt-2 border border-amber-200">
+              <p className="text-xs font-medium text-slate-700 bg-slate-50 inline-block px-3 py-1 rounded-md mt-2 border border-slate-300">
                 Expresado en Bolívares (Bs.) y Dólares de los Estados Unidos de América ($ USD) al Tipo de Cambio Oficial BCV ({rate.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD)
               </p>
             </div>
@@ -415,77 +511,90 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left text-slate-800 border-collapse">
                 <thead>
-                  <tr className="bg-slate-900 text-white uppercase text-[11px]">
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold w-16 text-center">Código</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold">Cuenta / Rubro Patrimonial</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold text-right w-44">31/08/2026 (Bs.)</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold text-right w-40 text-emerald-400">31/08/2026 ($ USD)</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold text-right w-44 text-slate-300">31/12/2025 (Bs.)</th>
+                  <tr className="bg-slate-100 text-slate-900 uppercase text-[11px] border-y-2 border-black">
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold w-16 text-center">Código</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold">Cuenta / Rubro Patrimonial</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold text-right w-44">31/08/2026 (Bs.)</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold text-right w-40">31/08/2026 ($ USD)</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold text-right w-44 text-slate-600">31/12/2025 (Bs.)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200">
                   {/* ACTIVO CORRIENTE */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">1.1</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={4}>
                       ACTIVO CORRIENTE (CIRCULANTE)
                     </td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.1.01</td>
-                    <td className="py-2 px-3 border border-slate-200 font-medium">Efectivo y Equivalentes de Efectivo (Banesco / Caja Chica)</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.1.01</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium">Efectivo y Equivalentes de Efectivo (Banesco Cta. Cte. / Caja)</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       {bs.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.current.cashAndBanks).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">
                       2.418.532,47
                     </td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.1.02</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.1.02</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium">
+                      Cuentas por Cobrar Socios - Avances Corporativos Banesco (Elías Rafael Trías Abreu V-23.997.829)
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      {(bs.assets.current.shareholderAdvancesReceivable || 375630000.00).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      ${toUSD(bs.assets.current.shareholderAdvancesReceivable || 375630000.00).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">0,00</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.1.03</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">
                       Cuentas por Cobrar Socios - Mutuo Manuel Becerra (Capital + Intereses)
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       {bs.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.current.manuelBecerraReceivable).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">0,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">0,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.1.03</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.1.04</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Retenciones de ISLR por Cobrar a Clientes</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.current.islrWithholdingClients).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">661.181,94</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">661.181,94</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.1.04</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.1.05</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">ISLR Pagado por Anticipado / Exceso de Anticipos</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.current.prepaidISLR).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">394.563,21</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">394.563,21</td>
                   </tr>
-                  <tr className="bg-slate-200 font-bold text-slate-900 border-t-2 border-slate-400">
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t border-b-2 border-slate-400">
                     <td className="py-2 px-3 border border-slate-300 text-center">1.1.99</td>
                     <td className="py-2 px-3 border border-slate-300 uppercase">TOTAL ACTIVO CORRIENTE</td>
                     <td className="py-2 px-3 border border-slate-300 text-right font-mono">
                       Bs. {assetsCurrentBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-emerald-800">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-900">
                       ${assetsCurrentUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-700">
@@ -494,74 +603,74 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                   </tr>
 
                   {/* PROPIEDAD PLANTA Y EQUIPO */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">1.2</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={4}>
                       PROPIEDAD, PLANTA Y EQUIPOS (NO CORRIENTE)
                     </td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.2.01</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.2.01</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Maquinarias y Equipos Agrícolas</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.assets.propertyPlantEquipment.machinery.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.propertyPlantEquipment.machinery).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">10.000,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">10.000,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.2.02</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.2.02</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Vehículos y Flota de Carga Agrícola</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.assets.propertyPlantEquipment.vehicles.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.propertyPlantEquipment.vehicles).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">26.145.094,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">26.145.094,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.2.03</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.2.03</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Muebles y Equipos de Oficina</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.assets.propertyPlantEquipment.furnitureAndOfficeEquipment.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.propertyPlantEquipment.furnitureAndOfficeEquipment).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">590.000,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">590.000,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.2.04</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.2.04</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Edificaciones e Inmuebles Industriales</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.assets.propertyPlantEquipment.realEstateBuildings.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.assets.propertyPlantEquipment.realEstateBuildings).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">1.317.600,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">1.317.600,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">1.2.05</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">1.2.05</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium italic text-slate-600">Depreciación Acumulada PPE</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-red-600">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-800">
                       ({Math.abs(bs.assets.propertyPlantEquipment.accumulatedDepreciation).toLocaleString('es-VE', { minimumFractionDigits: 2 })})
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-red-600">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-800">
                       -${Math.abs(toUSD(bs.assets.propertyPlantEquipment.accumulatedDepreciation)).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">-8,47</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">-8,47</td>
                   </tr>
-                  <tr className="bg-slate-200 font-bold text-slate-900 border-t-2 border-slate-400">
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t border-b-2 border-slate-400">
                     <td className="py-2 px-3 border border-slate-300 text-center">1.2.99</td>
                     <td className="py-2 px-3 border border-slate-300 uppercase">TOTAL PROPIEDAD, PLANTA Y EQUIPO NETO</td>
                     <td className="py-2 px-3 border border-slate-300 text-right font-mono">
                       Bs. {assetsPpeBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-emerald-800">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-900">
                       ${assetsPpeUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-700">
@@ -569,144 +678,183 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                     </td>
                   </tr>
 
-                  {/* TOTAL ACTIVO */}
-                  <tr className="bg-slate-900 text-white font-extrabold text-sm border-t-4 border-slate-900">
-                    <td className="py-3 px-3 border border-slate-900 text-center">1.0.00</td>
-                    <td className="py-3 px-3 border border-slate-900 uppercase">TOTAL ACTIVO</td>
-                    <td className="py-3 px-3 border border-slate-900 text-right font-mono text-white">
+                  {/* TOTAL ACTIVO - ACCOUNTING DOUBLE BORDER */}
+                  <tr className="bg-white text-slate-950 font-black text-sm border-t-2 border-b-4 border-double border-black">
+                    <td className="py-3 px-3 border border-slate-300 text-center">1.0.00</td>
+                    <td className="py-3 px-3 border border-slate-300 uppercase">TOTAL ACTIVO</td>
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-black font-extrabold">
                       Bs. {totalAssetsBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-3 border border-slate-900 text-right font-mono text-emerald-400">
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-black font-extrabold">
                       ${totalAssetsUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-3 border border-slate-900 text-right font-mono text-slate-300">
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-slate-700 font-bold">
                       Bs. 84.646.014,94
                     </td>
                   </tr>
 
                   {/* PASIVO CORRIENTE */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">2.1</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={4}>
                       PASIVO CORRIENTE (CIRCULANTE)
                     </td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">2.1.01</td>
-                    <td className="py-2 px-3 border border-slate-200 font-medium">
-                      Cuentas por Pagar Socios (Elias Rafael Trías Abreu / Aportes Operativos)
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">2.1.01</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium font-bold text-slate-900">
+                      Anticipos Recibidos de Clientes (NIIF 15 - Saldo Neto por Ejecutar)
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-amber-800">
-                      {bs.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      {(bs.liabilities.current.customerAdvances || 301228750.17).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
-                      ${toUSD(bs.liabilities.current.shareholderPayables).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      ${toUSD(bs.liabilities.current.customerAdvances || 301228750.17).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">0,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">0,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">2.1.02</td>
-                    <td className="py-2 px-3 border border-slate-200 font-medium">Impuesto Sobre La Renta (ISLR) por Pagar</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">2.1.02</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium font-semibold text-slate-800">
+                      Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      {(bs.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      ${toUSD(bs.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">0,00</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">2.1.03</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium">
+                      Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 / Omar Pérez)
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      {bs.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
+                      ${toUSD(bs.liabilities.current.shareholderPayables).toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">0,00</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">2.1.04</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium">Impuesto Sobre La Renta (ISLR) Provisiones por Pagar</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.liabilities.current.islrPayable).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">1.395.745,15</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">1.395.745,15</td>
                   </tr>
-                  <tr className="bg-amber-100 font-bold text-amber-950 border-t-2 border-amber-300">
-                    <td className="py-2 px-3 border border-amber-200 text-center">2.0.00</td>
-                    <td className="py-2 px-3 border border-amber-200 uppercase">TOTAL PASIVO CORRIENTE (TOTAL PASIVO)</td>
-                    <td className="py-2 px-3 border border-amber-200 text-right font-mono font-bold">
+                  <tr>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">2.1.05</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium text-slate-600">
+                      IGTF 3% Efectivo Divisas por Pagar (Derogado 2% Transferencias Bancarias)
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">
+                      {(bs.liabilities.current.igtfPayable || 0.00).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-600">
+                      $0.00
+                    </td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">0,00</td>
+                  </tr>
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t border-b-2 border-slate-400">
+                    <td className="py-2 px-3 border border-slate-300 text-center">2.0.00</td>
+                    <td className="py-2 px-3 border border-slate-300 uppercase">TOTAL PASIVO CORRIENTE (TOTAL PASIVO)</td>
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono font-bold">
                       Bs. {totalLiabilitiesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-amber-200 text-right font-mono font-bold text-emerald-800">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       ${totalLiabilitiesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-amber-200 text-right font-mono text-slate-700">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-700">
                       Bs. 1.395.745,15
                     </td>
                   </tr>
 
                   {/* PATRIMONIO NETO */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">3.1</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={4}>
                       PATRIMONIO NETO
                     </td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">3.1.01</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">3.1.01</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Capital Social Suscrito y Pagado</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.equity.subscribedCapital).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">600.000,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">600.000,00</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">3.1.02</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">3.1.02</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Resultados Acumulados (Superávit Ejercicios Anteriores)</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.equity.accumulatedSurplus).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">79.877.475,85</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">79.877.475,85</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">3.1.03</td>
-                    <td className="py-2 px-3 border border-slate-200 font-medium font-bold text-blue-900">
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">3.1.03</td>
+                    <td className="py-2 px-3 border border-slate-200 font-medium font-bold text-slate-900">
                       Ganancia Neta del Ejercicio (Enero - Agosto 2026)
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-blue-900">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       {bs.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.equity.periodProfit).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">2.712.793,94</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">2.712.793,94</td>
                   </tr>
                   <tr>
-                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">3.1.04</td>
+                    <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">3.1.04</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Reserva Legal (5% Código de Comercio)</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-900">
                       {bs.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${toUSD(bs.equity.legalReserve).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">60.000,00</td>
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-600">60.000,00</td>
                   </tr>
-                  <tr className="bg-emerald-100 font-bold text-emerald-950 border-t-2 border-emerald-300">
-                    <td className="py-2 px-3 border border-emerald-200 text-center">3.1.99</td>
-                    <td className="py-2 px-3 border border-emerald-200 uppercase">TOTAL PATRIMONIO NETO</td>
-                    <td className="py-2 px-3 border border-emerald-200 text-right font-mono font-bold">
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t border-b-2 border-slate-400">
+                    <td className="py-2 px-3 border border-slate-300 text-center">3.1.99</td>
+                    <td className="py-2 px-3 border border-slate-300 uppercase">TOTAL PATRIMONIO NETO</td>
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono font-bold">
                       Bs. {totalEquityBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-emerald-200 text-right font-mono font-bold text-emerald-900">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       ${totalEquityUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-emerald-200 text-right font-mono text-slate-700">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-700">
                       Bs. 83.250.269,79
                     </td>
                   </tr>
 
-                  {/* TOTAL PASIVO Y PATRIMONIO */}
-                  <tr className="bg-slate-900 text-white font-extrabold text-sm border-t-4 border-slate-900">
-                    <td className="py-3 px-3 border border-slate-900 text-center">3.0.00</td>
-                    <td className="py-3 px-3 border border-slate-900 uppercase">TOTAL PASIVO Y PATRIMONIO NETO</td>
-                    <td className="py-3 px-3 border border-slate-900 text-right font-mono text-white">
+                  {/* TOTAL PASIVO Y PATRIMONIO - ACCOUNTING DOUBLE BORDER */}
+                  <tr className="bg-white text-slate-950 font-black text-sm border-t-2 border-b-4 border-double border-black">
+                    <td className="py-3 px-3 border border-slate-300 text-center">3.0.00</td>
+                    <td className="py-3 px-3 border border-slate-300 uppercase">TOTAL PASIVO Y PATRIMONIO NETO</td>
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-black font-extrabold">
                       Bs. {totalLiabEqBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-3 border border-slate-900 text-right font-mono text-emerald-400">
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-black font-extrabold">
                       ${totalLiabEqUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-3 border border-slate-900 text-right font-mono text-slate-300">
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-slate-700 font-bold">
                       Bs. 84.646.014,94
                     </td>
                   </tr>
@@ -715,17 +863,17 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             </div>
 
             {/* EQUATION VALIDATION BADGE */}
-            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+            <div className="p-4 bg-white rounded-lg border border-slate-300 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                <span className="font-bold text-slate-800">
+                <CheckCircle2 className="w-5 h-5 text-slate-900" />
+                <span className="font-bold text-slate-900">
                   Verificación de Ecuación Patrimonial (VEN-NIF):
                 </span>
-                <span className="text-slate-600">
+                <span className="text-slate-700 font-mono">
                   Activo (Bs. {totalAssetsBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}) = Pasivo (Bs. {totalLiabilitiesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}) + Patrimonio (Bs. {totalEquityBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })})
                 </span>
               </div>
-              <span className="bg-emerald-600 text-white font-extrabold px-3 py-1 rounded text-[10px] uppercase tracking-wider">
+              <span className="bg-black text-white font-bold px-3 py-1 rounded text-[10px] uppercase tracking-wider border border-black">
                 100% Cuadrado
               </span>
             </div>
@@ -748,7 +896,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               <p className="text-xs font-semibold text-slate-500 mt-0.5">
                 DEL 01 DE ENERO AL 31 DE AGOSTO DE 2026
               </p>
-              <p className="text-xs font-medium text-amber-700 bg-amber-50 inline-block px-3 py-1 rounded-md mt-2 border border-amber-200">
+              <p className="text-xs font-medium text-slate-700 bg-slate-50 inline-block px-3 py-1 rounded-md mt-2 border border-slate-300">
                 Expresado en Bolívares (Bs.) y Dólares de los Estados Unidos de América ($ USD) al Tipo de Cambio Oficial BCV ({rate.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD)
               </p>
             </div>
@@ -756,16 +904,16 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-left text-slate-800 border-collapse">
                 <thead>
-                  <tr className="bg-slate-900 text-white uppercase text-[11px]">
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold w-16 text-center">Código</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold">Concepto / Cuenta de Ingresos y Gastos</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold text-right w-48">Monto en Bolívares (Bs.)</th>
-                    <th className="py-2.5 px-3 border border-slate-800 font-bold text-right w-44 text-emerald-400">Monto en Dólares ($ USD)</th>
+                  <tr className="bg-slate-100 text-slate-900 uppercase text-[11px] border-y-2 border-black">
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold w-16 text-center">Código</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold">Concepto / Cuenta de Ingresos y Gastos</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold text-right w-48">Monto en Bolívares (Bs.)</th>
+                    <th className="py-2.5 px-3 border border-slate-300 font-bold text-right w-44 text-slate-900">Monto en Dólares ($ USD)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200">
                   {/* INGRESOS */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">4.1</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={3}>
                       INGRESOS OPERACIONALES Y FINANCIEROS
@@ -776,10 +924,10 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                     <td className="py-2 px-3 border border-slate-200 font-medium">
                       Ingresos por Servicios Agrícolas, Acondicionamiento y Secado
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       {revServicesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${revServicesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
@@ -788,26 +936,26 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                     <td className="py-2 px-3 border border-slate-200 font-medium">
                       Ingresos por Intereses Financieros (Contrato Mutuo Manuel Becerra)
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       {revInterestBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-emerald-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       ${revInterestUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
-                  <tr className="bg-slate-200 font-extrabold text-slate-900">
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t border-b-2 border-slate-400">
                     <td className="py-2 px-3 border border-slate-300 text-center">4.1.99</td>
                     <td className="py-2 px-3 border border-slate-300 uppercase">TOTAL INGRESOS BRUTOS DECLARADOS</td>
                     <td className="py-2 px-3 border border-slate-300 text-right font-mono">
                       Bs. {totalRevenuesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-emerald-800">
+                    <td className="py-2 px-3 border border-slate-300 text-right font-mono text-slate-900">
                       ${totalRevenuesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
                   {/* COSTOS */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">4.2</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={3}>
                       COSTOS DE SERVICIOS Y OPERACIÓN
@@ -816,28 +964,28 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                   <tr>
                     <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-500">4.2.01</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">Costos Operacionales Agrícolas y Mantenimiento</td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-red-700 font-semibold">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-800 font-semibold">
                       ({Math.abs(serviceCostsBs).toLocaleString('es-VE', { minimumFractionDigits: 2 })})
                     </td>
-                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-red-700">
+                    <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-800">
                       -${Math.abs(serviceCostsUSD).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
                   {/* UTILIDAD BRUTA */}
-                  <tr className="bg-amber-100 font-bold text-amber-950 border-t-2 border-amber-300">
-                    <td className="py-2.5 px-3 border border-amber-200 text-center">4.3.00</td>
-                    <td className="py-2.5 px-3 border border-amber-200 uppercase">UTILIDAD BRUTA EN VENTAS / OPERACIONES</td>
-                    <td className="py-2.5 px-3 border border-amber-200 text-right font-mono font-bold">
+                  <tr className="bg-slate-100 font-bold text-slate-900 border-t border-b-2 border-slate-400">
+                    <td className="py-2.5 px-3 border border-slate-300 text-center">4.3.00</td>
+                    <td className="py-2.5 px-3 border border-slate-300 uppercase">UTILIDAD BRUTA EN VENTAS / OPERACIONES</td>
+                    <td className="py-2.5 px-3 border border-slate-300 text-right font-mono font-bold">
                       Bs. {netIncomeBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-2.5 px-3 border border-amber-200 text-right font-mono font-bold text-emerald-900">
+                    <td className="py-2.5 px-3 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       ${netIncomeUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
 
                   {/* GASTOS DE OPERACIÓN */}
-                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs">
+                  <tr className="bg-slate-100 font-bold text-slate-900 text-xs border-y border-slate-300">
                     <td className="py-2 px-3 border border-slate-200 text-center">4.4</td>
                     <td className="py-2 px-3 border border-slate-200 uppercase" colSpan={3}>
                       GASTOS OPERACIONALES Y ADMINISTRATIVOS
@@ -850,16 +998,16 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                     <td className="py-2 px-3 border border-slate-200 text-right font-mono text-slate-500">$0,00</td>
                   </tr>
 
-                  {/* UTILIDAD NETA DEL EJERCICIO */}
-                  <tr className="bg-slate-900 text-white font-extrabold text-sm border-t-4 border-slate-900">
-                    <td className="py-3.5 px-3 border border-slate-900 text-center">5.0.00</td>
-                    <td className="py-3.5 px-3 border border-slate-900 uppercase">
+                  {/* UTILIDAD NETA DEL EJERCICIO - ACCOUNTING DOUBLE BORDER */}
+                  <tr className="bg-white text-slate-950 font-black text-sm border-t-2 border-b-4 border-double border-black">
+                    <td className="py-3 px-3 border border-slate-300 text-center">5.0.00</td>
+                    <td className="py-3 px-3 border border-slate-300 uppercase">
                       UTILIDAD NETA DEL EJERCICIO (01/01/2026 AL 31/08/2026)
                     </td>
-                    <td className="py-3.5 px-3 border border-slate-900 text-right font-mono text-emerald-300">
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-black font-extrabold">
                       Bs. {netIncomeBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3.5 px-3 border border-slate-900 text-right font-mono text-emerald-400">
+                    <td className="py-3 px-3 border border-slate-300 text-right font-mono text-black font-extrabold">
                       ${netIncomeUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
@@ -868,9 +1016,9 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             </div>
 
             {/* AUDIT NOTICE BOX */}
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 text-xs text-blue-900">
-              <p className="font-bold flex items-center gap-1.5 mb-1">
-                <AlertCircle className="w-4 h-4 text-blue-700" />
+            <div className="bg-slate-50 p-4 rounded-lg border border-slate-300 text-xs text-slate-800">
+              <p className="font-bold flex items-center gap-1.5 mb-1 text-slate-900">
+                <AlertCircle className="w-4 h-4 text-slate-700" />
                 Nota de Registro de Ingresos por Intereses del Mutuo Becerra:
               </p>
               <p className="leading-relaxed">
@@ -888,57 +1036,57 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                 {company.name}
               </h2>
               <p className="text-xs text-slate-600 font-bold mt-0.5">
-                RIF: {company.rif} &middot; R.M. ESTADO PORTUGUESA &middot; CÓDIGO CONTABLE SUDEBAN
+                RIF: {company.rif} &middot; R.M. ESTADO PORTUGUESA &middot; CATÁLOGO CONTABLE VEN-NIF PYME
               </p>
               <h3 className="text-lg font-bold text-slate-800 mt-2 uppercase tracking-wide flex items-center justify-center gap-2">
-                <FileSpreadsheet className="w-5 h-5 text-emerald-600" />
+                <FileSpreadsheet className="w-5 h-5 text-slate-700" />
                 BALANCE DE COMPROBACIÓN DE SALDOS Y MOVIMIENTOS
               </h3>
               <p className="text-xs font-semibold text-slate-600 mt-0.5">
                 SALDO INICIAL BASE AL 31/12/2025 &rarr; MOVIMIENTOS ENE-AGO 2026 &rarr; SALDO FINAL AL 31/08/2026
               </p>
-              <p className="text-xs font-medium text-emerald-800 bg-emerald-50 inline-block px-3 py-1 rounded-md mt-2 border border-emerald-200">
+              <p className="text-xs font-medium text-slate-700 bg-slate-50 inline-block px-3 py-1 rounded-md mt-2 border border-slate-300">
                 Expresado en Bolívares (Bs.) y Dólares de los Estados Unidos de América ($ USD) a la Tasa Oficial BCV ({rate.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD)
               </p>
             </div>
 
             {/* BALANCE VERIFICATION SUMMARY BADGE */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-900 text-white p-4 rounded-xl border border-slate-800 shadow-md">
-              <div className="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-                <p className="text-[11px] text-slate-400 font-bold uppercase">1. Saldo Inicial al 31/12/2025</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-white text-slate-900 p-4 rounded-xl border border-slate-300 shadow-xs">
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <p className="text-[11px] text-slate-600 font-bold uppercase">1. Saldo Inicial al 31/12/2025</p>
                 <div className="flex justify-between items-center text-xs mt-1">
-                  <span className="text-slate-300">Débito = Crédito:</span>
-                  <span className="font-mono font-bold text-amber-300">
+                  <span className="text-slate-700">Débito = Crédito:</span>
+                  <span className="font-mono font-bold text-slate-950">
                     Bs. {TRIAL_BALANCE_AUGUST_2026.totals.initialDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
-                <p className="text-[10px] text-emerald-400 mt-0.5 text-right font-mono">
+                <p className="text-[10px] text-slate-600 mt-0.5 text-right font-mono">
                   ${(TRIAL_BALANCE_AUGUST_2026.totals.initialDebitVES / 301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })} USD (BCV 2025)
                 </p>
               </div>
 
-              <div className="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-                <p className="text-[11px] text-slate-400 font-bold uppercase">2. Movimientos Enero - Agosto 2026</p>
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <p className="text-[11px] text-slate-600 font-bold uppercase">2. Movimientos Enero - Agosto 2026</p>
                 <div className="flex justify-between items-center text-xs mt-1">
-                  <span className="text-slate-300">Debe = Haber:</span>
-                  <span className="font-mono font-bold text-blue-300">
+                  <span className="text-slate-700">Debe = Haber:</span>
+                  <span className="font-mono font-bold text-slate-950">
                     Bs. {TRIAL_BALANCE_AUGUST_2026.totals.movementsDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
-                <p className="text-[10px] text-blue-400 mt-0.5 text-right font-mono">
+                <p className="text-[10px] text-slate-600 mt-0.5 text-right font-mono">
                   Movilizados en Cuentas y Asientos Contables
                 </p>
               </div>
 
-              <div className="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
-                <p className="text-[11px] text-slate-400 font-bold uppercase">3. Saldo Final al 31/08/2026</p>
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <p className="text-[11px] text-slate-600 font-bold uppercase">3. Saldo Final al 31/08/2026</p>
                 <div className="flex justify-between items-center text-xs mt-1">
-                  <span className="text-slate-300">Débito = Crédito:</span>
-                  <span className="font-mono font-bold text-emerald-300">
+                  <span className="text-slate-700">Débito = Crédito:</span>
+                  <span className="font-mono font-bold text-slate-950">
                     Bs. {TRIAL_BALANCE_AUGUST_2026.totals.finalDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
-                <p className="text-[10px] text-emerald-400 mt-0.5 text-right font-mono font-bold">
+                <p className="text-[10px] text-slate-700 mt-0.5 text-right font-mono font-bold">
                   ${TRIAL_BALANCE_AUGUST_2026.totals.finalDebitUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD (BCV 794,99)
                 </p>
               </div>
@@ -983,25 +1131,25 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
               <table className="w-full text-left text-xs border-collapse">
                 <thead>
                   {/* MAIN HEADER GROUPING */}
-                  <tr className="bg-slate-900 text-white text-center font-bold">
-                    <th rowSpan={2} className="py-2.5 px-3 border border-slate-800 uppercase text-[11px]">Código</th>
-                    <th rowSpan={2} className="py-2.5 px-3 border border-slate-800 text-left uppercase text-[11px]">Cuenta Contable / Rubro</th>
-                    <th rowSpan={2} className="py-2.5 px-2 border border-slate-800 uppercase text-[11px]">Cat.</th>
-                    <th colSpan={2} className="py-2 px-2 border border-slate-800 bg-slate-800 uppercase text-[10px]">Saldo Inicial 31/12/2025 (Bs.)</th>
-                    <th colSpan={2} className="py-2 px-2 border border-slate-800 bg-slate-850 uppercase text-[10px]">Movimientos 2026 (Bs.)</th>
-                    <th colSpan={2} className="py-2 px-2 border border-slate-800 bg-slate-900 uppercase text-[10px]">Saldo Final 31/08/2026 (Bs.)</th>
-                    <th colSpan={2} className="py-2 px-2 border border-slate-800 bg-emerald-900 uppercase text-[10px] text-emerald-200">Saldo USD (31/08/2026)</th>
+                  <tr className="bg-slate-100 text-slate-900 text-center font-bold border-t-2 border-black">
+                    <th rowSpan={2} className="py-2.5 px-3 border border-slate-300 uppercase text-[11px]">Código</th>
+                    <th rowSpan={2} className="py-2.5 px-3 border border-slate-300 text-left uppercase text-[11px]">Cuenta Contable / Rubro</th>
+                    <th rowSpan={2} className="py-2.5 px-2 border border-slate-300 uppercase text-[11px]">Cat.</th>
+                    <th colSpan={2} className="py-2 px-2 border border-slate-300 bg-slate-100 uppercase text-[10px]">Saldo Inicial 31/12/2025 (Bs.)</th>
+                    <th colSpan={2} className="py-2 px-2 border border-slate-300 bg-slate-100 uppercase text-[10px]">Movimientos 2026 (Bs.)</th>
+                    <th colSpan={2} className="py-2 px-2 border border-slate-300 bg-slate-100 uppercase text-[10px]">Saldo Final 31/08/2026 (Bs.)</th>
+                    <th colSpan={2} className="py-2 px-2 border border-slate-300 bg-slate-100 uppercase text-[10px] text-slate-900">Saldo USD (31/08/2026)</th>
                   </tr>
                   {/* SUB HEADER DEBIT/CREDIT */}
-                  <tr className="bg-slate-800 text-white text-center font-bold text-[10px]">
-                    <th className="py-1.5 px-2 border border-slate-700 bg-slate-800">Débito</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-slate-800">Crédito</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-slate-800">Debe</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-slate-800">Haber</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-slate-900 text-amber-300">Débito</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-slate-900 text-amber-300">Crédito</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-emerald-950 text-emerald-300">Débito $</th>
-                    <th className="py-1.5 px-2 border border-slate-700 bg-emerald-950 text-emerald-300">Crédito $</th>
+                  <tr className="bg-slate-50 text-slate-900 text-center font-bold text-[10px] border-b-2 border-black">
+                    <th className="py-1.5 px-2 border border-slate-300">Débito</th>
+                    <th className="py-1.5 px-2 border border-slate-300">Crédito</th>
+                    <th className="py-1.5 px-2 border border-slate-300">Debe</th>
+                    <th className="py-1.5 px-2 border border-slate-300">Haber</th>
+                    <th className="py-1.5 px-2 border border-slate-300 font-extrabold text-slate-950">Débito</th>
+                    <th className="py-1.5 px-2 border border-slate-300 font-extrabold text-slate-950">Crédito</th>
+                    <th className="py-1.5 px-2 border border-slate-300 font-extrabold text-slate-950">Débito $</th>
+                    <th className="py-1.5 px-2 border border-slate-300 font-extrabold text-slate-950">Crédito $</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 bg-white">
@@ -1015,7 +1163,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                       return matchesCategory && matchesSearch;
                     })
                     .map((r, idx) => (
-                      <tr key={r.code} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/70 hover:bg-amber-50/50 transition-colors'}>
+                      <tr key={r.code} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50 hover:bg-slate-100/70 transition-colors'}>
                         <td className="py-2 px-2.5 border border-slate-200 font-mono font-bold text-center text-slate-700 text-[11px]">
                           {r.code}
                         </td>
@@ -1024,11 +1172,10 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                         </td>
                         <td className="py-2 px-1.5 border border-slate-200 text-center font-bold text-[10px]">
                           <span className={`px-1.5 py-0.5 rounded uppercase ${
-                            r.category === 'ACTIVO' ? 'bg-blue-100 text-blue-800' :
-                            r.category === 'PASIVO' ? 'bg-amber-100 text-amber-800' :
-                            r.category === 'PATRIMONIO' ? 'bg-purple-100 text-purple-800' :
-                            r.category === 'INGRESO' ? 'bg-emerald-100 text-emerald-800' :
-                            'bg-red-100 text-red-800'
+                            r.category === 'ACTIVO' ? 'bg-slate-200 text-slate-900 font-bold' :
+                            r.category === 'PASIVO' ? 'bg-slate-200 text-slate-900 font-bold' :
+                            r.category === 'PATRIMONIO' ? 'bg-slate-200 text-slate-900 font-bold' :
+                            'bg-slate-100 text-slate-800 font-medium'
                           }`}>
                             {r.category.substring(0, 3)}
                           </span>
@@ -1048,49 +1195,49 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                           {r.movements2026.creditVES > 0 ? r.movements2026.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '-'}
                         </td>
                         {/* 2026 Final VES */}
-                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-slate-900 bg-amber-50/30">
+                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-slate-950">
                           {r.finalBalance2026.debitVES > 0 ? r.finalBalance2026.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '-'}
                         </td>
-                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-slate-900 bg-amber-50/30">
+                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-slate-950">
                           {r.finalBalance2026.creditVES > 0 ? r.finalBalance2026.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }) : '-'}
                         </td>
                         {/* 2026 Final USD */}
-                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-emerald-700 bg-emerald-50/30">
+                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-slate-950">
                           {r.finalBalanceUSD.debitUSD > 0 ? `$${r.finalBalanceUSD.debitUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}` : '-'}
                         </td>
-                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-emerald-700 bg-emerald-50/30">
+                        <td className="py-2 px-2 border border-slate-200 text-right font-mono font-bold text-slate-950">
                           {r.finalBalanceUSD.creditUSD > 0 ? `$${r.finalBalanceUSD.creditUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}` : '-'}
                         </td>
                       </tr>
                     ))}
 
-                  {/* TOTALS ROW */}
-                  <tr className="bg-slate-900 text-white font-black text-xs border-t-4 border-slate-900">
-                    <td colSpan={3} className="py-3 px-3 border border-slate-900 text-center uppercase tracking-wider">
+                  {/* TOTALS ROW - CLASSIC ACCOUNTING DOUBLE BORDER */}
+                  <tr className="bg-white text-slate-950 font-black text-xs border-t-2 border-b-4 border-double border-black">
+                    <td colSpan={3} className="py-3 px-3 border border-slate-300 text-center uppercase tracking-wider font-extrabold">
                       TOTAL BALANCE DE COMPROBACIÓN Y MOVIMIENTOS
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-amber-200">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       Bs. {TRIAL_BALANCE_AUGUST_2026.totals.initialDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-amber-200">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       Bs. {TRIAL_BALANCE_AUGUST_2026.totals.initialCreditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-blue-200">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       Bs. {TRIAL_BALANCE_AUGUST_2026.totals.movementsDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-blue-200">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-bold text-slate-900">
                       Bs. {TRIAL_BALANCE_AUGUST_2026.totals.movementsCreditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-amber-300 bg-slate-800">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-extrabold text-black">
                       Bs. {TRIAL_BALANCE_AUGUST_2026.totals.finalDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-amber-300 bg-slate-800">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-extrabold text-black">
                       Bs. {TRIAL_BALANCE_AUGUST_2026.totals.finalCreditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-emerald-300 bg-emerald-950">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-extrabold text-black">
                       ${TRIAL_BALANCE_AUGUST_2026.totals.finalDebitUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="py-3 px-2 border border-slate-900 text-right font-mono text-emerald-300 bg-emerald-950">
+                    <td className="py-3 px-2 border border-slate-300 text-right font-mono font-extrabold text-black">
                       ${TRIAL_BALANCE_AUGUST_2026.totals.finalCreditUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
@@ -1101,20 +1248,21 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             {/* CERTIFICATION FOOTER */}
             <div className="pt-6 border-t border-slate-200 mt-8">
               <p className="text-[11px] text-slate-500 font-semibold text-center mb-6 uppercase tracking-wider">
-                Certificación Técnica y Legal de Balance de Comprobación conforme a VEN-NIF GE
+                Certificación Técnica y Legal de Balance de Comprobación conforme a VEN-NIF PYME
               </p>
               <div className="grid grid-cols-2 gap-8 max-w-2xl mx-auto text-center text-xs">
                 <div>
                   <div className="border-b border-slate-400 mb-2 pb-8"></div>
                   <p className="font-bold text-slate-900">Elias Rafael Trías Abreu</p>
+                  <p className="text-slate-600 font-mono text-[11px] font-semibold">C.I. V-23.997.829</p>
                   <p className="text-slate-500 text-[11px]">Presidente & Propietario</p>
                   <p className="text-slate-400 text-[10px]">{company.name}</p>
                 </div>
                 <div>
                   <div className="border-b border-slate-400 mb-2 pb-8"></div>
                   <p className="font-bold text-slate-900">Licdo. Omar Pérez Castillo</p>
-                  <p className="text-slate-500 text-[11px]">Contador Público Colegiado</p>
-                  <p className="text-slate-400 text-[10px]">C.P.C. N° 16.336</p>
+                  <p className="text-slate-600 text-[11px] font-semibold">Contador Público Independiente, Ven-Nif</p>
+                  <p className="text-slate-500 text-[10px] font-mono">C.P.C. N° 16.336</p>
                 </div>
               </div>
             </div>
@@ -1167,80 +1315,80 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         {/* TAB 4: ANEXO CONCILIACIÓN BANESCO */}
         {activeTab === 'BANESCO_SUMMARY' && (
           <div className="space-y-6">
-            <div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-xl">
-              <h3 className="text-sm font-bold text-amber-950 flex items-center gap-2 uppercase">
-                <AlertCircle className="w-5 h-5 text-amber-600" />
+            <div className="bg-white border-l-4 border-black p-4 rounded-r-xl border border-slate-300">
+              <h3 className="text-sm font-bold text-black flex items-center gap-2 uppercase">
+                <AlertCircle className="w-5 h-5 text-black" />
                 Resumen Ejecutivo de Conciliación Bancaria Banesco
               </h3>
-              <p className="text-xs text-amber-900 mt-1 leading-relaxed">
+              <p className="text-xs text-slate-700 mt-1 leading-relaxed">
                 Justificación técnica contable elaborada para la Gerencia de Cumplimiento de Banesco Banco Universal, C.A. sobre la disparidad aparente entre la movilización acumulada ($2.781.830,18 USD promedio / Bs. 1.966.597.105,35) y las ventas fiscales declaradas ($116.531,68 USD / Bs. 92.641.520,01).
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
-                <h4 className="text-xs font-bold uppercase text-slate-500 tracking-wider">
+              <div className="bg-white p-4 rounded-xl border border-slate-300 space-y-3">
+                <h4 className="text-xs font-bold uppercase text-slate-700 tracking-wider">
                   1. Composición de Créditos Abonados en Banesco
                 </h4>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between p-2 bg-slate-50 rounded">
-                    <span className="font-medium text-slate-700">Anticipos Clientes Café (NIIF 15)</span>
-                    <strong className="text-slate-900">Bs. 1.542.017.092,63 (78,4%)</strong>
+                  <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded">
+                    <span className="font-medium text-slate-800">Anticipos Clientes Café (NIIF 15)</span>
+                    <strong className="text-black font-mono">Bs. 1.542.017.092,63 (78,4%)</strong>
                   </div>
-                  <div className="flex justify-between p-2 bg-slate-50 rounded">
-                    <span className="font-medium text-slate-700">Transferencias Cuentas Propias</span>
-                    <strong className="text-slate-900">Bs. 208.708.057,73 (10,6%)</strong>
+                  <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded">
+                    <span className="font-medium text-slate-800">Transferencias Cuentas Propias</span>
+                    <strong className="text-black font-mono">Bs. 208.708.057,73 (10,6%)</strong>
                   </div>
-                  <div className="flex justify-between p-2 bg-slate-50 rounded">
-                    <span className="font-medium text-slate-700">Reintegros Capital Mutuo Becerra</span>
-                    <strong className="text-slate-900">Bs. 186.376.000,00 (9,5%)</strong>
+                  <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded">
+                    <span className="font-medium text-slate-800">Reintegros Capital Mutuo Becerra</span>
+                    <strong className="text-black font-mono">Bs. 186.376.000,00 (9,5%)</strong>
                   </div>
-                  <div className="flex justify-between p-2 bg-slate-50 rounded">
-                    <span className="font-medium text-slate-700">Aportes Personas Naturales</span>
-                    <strong className="text-slate-900">Bs. 29.495.954,99 (1,5%)</strong>
+                  <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded">
+                    <span className="font-medium text-slate-800">Aportes Personas Naturales</span>
+                    <strong className="text-black font-mono">Bs. 29.495.954,99 (1,5%)</strong>
                   </div>
-                  <div className="flex justify-between p-2 bg-slate-900 text-white rounded font-bold">
+                  <div className="flex justify-between p-2 bg-white text-black border-2 border-black rounded font-bold">
                     <span>Total Movilización en Banesco</span>
-                    <span>Bs. 1.966.597.105,35</span>
+                    <span className="font-mono">Bs. 1.966.597.105,35</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
-                <h4 className="text-xs font-bold uppercase text-slate-500 tracking-wider">
+              <div className="bg-white p-4 rounded-xl border border-slate-300 space-y-3">
+                <h4 className="text-xs font-bold uppercase text-slate-700 tracking-wider">
                   2. Ingresos Fiscales Reales Declarados
                 </h4>
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between p-2 bg-emerald-50 rounded text-emerald-900">
+                  <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded text-black">
                     <span className="font-medium">Servicios Agrícolas y Procesamiento</span>
-                    <strong>Bs. 78.717.472,35 ($99.016,93 USD)</strong>
+                    <strong className="font-mono">Bs. 78.717.472,35 ($99.016,93 USD)</strong>
                   </div>
-                  <div className="flex justify-between p-2 bg-blue-50 rounded text-blue-900">
+                  <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded text-black">
                     <span className="font-medium">Intereses Financieros Mutuo Becerra</span>
-                    <strong>Bs. 13.924.047,66 ($17.514,75 USD)</strong>
+                    <strong className="font-mono">Bs. 13.924.047,66 ($17.514,75 USD)</strong>
                   </div>
-                  <div className="flex justify-between p-2 bg-slate-900 text-amber-400 rounded font-bold">
+                  <div className="flex justify-between p-2 bg-white text-black border-2 border-black rounded font-bold">
                     <span>Total Ingresos Fiscales (EEFF)</span>
-                    <span>Bs. 92.641.520,01 ($116.531,68 USD)</span>
+                    <span className="font-mono">Bs. 92.641.520,01 ($116.531,68 USD)</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-red-200 space-y-3 lg:col-span-2 bg-red-50/30">
+              <div className="bg-white p-4 rounded-xl border border-slate-300 space-y-3 lg:col-span-2">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <h4 className="text-xs font-bold uppercase text-red-700 tracking-wider flex items-center gap-1.5">
-                      <FileSpreadsheet className="w-4 h-4 text-red-600" />
+                    <h4 className="text-xs font-bold uppercase text-black tracking-wider flex items-center gap-1.5">
+                      <FileSpreadsheet className="w-4 h-4 text-black" />
                       3. Composición de Débitos, Salidas y Cargos en Banesco (Ene - Ago 2026)
                     </h4>
-                    <p className="text-xs text-slate-600 mt-1">
-                      Total Salidas Registradas en Extracto Banesco: <strong className="text-red-700 font-mono">Bs. 1.956.660.113,95</strong> ($2.897.684,28 USD). Principalmente destinado a Costo de Ventas de Café Verde (59,3%) y Préstamos Accionista (19,2%).
+                    <p className="text-xs text-slate-700 mt-1">
+                      Total Salidas Registradas en Extracto Banesco: <strong className="text-black font-mono">Bs. 1.956.660.113,95</strong> ($2.897.684,28 USD). Principalmente destinado a Costo de Ventas de Café Verde (59,3%) y Préstamos Accionista (19,2%).
                     </p>
                   </div>
                   {onNavigateToBecerraSuite && (
                     <button
                       onClick={onNavigateToBecerraSuite}
-                      className="px-4 py-2 bg-red-700 hover:bg-red-800 text-white font-bold rounded-lg text-xs transition-colors flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer"
+                      className="px-4 py-2 bg-black hover:bg-slate-800 text-white font-bold rounded-lg text-xs transition-colors flex items-center gap-1.5 shrink-0 shadow-xs cursor-pointer border border-black"
                     >
                       <span>Ver Cuadro Salidas Excel</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -1268,8 +1416,8 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             <div>
               <div className="border-b border-slate-400 w-3/4 mx-auto mb-2"></div>
               <p className="text-sm font-bold text-slate-900">Licdo. Omar Pérez Castillo</p>
-              <p className="text-xs text-slate-600">Contador Público Colegiado</p>
-              <p className="text-xs text-slate-500 font-mono mt-0.5">C.P.C. N° 16.336 &middot; Auditoría Venezolana VEN-NIF</p>
+              <p className="text-xs text-slate-600 font-semibold">Contador Público Independiente, Ven-Nif</p>
+              <p className="text-xs text-slate-500 font-mono mt-0.5">C.P.C. N° 16.336</p>
             </div>
           </div>
         </div>

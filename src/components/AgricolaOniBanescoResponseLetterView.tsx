@@ -46,13 +46,13 @@ NUESTRA EMPRESA NO IMPORTA NADA DE COLOMBIA NI DE NINGUNA ENTIDAD DEL EXTERIOR; 
 Certificamos que NO EXISTE OMISIÓN DE INGRESOS NI DISPARIDAD TRIBUTARIA. La movilización bancaria de créditos por USD 2.781.830,18 (Bs. 1.966.597.105,35) se concilia al 100% frente a las Ventas Declaradas en el Estado de Resultados (Bs. 92.641.520,01 / USD 116.531,68) mediante el siguiente desglose auditado:
 
 a) Anticipos en Bolívares de Clientes (78,4% - Bs. 1.542.017.092,63 / USD 2.270.486,23):
-Pasivo Corriente bajo NIIF 15 / Sección 23 NIIF PYMES. Corresponden a anticipos entregados por clientes torrefactores y distribuidores venezolanos a tasa oficial BCV para gestionar la compra y acopio de café en Portuguesa, Lara y Trujillo. En OCTUBRE DE 2026, con la entrega de la cosecha, estos anticipos se sustituyen por Facturas Fiscales Definitivas de Venta SENIAT contra las cuales se eliminan de la contabilidad.
+Pasivo Corriente bajo NIIF 15 / Sección 23 NIIF PYMES. Corresponden a anticipos entregados por clientes torrefactores y distribuidores venezolanos a tasa oficial BCV para gestionar la compra y acopio de café en Anzoátegui y territorio nacional venezolano. En OCTUBRE DE 2026, con la entrega de la cosecha, estos anticipos se sustituyen por Facturas Fiscales Definitivas de Venta SENIAT contra las cuales se eliminan de la contabilidad.
 b) Reintegros Capital Mutuo Manuel Becerra (9,5% - Bs. 186.376.000,00 / USD 286.228,93):
 Amortización de Activo Financiero procedente de la Línea de Crédito Rotativa suscrita el 02/01/2026. Disminuyen la Cuenta por Cobrar Socio/Aliado (saldo en balance: Bs. 325.948.652,96). No constituye venta.
 c) Transferencias entre Cuentas Propias de Agrícola Oni (10,6% - Bs. 208.708.057,73 / USD 308.317,80):
 Traspasos internos de tesorería desde Provincial, Mercantil, Plaza y Bancamiga pertenecientes al mismo titular RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
 d) Aportes Operativos del Accionista Propietario (1,5% - Bs. 29.495.954,99 / USD 47.335,99):
-Inyecciones de liquidez realizadas por el Presidente y accionista propietario Elias Rafael Trías Abreu (C.I. V-14.892.301) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
+Inyecciones de liquidez realizadas por el Presidente y accionista propietario Elias Rafael Trías Abreu (C.I. V-23.997.829) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
 e) Ingresos Reales Devengados en el Ejercicio (Bs. 92.641.520,01 / USD 116.531,68):
 Servicios Agrícolas facturados (Bs. 78.717.472,35) e Intereses Ganados del Mutuo Becerra (Bs. 13.924.047,66), coincidiendo al 100% con los Estados Financieros Auditados.
 
@@ -62,10 +62,10 @@ CUADRE FINAL: Total Créditos Banesco (Bs. 1.966.597.105,35) - Pasivos NIIF 15 (
 - Ley de Impuesto Sobre la Renta (ISLR - Arts. 1, 5 y 16): Principio de disponibilidad del ingreso sobre bases devengadas o causadas. Los anticipos recibidos constituirán ingreso gravable únicamente al perfeccionarse la entrega del café y emitirse la factura fiscal.
 - Providencia Administrativa SENIAT N° SNAT/2011/00071: La obligación de facturación surge con la entrega de los bienes en Octubre de 2026.
 - Objeto Social Constitutivo (Registro Mercantil 2021, Tomo 44-A, N° 12, RIF J-50145638-0): Autoriza expresamente la intermediación comercial y compra de café nacional.
-- Propiedad Accionaria Única: Pertenece 100% al Ing. OMAR PÉREZ (C.I. V-14.892.301), garantizando total transparencia patrimonial ante Banesco Banco Universal.
+- Propiedad Accionaria Única: Pertenece 100% a ELÍAS RAFAEL TRÍAS ABREU (C.I. V-23.997.829), garantizando total transparencia patrimonial ante Banesco Banco Universal.
 
 Atentamente,
-Elias Rafael Trías Abreu — Presidente / Propietario (C.I. V-14.892.301)
+Elias Rafael Trías Abreu — Presidente / Propietario (C.I. V-23.997.829)
 Licdo. Omar Pérez Castillo — Contador Público C.P.C. 16.336
 AGRÍCOLA ONI, C.A. — RIF J-50145638-0
     `;
@@ -344,7 +344,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
                     <td className="px-3 py-2 text-right text-stone-700">$47.335,99</td>
                     <td className="px-3 py-2 text-center font-bold text-stone-700">1,5%</td>
                     <td className="px-3 py-2 font-sans text-stone-600">
-                      Aportes e ingresos recibidos del Presidente y accionista propietario Elias Rafael Trías Abreu C.I. V-14.892.301 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
+                      Aportes e ingresos recibidos del Presidente y accionista propietario Elias Rafael Trías Abreu C.I. V-23.997.829 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
                     </td>
                   </tr>
 
@@ -400,7 +400,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
                 <strong>&bull; Registro Mercantil y Objeto Social Constitutivo (Año 2021):</strong> La sociedad mercantil <strong>AGRÍCOLA ONI, C.A.</strong> fue constituida e inscrita formalmente ante el Registro Mercantil Primero del Estado Portuguesa en fecha <strong>16 de Septiembre de 2021</strong> (Tomo 31-A, N° 18, RIF J-50145638-0). En la Cláusula Segunda de su Acta Constitutiva Orgánica, se le autoriza y faculta de manera amplia e ilimitada desde el año 2021 para la compra, venta, intermediación comercial, procesamiento, distribución y comercialización de productos agrícolas, café y materias primas, así como la celebración de contratos de financiamiento, mutuos y gestiones bancarias y cambiarias.
               </p>
               <p>
-                <strong>&bull; Propiedad Accionaria Única y Transparencia Operativa:</strong> Consta igualmente en los Libros Mercantiles de la empresa y actas de asamblea posteriores que el <strong>100% de las acciones</strong> de Agrícola Oni, C.A. pertenecen actualmente y de forma exclusiva al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301)</strong>, habiéndose cedido y retirado legalmente a los demás accionistas iniciales en asambleas previas registrales. Esta titularidad única garantiza el control centralizado de los fondos, la legitimidad de las operaciones de apoyo patrimonial y la total transparencia ante el sistema bancario nacional y Banesco Banco Universal.
+                <strong>&bull; Propiedad Accionaria Única y Transparencia Operativa:</strong> Consta igualmente en los Libros Mercantiles de la empresa y actas de asamblea posteriores que el <strong>100% de las acciones</strong> de Agrícola Oni, C.A. pertenecen actualmente y de forma exclusiva al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-23.997.829)</strong>, habiéndose cedido y retirado legalmente a los demás accionistas iniciales en asambleas previas registrales. Esta titularidad única garantiza el control centralizado de los fondos, la legitimidad de las operaciones de apoyo patrimonial y la total transparencia ante el sistema bancario nacional y Banesco Banco Universal.
               </p>
             </div>
           </div>
@@ -568,7 +568,7 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               <p className="font-bold text-stone-950 text-xs">Licdo. Omar Pérez Castillo</p>
               <p className="text-[11px] text-stone-600">Contador Público Colegiado</p>
               <p className="text-[11px] text-stone-600">Matrícula C.P.C. Nº 16.336</p>
-              <p className="text-[11px] font-semibold text-stone-800">Auditor Externo Acreditado</p>
+              <p className="text-[11px] font-semibold text-stone-800">Contador Público Independiente, Ven-Nif</p>
             </div>
           </div>
         </div>

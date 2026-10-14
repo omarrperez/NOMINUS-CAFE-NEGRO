@@ -66,7 +66,7 @@ export const BANESCO_AUDIT_INFO_2026 = {
   companyRif: 'J-50145638-0',
   companyAccountVES: '0134-0342-18-3421089912',
   companyAccountUSD: '0134-0342-12-3420084712',
-  agency: 'Agencia 0342 - Acarigua Centro / Araure, Edo. Portuguesa',
+  agency: 'Agencia 0342 - Barcelona / Lechería / Anaco, Edo. Anzoátegui',
   subject: 'RESPUESTA A OFICIO DE AUDITORÍA BANCARIA: JUSTIFICACIÓN INTEGRAL DE RECEPCIÓN DE DIVISAS Y ABONOS EN BANESCO, ANTICIPOS EN BOLÍVARES DE CLIENTES A TASA OFICIAL BCV PARA PROCURA NACIONAL DE CAFÉ, CONTRATOS A FUTURO CON EMPRESAS VENEZOLANAS, TRANSFERENCIAS INTERNAS DE TESORERÍA Y CUENTAS CON SOCIOS (ENERO A AGOSTO 2026)',
   referenceLetter: 'BAN-OF-CUMP-2026-0814'
 };
@@ -107,7 +107,7 @@ export const BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026 = {
   ],
   reconciliationExplanations: [
     {
-      concept: '1. Cuentas por Pagar Socios - Aportes del Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
+      concept: '1. Cuentas por Pagar Socios - Aportes del Accionista Propietario (Elias Rafael Trías Abreu C.I. V-23.997.829)',
       amountUSDMonthlyAvg: 47335.99,
       amountUSD8Months: 378687.92,
       bankAnalystExplanation: 'Los fondos transferidos por el socio accionista mayoritario desde sus cuentas personales hacia Banesco para dar liquidez inmediata a la compra de cosechas se clasifican contablemente como "Cuentas por Pagar Socios". En la auditoría de movilización operativa de Banesco, estos aportes patrimoniales de accionistas son segregados del cálculo de ventas/operaciones con clientes para no distorsionar la actividad comercial ordinaria de la empresa.'
@@ -828,7 +828,7 @@ export const BANESCO_RECONCILIATION_2026: BankReconciliation = {
   adjustedBookBalance: 9936991.40,
   difference: 0.00,
   auditedBy: 'Licdo. Omar Pérez Castillo',
-  cpcAuditor: 'Contador Público Colegiado Nro. C.P.C. 16.336'
+  cpcAuditor: 'Contador Público Independiente, Ven-Nif (C.P.C. 16.336)'
 };
 
 export const BANESCO_AUDIT_POINTS = [

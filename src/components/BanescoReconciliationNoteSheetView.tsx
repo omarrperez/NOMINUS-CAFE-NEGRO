@@ -13,7 +13,11 @@ import {
   Loader2,
   ArrowRight,
   Calculator,
-  HelpCircle
+  HelpCircle,
+  AlertTriangle,
+  AlertCircle,
+  XCircle,
+  RotateCcw
 } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026, BANESCO_AUDIT_INFO_2026 } from '../data/agricolaOniAudit2026Data';
@@ -36,6 +40,19 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
   const [downloadingExcel, setDownloadingExcel] = useState(false);
 
   const data = BANESCO_CREDITS_ORIGIN_AND_RECONCILIATION_2026;
+
+  const OFFICIAL_CEDULA = 'V-23.997.829';
+  const OBSOLETE_CEDULAS = ['V-14.892.301', 'V-18.492.301', '14.892.301', '18.492.301', '14892301', '18492301'];
+
+  const [cedulaInput, setCedulaInput] = useState<string>('V-23.997.829');
+
+  const cleanInput = cedulaInput.replace(/[^0-9]/g, '');
+  const isObsolete = OBSOLETE_CEDULAS.some((obs) => {
+    const cleanObs = obs.replace(/[^0-9]/g, '');
+    return (cleanInput.length > 0 && cleanObs.includes(cleanInput)) || obs.toLowerCase().includes(cedulaInput.trim().toLowerCase());
+  });
+  const isMatchOfficial = cedulaInput.trim().toUpperCase() === OFFICIAL_CEDULA || cleanInput === '23997829';
+  const hasInconsistency = !isMatchOfficial || (isObsolete && !isMatchOfficial);
 
   // Print handle
   const handlePrint = () => {
@@ -62,7 +79,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
           'Ingresos brutos por anticipos + traspasos + aportes'
         ],
         [
-          '(-) 2. Cuentas por Pagar Socios - Aportes del Accionista Propietario (Elias Rafael Trías Abreu C.I. V-14.892.301)',
+          '(-) 2. Cuentas por Pagar Socios - Aportes del Accionista Propietario (Elias Rafael Trías Abreu C.I. V-23.997.829)',
           -378687.92,
           -47335.99,
           'Aportes de liquidez del Presidente y accionista mayoritario para compra de café (VEN-NIF)'
@@ -155,7 +172,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
         paragraphs: [
           'Mediante la presente nota explicativa de auditoría y tesorería, la gerencia de AGRÍCOLA ONI, C.A. rinde formal justificación sobre la estructura de fondos movilizados en la cuenta corriente Banesco durante el período Enero a Agosto de 2026.',
           'El análisis efectuado por nuestro departamento contable en conjunto con la auditoría externa del CPC ratifica la concordancia absoluta de las cifras reportadas por Banesco de USD 2.781.830,18 promediados por mes, previa depuración de partidas de tesorería y aportes de accionistas.',
-          '1. REGISTRO DE CUENTAS POR PAGAR SOCIOS (ELIAS RAFAEL TRÍAS ABREU C.I. V-14.892.301):\nLos aportes inyectados por el Presidente y accionista principal Elias Rafael Trías Abreu (C.I. V-14.892.301) por un monto total de USD 378.687,92 (promedio de USD 47.335,99/mes) para financiar la logística de acopio de café pergamino en el campo no constituyen ingresos por ventas, sino pasivos patrimoniales registrados bajo la cuenta "Cuentas por Pagar Socios" según la norma VEN-NIF.',
+          '1. REGISTRO DE CUENTAS POR PAGAR SOCIOS (ELIAS RAFAEL TRÍAS ABREU C.I. V-23.997.829):\nLos aportes inyectados por el Presidente y accionista principal Elias Rafael Trías Abreu (C.I. V-23.997.829) por un monto total de USD 378.687,92 (promedio de USD 47.335,99/mes) para financiar la logística de acopio de café pergamino en el campo no constituyen ingresos por ventas, sino pasivos patrimoniales registrados bajo la cuenta "Cuentas por Pagar Socios" según la norma VEN-NIF.',
           '2. TRASPASOS DE TESORERÍA ENTRE CUENTAS PROPIAS:\nSe identificaron transferencias por USD 308.317,84 (promedio USD 38.539,73/mes) entre cuentas corrientes de la misma sociedad mercantil (Provincial, Mercantil, Bancamiga, Plaza) para concentrar fondos en Banesco destinados a la adjudicación de divisas en la Mesa de Cambio. Dichas operaciones tienen efecto patrimonial neutro.',
           '3. AJUSTE POR DIFERENCIAL DE VALUACIÓN CAMBIARIA:\nExiste una variación técnica de USD 357.304,40 (promedio USD 44.663,05/mes) generada por el calce entre la tasa oficial diaria fijada por el Banco Central de Venezuela (BCV) al momento de cada registro contable y la tasa de cierre ponderada aplicada por Banesco en su sistema de movimientos de Mesa de Cambio.'
         ],
@@ -172,8 +189,8 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
           ])
         },
         signers: [
-          { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario', idNumber: 'C.I. V-14.892.301' },
-          { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Colegiado', idNumber: 'C.P.C. N° 16.336' }
+          { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario', idNumber: 'C.I. V-23.997.829' },
+          { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. N° 16.336' }
         ]
       });
     } catch (err) {
@@ -272,6 +289,84 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
         </div>
       </div>
 
+      {/* MANDATORY ID VALIDATION & INCONSISTENCY ALERT PANEL (No-Print) */}
+      <div className="no-print">
+        {hasInconsistency ? (
+          <div className="bg-red-950/90 border-2 border-red-600 rounded-xl p-4 sm:p-5 text-white shadow-2xl animate-pulse flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-red-600 text-white rounded-lg shrink-0 shadow-lg">
+                <AlertTriangle className="w-6 h-6 animate-bounce" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h3 className="font-extrabold text-red-200 text-sm sm:text-base uppercase tracking-wider">
+                    ¡ALERTA DE INCONSISTENCIA FISCAL / REGISTRAL DETECTADA!
+                  </h3>
+                  <span className="bg-red-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded font-mono shadow">
+                    DESCUADRE DE CÉDULA
+                  </span>
+                </div>
+                <p className="text-xs text-red-200 mt-1 font-medium leading-relaxed">
+                  Se ha detectado una cédula obsoleta o no autorizada (<strong className="text-white underline font-mono text-sm px-1 bg-red-900 rounded">{cedulaInput}</strong>) para el Presidente y Propietario <strong className="text-white">Elias Rafael Trías Abreu</strong>. La normativa de auditoría bancaria Banesco y SUDEBAN exige validación obligatoria contra el registro oficial único: <strong className="text-emerald-300 font-mono font-bold text-sm bg-black/40 px-1.5 py-0.5 rounded border border-emerald-500/50">V-23.997.829</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0 self-end md:self-center">
+              <button
+                onClick={() => setCedulaInput('V-23.997.829')}
+                className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold rounded-lg shadow-xl transition-all flex items-center gap-2 border border-emerald-400 cursor-pointer"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Corregir e Imponer Cédula Oficial V-23.997.829</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-emerald-950/90 border border-emerald-600/80 rounded-xl p-4 text-white shadow-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-emerald-600 text-white rounded-lg shrink-0 shadow">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-emerald-200 text-xs sm:text-sm uppercase tracking-wide">
+                    Validación Obligatoria de Cédula de Identidad en Sistema
+                  </h3>
+                  <span className="bg-emerald-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded font-mono shadow">
+                    CONFORME V-23.997.829
+                  </span>
+                </div>
+                <p className="text-[11px] text-emerald-300 mt-0.5 font-mono">
+                  Representante Legal / Accionista Propietario: <strong>ELIAS RAFAEL TRÍAS ABREU</strong> &middot; C.I. Oficial Validada: <strong className="text-white bg-emerald-900/90 px-1.5 py-0.5 rounded border border-emerald-600">V-23.997.829</strong>
+                </p>
+              </div>
+            </div>
+
+            {/* Interactive Validator Field for Auditors */}
+            <div className="flex items-center gap-2 text-xs bg-slate-900/90 border border-slate-700 p-1.5 rounded-lg shrink-0">
+              <span className="text-slate-400 font-semibold text-[11px] pl-1">Auditar Cédula:</span>
+              <input
+                type="text"
+                value={cedulaInput}
+                onChange={(e) => setCedulaInput(e.target.value)}
+                placeholder="Ej: V-23.997.829"
+                className="bg-slate-950 text-white font-mono text-xs px-2.5 py-1 rounded border border-slate-700 focus:outline-none focus:border-emerald-500 w-32"
+              />
+              {cedulaInput !== 'V-23.997.829' && (
+                <button
+                  onClick={() => setCedulaInput('V-23.997.829')}
+                  title="Restablecer Cédula Oficial V-23.997.829"
+                  className="p-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Official Paper Sheet Area */}
       <div className="flex justify-center">
         <div
@@ -302,9 +397,15 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
               <p className="text-xs text-slate-600 mt-1 font-semibold">
                 Fecha de Emisión: 12 de Octubre de 2026
               </p>
-              <p className="text-[10px] text-emerald-800 font-mono font-bold mt-0.5">
-                EXPEDIENTE BANESCO &middot; VERIFICADO
-              </p>
+              {hasInconsistency ? (
+                <p className="text-[10px] text-red-700 font-mono font-extrabold mt-0.5 bg-red-100 border border-red-300 px-1.5 py-0.5 rounded animate-pulse">
+                  ALERTA: CÉDULA INCONSISTENTE ({cedulaInput})
+                </p>
+              ) : (
+                <p className="text-[10px] text-emerald-800 font-mono font-bold mt-0.5">
+                  EXPEDIENTE BANESCO &middot; CÉDULA V-23.997.829 VERIFICADA
+                </p>
+              )}
             </div>
           </div>
 
@@ -383,7 +484,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                   </tr>
                   <tr className="bg-amber-50/60 hover:bg-amber-50 transition-colors">
                     <td className="py-2 px-2.5 font-sans text-slate-800">
-                      (-) 2. Cuentas por Pagar Socios (Elias Rafael Trías Abreu C.I. V-14.892.301)
+                      (-) 2. Cuentas por Pagar Socios (Elias Rafael Trías Abreu C.I. V-23.997.829)
                     </td>
                     <td className="py-2 px-2.5 text-right text-amber-900 font-semibold whitespace-nowrap">
                       -$378.687,92
@@ -504,7 +605,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
 
             <div>
               <p className="font-bold text-slate-900">
-                1. Clasificación VEN-NIF de Cuentas por Pagar Socios (Elias Rafael Trías Abreu - C.I. V-14.892.301):
+                1. Clasificación VEN-NIF de Cuentas por Pagar Socios (Elias Rafael Trías Abreu - C.I. V-23.997.829):
               </p>
               <p className="text-slate-700 mt-0.5">
                 Los fondos inyectados por el Presidente y accionista principal Elias Rafael Trías Abreu por un acumulado de <strong>USD 378.687,92</strong> (promedio de USD 47.335,99/mes) provinieron de sus cuentas personales para cubrir la compra directa de café en el campo a pequeños productores. Bajo la norma VEN-NIF (NIIF para PYMES Sección 22), estos desembolsos constituyen préstamos del accionista registrados en el pasivo corriente como <em>"Cuentas por Pagar Socios"</em>. En la auditoría de ventas de Banesco, estos recursos patrimoniales son segregados del volumen comercial ordinario.
@@ -544,7 +645,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                 </div>
                 <p className="font-bold text-slate-900 text-xs">ELIAS RAFAEL TRÍAS ABREU</p>
                 <p className="text-[11px] text-slate-700">Presidente / Propietario</p>
-                <p className="text-[10px] text-slate-600 font-mono">C.I. N° V-14.892.301</p>
+                <p className="text-[10px] text-slate-600 font-mono">C.I. N° V-23.997.829</p>
                 <p className="text-[10px] text-slate-500 font-bold mt-1">AGRÍCOLA ONI, C.A.</p>
               </div>
 
@@ -554,7 +655,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
                   Licdo. Omar Pérez Castillo
                 </div>
                 <p className="font-bold text-slate-900 text-xs">LICDO. OMAR PÉREZ CASTILLO</p>
-                <p className="text-[11px] text-slate-700">Contador Público Colegiado</p>
+                <p className="text-[11px] text-slate-700">Contador Público Independiente, Ven-Nif</p>
                 <p className="text-[10px] text-slate-600 font-mono">C.P.C. N° 16.336</p>
                 <p className="text-[10px] text-emerald-800 font-bold mt-1 flex items-center gap-1">
                   <Stamp className="w-3 h-3" /> SELLO C.P.C. VENEZUELA

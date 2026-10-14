@@ -56,7 +56,7 @@ export const DeepResearchAndUxReportView: React.FC<Props> = ({ company }) => {
                 <h2>INFORME DE INVESTIGACIÓN CONTABLE, COSTOS Y MITIGACIÓN DE RIESGOS 2026</h2>
                 <div class="highlight-box">
                   <strong>Dictamen Gerencial y Aspectos Relevantes:</strong> ${EXECUTIVE_RESEARCH_SUMMARY.executiveVerdict}<br>
-                  Base de Cálculo: Intermediación de café importado para suplir déficit de cosecha nacional, anticipos de clientes torrefactores y regularización en octubre.
+                  Base de Cálculo: Intermediación comercial y compra de café nacional venezolano, acopio y comercialización en Anzoátegui, Venezuela, anticipos de clientes torrefactores y regularización en octubre.
                 </div>
                 <h3>Aspectos Clave de la Investigación:</h3>
                 ${highlightsHtml}
@@ -115,7 +115,7 @@ export const DeepResearchAndUxReportView: React.FC<Props> = ({ company }) => {
                 <h2>INFORME DE INVESTIGACIÓN CONTABLE, COSTOS Y MITIGACIÓN DE RIESGOS 2026</h2>
                 <div class="highlight-box">
                   <strong>Dictamen Gerencial y Aspectos Relevantes:</strong> ${EXECUTIVE_RESEARCH_SUMMARY.executiveVerdict}<br>
-                  Base de Cálculo: Intermediación de café importado para suplir déficit de cosecha nacional, anticipos de clientes torrefactores y regularización en octubre.
+                  Base de Cálculo: Intermediación comercial y compra de café nacional venezolano, acopio y comercialización en Anzoátegui, Venezuela, anticipos de clientes torrefactores y regularización en octubre.
                 </div>
                 <h3>Aspectos Clave de la Investigación:</h3>
                 ${highlightsHtml}

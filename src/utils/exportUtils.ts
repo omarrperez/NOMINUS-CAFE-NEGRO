@@ -8,8 +8,10 @@
  */
 
 import { jsPDF } from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import {
   Document,
   Packer,
@@ -236,15 +238,15 @@ export async function downloadNativeDocx(
         (h) =>
           new TableCell({
             shading: {
-              fill: '1E293B',
+              fill: 'F1F5F9',
               type: ShadingType.CLEAR,
               color: 'auto'
             },
             borders: {
-              top: { style: BorderStyle.SINGLE, size: 8, color: '1E293B' },
-              bottom: { style: BorderStyle.SINGLE, size: 12, color: '1E293B' },
-              left: { style: BorderStyle.SINGLE, size: 4, color: '334155' },
-              right: { style: BorderStyle.SINGLE, size: 4, color: '334155' }
+              top: { style: BorderStyle.SINGLE, size: 8, color: '94A3B8' },
+              bottom: { style: BorderStyle.SINGLE, size: 12, color: '94A3B8' },
+              left: { style: BorderStyle.SINGLE, size: 4, color: 'CBD5E1' },
+              right: { style: BorderStyle.SINGLE, size: 4, color: 'CBD5E1' }
             },
             children: [
               new Paragraph({
@@ -256,7 +258,7 @@ export async function downloadNativeDocx(
                     bold: true,
                     size: 18,
                     font: 'Calibri',
-                    color: 'FFFFFF'
+                    color: '0F172A'
                   })
                 ]
               })
@@ -536,11 +538,11 @@ export async function exportToWord(
       font-size: 9.5pt;
     }
     th {
-      background-color: #1e293b !important;
-      color: #ffffff !important;
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
       font-weight: bold;
       padding: 6pt 8pt;
-      border: 1pt solid #334155;
+      border: 1pt solid #94a3b8;
       text-align: left;
     }
     td {
@@ -722,7 +724,7 @@ async function exportHtmlToNativeDocx(
               return new TableCell({
                 shading: isHeader
                   ? {
-                      fill: '1E293B',
+                      fill: 'F1F5F9',
                       type: ShadingType.CLEAR,
                       color: 'auto'
                     }
@@ -734,8 +736,8 @@ async function exportHtmlToNativeDocx(
                     }
                   : undefined,
                 borders: {
-                  top: { style: BorderStyle.SINGLE, size: 4, color: isHeader ? '1E293B' : 'CBD5E1' },
-                  bottom: { style: BorderStyle.SINGLE, size: isHeader ? 8 : 4, color: isHeader ? '1E293B' : 'CBD5E1' },
+                  top: { style: BorderStyle.SINGLE, size: 4, color: isHeader ? '94A3B8' : 'CBD5E1' },
+                  bottom: { style: BorderStyle.SINGLE, size: isHeader ? 8 : 4, color: isHeader ? '94A3B8' : 'CBD5E1' },
                   left: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' },
                   right: { style: BorderStyle.SINGLE, size: 4, color: 'E2E8F0' }
                 },
@@ -749,7 +751,7 @@ async function exportHtmlToNativeDocx(
                         bold: isHeader || cell.querySelector('strong') !== null,
                         size: isHeader ? 19 : 18,
                         font: 'Calibri',
-                        color: isHeader ? 'FFFFFF' : '1E293B'
+                        color: isHeader ? '0F172A' : '1E293B'
                       })
                     ]
                   })
@@ -1023,34 +1025,292 @@ export async function downloadElementAsPdf(
   }
 }
 
+export interface PdfTableExportOptions {
+  filename: string;
+  title: string;
+  subtitle?: string;
+  companyName?: string;
+  companyRif?: string;
+  periodDate?: string;
+  headers: string[];
+  rows: (string | number)[][];
+  totalsRow?: (string | number)[];
+  totals?: (string | number)[];
+  notes?: string[];
+  signers?: { name: string; title: string; idNumber?: string }[];
+  orientation?: 'portrait' | 'landscape';
+}
+
+/**
+ * Genera y descarga directamente un archivo PDF oficial con jsPDF + autoTable:
+ * 100% fondo blanco, tipografía en negro, bordes claros y firmas oficiales.
+ */
+export function exportTableToPdf(options: PdfTableExportOptions): void {
+  const {
+    filename,
+    title,
+    subtitle,
+    companyName = 'AGRÍCOLA ONI, C.A.',
+    companyRif = 'J-40822606-8',
+    periodDate = '31 de Agosto de 2026',
+    headers,
+    rows,
+    totalsRow: rawTotalsRow,
+    totals,
+    notes,
+    signers = [
+      { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Representante Legal' },
+      { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. N° 16.336' }
+    ],
+    orientation = headers.length > 5 ? 'landscape' : 'portrait'
+  } = options;
+
+  const isLandscape = orientation === 'landscape';
+  const doc = new jsPDF({
+    orientation: isLandscape ? 'l' : 'p',
+    unit: 'mm',
+    format: 'letter'
+  });
+
+  const pageWidth = isLandscape ? 279.4 : 215.9;
+  const pageHeight = isLandscape ? 215.9 : 279.4;
+  const margin = 12;
+
+  // 1. Membrete oficial
+  doc.setFillColor(255, 255, 255);
+  doc.setTextColor(0, 0, 0);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.text(companyName.toUpperCase(), margin, 13);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.text(`R.I.F.: ${companyRif} | NORMAS CONTABLES VEN-NIF PYME | CORTE AL ${periodDate.toUpperCase()}`, margin, 17.5);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text(title.toUpperCase(), margin, 23);
+
+  let currentY = 24.5;
+  if (subtitle) {
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8);
+    doc.text(subtitle, margin, 28);
+    currentY = 30;
+  }
+
+  doc.setDrawColor(0, 0, 0);
+  doc.setLineWidth(0.35);
+  doc.line(margin, currentY, pageWidth - margin, currentY);
+
+  const effectiveTotals = rawTotalsRow || totals;
+  const footData = effectiveTotals ? [effectiveTotals.map(v => String(v ?? ''))] : undefined;
+
+  // Alineaciones de columnas
+  const columnStyles: { [key: number]: { halign: 'left' | 'center' | 'right' } } = {};
+  headers.forEach((h, idx) => {
+    const hl = h.toLowerCase();
+    if (idx === 0 && (hl === 'código' || hl === 'cod' || hl === 'n°' || hl === 'item')) {
+      columnStyles[idx] = { halign: 'center' };
+    } else if (idx <= 1 && !hl.includes('monto') && !hl.includes('bs') && !hl.includes('usd') && !hl.includes('%')) {
+      columnStyles[idx] = { halign: 'left' };
+    } else {
+      columnStyles[idx] = { halign: 'right' };
+    }
+  });
+
+  autoTable(doc, {
+    startY: currentY + 3,
+    margin: { left: margin, right: margin, top: 14, bottom: 20 },
+    head: [headers],
+    body: rows.map(r => r.map(c => String(c ?? ''))),
+    foot: footData,
+    theme: 'plain',
+    styles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontSize: 7.5,
+      cellPadding: 2,
+      font: 'helvetica',
+      lineColor: [200, 200, 200],
+      lineWidth: 0.15
+    },
+    headStyles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontStyle: 'bold',
+      lineColor: [0, 0, 0],
+      lineWidth: 0.3
+    },
+    footStyles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontStyle: 'bold',
+      lineColor: [0, 0, 0],
+      lineWidth: 0.35
+    },
+    columnStyles: columnStyles,
+    didDrawPage: (data) => {
+      const pageStr = `Página ${data.pageNumber}`;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.setTextColor(120, 120, 120);
+      doc.text(pageStr, pageWidth - margin - 14, pageHeight - 6);
+    }
+  });
+
+  let lastY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 170;
+
+  if (notes && notes.length > 0) {
+    if (lastY > pageHeight - 50) {
+      doc.addPage();
+      lastY = 18;
+    } else {
+      lastY += 5;
+    }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(0, 0, 0);
+    doc.text('NOTAS Y ACLARATORIAS TÉCNICAS:', margin, lastY);
+    lastY += 4;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    notes.forEach(n => {
+      const splitText = doc.splitTextToSize(`• ${n}`, pageWidth - margin * 2);
+      doc.text(splitText, margin, lastY);
+      lastY += splitText.length * 3.5;
+    });
+  }
+
+  if (signers && signers.length > 0) {
+    if (lastY > pageHeight - 38) {
+      doc.addPage();
+      lastY = 24;
+    } else {
+      lastY += 10;
+    }
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    doc.setTextColor(0, 0, 0);
+    doc.text('CERTIFICACIÓN Y ACTUACIÓN PROFESIONAL:', margin, lastY);
+    lastY += 12;
+
+    const sigColWidth = (pageWidth - margin * 2) / signers.length;
+    signers.forEach((s, idx) => {
+      const x = margin + idx * sigColWidth + sigColWidth / 2;
+      doc.setDrawColor(0, 0, 0);
+      doc.setLineWidth(0.25);
+      doc.line(x - 32, lastY, x + 32, lastY);
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8);
+      doc.text(s.name, x, lastY + 3.5, { align: 'center' });
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      doc.text(s.title, x, lastY + 7, { align: 'center' });
+
+      if (s.idNumber) {
+        doc.text(s.idNumber, x, lastY + 10.5, { align: 'center' });
+      }
+    });
+  }
+
+  const safeFilename = filename.toLowerCase().endsWith('.pdf') ? filename : `${filename}.pdf`;
+  doc.save(safeFilename);
+}
+
 /**
  * Exporta un bloque de HTML plano o dinámico directamente como archivo PDF descargable.
- * Construye un contenedor estilizado fuera de pantalla, lo renderiza y lo descarga.
+ * Extrae tablas e invoca exportTableToPdf para un PDF vectorial perfecto y garantizado.
  */
 export async function exportHtmlToPdf(
   filename: string,
   title: string,
   htmlContent: string
 ): Promise<void> {
+  try {
+    const parser = new DOMParser();
+    const docHtml = parser.parseFromString(`<div>${htmlContent}</div>`, 'text/html');
+    const tableEl = docHtml.querySelector('table');
+
+    if (tableEl) {
+      const ths = Array.from(tableEl.querySelectorAll('thead th, tr:first-child th'));
+      const headers = ths.length > 0
+        ? ths.map(th => th.textContent?.trim() || '')
+        : [];
+
+      const trs = Array.from(tableEl.querySelectorAll('tbody tr, tr'));
+      const rows: string[][] = [];
+      let totalsRow: string[] | undefined;
+
+      trs.forEach(tr => {
+        if (tr.parentElement?.tagName.toLowerCase() === 'thead') return;
+        if (tr.querySelector('th') && !tr.querySelector('td')) return;
+
+        const cells = Array.from(tr.querySelectorAll('td, th')).map(c => c.textContent?.trim() || '');
+        const styleAttr = tr.getAttribute('style') || '';
+        const isTotalRow = styleAttr.includes('0f172a') ||
+          styleAttr.includes('font-weight:bold') ||
+          cells[0]?.toUpperCase().includes('TOTAL');
+
+        if (isTotalRow && !totalsRow) {
+          totalsRow = cells;
+        } else if (cells.length > 0) {
+          rows.push(cells);
+        }
+      });
+
+      if (headers.length > 0 && rows.length > 0) {
+        exportTableToPdf({
+          filename,
+          title,
+          headers,
+          rows,
+          totalsRow,
+          orientation: headers.length > 6 ? 'landscape' : 'portrait'
+        });
+        return;
+      }
+    }
+  } catch (parseErr) {
+    console.warn('Error al parsear HTML con autoTable, utilizando método de respaldo:', parseErr);
+  }
+
+  // Respaldo visual con fondo blanco y letras en negro
   const container = document.createElement('div');
   container.style.position = 'fixed';
-  container.style.left = '-9999px';
+  container.style.left = '0';
   container.style.top = '0';
-  container.style.width = '850px';
+  container.style.width = '800px';
   container.style.backgroundColor = '#ffffff';
-  container.style.color = '#0f172a';
-  container.style.padding = '36px';
+  container.style.color = '#000000';
+  container.style.padding = '28px';
   container.style.fontFamily = 'Calibri, Arial, sans-serif';
-  container.style.fontSize = '12px';
-  container.style.lineHeight = '1.4';
+  container.style.fontSize = '11px';
+  container.style.lineHeight = '1.35';
   container.style.zIndex = '-9999';
+  container.style.opacity = '0';
 
   container.innerHTML = `
-    <div style="border-bottom: 2px solid #d97706; padding-bottom: 12px; margin-bottom: 18px;">
-      <h1 style="font-size: 18px; margin: 0 0 4px 0; color: #0f172a; font-weight: bold;">${escapeXml(title)}</h1>
-      <p style="margin: 0; font-size: 11px; color: #64748b;">AGRÍCOLA ONI C.A. &middot; RIF: J-40822606-8 &middot; Emisión Oficial</p>
+    <style>
+      table { width: 100%; border-collapse: collapse; margin-top: 10px; margin-bottom: 12px; font-size: 9.5px; background-color: #ffffff !important; color: #000000 !important; }
+      th { background-color: #ffffff !important; color: #000000 !important; font-weight: bold; border: 1px solid #000000 !important; padding: 5px 7px; }
+      td { background-color: #ffffff !important; color: #000000 !important; border: 1px solid #d1d5db !important; padding: 4px 6px; }
+      tr { background-color: #ffffff !important; color: #000000 !important; }
+      tfoot td, tr[style*="background-color:#0f172a"] td, tr[style*="background-color: #0f172a"] td { background-color: #ffffff !important; color: #000000 !important; font-weight: bold !important; border-top: 1px solid #000000 !important; border-bottom: 3px double #000000 !important; }
+      .num { text-align: right; }
+      .highlight-box, .alerta { background-color: #ffffff !important; border: 1px solid #000000 !important; color: #000000 !important; padding: 8px 12px; margin: 10px 0; }
+      h1, h2, h3, p, span, strong, td, th { color: #000000 !important; }
+    </style>
+    <div style="border-bottom: 1.5px solid #000000; padding-bottom: 8px; margin-bottom: 14px; background-color: #ffffff;">
+      <h1 style="font-size: 16px; margin: 0 0 3px 0; color: #000000 !important; font-weight: bold;">${escapeXml(title)}</h1>
+      <p style="margin: 0; font-size: 9.5px; color: #000000 !important;">AGRÍCOLA ONI, C.A. &middot; RIF: J-40822606-8 &middot; Normas VEN-NIF PYME &middot; Emisión Oficial</p>
     </div>
-    <div style="color: #1e293b;">
+    <div style="color: #000000 !important; background-color: #ffffff !important;">
       ${cleanHtmlForWord(htmlContent)}
     </div>
   `;
@@ -1060,8 +1320,444 @@ export async function exportHtmlToPdf(
   try {
     await downloadElementAsPdf(container, filename);
   } finally {
-    document.body.removeChild(container);
+    if (document.body.contains(container)) {
+      document.body.removeChild(container);
+    }
   }
+}
+
+/**
+ * Genera el paquete oficial de Estados Financieros Duales (Bs. & USD) en PDF nativo vectorial
+ * con 100% fondo blanco, números perfectamente cuadrados, doble subrayado contable y firmas.
+ */
+export async function exportFinancialStatementsDualPdf(params: {
+  filename: string;
+  companyName: string;
+  companyRif: string;
+  periodDate: string;
+  exchangeRateBCV: number;
+  balanceSheetData: {
+    assets: { current: (string | number)[][]; currentTotal: number; currentTotalUSD: number; ppe: (string | number)[][]; ppeTotal: number; ppeTotalUSD: number; totalAssets: number; totalAssetsUSD: number };
+    liabilities: { current: (string | number)[][]; currentTotal: number; currentTotalUSD: number; totalLiabilities: number; totalLiabilitiesUSD: number };
+    equity: { items: (string | number)[][]; totalEquity: number; totalEquityUSD: number };
+    totalLiabilitiesAndEquity: number;
+    totalLiabilitiesAndEquityUSD: number;
+  };
+  incomeStatementData: {
+    rows: (string | number)[][];
+    totalRevenuesBs: number;
+    totalRevenuesUSD: number;
+    netIncomeBs: number;
+    netIncomeUSD: number;
+  };
+  trialBalanceData?: {
+    rows: {
+      code: string;
+      accountName: string;
+      category: string;
+      initialBalance2025: { debitVES: number; creditVES: number };
+      movements2026: { debitVES: number; creditVES: number };
+      finalBalance2026: { debitVES: number; creditVES: number };
+      finalBalanceUSD: { debitUSD: number; creditUSD: number };
+    }[];
+    totals: {
+      initialDebitVES: number;
+      initialCreditVES: number;
+      movementsDebitVES: number;
+      movementsCreditVES: number;
+      finalDebitVES: number;
+      finalCreditVES: number;
+      finalDebitUSD: number;
+      finalCreditUSD: number;
+    };
+  };
+  notes: { title: string; text: string }[];
+}): Promise<void> {
+  const {
+    filename,
+    companyName,
+    companyRif,
+    periodDate,
+    exchangeRateBCV,
+    balanceSheetData,
+    incomeStatementData,
+    trialBalanceData,
+    notes
+  } = params;
+
+  const doc = new jsPDF({
+    orientation: 'p',
+    unit: 'mm',
+    format: 'letter'
+  });
+
+  const pageWidth = 215.9;
+  const pageHeight = 279.4;
+  const margin = 12;
+
+  const drawHeader = (sheetTitle: string) => {
+    doc.setFillColor(255, 255, 255);
+    doc.setTextColor(0, 0, 0);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text(companyName.toUpperCase(), margin, 13);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.text(`R.I.F.: ${companyRif} | CORTADO AL ${periodDate.toUpperCase()} | TASA OFICIAL BCV: ${exchangeRateBCV.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD`, margin, 17.5);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.text(sheetTitle.toUpperCase(), margin, 23);
+
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.35);
+    doc.line(margin, 25, pageWidth - margin, 25);
+  };
+
+  const drawSignatures = (startY: number) => {
+    let y = startY;
+    if (y > pageHeight - 35) {
+      doc.addPage();
+      y = 25;
+    } else {
+      y += 10;
+    }
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    doc.setTextColor(0, 0, 0);
+    doc.text('CERTIFICACIÓN Y APROBACIÓN TÉCNICA CONTABLE:', margin, y);
+    y += 12;
+
+    const mid = pageWidth / 2;
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.25);
+
+    // Firma 1
+    doc.line(margin + 10, y, mid - 10, y);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.text('Elias Rafael Trías Abreu', (margin + 10 + mid - 10) / 2, y + 3.5, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text('Presidente / Representante Legal', (margin + 10 + mid - 10) / 2, y + 7, { align: 'center' });
+    doc.text(`${companyName} · RIF ${companyRif}`, (margin + 10 + mid - 10) / 2, y + 10.5, { align: 'center' });
+
+    // Firma 2
+    doc.line(mid + 10, y, pageWidth - margin - 10, y);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.text('Licdo. Omar Pérez Castillo', (mid + 10 + pageWidth - margin - 10) / 2, y + 3.5, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.text('Contador Público Independiente, Ven-Nif', (mid + 10 + pageWidth - margin - 10) / 2, y + 7, { align: 'center' });
+    doc.text('C.P.C. N° 16.336', (mid + 10 + pageWidth - margin - 10) / 2, y + 10.5, { align: 'center' });
+  };
+
+  // -------------------------------------------------------------------------
+  // PÁGINA 1: ESTADO DE SITUACIÓN FINANCIERA (BALANCE GENERAL DUAL)
+  // -------------------------------------------------------------------------
+  drawHeader('ESTADO DE SITUACIÓN FINANCIERA (BALANCE GENERAL COMPARATIVO DUAL BS. / USD)');
+
+  const bsTableRows: (string | number)[][] = [];
+
+  // Activo Corriente
+  bsTableRows.push(['1.1', 'ACTIVO CORRIENTE (CIRCULANTE)', '', '']);
+  balanceSheetData.assets.current.forEach(r => {
+    bsTableRows.push([
+      r[0],
+      r[1],
+      typeof r[2] === 'number' ? r[2].toLocaleString('es-VE', { minimumFractionDigits: 2 }) : String(r[2]),
+      typeof r[3] === 'number' ? `$${r[3].toLocaleString('en-US', { minimumFractionDigits: 2 })}` : String(r[3])
+    ]);
+  });
+  bsTableRows.push(['1.1.99', 'TOTAL ACTIVO CORRIENTE', `Bs. ${balanceSheetData.assets.currentTotal.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.assets.currentTotalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+
+  // PPE
+  bsTableRows.push(['1.2', 'PROPIEDAD, PLANTA Y EQUIPOS (NO CORRIENTE)', '', '']);
+  balanceSheetData.assets.ppe.forEach(r => {
+    bsTableRows.push([
+      r[0],
+      r[1],
+      typeof r[2] === 'number' ? r[2].toLocaleString('es-VE', { minimumFractionDigits: 2 }) : String(r[2]),
+      typeof r[3] === 'number' ? `$${r[3].toLocaleString('en-US', { minimumFractionDigits: 2 })}` : String(r[3])
+    ]);
+  });
+  bsTableRows.push(['1.2.99', 'TOTAL PROPIEDAD, PLANTA Y EQUIPO NETO', `Bs. ${balanceSheetData.assets.ppeTotal.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.assets.ppeTotalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+
+  // TOTAL ACTIVO
+  bsTableRows.push(['1.0.00', 'TOTAL ACTIVO', `Bs. ${balanceSheetData.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.assets.totalAssetsUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+
+  // Pasivo Corriente
+  bsTableRows.push(['2.1', 'PASIVO CORRIENTE (CIRCULANTE)', '', '']);
+  balanceSheetData.liabilities.current.forEach(r => {
+    bsTableRows.push([
+      r[0],
+      r[1],
+      typeof r[2] === 'number' ? r[2].toLocaleString('es-VE', { minimumFractionDigits: 2 }) : String(r[2]),
+      typeof r[3] === 'number' ? `$${r[3].toLocaleString('en-US', { minimumFractionDigits: 2 })}` : String(r[3])
+    ]);
+  });
+  bsTableRows.push(['2.1.99', 'TOTAL PASIVO CORRIENTE', `Bs. ${balanceSheetData.liabilities.currentTotal.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.liabilities.currentTotalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+  bsTableRows.push(['2.0.00', 'TOTAL PASIVO', `Bs. ${balanceSheetData.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.liabilities.totalLiabilitiesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+
+  // Patrimonio
+  bsTableRows.push(['3.1', 'PATRIMONIO NETO', '', '']);
+  balanceSheetData.equity.items.forEach(r => {
+    bsTableRows.push([
+      r[0],
+      r[1],
+      typeof r[2] === 'number' ? r[2].toLocaleString('es-VE', { minimumFractionDigits: 2 }) : String(r[2]),
+      typeof r[3] === 'number' ? `$${r[3].toLocaleString('en-US', { minimumFractionDigits: 2 })}` : String(r[3])
+    ]);
+  });
+  bsTableRows.push(['3.1.99', 'TOTAL PATRIMONIO NETO', `Bs. ${balanceSheetData.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.equity.totalEquityUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+
+  // TOTAL PASIVO Y PATRIMONIO
+  bsTableRows.push(['3.0.00', 'TOTAL PASIVO Y PATRIMONIO NETO', `Bs. ${balanceSheetData.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`, `$${balanceSheetData.totalLiabilitiesAndEquityUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`]);
+
+  autoTable(doc, {
+    startY: 28,
+    margin: { left: margin, right: margin, bottom: 25 },
+    head: [['Código', 'Cuenta Contable / Rubro Patrimonial', 'Monto en Bolívares (Bs.)', 'Monto en Dólares ($ USD)']],
+    body: bsTableRows.map(r => r.map(c => String(c ?? ''))),
+    theme: 'plain',
+    styles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontSize: 7.2,
+      cellPadding: 1.8,
+      font: 'helvetica',
+      lineColor: [215, 215, 215],
+      lineWidth: 0.12
+    },
+    headStyles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontStyle: 'bold',
+      lineColor: [0, 0, 0],
+      lineWidth: 0.3
+    },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 16 },
+      1: { halign: 'left', cellWidth: 100 },
+      2: { halign: 'right', cellWidth: 40 },
+      3: { halign: 'right', cellWidth: 35 }
+    },
+    didParseCell: (data) => {
+      const row = bsTableRows[data.row.index];
+      if (!row) return;
+      const code = String(row[0] || '');
+      const desc = String(row[1] || '');
+      if (code === '1.1' || code === '1.2' || code === '2.1' || code === '3.1') {
+        data.cell.styles.fontStyle = 'bold';
+      }
+      if (code === '1.0.00' || code === '2.0.00' || code === '3.0.00' || desc.includes('TOTAL')) {
+        data.cell.styles.fontStyle = 'bold';
+        if (code === '1.0.00' || code === '3.0.00') {
+          data.cell.styles.lineWidth = 0.25;
+          data.cell.styles.lineColor = [0, 0, 0];
+        }
+      }
+    }
+  });
+
+  const finalBsY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 180;
+  drawSignatures(finalBsY);
+
+  // -------------------------------------------------------------------------
+  // PÁGINA 2: ESTADO DE RESULTADOS INTEGRAL (GANANCIAS Y PÉRDIDAS)
+  // -------------------------------------------------------------------------
+  doc.addPage();
+  drawHeader('ESTADO DE RESULTADO INTEGRAL (GANANCIAS Y PÉRDIDAS DUAL BS. / USD)');
+
+  const isTableRows: (string | number)[][] = [];
+  incomeStatementData.rows.forEach(r => {
+    isTableRows.push([
+      r[0],
+      r[1],
+      typeof r[2] === 'number' ? r[2].toLocaleString('es-VE', { minimumFractionDigits: 2 }) : String(r[2]),
+      typeof r[3] === 'number' ? `$${r[3].toLocaleString('en-US', { minimumFractionDigits: 2 })}` : String(r[3])
+    ]);
+  });
+  isTableRows.push([
+    '5.0.00',
+    'UTILIDAD NETA DEL EJERCICIO (01/01/2026 AL 31/08/2026)',
+    `Bs. ${incomeStatementData.netIncomeBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`,
+    `$${incomeStatementData.netIncomeUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+  ]);
+
+  autoTable(doc, {
+    startY: 28,
+    margin: { left: margin, right: margin, bottom: 25 },
+    head: [['Código', 'Concepto / Cuenta de Ingresos y Gastos', 'Monto en Bolívares (Bs.)', 'Monto en Dólares ($ USD)']],
+    body: isTableRows.map(r => r.map(c => String(c ?? ''))),
+    theme: 'plain',
+    styles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontSize: 7.5,
+      cellPadding: 2,
+      font: 'helvetica',
+      lineColor: [215, 215, 215],
+      lineWidth: 0.12
+    },
+    headStyles: {
+      fillColor: [255, 255, 255],
+      textColor: [0, 0, 0],
+      fontStyle: 'bold',
+      lineColor: [0, 0, 0],
+      lineWidth: 0.3
+    },
+    columnStyles: {
+      0: { halign: 'center', cellWidth: 16 },
+      1: { halign: 'left', cellWidth: 100 },
+      2: { halign: 'right', cellWidth: 40 },
+      3: { halign: 'right', cellWidth: 35 }
+    },
+    didParseCell: (data) => {
+      const row = isTableRows[data.row.index];
+      if (!row) return;
+      const desc = String(row[1] || '');
+      if (desc.includes('TOTAL') || desc.includes('UTILIDAD')) {
+        data.cell.styles.fontStyle = 'bold';
+      }
+    }
+  });
+
+  const finalIsY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 120;
+  drawSignatures(finalIsY);
+
+  // -------------------------------------------------------------------------
+  // PÁGINA 3: BALANCE DE COMPROBACIÓN (SI EXISTE)
+  // -------------------------------------------------------------------------
+  if (trialBalanceData) {
+    doc.addPage('letter', 'l');
+    const tbPageWidth = 279.4;
+
+    doc.setFillColor(255, 255, 255);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text(companyName.toUpperCase(), margin, 12);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.text(`R.I.F.: ${companyRif} | BALANCE DE COMPROBACIÓN DE SALDOS Y MOVIMIENTOS AL ${periodDate.toUpperCase()}`, margin, 16.5);
+
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.3);
+    doc.line(margin, 19, tbPageWidth - margin, 19);
+
+    const tbBody = trialBalanceData.rows.map(r => [
+      r.code,
+      r.accountName,
+      r.category,
+      r.initialBalance2025.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      r.initialBalance2025.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      r.movements2026.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      r.movements2026.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      r.finalBalance2026.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      r.finalBalance2026.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      `$${r.finalBalanceUSD.debitUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+      `$${r.finalBalanceUSD.creditUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+    ]);
+
+    const tbFoot = [[
+      'TOTAL',
+      'TOTAL BALANCE DE COMPROBACIÓN AUDITADO',
+      '100%',
+      trialBalanceData.totals.initialDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      trialBalanceData.totals.initialCreditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      trialBalanceData.totals.movementsDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      trialBalanceData.totals.movementsCreditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      trialBalanceData.totals.finalDebitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      trialBalanceData.totals.finalCreditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 }),
+      `$${trialBalanceData.totals.finalDebitUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+      `$${trialBalanceData.totals.finalCreditUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+    ]];
+
+    autoTable(doc, {
+      startY: 22,
+      margin: { left: margin, right: margin, bottom: 15 },
+      head: [
+        ['Código', 'Nombre de la Cuenta', 'Cat.', 'Saldo Inicial 2025 (Bs.)', '', 'Movimientos 2026 (Bs.)', '', 'Saldo Final 2026 (Bs.)', '', 'Saldo Final USD', ''],
+        ['', '', '', 'Debe', 'Haber', 'Debe', 'Haber', 'Debe', 'Haber', 'Debe ($)', 'Haber ($)']
+      ],
+      body: tbBody,
+      foot: tbFoot,
+      theme: 'plain',
+      styles: {
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
+        fontSize: 6.8,
+        cellPadding: 1.5,
+        font: 'helvetica',
+        lineColor: [215, 215, 215],
+        lineWidth: 0.1
+      },
+      headStyles: {
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
+        fontStyle: 'bold',
+        lineColor: [0, 0, 0],
+        lineWidth: 0.25
+      },
+      footStyles: {
+        fillColor: [255, 255, 255],
+        textColor: [0, 0, 0],
+        fontStyle: 'bold',
+        lineColor: [0, 0, 0],
+        lineWidth: 0.3
+      },
+      columnStyles: {
+        0: { halign: 'center', cellWidth: 14 },
+        1: { halign: 'left', cellWidth: 48 },
+        2: { halign: 'center', cellWidth: 10 },
+        3: { halign: 'right' },
+        4: { halign: 'right' },
+        5: { halign: 'right' },
+        6: { halign: 'right' },
+        7: { halign: 'right' },
+        8: { halign: 'right' },
+        9: { halign: 'right' },
+        10: { halign: 'right' }
+      }
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // PÁGINA 4: NOTAS EXPLICATIVAS REVELATORIAS (VEN-NIF)
+  // -------------------------------------------------------------------------
+  doc.addPage('letter', 'p');
+  drawHeader('NOTAS EXPLICATIVAS REVELATORIAS A LOS ESTADOS FINANCIEROS (VEN-NIF)');
+
+  let noteY = 32;
+  notes.forEach((n, idx) => {
+    if (noteY > pageHeight - 45) {
+      doc.addPage();
+      drawHeader('NOTAS EXPLICATIVAS REVELATORIAS (CONTINUACIÓN)');
+      noteY = 32;
+    }
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`NOTA ${idx + 1}: ${n.title.toUpperCase()}`, margin, noteY);
+    noteY += 4.5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    const splitText = doc.splitTextToSize(n.text, pageWidth - margin * 2);
+    doc.text(splitText, margin, noteY);
+    noteY += splitText.length * 3.6 + 4.5;
+  });
+
+  drawSignatures(noteY);
+
+  const safeFilename = filename.toLowerCase().endsWith('.pdf') ? filename : `${filename}.pdf`;
+  doc.save(safeFilename);
 }
 
 /** Alias para compatibilidad */
@@ -1086,8 +1782,6 @@ export interface ExcelExportOptions {
  * con formato ejecutivo, celdas numéricas reales en columnas independientes,
  * anchos de columna dinámicos y membrete corporativo.
  */
-import ExcelJS from 'exceljs';
-
 export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<void> {
   const {
     filename,
@@ -1122,17 +1816,17 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
   r1.height = 24;
   ws.mergeCells(1, 1, 1, colCount);
   const c1 = ws.getCell('A1');
-  c1.font = { name: 'Calibri', size: 16, bold: true, color: { argb: 'FFFFFFFF' } };
-  c1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } }; // Dark Navy
+  c1.font = { name: 'Calibri', size: 14, bold: true, color: { argb: 'FF000000' } };
+  c1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
   c1.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
 
   // Fila 2: RIF e Información
-  const r2 = ws.addRow([`R.I.F.: ${companyRif} | CUMPLE CON NORMAS BANCARIAS SUDEBAN Y VEN-NIF`]);
+  const r2 = ws.addRow([`R.I.F.: ${companyRif} | CUMPLE CON NORMAS CONTABLES VEN-NIF PYME`]);
   r2.height = 18;
   ws.mergeCells(2, 1, 2, colCount);
   const c2 = ws.getCell('A2');
-  c2.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFD97706' } }; // Golden Amber
-  c2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+  c2.font = { name: 'Calibri', size: 9.5, bold: false, color: { argb: 'FF000000' } };
+  c2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
   c2.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
 
   // Fila 3: Título del Reporte
@@ -1140,8 +1834,8 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
   r3.height = 22;
   ws.mergeCells(3, 1, 3, colCount);
   const c3 = ws.getCell('A3');
-  c3.font = { name: 'Calibri', size: 12, bold: true, color: { argb: 'FF0F172A' } };
-  c3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } }; // Light Slate
+  c3.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF000000' } };
+  c3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
   c3.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
 
   // Fila 4: Subtítulo si aplica
@@ -1150,8 +1844,8 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
     r4.height = 18;
     ws.mergeCells(4, 1, 4, colCount);
     const c4 = ws.getCell('A4');
-    c4.font = { name: 'Calibri', size: 10, italic: true, color: { argb: 'FF475569' } };
-    c4.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+    c4.font = { name: 'Calibri', size: 10, italic: true, color: { argb: 'FF000000' } };
+    c4.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
     c4.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
   }
 
@@ -1161,41 +1855,39 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
 
   // 2. Encabezados de Columna
   const headerRow = ws.addRow(headers);
-  headerRow.height = 28;
+  headerRow.height = 24;
   headerRow.eachCell((cell, colNum) => {
-    cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FFFFFFFF' } };
-    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E293B' } }; // Corporate Navy
+    cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
     cell.alignment = {
       horizontal: colNum <= 2 ? 'left' : 'right',
       vertical: 'middle',
       wrapText: true
     };
     cell.border = {
-      top: { style: 'medium', color: { argb: 'FF0F172A' } },
-      bottom: { style: 'medium', color: { argb: 'FF0F172A' } },
-      left: { style: 'thin', color: { argb: 'FF334155' } },
-      right: { style: 'thin', color: { argb: 'FF334155' } }
+      top: { style: 'thin', color: { argb: 'FF000000' } },
+      bottom: { style: 'medium', color: { argb: 'FF000000' } },
+      left: { style: 'thin', color: { argb: 'FFCCCCCC' } },
+      right: { style: 'thin', color: { argb: 'FFCCCCCC' } }
     };
   });
 
   // 3. Filas de Datos
-  rows.forEach((rowData, idx) => {
+  rows.forEach((rowData) => {
     const row = ws.addRow(rowData);
-    row.height = 26;
-    const isOdd = idx % 2 === 1;
-    const bgArgb = isOdd ? 'FFF8FAFC' : 'FFFFFFFF'; // Zebra striping
+    row.height = 24;
 
     row.eachCell({ includeEmpty: true }, (cell, colNum) => {
       const isFirstTwoCols = colNum <= 2;
       const rawValue = cell.value;
 
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: bgArgb } };
-      cell.font = { name: 'Calibri', size: 10, color: { argb: 'FF1E293B' }, bold: colNum === 1 };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 10, color: { argb: 'FF000000' }, bold: colNum === 1 };
       cell.border = {
-        top: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-        bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-        left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-        right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+        top: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+        bottom: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+        left: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+        right: { style: 'thin', color: { argb: 'FFE5E7EB' } }
       };
 
       if (isFirstTwoCols) {
@@ -1242,13 +1934,13 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
       const isFirstTwoCols = colNum <= 2;
       const rawValue = cell.value;
 
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } }; // Slate Dark Navy
-      cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF000000' } };
       cell.border = {
-        top: { style: 'medium', color: { argb: 'FF0F172A' } },
-        bottom: { style: 'double', color: { argb: 'FF0F172A' } }, // Accounting Double Bottom Border
-        left: { style: 'thin', color: { argb: 'FF334155' } },
-        right: { style: 'thin', color: { argb: 'FF334155' } }
+        top: { style: 'thin', color: { argb: 'FF000000' } },
+        bottom: { style: 'double', color: { argb: 'FF000000' } }, // Accounting Double Bottom Border
+        left: { style: 'thin', color: { argb: 'FFCCCCCC' } },
+        right: { style: 'thin', color: { argb: 'FFCCCCCC' } }
       };
 
       if (isFirstTwoCols) {
@@ -1261,7 +1953,7 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
             cell.numFmt = '0.0%';
           } else if (headerName.includes('USD') || headerName.includes('$')) {
             cell.numFmt = '"$"#,##0.00';
-            cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF34D399' } };
+            cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF000000' } };
           } else {
             cell.numFmt = '#,##0.00';
           }
@@ -1278,7 +1970,7 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
             const headerName = String(headers[colNum - 1] || '');
             if (headerName.includes('USD') || headerName.includes('$')) {
               cell.numFmt = '"$"#,##0.00';
-              cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF34D399' } };
+              cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF000000' } };
             } else {
               cell.numFmt = '#,##0.00';
             }
@@ -1288,10 +1980,10 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
     });
   }
 
-  // 5. Firma de auditoría al pie
+  // 5. Firma de certificación profesional al pie
   ws.addRow([]);
-  const rSigHeader = ws.addRow(['CERTIFICACIÓN Y AUDITORÍA EXTERNA INDEPENDIENTE:']);
-  rSigHeader.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+  const rSigHeader = ws.addRow(['CERTIFICACIÓN Y ACTUACIÓN PROFESIONAL (CONTADOR PÚBLICO INDEPENDIENTE):']);
+  rSigHeader.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
 
   ws.addRow([]);
   const rSigLines = ws.addRow([
@@ -1302,8 +1994,8 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
     '',
     '__________________________________________________'
   ]);
-  rSigLines.getCell(1).font = { name: 'Calibri', size: 9, color: { argb: 'FF64748B' } };
-  rSigLines.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF64748B' } };
+  rSigLines.getCell(1).font = { name: 'Calibri', size: 9, color: { argb: 'FF000000' } };
+  rSigLines.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF000000' } };
 
   const rSigNames = ws.addRow([
     'Elias Rafael Trías Abreu (Presidente)',
@@ -1313,8 +2005,8 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
     '',
     'Licdo. Omar Pérez Castillo (Contador Público C.P.C. 16.336)'
   ]);
-  rSigNames.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
-  rSigNames.getCell(6).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF0F172A' } };
+  rSigNames.getCell(1).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
+  rSigNames.getCell(6).font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
 
   const rSigTitles = ws.addRow([
     `${companyName} - RIF: ${companyRif}`,
@@ -1322,10 +2014,10 @@ export async function exportToExcelXlsx(options: ExcelExportOptions): Promise<vo
     '',
     '',
     '',
-    'Auditor Externo Independiente - VEN-NIF / SUDEBAN'
+    'Contador Público Independiente, VEN-NIF'
   ]);
-  rSigTitles.getCell(1).font = { name: 'Calibri', size: 9, color: { argb: 'FF475569' } };
-  rSigTitles.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF475569' } };
+  rSigTitles.getCell(1).font = { name: 'Calibri', size: 9, color: { argb: 'FF000000' } };
+  rSigTitles.getCell(6).font = { name: 'Calibri', size: 9, color: { argb: 'FF000000' } };
 
   // Adjust Column Widths
   for (let i = 1; i <= colCount; i++) {
@@ -1420,24 +2112,24 @@ export async function exportFinancialStatementsDualXlsx(params: {
     r1.height = 24;
     ws.mergeCells(1, 1, 1, 6);
     const c1 = ws.getCell('A1');
-    c1.font = { name: 'Calibri', size: 15, bold: true, color: { argb: 'FFFFFFFF' } };
-    c1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+    c1.font = { name: 'Calibri', size: 14, bold: true, color: { argb: 'FF000000' } };
+    c1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
     c1.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
 
     const r2 = ws.addRow([`R.I.F.: ${companyRif} | CORTADO AL ${periodDate.toUpperCase()} | TASA BCV: ${exchangeRateBCV.toLocaleString('es-VE', { minimumFractionDigits: 2 })} Bs/USD`]);
     r2.height = 18;
     ws.mergeCells(2, 1, 2, 6);
     const c2 = ws.getCell('A2');
-    c2.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFD97706' } };
-    c2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
+    c2.font = { name: 'Calibri', size: 9.5, bold: false, color: { argb: 'FF000000' } };
+    c2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
     c2.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
 
     const r3 = ws.addRow([sheetTitle.toUpperCase()]);
     r3.height = 22;
     ws.mergeCells(3, 1, 3, 6);
     const c3 = ws.getCell('A3');
-    c3.font = { name: 'Calibri', size: 12, bold: true, color: { argb: 'FF0F172A' } };
-    c3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+    c3.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF000000' } };
+    c3.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
     c3.alignment = { horizontal: 'left', vertical: 'middle', indent: 1 };
 
     ws.addRow([]);
@@ -1448,14 +2140,14 @@ export async function exportFinancialStatementsDualXlsx(params: {
     const hRow = ws.addRow(headers);
     hRow.height = 24;
     hRow.eachCell((cell, colIndex) => {
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E293B' } };
-      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
       cell.alignment = { horizontal: colIndex <= 2 ? 'left' : 'right', vertical: 'middle' };
       cell.border = {
-        top: { style: 'thin', color: { argb: 'FF334155' } },
-        bottom: { style: 'medium', color: { argb: 'FF0F172A' } },
-        left: { style: 'thin', color: { argb: 'FF334155' } },
-        right: { style: 'thin', color: { argb: 'FF334155' } }
+        top: { style: 'thin', color: { argb: 'FF000000' } },
+        bottom: { style: 'medium', color: { argb: 'FF000000' } },
+        left: { style: 'thin', color: { argb: 'FFCCCCCC' } },
+        right: { style: 'thin', color: { argb: 'FFCCCCCC' } }
       };
     });
   };
@@ -1468,17 +2160,14 @@ export async function exportFinancialStatementsDualXlsx(params: {
       row.eachCell((cell, colIndex) => {
         const isHeaderOrSection = typeof r[0] === 'string' && (r[0].startsWith('---') || r[0].startsWith('ACTIVO') || r[0].startsWith('PASIVO') || r[0].startsWith('PATRIMONIO') || r[0].includes('TOTAL'));
         
-        if (isHeaderOrSection && (r[1] === undefined || r[1] === '' || r[1] === 0)) {
-          cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF0F172A' } };
-          cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'F1F5F9' } };
-        } else {
-          cell.font = { name: 'Calibri', size: 10, color: { argb: 'FF0F172A' } };
-        }
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+        cell.font = { name: 'Calibri', size: 10, bold: isHeaderOrSection, color: { argb: 'FF000000' } };
 
         cell.border = {
-          bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-          left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-          right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+          top: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+          bottom: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+          left: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+          right: { style: 'thin', color: { argb: 'FFE5E7EB' } }
         };
 
         if (colIndex <= 2) {
@@ -1497,20 +2186,17 @@ export async function exportFinancialStatementsDualXlsx(params: {
     const tRow = ws.addRow([code, label, valBs, valUSD]);
     tRow.height = 26;
     tRow.eachCell((cell, colIndex) => {
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
-      cell.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 10.5, bold: true, color: { argb: 'FF000000' } };
       cell.border = {
-        top: { style: 'medium', color: { argb: 'FF0F172A' } },
-        bottom: { style: 'double', color: { argb: 'FF0F172A' } }
+        top: { style: 'thin', color: { argb: 'FF000000' } },
+        bottom: { style: 'double', color: { argb: 'FF000000' } }
       };
       if (colIndex <= 2) {
         cell.alignment = { horizontal: 'left', vertical: 'middle' };
       } else {
         cell.alignment = { horizontal: 'right', vertical: 'middle' };
         cell.numFmt = colIndex === 4 ? '"$"#,##0.00' : '#,##0.00';
-        if (colIndex === 4) {
-          cell.font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF34D399' } };
-        }
       }
     });
   };
@@ -1568,7 +2254,7 @@ export async function exportFinancialStatementsDualXlsx(params: {
   s2.getCell(4).font = { bold: true };
   s2.getCell(1).alignment = { horizontal: 'center' };
   s2.getCell(4).alignment = { horizontal: 'center' };
-  const s3 = ws1.addRow(['Presidente / Propietario - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Colegiado C.P.C. 16.336']);
+  const s3 = ws1.addRow(['Presidente / Propietario - AGRÍCOLA ONI, C.A.', '', '', 'Contador Público Independiente, VEN-NIF (C.P.C. 16.336)']);
   s3.getCell(1).alignment = { horizontal: 'center' };
   s3.getCell(4).alignment = { horizontal: 'center' };
 
@@ -1596,10 +2282,9 @@ export async function exportFinancialStatementsDualXlsx(params: {
   s2_2.getCell(4).font = { bold: true };
   s2_2.getCell(1).alignment = { horizontal: 'center' };
   s2_2.getCell(4).alignment = { horizontal: 'center' };
-  s2_2.getCell(1).font = { bold: true };
-  s2_2.getCell(4).font = { bold: true };
-  s2_2.getCell(1).alignment = { horizontal: 'center' };
-  s2_2.getCell(4).alignment = { horizontal: 'center' };
+  const s2_3 = ws2.addRow(['Presidente / Propietario', '', '', 'Contador Público Independiente, VEN-NIF']);
+  s2_3.getCell(1).alignment = { horizontal: 'center' };
+  s2_3.getCell(4).alignment = { horizontal: 'center' };
 
   ws2.getColumn(1).width = 14;
   ws2.getColumn(2).width = 52;
@@ -1630,9 +2315,13 @@ export async function exportFinancialStatementsDualXlsx(params: {
     wsTb.mergeCells(gHeader.number, 10, gHeader.number, 11);
 
     gHeader.eachCell((cell) => {
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
-      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
       cell.alignment = { horizontal: 'center', vertical: 'middle' };
+      cell.border = {
+        top: { style: 'thin', color: { argb: 'FF000000' } },
+        bottom: { style: 'thin', color: { argb: 'FF000000' } }
+      };
     });
 
     // Sub Header Row 2
@@ -1645,9 +2334,12 @@ export async function exportFinancialStatementsDualXlsx(params: {
     ]);
     subHeader.height = 20;
     subHeader.eachCell((cell) => {
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF334155' } };
-      cell.font = { name: 'Calibri', size: 9.5, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 9.5, bold: true, color: { argb: 'FF000000' } };
       cell.alignment = { horizontal: 'center', vertical: 'middle' };
+      cell.border = {
+        bottom: { style: 'medium', color: { argb: 'FF000000' } }
+      };
     });
 
     // Add rows
@@ -1667,11 +2359,13 @@ export async function exportFinancialStatementsDualXlsx(params: {
       ]);
       row.height = 19;
       row.eachCell((cell, colIndex) => {
-        cell.font = { name: 'Calibri', size: 9.5, color: { argb: 'FF0F172A' } };
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+        cell.font = { name: 'Calibri', size: 9.5, color: { argb: 'FF000000' } };
         cell.border = {
-          bottom: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-          left: { style: 'thin', color: { argb: 'FFE2E8F0' } },
-          right: { style: 'thin', color: { argb: 'FFE2E8F0' } }
+          top: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+          bottom: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+          left: { style: 'thin', color: { argb: 'FFE5E7EB' } },
+          right: { style: 'thin', color: { argb: 'FFE5E7EB' } }
         };
         if (colIndex === 1 || colIndex === 3) {
           cell.alignment = { horizontal: 'center', vertical: 'middle' };
@@ -1702,20 +2396,17 @@ export async function exportFinancialStatementsDualXlsx(params: {
     ]);
     tTb.height = 24;
     tTb.eachCell((cell, colIndex) => {
-      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } };
-      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
+      cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF000000' } };
       cell.border = {
-        top: { style: 'medium', color: { argb: 'FF0F172A' } },
-        bottom: { style: 'double', color: { argb: 'FF0F172A' } }
+        top: { style: 'thin', color: { argb: 'FF000000' } },
+        bottom: { style: 'double', color: { argb: 'FF000000' } }
       };
       if (colIndex <= 3) {
         cell.alignment = { horizontal: colIndex === 2 ? 'left' : 'center', vertical: 'middle' };
       } else {
         cell.alignment = { horizontal: 'right', vertical: 'middle' };
         cell.numFmt = colIndex >= 10 ? '"$"#,##0.00' : '#,##0.00';
-        if (colIndex >= 10) {
-          cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: 'FF34D399' } };
-        }
       }
     });
 
@@ -1743,13 +2434,14 @@ export async function exportFinancialStatementsDualXlsx(params: {
     const nHead = ws3.addRow([`NOTA ${idx + 1}: ${note.title.toUpperCase()}`]);
     nHead.height = 22;
     ws3.mergeCells(nHead.number, 1, nHead.number, 4);
-    nHead.getCell(1).font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF0F172A' } };
-    nHead.getCell(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE2E8F0' } };
+    nHead.getCell(1).font = { name: 'Calibri', size: 11, bold: true, color: { argb: 'FF000000' } };
+    nHead.getCell(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
 
     const nTxt = ws3.addRow([note.text]);
     nTxt.height = 42;
     ws3.mergeCells(nTxt.number, 1, nTxt.number, 4);
-    nTxt.getCell(1).font = { name: 'Calibri', size: 10, color: { argb: 'FF334155' } };
+    nTxt.getCell(1).font = { name: 'Calibri', size: 10, color: { argb: 'FF000000' } };
+    nTxt.getCell(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFFFFF' } };
     nTxt.getCell(1).alignment = { wrapText: true, vertical: 'top' };
 
     ws3.addRow([]);

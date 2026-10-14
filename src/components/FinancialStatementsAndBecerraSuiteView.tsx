@@ -99,7 +99,7 @@ Los ingresos operacionales por Servicios Agrícolas (Bs. 78.717.472,35) más los
 Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos a Futuro de Café Nacional, Comprobantes de compra de divisas ($556.890,45 USD), Guías SICA/CVC y Estados Financieros auditados C.P.C. 16.336.
 
 Atentamente,
-Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador Público C.P.C. 16.336)
+Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador Público Independiente, Ven-Nif - C.P.C. 16.336)
     `;
     navigator.clipboard.writeText(textContent.trim());
     setCopied(true);
@@ -119,8 +119,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
         <td class="num">${r.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
         <td class="num">${r.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
         <td class="num" style="font-weight:bold;color:#0f172a">${r.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-        <td class="num" style="font-weight:bold;color:#d97706">${r.pctDelTotal.toFixed(1)}%</td>
-        <td class="num" style="font-weight:bold;color:#059669">$${r.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+        <td class="num" style="font-weight:bold;color:#334155">${r.pctDelTotal.toFixed(1)}%</td>
+        <td class="num" style="font-weight:bold;color:#0f172a">$${r.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
       </tr>
     `).join('');
 
@@ -155,19 +155,19 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
         </thead>
         <tbody>
           ${tableRows}
-          <tr style="background-color:#0f172a;color:#ffffff;font-weight:bold">
-            <td style="color:#ffffff">TOTAL GENERAL AUDITADO</td>
-            <td class="num" style="color:#ffffff">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">100.0%</td>
-            <td class="num" style="color:#ffffff">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+          <tr style="background-color:#f1f5f9;color:#000000;font-weight:bold;border-top:2px solid #000;border-bottom:3px double #000">
+            <td style="font-weight:bold">TOTAL GENERAL AUDITADO</td>
+            <td class="num">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="font-weight:bold">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="font-weight:bold">100.0%</td>
+            <td class="num" style="font-weight:bold">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
           </tr>
         </tbody>
       </table>
@@ -184,7 +184,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               _____________________________________<br>
               <strong>Licdo. Omar Pérez Castillo</strong><br>
               Contador Público C.P.C. 16.336<br>
-              Auditor Externo Independiente
+              Contador Público Independiente, Ven-Nif
             </td>
           </tr>
         </table>
@@ -305,19 +305,19 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
         </thead>
         <tbody>
           ${tableRows}
-          <tr style="background-color:#0f172a;color:#ffffff;font-weight:bold">
-            <td style="color:#ffffff">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
-            <td class="num" style="color:#ffffff">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">100.0%</td>
-            <td class="num" style="color:#ffffff">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+          <tr style="background-color:#f1f5f9;color:#000000;font-weight:bold;border-top:2px solid #000;border-bottom:3px double #000">
+            <td style="font-weight:bold">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
+            <td class="num">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="font-weight:bold">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="font-weight:bold">100.0%</td>
+            <td class="num" style="font-weight:bold">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
           </tr>
         </tbody>
       </table>
@@ -334,7 +334,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               _____________________________________<br>
               <strong>Licdo. Omar Pérez Castillo</strong><br>
               Contador Público C.P.C. 16.336<br>
-              Auditor Externo Independiente
+              Contador Público Independiente, Ven-Nif
             </td>
           </tr>
         </table>
@@ -517,7 +517,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
       '—',
       totalUSD,
       'Auditado Conforme',
-      'Sustento Legal y Fiscal SENIAT / SUDEBAN'
+      'Sustento Legal y Fiscal SENIAT / VEN-NIF'
     ];
 
     exportToExcelXlsx({
@@ -625,7 +625,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
   };
 
   const handleExportConciliacionCsv = () => {
-    const headers = ['# Item', 'Concepto de Conciliación', 'Naturaleza Legal / Contable', 'Monto Movilizado Banesco (Bs.)', 'Impacto en Estado de Resultados (Bs.)', 'Sustento Legal y Fiscal SENIAT / SUDEBAN'];
+    const headers = ['# Item', 'Concepto de Conciliación', 'Naturaleza Legal / Contable', 'Monto Movilizado Banesco (Bs.)', 'Impacto en Estado de Resultados (Bs.)', 'Sustento Legal y Fiscal SENIAT / VEN-NIF'];
     const dataRows = BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION.breakdown.map((item, idx) => [
       idx + 1,
       item.concept,
@@ -649,13 +649,30 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
   const handleExportBalanceSheetExcel = () => {
     const headers = ['Concepto / Rubro Contable (VEN-NIF)', '31/12/2025 (Bs.)', '31/12/2025 (US$)', '31/08/2026 (Bs.)', '31/08/2026 (US$)'];
     const dataRows = [
-      ['ACTIVO CORRIENTE', '', '', '', ''],
-      ['Efectivo en Caja y Bancos', BALANCE_SHEET_2025.assets.current.cashAndBanks, BALANCE_SHEET_2025.assets.current.cashAndBanks / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks, BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / 794.99],
-      ['Cuentas por Cobrar Manuel Becerra', 0, 0, BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable, BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / 794.99],
+      ['ACTIVO CORRIENTE (CIRCULANTE)', '', '', '', ''],
+      ['Efectivo en Caja y Bancos (Banesco Cta. Cte.)', BALANCE_SHEET_2025.assets.current.cashAndBanks, BALANCE_SHEET_2025.assets.current.cashAndBanks / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks, BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / 794.99],
+      ['Cuentas por Cobrar Comerciales Clientes (Corte 2025)', BALANCE_SHEET_2025.assets.current.tradeReceivables, BALANCE_SHEET_2025.assets.current.tradeReceivables / 301.37, 0, 0],
+      ['Cuentas por Cobrar Socios - Transferencias Fondos Banesco (Elías Rafael Trías Abreu V-23.997.829)', 0, 0, BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00, (BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00) / 794.99],
+      ['Cuentas por Cobrar Socios - Préstamo Mutuo Manuel Becerra', 0, 0, BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable, BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / 794.99],
+      ['Retención ISLR Clientes / por Compensar', BALANCE_SHEET_2025.assets.current.islrWithholdingClients, BALANCE_SHEET_2025.assets.current.islrWithholdingClients / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients, BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients / 794.99],
+      ['ISLR Pagado por Anticipado / Crédito Fiscal Exigible', BALANCE_SHEET_2025.assets.current.prepaidISLR, BALANCE_SHEET_2025.assets.current.prepaidISLR / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR, BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR / 794.99],
       ['Total Activo Corriente', BALANCE_SHEET_2025.assets.current.totalCurrent, BALANCE_SHEET_2025.assets.current.totalCurrent / 301.37, BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent, BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent / 794.99],
+      ['PROPIEDAD, PLANTA Y EQUIPOS', '', '', '', ''],
+      ['Total Propiedad, Planta y Equipos Neta', BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE, BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE / 301.37, BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE, BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE / 794.99],
       ['TOTAL ACTIVO', BALANCE_SHEET_2025.assets.totalAssets, BALANCE_SHEET_2025.assets.totalAssets / 301.37, BALANCE_SHEET_AUGUST_2026.assets.totalAssets, BALANCE_SHEET_AUGUST_2026.assets.totalAssets / 794.99],
-      ['PASIVO CORRIENTE', '', '', '', ''],
-      ['Cuentas por Pagar Socios / Anticipos', 0, 0, BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables, BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / 794.99],
+      ['PASIVO CORRIENTE (CIRCULANTE)', '', '', '', ''],
+      ['Anticipos Recibidos de Clientes (NIIF 15 - Saldo Neto por Ejecutar)', 0, 0, BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 301228750.17, (BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 301228750.17) / 794.99],
+      ['Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)', 0, 0, BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45, (BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45) / 794.99],
+      ['Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)', 0, 0, BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables, BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / 794.99],
+      ['I.S.L.R. por Pagar / Provisiones Tributarias', BALANCE_SHEET_2025.liabilities.current.islrPayable, BALANCE_SHEET_2025.liabilities.current.islrPayable / 301.37, BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable, BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable / 794.99],
+      ['IGTF 3% Efectivo Divisas por Pagar (Derogado 2% Bancario)', 0, 0, BALANCE_SHEET_AUGUST_2026.liabilities.current.igtfPayable || 0, 0],
+      ['TOTAL PASIVO (PASIVO CORRIENTE)', BALANCE_SHEET_2025.liabilities.totalLiabilities, BALANCE_SHEET_2025.liabilities.totalLiabilities / 301.37, BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities, BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities / 794.99],
+      ['PATRIMONIO NETO', '', '', '', ''],
+      ['Capital Social Suscrito y Pagado', BALANCE_SHEET_2025.equity.subscribedCapital, BALANCE_SHEET_2025.equity.subscribedCapital / 301.37, BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital, BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital / 794.99],
+      ['Superávit Acumulado (Ejercicios Anteriores)', BALANCE_SHEET_2025.equity.accumulatedSurplus, BALANCE_SHEET_2025.equity.accumulatedSurplus / 301.37, BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus, BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus / 794.99],
+      ['Utilidad Neta del Ejercicio (Ene-Ago 2026)', BALANCE_SHEET_2025.equity.periodProfit, BALANCE_SHEET_2025.equity.periodProfit / 301.37, BALANCE_SHEET_AUGUST_2026.equity.periodProfit, BALANCE_SHEET_AUGUST_2026.equity.periodProfit / 794.99],
+      ['Reserva Legal (5% Código de Comercio)', BALANCE_SHEET_2025.equity.legalReserve, BALANCE_SHEET_2025.equity.legalReserve / 301.37, BALANCE_SHEET_AUGUST_2026.equity.legalReserve, BALANCE_SHEET_AUGUST_2026.equity.legalReserve / 794.99],
+      ['TOTAL PATRIMONIO NETO', BALANCE_SHEET_2025.equity.totalEquity, BALANCE_SHEET_2025.equity.totalEquity / 301.37, BALANCE_SHEET_AUGUST_2026.equity.totalEquity, BALANCE_SHEET_AUGUST_2026.equity.totalEquity / 794.99],
       ['TOTAL PASIVO Y PATRIMONIO', BALANCE_SHEET_2025.totalLiabilitiesAndEquity, BALANCE_SHEET_2025.totalLiabilitiesAndEquity / 301.37, BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity, BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity / 794.99]
     ];
 
@@ -800,14 +817,14 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
             <td class="num" style="color:#ffffff">${totals.ene.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
             <td class="num" style="color:#ffffff">${totals.feb.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
             <td class="num" style="color:#ffffff">${totals.mar.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-            <td class="num" style="color:#ffffff">100.0%</td>
-            <td class="num" style="color:#ffffff">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.abr.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.may.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.jun.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.jul.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num">${totals.ago.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="font-weight:bold">${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+            <td class="num" style="font-weight:bold">100.0%</td>
+            <td class="num" style="font-weight:bold">$${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
           </tr>
         </tbody>
       </table>
@@ -824,7 +841,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               _____________________________________<br>
               <strong>Licdo. Omar Pérez Castillo</strong><br>
               Contador Público C.P.C. 16.336<br>
-              Auditor Externo Independiente
+              Contador Público Independiente, Ven-Nif
             </td>
           </tr>
         </table>
@@ -972,11 +989,11 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
       <h1>${company.name}</h1>
       <p><strong>RIF:</strong> ${company.rif} &middot; R.N.C.: 010049247</p>
       <h2>ESTADO DE SITUACIÓN FINANCIERA COMPARATIVO (VEN-NIF)</h2>
-      <p>Al 31 de Diciembre de 2025 (Tasa 301,37) y al 31 de Agosto de 2026 (Tasa 794,99)</p>
+      <p>Al 31 de Diciembre de 2025 (Tasa BCV 301,37) y al 31 de Agosto de 2026 (Tasa BCV 794,99)</p>
       <table>
         <thead>
           <tr>
-            <th>Concepto</th>
+            <th>Concepto / Cuenta Contable</th>
             <th class="num">31/12/2025 (Bs.)</th>
             <th class="num">31/12/2025 (US$)</th>
             <th class="num">31/08/2026 (Bs.)</th>
@@ -984,14 +1001,31 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
           </tr>
         </thead>
         <tbody>
-          <tr><td colspan="5"><strong>ACTIVO CORRIENTE</strong></td></tr>
-          <tr><td>Efectivo en Caja y Bancos</td><td class="num">${BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.cashAndBanks/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr><td>Cuentas por Cobrar Manuel Becerra</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr><td>Total Activo Corriente</td><td class="num">${BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.totalCurrent/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr style="font-weight:bold"><td style="color:#0f172a">TOTAL ACTIVO</td><td class="num">${BALANCE_SHEET_2025.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.totalAssets/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr><td colspan="5"><strong>PASIVO CORRIENTE</strong></td></tr>
-          <tr><td>Cuentas por Pagar Socios / Anticipos</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr style="font-weight:bold"><td style="color:#0f172a">TOTAL PASIVO Y PATRIMONIO</td><td class="num">${BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">ACTIVO CORRIENTE (CIRCULANTE)</td></tr>
+          <tr><td>Efectivo en Caja y Bancos (Banesco Cta. Cte.)</td><td class="num">${BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.cashAndBanks/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Cuentas por Cobrar Comerciales Clientes (Corte 2025)</td><td class="num">${BALANCE_SHEET_2025.assets.current.tradeReceivables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.tradeReceivables/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Cuentas por Cobrar Socios - Transferencias Fondos Banesco (Elías Rafael Trías Abreu V-23.997.829)</td><td class="num">—</td><td class="num">—</td><td class="num">${(BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${((BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00)/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Cuentas por Cobrar Socios - Préstamo Mutuo Manuel Becerra</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Retención ISLR Clientes / por Compensar</td><td class="num">${BALANCE_SHEET_2025.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.islrWithholdingClients/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>ISLR Pagado por Anticipado / Crédito Fiscal Exigible</td><td class="num">${BALANCE_SHEET_2025.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.prepaidISLR/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#e2e8f0;font-weight:bold"><td>Total Activo Corriente</td><td class="num">${BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.totalCurrent/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">PROPIEDAD, PLANTA Y EQUIPOS</td></tr>
+          <tr><td>Total Propiedad, Planta y Equipos Neta</td><td class="num">${BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f8fafc;font-weight:bold;color:#000000;border-top:1px solid #000;border-bottom:2px solid #000"><td style="font-weight:bold">TOTAL ACTIVO</td><td class="num">${BALANCE_SHEET_2025.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.totalAssets/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">${BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">$${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">PASIVO CORRIENTE (CIRCULANTE)</td></tr>
+          <tr><td>Anticipos Recibidos de Clientes (NIIF 15 - Saldo Neto por Ejecutar)</td><td class="num">—</td><td class="num">—</td><td class="num">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 301228750.17).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${((BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 301228750.17)/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)</td><td class="num">—</td><td class="num">—</td><td class="num">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${((BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45)/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>I.S.L.R. por Pagar / Provisiones Tributarias</td><td class="num">${BALANCE_SHEET_2025.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.liabilities.current.islrPayable/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>IGTF 3% Efectivo Divisas por Pagar (Derogado 2% Bancario)</td><td class="num">—</td><td class="num">—</td><td class="num">0,00</td><td class="num">$0.00</td></tr>
+          <tr style="background:#f8fafc;font-weight:bold;color:#000000;border-top:1px solid #000;border-bottom:2px solid #000"><td style="font-weight:bold">TOTAL PASIVO (PASIVO CORRIENTE)</td><td class="num">${BALANCE_SHEET_2025.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.liabilities.totalLiabilities/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">${BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">$${(BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">PATRIMONIO NETO</td></tr>
+          <tr><td>Capital Social Suscrito y Pagado</td><td class="num">${BALANCE_SHEET_2025.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.subscribedCapital/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Superávit Acumulado (Ejercicios Anteriores)</td><td class="num">${BALANCE_SHEET_2025.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.accumulatedSurplus/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Utilidad Neta del Ejercicio (Ene-Ago 2026)</td><td class="num">${BALANCE_SHEET_2025.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.periodProfit/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.periodProfit/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Reserva Legal (5% Código de Comercio)</td><td class="num">${BALANCE_SHEET_2025.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.legalReserve/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.legalReserve/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#e2e8f0;font-weight:bold"><td>TOTAL PATRIMONIO NETO</td><td class="num">${BALANCE_SHEET_2025.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.totalEquity/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.totalEquity/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#ffffff;color:#000000;font-weight:bold;border-top:2px solid #000;border-bottom:3px double #000"><td style="font-weight:bold">TOTAL PASIVO Y PATRIMONIO</td><td class="num">${BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">${BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">$${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
         </tbody>
       </table>
     `;
@@ -1003,11 +1037,11 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
       <h1>${company.name}</h1>
       <p><strong>RIF:</strong> ${company.rif} &middot; R.N.C.: 010049247</p>
       <h2>ESTADO DE SITUACIÓN FINANCIERA COMPARATIVO (VEN-NIF)</h2>
-      <p>Al 31 de Diciembre de 2025 (Tasa 301,37) y al 31 de Agosto de 2026 (Tasa 794,99)</p>
+      <p>Al 31 de Diciembre de 2025 (Tasa BCV 301,37) y al 31 de Agosto de 2026 (Tasa BCV 794,99)</p>
       <table>
         <thead>
           <tr>
-            <th>Concepto</th>
+            <th>Concepto / Cuenta Contable</th>
             <th class="num">31/12/2025 (Bs.)</th>
             <th class="num">31/12/2025 (US$)</th>
             <th class="num">31/08/2026 (Bs.)</th>
@@ -1015,14 +1049,31 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
           </tr>
         </thead>
         <tbody>
-          <tr><td colspan="5"><strong>ACTIVO CORRIENTE</strong></td></tr>
-          <tr><td>Efectivo en Caja y Bancos</td><td class="num">${BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.cashAndBanks/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr><td>Cuentas por Cobrar Manuel Becerra</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr><td>Total Activo Corriente</td><td class="num">${BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.totalCurrent/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr style="font-weight:bold"><td style="color:#0f172a">TOTAL ACTIVO</td><td class="num">${BALANCE_SHEET_2025.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.totalAssets/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr><td colspan="5"><strong>PASIVO CORRIENTE</strong></td></tr>
-          <tr><td>Cuentas por Pagar Socios / Anticipos</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
-          <tr style="font-weight:bold"><td style="color:#0f172a">TOTAL PASIVO Y PATRIMONIO</td><td class="num">${BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">ACTIVO CORRIENTE (CIRCULANTE)</td></tr>
+          <tr><td>Efectivo en Caja y Bancos (Banesco Cta. Cte.)</td><td class="num">${BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.cashAndBanks/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Cuentas por Cobrar Comerciales Clientes (Corte 2025)</td><td class="num">${BALANCE_SHEET_2025.assets.current.tradeReceivables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.tradeReceivables/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">—</td><td class="num">—</td></tr>
+          <tr><td>Cuentas por Cobrar Socios - Transferencias Fondos Banesco (Elías Rafael Trías Abreu V-23.997.829)</td><td class="num">—</td><td class="num">—</td><td class="num">${(BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${((BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00)/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Cuentas por Cobrar Socios - Préstamo Mutuo Manuel Becerra</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Retención ISLR Clientes / por Compensar</td><td class="num">${BALANCE_SHEET_2025.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.islrWithholdingClients/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>ISLR Pagado por Anticipado / Crédito Fiscal Exigible</td><td class="num">${BALANCE_SHEET_2025.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.prepaidISLR/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#e2e8f0;font-weight:bold"><td>Total Activo Corriente</td><td class="num">${BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.current.totalCurrent/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">PROPIEDAD, PLANTA Y EQUIPOS</td></tr>
+          <tr><td>Total Propiedad, Planta y Equipos Neta</td><td class="num">${BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f8fafc;font-weight:bold;color:#000000;border-top:1px solid #000;border-bottom:2px solid #000"><td style="font-weight:bold">TOTAL ACTIVO</td><td class="num">${BALANCE_SHEET_2025.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.assets.totalAssets/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">${BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">$${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">PASIVO CORRIENTE (CIRCULANTE)</td></tr>
+          <tr><td>Anticipos Recibidos de Clientes (NIIF 15 - Saldo Neto por Ejecutar)</td><td class="num">—</td><td class="num">—</td><td class="num">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 301228750.17).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${((BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 301228750.17)/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)</td><td class="num">—</td><td class="num">—</td><td class="num">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${((BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45)/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)</td><td class="num">—</td><td class="num">—</td><td class="num">${BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>I.S.L.R. por Pagar / Provisiones Tributarias</td><td class="num">${BALANCE_SHEET_2025.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.liabilities.current.islrPayable/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>IGTF 3% Efectivo Divisas por Pagar (Derogado 2% Bancario)</td><td class="num">—</td><td class="num">—</td><td class="num">0,00</td><td class="num">$0.00</td></tr>
+          <tr style="background:#f8fafc;font-weight:bold;color:#000000;border-top:1px solid #000;border-bottom:2px solid #000"><td style="font-weight:bold">TOTAL PASIVO (PASIVO CORRIENTE)</td><td class="num">${BALANCE_SHEET_2025.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.liabilities.totalLiabilities/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">${BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">$${(BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#f1f5f9;font-weight:bold"><td colspan="5">PATRIMONIO NETO</td></tr>
+          <tr><td>Capital Social Suscrito y Pagado</td><td class="num">${BALANCE_SHEET_2025.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.subscribedCapital/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Superávit Acumulado (Ejercicios Anteriores)</td><td class="num">${BALANCE_SHEET_2025.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.accumulatedSurplus/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Utilidad Neta del Ejercicio (Ene-Ago 2026)</td><td class="num">${BALANCE_SHEET_2025.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.periodProfit/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.periodProfit/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr><td>Reserva Legal (5% Código de Comercio)</td><td class="num">${BALANCE_SHEET_2025.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.legalReserve/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.legalReserve/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#e2e8f0;font-weight:bold"><td>TOTAL PATRIMONIO NETO</td><td class="num">${BALANCE_SHEET_2025.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.equity.totalEquity/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num">${BALANCE_SHEET_AUGUST_2026.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_AUGUST_2026.equity.totalEquity/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
+          <tr style="background:#ffffff;color:#000000;font-weight:bold;border-top:2px solid #000;border-bottom:3px double #000"><td style="font-weight:bold">TOTAL PASIVO Y PATRIMONIO</td><td class="num">${BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num">$${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity/301.37).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">${BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td><td class="num" style="font-weight:bold">$${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity/794.99).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td></tr>
         </tbody>
       </table>
     `;
@@ -1190,152 +1241,152 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
           </div>
         </div>
 
-        {/* 4 KPI Cards in Pastel Colors */}
+        {/* 4 KPI Cards in Professional Grayscale Accounting Format */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-5 font-mono-num">
-          <div className="bg-emerald-50/90 border border-emerald-200/90 p-4 rounded-xl shadow-xs">
-            <span className="text-[11px] font-sans font-bold text-emerald-800 block">Créditos Movilizados en BBU</span>
-            <span className="text-lg font-black text-emerald-950 mt-1 block">
+          <div className="bg-slate-50 border border-slate-300 p-4 rounded-xl shadow-2xs">
+            <span className="text-[11px] font-sans font-bold text-slate-700 block uppercase tracking-wide">Créditos Movilizados en BBU</span>
+            <span className="text-lg font-black text-slate-950 mt-1 block">
               Bs. {BANESCO_OFFICIAL_LETTER_2026.bankCreditsTotalVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-emerald-700 font-bold font-sans">
+            <span className="text-[11px] text-slate-600 font-bold font-sans">
               ${BANESCO_OFFICIAL_LETTER_2026.bankCreditsAverageUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD prom.
             </span>
           </div>
 
-          <div className="bg-blue-50/90 border border-blue-200/90 p-4 rounded-xl shadow-xs">
-            <span className="text-[11px] font-sans font-bold text-blue-800 block">Ventas Declaradas en EEFF</span>
-            <span className="text-lg font-black text-blue-950 mt-1 block">
+          <div className="bg-slate-50 border border-slate-300 p-4 rounded-xl shadow-2xs">
+            <span className="text-[11px] font-sans font-bold text-slate-700 block uppercase tracking-wide">Ventas Declaradas en EEFF</span>
+            <span className="text-lg font-black text-slate-950 mt-1 block">
               Bs. {BANESCO_OFFICIAL_LETTER_2026.reportedRevenuesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-blue-700 font-bold font-sans">
+            <span className="text-[11px] text-slate-600 font-bold font-sans">
               ${BANESCO_OFFICIAL_LETTER_2026.reportedRevenuesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
             </span>
           </div>
 
-          <div className="bg-amber-100/90 border border-amber-300/90 p-4 rounded-xl shadow-xs">
-            <span className="text-[11px] font-sans font-bold text-amber-900 block">Anticipos Ventas Café (NIIF 15)</span>
-            <span className="text-lg font-black text-amber-950 mt-1 block">
+          <div className="bg-slate-50 border border-slate-300 p-4 rounded-xl shadow-2xs">
+            <span className="text-[11px] font-sans font-bold text-slate-700 block uppercase tracking-wide">Anticipos Ventas Café (NIIF 15)</span>
+            <span className="text-lg font-black text-slate-950 mt-1 block">
               Bs. {(528578549.25 + 1013438543.38).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-amber-800 font-bold font-sans">
+            <span className="text-[11px] text-slate-600 font-bold font-sans">
               78.4% del banco &middot; Factura en Octubre
             </span>
           </div>
 
-          <div className="bg-teal-50/90 border border-teal-200/90 p-4 rounded-xl shadow-xs">
-            <span className="text-[11px] font-sans font-bold text-teal-800 block">Ctas x Cobrar Manuel Becerra</span>
-            <span className="text-lg font-black text-teal-950 mt-1 block">
+          <div className="bg-slate-50 border border-slate-300 p-4 rounded-xl shadow-2xs">
+            <span className="text-[11px] font-sans font-bold text-slate-700 block uppercase tracking-wide">Ctas x Cobrar Manuel Becerra</span>
+            <span className="text-lg font-black text-slate-950 mt-1 block">
               Bs. {BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
             </span>
-            <span className="text-[11px] text-teal-700 font-bold font-sans">
+            <span className="text-[11px] text-slate-600 font-bold font-sans">
               Línea Bs. 600M &middot; Saldo Cuadrado
             </span>
           </div>
         </div>
 
-        {/* PROMINENT PASTEL TAB NAVIGATION MENU */}
-        <div className="bg-gradient-to-r from-amber-200/80 via-orange-100/90 to-sky-100/80 border-2 border-amber-300 rounded-2xl p-4 shadow-md mt-6 no-print">
-          <div className="flex items-center justify-between mb-3 px-1">
+        {/* PROMINENT PROFESSIONAL MONOCHROME TAB NAVIGATION MENU */}
+        <div className="bg-white border border-slate-300 rounded-xl p-3 shadow-2xs mt-6 no-print">
+          <div className="flex items-center justify-between mb-2.5 px-1">
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-amber-600 animate-pulse ring-2 ring-amber-300"></span>
-              <span className="text-xs font-black uppercase tracking-wider text-slate-900">
-                MENÚ OFICIAL DE CUADROS E INFORMES (Haz clic para visualizar):
+              <span className="w-2.5 h-2.5 rounded-full bg-slate-900 inline-block"></span>
+              <span className="text-xs font-black uppercase tracking-wider text-slate-900 font-mono">
+                MENÚ OFICIAL DE CUADERNOS E INFORMES CONTABLES (VEN-NIF):
               </span>
             </div>
-            <span className="text-[11px] font-extrabold text-amber-900 bg-white/90 px-3 py-0.5 rounded-full border border-amber-300 shadow-2xs">
-              6 Módulos Disponibles
+            <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-3 py-0.5 rounded-full border border-slate-300 shadow-2xs font-mono">
+              7 Módulos Disponibles
             </span>
           </div>
 
           <div className="flex items-center gap-2.5 overflow-x-auto pb-1 text-xs">
             <button
               onClick={() => setActiveTab('TABLA_ORIGEN_MES')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'TABLA_ORIGEN_MES'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'TABLA_ORIGEN_MES' ? 'bg-slate-950 text-amber-300' : 'bg-emerald-100 text-emerald-800'}`}>1</span>
-              <FileSpreadsheet className="w-4 h-4 text-emerald-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'TABLA_ORIGEN_MES' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>1</span>
+              <FileSpreadsheet className="w-4 h-4 text-slate-600" />
               <span>1. Composición de Abonos por Origen (Ene - Ago 2026)</span>
             </button>
 
             <button
               onClick={() => setActiveTab('TABLA_CARGOS_MES')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'TABLA_CARGOS_MES'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'TABLA_CARGOS_MES' ? 'bg-slate-950 text-amber-300' : 'bg-red-100 text-red-800'}`}>2</span>
-              <FileSpreadsheet className="w-4 h-4 text-red-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'TABLA_CARGOS_MES' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>2</span>
+              <FileSpreadsheet className="w-4 h-4 text-slate-600" />
               <span>2. Composición de Salidas y Cargos Banesco (Ene - Ago 2026)</span>
             </button>
 
             <button
               onClick={() => setActiveTab('CARTA_BANCO_OFICIAL')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'CARTA_BANCO_OFICIAL'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'CARTA_BANCO_OFICIAL' ? 'bg-slate-950 text-amber-300' : 'bg-blue-100 text-blue-800'}`}>3</span>
-              <FileCheck className="w-4 h-4 text-blue-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'CARTA_BANCO_OFICIAL' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>3</span>
+              <FileCheck className="w-4 h-4 text-slate-600" />
               <span>3. Carta Explicativa a Banesco / SENIAT (Firmada)</span>
             </button>
 
             <button
               onClick={() => setActiveTab('MANUEL_BECERRA')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'MANUEL_BECERRA'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'MANUEL_BECERRA' ? 'bg-slate-950 text-amber-300' : 'bg-purple-100 text-purple-800'}`}>4</span>
-              <Users className="w-4 h-4 text-purple-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'MANUEL_BECERRA' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>4</span>
+              <Users className="w-4 h-4 text-slate-600" />
               <span>4. Contrato Mutuo Manuel Becerra (47 Movs)</span>
             </button>
 
             <button
               onClick={() => setActiveTab('CONCILIACION_BANCO')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'CONCILIACION_BANCO'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'CONCILIACION_BANCO' ? 'bg-slate-950 text-amber-300' : 'bg-teal-100 text-teal-800'}`}>5</span>
-              <ShieldCheck className="w-4 h-4 text-teal-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'CONCILIACION_BANCO' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>5</span>
+              <ShieldCheck className="w-4 h-4 text-slate-600" />
               <span>5. Conciliación Técnica: Banesco vs Ingresos EEFF</span>
             </button>
 
             <button
               onClick={() => setActiveTab('EEFF_COMPARATIVO')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'EEFF_COMPARATIVO'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'EEFF_COMPARATIVO' ? 'bg-slate-950 text-amber-300' : 'bg-sky-100 text-sky-800'}`}>6</span>
-              <Building2 className="w-4 h-4 text-sky-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'EEFF_COMPARATIVO' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>6</span>
+              <Building2 className="w-4 h-4 text-slate-600" />
               <span>6. Balance General (2025 vs 2026)</span>
             </button>
 
             <button
               onClick={() => setActiveTab('ESTADO_RESULTADOS')}
-              className={`px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shrink-0 ${
+              className={`px-3.5 py-2 rounded-lg font-bold transition-all flex items-center gap-2 shrink-0 ${
                 activeTab === 'ESTADO_RESULTADOS'
-                  ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-500 border-2 border-amber-600 scale-[1.02]'
-                  : 'bg-white text-slate-800 hover:bg-amber-100 hover:text-slate-950 border border-slate-300 shadow-xs'
+                  ? 'bg-slate-900 text-white font-black shadow-xs border border-slate-900'
+                  : 'bg-white text-slate-700 hover:bg-slate-100 hover:text-slate-950 border border-slate-300 shadow-2xs'
               }`}
             >
-              <span className={`px-1.5 py-0.5 rounded text-[10px] font-black ${activeTab === 'ESTADO_RESULTADOS' ? 'bg-slate-950 text-amber-300' : 'bg-indigo-100 text-indigo-800'}`}>7</span>
-              <TrendingUp className="w-4 h-4 text-indigo-600" />
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${activeTab === 'ESTADO_RESULTADOS' ? 'bg-white text-slate-900' : 'bg-slate-100 text-slate-700'}`}>7</span>
+              <TrendingUp className="w-4 h-4 text-slate-600" />
               <span>7. Estado de Resultados (2025 vs 2026)</span>
             </button>
           </div>
@@ -1688,12 +1739,12 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     );
                   })}
                 </tbody>
-                <tfoot className="bg-slate-900 text-white font-mono-num font-bold text-xs">
+                <tfoot className="bg-slate-100 text-slate-950 font-mono-num font-bold text-xs border-t-2 border-b-4 border-double border-slate-900">
                   <tr>
-                    <td colSpan={5} className="px-3 py-3 uppercase font-sans tracking-wider text-amber-300">
+                    <td colSpan={5} className="px-3 py-3 uppercase font-sans tracking-wider text-slate-900 font-black">
                       SUBTOTAL / TOTAL FILTRADO EN TABLA
                     </td>
-                    <td className="px-3 py-3 text-right text-emerald-300 font-black">
+                    <td className="px-3 py-3 text-right text-slate-950 font-black">
                       Bs. {ADVANCE_CLIENT_INDIVIDUAL_DETAILS.filter((item) => {
                         if (advancesFilter === 'PERSONA_NATURAL') return item.category === 'PERSONA_NATURAL';
                         if (advancesFilter === 'PERSONA_JURIDICA') return item.category === 'PERSONA_JURIDICA';
@@ -1702,7 +1753,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                       }).reduce((a, b) => a + b.amountVES, 0).toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
                     <td className="px-2.5 py-3 text-right text-slate-400">—</td>
-                    <td className="px-3 py-3 text-right text-amber-300 font-black">
+                    <td className="px-3 py-3 text-right text-slate-950 font-black">
                       ${ADVANCE_CLIENT_INDIVIDUAL_DETAILS.filter((item) => {
                         if (advancesFilter === 'PERSONA_NATURAL') return item.category === 'PERSONA_NATURAL';
                         if (advancesFilter === 'PERSONA_JURIDICA') return item.category === 'PERSONA_JURIDICA';
@@ -1710,7 +1761,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                         return true;
                       }).reduce((a, b) => a + b.amountUSD, 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="px-3 py-3 font-sans text-[10px] text-slate-300">
+                    <td className="px-3 py-3 font-sans text-[10px] text-slate-600">
                       100% Pasivo Corriente NIIF 15 &middot; Facturación en Octubre 2026
                     </td>
                   </tr>
@@ -1858,9 +1909,9 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     );
                   })}
                 </tbody>
-                <tfoot className="bg-slate-200 border-t-2 border-slate-400 font-mono-num font-bold text-xs text-slate-950">
+                <tfoot className="bg-slate-100 border-t-2 border-b-4 border-double border-slate-900 font-mono-num font-bold text-xs text-slate-950">
                   <tr>
-                    <td className="px-3 py-3 uppercase font-sans">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
+                    <td className="px-3 py-3 uppercase font-sans font-black">TOTAL GENERAL DE SALIDAS Y CARGOS</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.ene.toLocaleString('es-VE')}</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.feb.toLocaleString('es-VE')}</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.mar.toLocaleString('es-VE')}</td>
@@ -1869,11 +1920,11 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.jun.toLocaleString('es-VE')}</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.jul.toLocaleString('es-VE')}</td>
                     <td className="px-2.5 py-3 text-right">{BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.ago.toLocaleString('es-VE')}</td>
-                    <td className="px-3 py-3 text-right text-red-400">
+                    <td className="px-3 py-3 text-right text-slate-950 font-black">
                       Bs. {BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                     </td>
-                    <td className="px-2.5 py-3 text-right text-amber-400">100.0%</td>
-                    <td className="px-3 py-3 text-right text-emerald-400">
+                    <td className="px-2.5 py-3 text-right text-slate-950 font-black">100.0%</td>
+                    <td className="px-3 py-3 text-right text-slate-950 font-black">
                       ${BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026.totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </td>
                   </tr>
@@ -2062,7 +2113,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                 </div>
                 <p className="font-bold text-stone-950 mt-1">Licdo. Omar Pérez Castillo</p>
                 <p className="text-[10px] text-stone-600">Contador Público C.P.C. 16.336</p>
-                <p className="text-[10px] text-stone-700 font-semibold">Auditor Externo Independiente</p>
+                <p className="text-[10px] text-stone-700 font-semibold">Contador Público Independiente, Ven-Nif</p>
               </div>
             </div>
           </div>
@@ -2359,8 +2410,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
       {/* ========================================================================= */}
       {activeTab === 'EEFF_COMPARATIVO' && (
         <div className="space-y-6">
-          <div className="bg-white border-2 border-sky-200/90 rounded-2xl p-6 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-sky-200/80 pb-3">
+          <div className="bg-white border border-slate-300 rounded-xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-300 pb-3">
               <div>
                 <h3 className="text-base sm:text-lg font-black text-slate-900">
                   Estado de Situación Financiera Comparativo (VEN-NIF)
@@ -2373,7 +2424,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               <div className="flex items-center gap-1.5 no-print shrink-0">
                 <button
                   onClick={handleExportBalanceSheetExcel}
-                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Balance General en Excel (.xlsx)"
                 >
                   <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -2381,7 +2432,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                 </button>
                 <button
                   onClick={handleExportBalanceSheetWord}
-                  className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Balance General en Word"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -2389,7 +2440,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                 </button>
                 <button
                   onClick={handleExportBalanceSheetPdf}
-                  className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-2xs"
                   title="Descargar Balance General en PDF directo"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -2405,45 +2456,52 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               </div>
             </div>
 
-            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+            <div className="overflow-x-auto border border-slate-300 rounded-lg shadow-2xs">
               <table className="w-full text-xs text-left text-slate-800">
-                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
+                <thead className="bg-slate-100 text-slate-900 uppercase text-[10px] tracking-wider border-y-2 border-black font-mono font-bold">
                   <tr>
                     <th className="px-4 py-2.5">Concepto / Denominación</th>
                     <th className="px-4 py-2.5 text-right">Al 31/12/2025 (Bs.)</th>
                     <th className="px-4 py-2.5 text-right">Al 31/12/2025 (US$)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Al 31/08/2026 (Bs.)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Al 31/08/2026 (US$)</th>
+                    <th className="px-4 py-2.5 text-right text-slate-900 font-bold">Al 31/08/2026 (Bs.)</th>
+                    <th className="px-4 py-2.5 text-right text-slate-900 font-bold">Al 31/08/2026 (US$)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 font-mono-num">
                   {/* ACTIVO */}
-                  <tr className="bg-sky-100/90 font-black text-sky-950 uppercase text-[11px]">
+                  <tr className="bg-slate-100 font-bold text-slate-900 uppercase text-[11px] border-y border-slate-300">
                     <td colSpan={5} className="px-4 py-2">ACTIVO</td>
                   </tr>
-                  <tr className="bg-slate-100 font-bold text-slate-800">
-                    <td colSpan={5} className="px-4 py-1.5 pl-6">Activo Corriente</td>
+                  <tr className="bg-slate-50 font-bold text-slate-800">
+                    <td colSpan={5} className="px-4 py-1.5 pl-6">Activo Corriente (Circulante)</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Efectivo en Caja y Banco</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Efectivo en Caja y Bancos (Banesco Cta. Cte.)</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.cashAndBanks / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-slate-700">${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-700 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.cashAndBanks / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Cobrar Comerciales</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Cobrar Comerciales Clientes (Corte 2025)</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.tradeReceivables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.tradeReceivables / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-400">—</td>
                     <td className="px-4 py-1.5 text-right text-slate-400">—</td>
                   </tr>
-                  <tr className="bg-amber-100/90 font-bold">
-                    <td className="px-4 py-1.5 pl-8 text-amber-950">Cuentas por Cobrar Manuel Becerra</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Cobrar Socios - Transferencias Fondos Banesco (Elías Rafael Trías Abreu V-23.997.829)</td>
                     <td className="px-4 py-1.5 text-right text-slate-400">—</td>
                     <td className="px-4 py-1.5 text-right text-slate-400">—</td>
-                    <td className="px-4 py-1.5 text-right text-amber-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-900 font-semibold">{(BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-700">${((BALANCE_SHEET_AUGUST_2026.assets.current.shareholderAdvancesReceivable || 375630000.00) / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Cobrar Socios - Préstamo Mutuo Manuel Becerra</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-900 font-bold">{BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-700 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.manuelBecerraReceivable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
                     <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Retención ISLR Clientes / por Compensar</td>
@@ -2453,68 +2511,92 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.assets.current.islrWithholdingClients / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">ISLR pre Pagado</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">ISLR Pagado por Anticipado / Crédito Fiscal Exigible</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.current.prepaidISLR / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.assets.current.prepaidISLR / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-slate-200/80 font-bold">
+                  <tr className="bg-slate-50 font-bold border-t border-b border-slate-300">
                     <td className="px-4 py-1.5 pl-6 text-slate-950">Total Activo Corriente</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_2025.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_2025.assets.current.totalCurrent / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800 font-bold">${(BALANCE_SHEET_AUGUST_2026.assets.current.totalCurrent / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
 
                   {/* PROPIEDAD PLANTA Y EQUIPOS */}
-                  <tr className="bg-slate-100 font-bold text-slate-800">
+                  <tr className="bg-slate-50 font-bold text-slate-800">
                     <td colSpan={5} className="px-4 py-1.5 pl-6">Propiedad, Planta y Equipos (Nota 7)</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Total Propiedad, Planta y Equipos</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Total Propiedad, Planta y Equipos Neta</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.assets.propertyPlantEquipment.totalPPE / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.assets.propertyPlantEquipment.totalPPE / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-emerald-100 font-black text-slate-950 border-y-2 border-slate-300">
-                    <td className="px-4 py-2">TOTAL ACTIVO</td>
+                  <tr className="bg-white font-bold text-slate-950 border-t-2 border-b-2 border-slate-900">
+                    <td className="px-4 py-2 font-black">TOTAL ACTIVO</td>
                     <td className="px-4 py-2 text-right">{BALANCE_SHEET_2025.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right">${(BALANCE_SHEET_2025.assets.totalAssets / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-black">${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-black">{BALANCE_SHEET_AUGUST_2026.assets.totalAssets.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-black">${(BALANCE_SHEET_AUGUST_2026.assets.totalAssets / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
 
                   {/* PASIVO */}
-                  <tr className="bg-sky-100/90 font-black text-sky-950 uppercase text-[11px]">
+                  <tr className="bg-slate-100 font-bold text-slate-900 uppercase text-[11px] border-y border-slate-300">
                     <td colSpan={5} className="px-4 py-2">PASIVO</td>
                   </tr>
-                  <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Pagar Accionistas</td>
-                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
-                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
-                    <td className="px-4 py-1.5 text-right text-amber-950 font-bold">{BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-950">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-slate-50 font-bold text-slate-800">
+                    <td colSpan={5} className="px-4 py-1.5 pl-6">Pasivo Corriente (Circulante)</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">I.S.L.R. por Pagar</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium font-bold">Anticipos Recibidos de Clientes (NIIF 15 - Saldo Neto por Ejecutar)</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{(BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 297098072.62).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800 font-bold">${((BALANCE_SHEET_AUGUST_2026.liabilities.current.customerAdvances || 297098072.62) / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-900 font-bold">{(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-700 font-bold">${((BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45) / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 / Omar Pérez)</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-900 font-bold">{BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800 font-bold">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">I.S.L.R. por Pagar / Provisiones Tributarias</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.liabilities.current.islrPayable / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.liabilities.current.islrPayable / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-slate-200/80 font-bold">
-                    <td className="px-4 py-1.5 pl-6 text-slate-950">TOTAL PASIVO</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-1.5 pl-8 text-slate-600 font-normal italic">IGTF 3% Efectivo Divisas por Pagar (Derogado 2% Transferencias Bancarias)</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-400">—</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600 font-mono">{(BALANCE_SHEET_AUGUST_2026.liabilities.current.igtfPayable || 0.00).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-600 font-mono">$0.00</td>
+                  </tr>
+                  <tr className="bg-slate-50 font-bold border-t border-b border-slate-300">
+                    <td className="px-4 py-1.5 pl-6 text-slate-950">TOTAL PASIVO (PASIVO CORRIENTE)</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_2025.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_2025.liabilities.totalLiabilities / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-950 font-black">{BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-amber-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800 font-bold">${(BALANCE_SHEET_AUGUST_2026.liabilities.totalLiabilities / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
 
                   {/* PATRIMONIO */}
-                  <tr className="bg-sky-100/90 font-black text-sky-950 uppercase text-[11px]">
-                    <td colSpan={5} className="px-4 py-2">PATRIMONIO</td>
+                  <tr className="bg-slate-100 font-bold text-slate-900 uppercase text-[11px] border-y border-slate-300">
+                    <td colSpan={5} className="px-4 py-2">PATRIMONIO NETO</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
                     <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Capital Social Suscrito y Pagado</td>
@@ -2524,39 +2606,39 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.equity.subscribedCapital / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Superávit Acumulado</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Superávit Acumulado (Ejercicios Anteriores)</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.equity.accumulatedSurplus / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.equity.accumulatedSurplus / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Utilidad del Ejercicio</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-800 font-bold">{BALANCE_SHEET_2025.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-800 font-bold">${(BALANCE_SHEET_2025.equity.periodProfit / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.periodProfit / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium font-bold">Utilidad Neta del Ejercicio (Ene-Ago 2026)</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800 font-bold">{BALANCE_SHEET_2025.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-800 font-bold">${(BALANCE_SHEET_2025.equity.periodProfit / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{BALANCE_SHEET_AUGUST_2026.equity.periodProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.periodProfit / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Reserva Legal</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Reserva Legal (5% Código de Comercio)</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">{BALANCE_SHEET_2025.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-600">${(BALANCE_SHEET_2025.equity.legalReserve / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_AUGUST_2026.equity.legalReserve.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_AUGUST_2026.equity.legalReserve / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-slate-200/80 font-bold">
-                    <td className="px-4 py-1.5 pl-6 text-slate-950">TOTAL PATRIMONIO</td>
+                  <tr className="bg-slate-50 font-bold border-t border-b border-slate-300">
+                    <td className="px-4 py-1.5 pl-6 text-slate-950">TOTAL PATRIMONIO NETO</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">{BALANCE_SHEET_2025.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-1.5 text-right text-slate-800">${(BALANCE_SHEET_2025.equity.totalEquity / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-1.5 text-right text-emerald-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.totalEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">{BALANCE_SHEET_AUGUST_2026.equity.totalEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-1.5 text-right text-slate-950 font-bold">${(BALANCE_SHEET_AUGUST_2026.equity.totalEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-slate-300 font-black text-slate-950 border-y-2 border-slate-400">
-                    <td className="px-4 py-2.5">TOTAL PASIVO Y PATRIMONIO</td>
-                    <td className="px-4 py-2.5 text-right">{BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right">${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">{BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                  <tr className="bg-white text-slate-950 font-black border-t-2 border-b-4 border-double border-black">
+                    <td className="px-4 py-2.5 font-black">TOTAL PASIVO Y PATRIMONIO</td>
+                    <td className="px-4 py-2.5 text-right text-slate-900">{BALANCE_SHEET_2025.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-slate-900">${(BALANCE_SHEET_2025.totalLiabilitiesAndEquity / BALANCE_SHEET_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-slate-950 font-black">{BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-slate-950 font-black">${(BALANCE_SHEET_AUGUST_2026.totalLiabilitiesAndEquity / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                 </tbody>
               </table>
@@ -2570,8 +2652,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
       {/* ========================================================================= */}
       {activeTab === 'ESTADO_RESULTADOS' && (
         <div className="space-y-6">
-          <div className="bg-white border-2 border-indigo-200/90 rounded-2xl p-6 shadow-sm space-y-4">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-indigo-200/80 pb-3">
+          <div className="bg-white border border-slate-300 rounded-xl p-6 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-300 pb-3">
               <div>
                 <h3 className="text-base sm:text-lg font-black text-slate-900">
                   Estado de Resultado Integral Comparativo
@@ -2584,7 +2666,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               <div className="flex items-center gap-1.5 no-print shrink-0">
                 <button
                   onClick={handleExportIncomeStatementExcel}
-                  className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Estado de Resultados en Excel (.xlsx)"
                 >
                   <FileSpreadsheet className="w-3.5 h-3.5" />
@@ -2592,7 +2674,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                 </button>
                 <button
                   onClick={handleExportIncomeStatementWord}
-                  className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-2xs"
                   title="Descargar Estado de Resultados en Word"
                 >
                   <FileDown className="w-3.5 h-3.5" />
@@ -2600,7 +2682,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                 </button>
                 <button
                   onClick={handleExportIncomeStatementPdf}
-                  className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-2xs"
+                  className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg text-xs flex items-center gap-1 shadow-2xs"
                   title="Descargar Estado de Resultados en PDF directo"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -2616,55 +2698,55 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
               </div>
             </div>
 
-            <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+            <div className="overflow-x-auto border border-slate-300 rounded-lg shadow-2xs">
               <table className="w-full text-xs text-left text-slate-800">
-                <thead className="bg-slate-100 text-slate-700 uppercase text-[10px] tracking-wider border-b-2 border-slate-300 font-mono font-bold">
+                <thead className="bg-slate-100 text-slate-900 uppercase text-[10px] tracking-wider border-y-2 border-black font-mono font-bold">
                   <tr>
                     <th className="px-4 py-2.5">Concepto</th>
                     <th className="px-4 py-2.5 text-right">Año 2025 (Bs.)</th>
                     <th className="px-4 py-2.5 text-right">Año 2025 (US$)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Ene-Ago 2026 (Bs.)</th>
-                    <th className="px-4 py-2.5 text-right text-amber-900 font-black">Ene-Ago 2026 (US$)</th>
+                    <th className="px-4 py-2.5 text-right text-slate-900 font-bold">Ene-Ago 2026 (Bs.)</th>
+                    <th className="px-4 py-2.5 text-right text-slate-900 font-bold">Ene-Ago 2026 (US$)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 font-mono-num">
-                  <tr className="bg-indigo-100/90 font-black text-indigo-950 uppercase text-[11px]">
+                  <tr className="bg-slate-100 font-bold text-slate-900 uppercase text-[11px] border-y border-slate-300">
                     <td colSpan={5} className="px-4 py-2">INGRESOS OPERACIONALES Y FINANCIEROS</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
                     <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Ingresos por Servicios Agrícolas</td>
                     <td className="px-4 py-2 text-right text-slate-600">{INCOME_STATEMENT_2025.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right text-slate-600">${(INCOME_STATEMENT_2025.revenues.agriculturalServices / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.agriculturalServices / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-amber-100/90 font-bold">
-                    <td className="px-4 py-2 pl-6 text-amber-950">Ingresos por Intereses (Contrato Mutuo Manuel Becerra)</td>
+                  <tr className="hover:bg-slate-50">
+                    <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Ingresos por Intereses (Contrato Mutuo Manuel Becerra)</td>
                     <td className="px-4 py-2 text-right text-slate-400">—</td>
                     <td className="px-4 py-2 text-right text-slate-400">—</td>
-                    <td className="px-4 py-2 text-right text-amber-950 font-black">{INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-amber-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.interestIncome / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-slate-200/80 font-bold text-slate-950 border-y border-slate-300">
+                  <tr className="bg-slate-50 font-bold text-slate-950 border-t border-b border-slate-300">
                     <td className="px-4 py-2">TOTAL INGRESOS</td>
                     <td className="px-4 py-2 text-right text-slate-800">{INCOME_STATEMENT_2025.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right text-slate-800">${(INCOME_STATEMENT_2025.revenues.totalRevenues / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-bold">${(INCOME_STATEMENT_AUGUST_2026.revenues.totalRevenues / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
                     <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Costos de Servicios</td>
                     <td className="px-4 py-2 text-right text-slate-600">{INCOME_STATEMENT_2025.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right text-slate-600">${(INCOME_STATEMENT_2025.costs.serviceCosts / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-amber-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-amber-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-semibold">{INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-semibold">${(INCOME_STATEMENT_AUGUST_2026.costs.serviceCosts / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-slate-100 font-bold text-slate-950">
+                  <tr className="bg-slate-50 font-bold text-slate-950 border-t border-b border-slate-300">
                     <td className="px-4 py-2">UTILIDAD BRUTA</td>
                     <td className="px-4 py-2 text-right text-slate-800">{INCOME_STATEMENT_2025.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right text-slate-800">${(INCOME_STATEMENT_2025.costs.grossProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.costs.grossProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.costs.grossProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-bold">${(INCOME_STATEMENT_AUGUST_2026.costs.grossProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
                     <td className="px-4 py-2 pl-6 text-slate-900 font-medium">Gastos de Administración</td>
@@ -2673,19 +2755,19 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     <td className="px-4 py-2 text-right text-slate-400">—</td>
                     <td className="px-4 py-2 text-right text-slate-400">—</td>
                   </tr>
-                  <tr className="bg-slate-200/80 font-bold border-t border-slate-300">
+                  <tr className="bg-slate-50 font-bold border-t border-slate-300">
                     <td className="px-4 py-2">UTILIDAD EN OPERACIONES</td>
                     <td className="px-4 py-2 text-right text-slate-800">{INCOME_STATEMENT_2025.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2 text-right text-slate-800">${(INCOME_STATEMENT_2025.operatingExpenses.operatingProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2 text-right text-emerald-950 font-bold">${(INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-950 font-bold">{INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2 text-right text-slate-800 font-bold">${(INCOME_STATEMENT_AUGUST_2026.operatingExpenses.operatingProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
-                  <tr className="bg-emerald-100 font-black text-emerald-950 border-y-2 border-emerald-300">
-                    <td className="px-4 py-2.5">UTILIDAD NETA DEL EJERCICIO</td>
+                  <tr className="bg-white text-slate-950 font-black border-t-2 border-b-4 border-double border-black">
+                    <td className="px-4 py-2.5 font-black">UTILIDAD NETA DEL EJERCICIO</td>
                     <td className="px-4 py-2.5 text-right">{INCOME_STATEMENT_2025.taxesAndReserves.netProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
                     <td className="px-4 py-2.5 text-right">${(INCOME_STATEMENT_2025.taxesAndReserves.netProfit / INCOME_STATEMENT_2025.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">{INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
-                    <td className="px-4 py-2.5 text-right text-emerald-950 font-black">${(INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-slate-950 font-black">{INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>
+                    <td className="px-4 py-2.5 text-right text-slate-950 font-black">${(INCOME_STATEMENT_AUGUST_2026.taxesAndReserves.netProfit / INCOME_STATEMENT_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                 </tbody>
               </table>

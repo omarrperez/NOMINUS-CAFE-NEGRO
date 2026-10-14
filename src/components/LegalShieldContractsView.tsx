@@ -248,7 +248,7 @@ export const LEGAL_ENTITY_BATCH_CONTRACTS: LegalEntityBatchContract[] = [
   }
 ];
 
-// Combine with other special contracts (Becerra, Accionista Propietario Ing. Omar Pérez, Personas Naturales, Proveedor Colombia)
+// Combine with other special contracts (Becerra, Accionista Propietario Elias Rafael Trías Abreu, Personas Naturales)
 export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
   {
     id: 'ctr-01',
@@ -290,9 +290,9 @@ export const SPECIAL_CONTRACTS: LegalEntityBatchContract[] = [
     batchCode: 'CUENTAS POR PAGAR SOCIOS',
     contractCode: 'CTR-SOCIO-2026-ELIAS-INGRESOS',
     companyName: 'ELIAS RAFAEL TRÍAS ABREU (ACCIONISTA PROPIETARIO Y PRESIDENTE)',
-    rif: 'V-14892301',
+    rif: 'V-23997829',
     repName: 'Elias Rafael Trías Abreu',
-    repId: 'V-14.892.301',
+    repId: 'V-23.997.829',
     bankOrigin: 'Banco de Venezuela (0102) / Banesco (0134)',
     amountVES: 7649975.00,
     amountUSD: 11266.93,
@@ -730,10 +730,23 @@ export const ALL_SYSTEM_CONTRACTS = [
 ];
 
 export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
-  const [activeTab, setActiveTab] = useState<'BATCH_MATRIX' | 'SINGLE_CONTRACT'>('BATCH_MATRIX');
+  const [activeTab, setActiveTab] = useState<'SUMMARY' | 'BATCH_MATRIX' | 'SINGLE_CONTRACT'>('BATCH_MATRIX');
   const [categoryFilter, setCategoryFilter] = useState<'ALL' | 'PERSONA_JURIDICA' | 'PERSONA_NATURAL' | 'SOCIO_PRESIDENTE' | 'MUTUO_PROCURA'>('ALL');
   const [selectedContract, setSelectedContract] = useState<LegalEntityBatchContract>(ALL_SYSTEM_CONTRACTS[0]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  const pjContracts = ALL_SYSTEM_CONTRACTS.filter((c) => c.categoryGroup === 'PERSONA_JURIDICA');
+  const natContracts = ALL_SYSTEM_CONTRACTS.filter((c) => c.categoryGroup === 'PERSONA_NATURAL');
+  const socContracts = ALL_SYSTEM_CONTRACTS.filter((c) => c.categoryGroup === 'SOCIO_PRESIDENTE');
+  const mutContracts = ALL_SYSTEM_CONTRACTS.filter((c) => c.categoryGroup === 'MUTUO_PROCURA');
+
+  const pjVES = pjContracts.reduce((acc, c) => acc + c.amountVES, 0);
+  const pjUSD = pjContracts.reduce((acc, c) => acc + c.amountUSD, 0);
+  const pjQtl = pjContracts.reduce((acc, c) => acc + c.coffeeQtl, 0);
+
+  const natVES = natContracts.reduce((acc, c) => acc + c.amountVES, 0);
+  const natUSD = natContracts.reduce((acc, c) => acc + c.amountUSD, 0);
+  const natQtl = natContracts.reduce((acc, c) => acc + c.coffeeQtl, 0);
 
   const filteredContracts = ALL_SYSTEM_CONTRACTS.filter((c) => {
     const matchesCategory = categoryFilter === 'ALL' || c.categoryGroup === categoryFilter;
@@ -973,6 +986,17 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
         <div className="flex flex-wrap items-center gap-2 no-print">
           <div className="flex bg-slate-950 p-1 rounded-lg border border-slate-800">
             <button
+              onClick={() => setActiveTab('SUMMARY')}
+              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors flex items-center gap-1 ${
+                activeTab === 'SUMMARY'
+                  ? 'bg-amber-600 text-white shadow'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <Shield className="w-3.5 h-3.5 text-amber-300" />
+              <span>Resumen de Firmas ({pjContracts.length + natContracts.length})</span>
+            </button>
+            <button
               onClick={() => setActiveTab('BATCH_MATRIX')}
               className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 activeTab === 'BATCH_MATRIX'
@@ -980,7 +1004,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              Matriz de Lotes ({LEGAL_ENTITY_BATCH_CONTRACTS.length})
+              Matriz de Contratos ({ALL_SYSTEM_CONTRACTS.length})
             </button>
             <button
               onClick={() => setActiveTab('SINGLE_CONTRACT')}
@@ -997,7 +1021,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
           <button
             onClick={handleExportAllBatchContractsWord}
             className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
-            title="Descargar todos los contratos de las 6 personas jurídicas en formato Word (.doc) para modificarlos"
+            title="Descargar todos los contratos de las personas jurídicas en formato Word (.doc) para modificarlos"
           >
             <FileDown className="w-3.5 h-3.5" />
             Descargar Lotes Word (.doc)
@@ -1014,7 +1038,216 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
         </div>
       </div>
 
-      {activeTab === 'BATCH_MATRIX' ? (
+      {/* EXECUTIVE SUMMARY OF PENDING CONTRACTS BY CATEGORY */}
+      <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl text-white shadow-md space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div>
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-amber-400" />
+              <h3 className="text-base font-bold text-amber-400 uppercase tracking-wide">
+                Resumen Ejecutivo: Contratos Pendientes de Firma por Anticipos de Clientes
+              </h3>
+            </div>
+            <p className="text-xs text-slate-300 mt-0.5">
+              Clasificación Contable NIIF 15 (Pasivo Corriente) basada en extractos bancarios Banesco & 'customerAdvances'
+            </p>
+          </div>
+          <div className="flex items-center gap-2 text-xs font-mono font-bold bg-slate-950 px-3.5 py-1.5 rounded-lg border border-slate-800">
+            <span className="text-slate-400">TOTAL PENDIENTES DE FIRMA:</span>
+            <span className="text-amber-400 text-sm font-extrabold">{pjContracts.length + natContracts.length} CONTRATOS</span>
+          </div>
+        </div>
+
+        {/* 3 Category Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* 1. Personas Jurídicas */}
+          <div className="bg-slate-950/90 border border-blue-800/80 p-4 rounded-xl space-y-2.5">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span className="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+                <Building2 className="w-4 h-4" /> 1. CLIENTES PERSONAS JURÍDICAS
+              </span>
+              <span className="bg-blue-900/80 text-blue-200 text-[11px] font-mono px-2 py-0.5 rounded font-bold">
+                {pjContracts.length} Contratos
+              </span>
+            </div>
+            <div className="space-y-1.5 font-mono text-xs">
+              <div className="flex justify-between text-slate-300">
+                <span>Contratos Pendientes:</span>
+                <span className="text-white font-bold">{pjContracts.length} Por Firmar</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Monto Total VES:</span>
+                <span className="text-emerald-400 font-bold">Bs. {pjVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Contravalor USD BCV:</span>
+                <span className="text-emerald-400 font-bold">${pjUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Volumen Compromiso:</span>
+                <span className="text-amber-400 font-bold">{pjQtl.toLocaleString('es-VE')} Quintales</span>
+              </div>
+            </div>
+            <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-300 font-sans leading-relaxed">
+              <strong className="text-blue-300 block mb-0.5">Clasificación Contable:</strong>
+              Pasivo Corriente (NIIF 15) &middot; Anticipos de Clientes Personas Jurídicas para Procura de Café en Venezuela.
+            </div>
+          </div>
+
+          {/* 2. Personas Naturales */}
+          <div className="bg-slate-950/90 border border-emerald-800/80 p-4 rounded-xl space-y-2.5">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" /> 2. CLIENTES PERSONAS NATURALES
+              </span>
+              <span className="bg-emerald-900/80 text-emerald-200 text-[11px] font-mono px-2 py-0.5 rounded font-bold">
+                {natContracts.length} Contratos
+              </span>
+            </div>
+            <div className="space-y-1.5 font-mono text-xs">
+              <div className="flex justify-between text-slate-300">
+                <span>Contratos Pendientes:</span>
+                <span className="text-white font-bold">{natContracts.length} Por Firmar</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Monto Total VES:</span>
+                <span className="text-emerald-400 font-bold">Bs. {natVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Contravalor USD BCV:</span>
+                <span className="text-emerald-400 font-bold">${natUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Volumen Compromiso:</span>
+                <span className="text-amber-400 font-bold">{natQtl.toLocaleString('es-VE')} Quintales</span>
+              </div>
+            </div>
+            <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-300 font-sans leading-relaxed">
+              <strong className="text-emerald-300 block mb-0.5">Clasificación Contable:</strong>
+              Pasivo Corriente (NIIF 15) &middot; 15 abonos individuales de depositantes en taquilla/TRF Banesco.
+            </div>
+          </div>
+
+          {/* 3. Regla Excepción Dueño / Accionista Propietario */}
+          <div className="bg-slate-950/90 border border-purple-800/80 p-4 rounded-xl space-y-2.5">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span className="text-xs font-bold text-purple-300 flex items-center gap-1.5">
+                <Shield className="w-4 h-4 text-purple-400" /> 3. REGLA ESPECIAL ACCIONISTA
+              </span>
+              <span className="bg-purple-900/80 text-purple-200 text-[10px] font-mono px-2 py-0.5 rounded font-bold">
+                EXCLUIDO DE CLIENTES
+              </span>
+            </div>
+            <div className="space-y-1.5 font-mono text-xs">
+              <div className="flex justify-between text-slate-300">
+                <span>Nombre Propietario:</span>
+                <span className="text-white font-bold">Elias Rafael Trías Abreu</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Cédula de Identidad:</span>
+                <span className="text-white font-bold">V-14.892.301</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Aportes Liquidez (Ingreso):</span>
+                <span className="text-purple-300 font-bold">Bs. 7.649.975,00</span>
+              </div>
+              <div className="flex justify-between text-slate-300">
+                <span>Avances Egresos (Salidas):</span>
+                <span className="text-purple-300 font-bold">Bs. 15.400.000,00</span>
+              </div>
+            </div>
+            <div className="pt-2 border-t border-slate-800 text-[10px] text-purple-200 font-sans leading-relaxed">
+              <strong className="text-amber-400 block mb-0.5">REGLA FISCAL OBLIGATORIA:</strong>
+              Registrado exclusivamente en <span className="underline font-bold text-white">Cuentas por Pagar / Cobrar Socios</span>. Excluido de ventas y de anticipos de clientes.
+            </div>
+          </div>
+        </div>
+
+        {/* Consolidated Total Box */}
+        <div className="bg-slate-950 border border-amber-500/50 p-3.5 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-2">
+            <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+            <span className="font-bold text-amber-300 tracking-wide">TOTAL ANTICIPOS DE CLIENTES PENDIENTES DE FIRMA:</span>
+            <span className="text-white font-mono font-bold bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800">
+              {pjContracts.length + natContracts.length} CONTRATOS ({pjContracts.length} Jurídicos + {natContracts.length} Naturales)
+            </span>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 font-mono font-bold">
+            <span className="text-slate-300">VES: <strong className="text-white">Bs. {(pjVES + natVES).toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong></span>
+            <span className="text-slate-300">USD BCV: <strong className="text-emerald-400">${(pjUSD + natUSD).toLocaleString('en-US', { minimumFractionDigits: 2 })}</strong></span>
+            <span className="text-slate-300">Café: <strong className="text-amber-400">{(pjQtl + natQtl).toLocaleString('es-VE')} Qtl</strong></span>
+          </div>
+        </div>
+      </div>
+
+      {activeTab === 'SUMMARY' ? (
+        /* Summary Overview Tab Details */
+        <div className="bg-white border border-slate-200 p-6 rounded-xl shadow-sm space-y-6">
+          <div className="border-b border-slate-200 pb-4">
+            <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <FileCheck className="w-5 h-5 text-amber-600" />
+              Desglose Completo de Contratos Pendientes de Firma por Categoria
+            </h3>
+            <p className="text-xs text-slate-500 mt-1">
+              Verificación de concordancia entre los abonos recibidos en la cuenta Banesco Cta. 0134-0342-18-3421089912 y los contratos legales emitidos.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Personas Jurídicas Table Card */}
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                <span className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                  <Building2 className="w-4 h-4 text-blue-700" /> Clientes Personas Jurídicas ({pjContracts.length})
+                </span>
+                <span className="text-xs font-mono font-bold text-blue-800 bg-blue-100 px-2 py-0.5 rounded">
+                  Bs. {pjVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+              <div className="divide-y divide-slate-200 font-mono text-xs max-h-60 overflow-y-auto">
+                {pjContracts.map((c, i) => (
+                  <div key={c.id} className="py-2 flex items-center justify-between gap-2">
+                    <div>
+                      <span className="font-bold text-slate-800 block">{i + 1}. {c.companyName}</span>
+                      <span className="text-[10px] text-slate-500 font-sans block">{c.contractCode} &middot; RIF: {c.rif}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-bold text-slate-900 block">Bs. {c.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+                      <span className="text-[10px] text-emerald-700 block">${c.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Personas Naturales Table Card */}
+            <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                <span className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-700" /> Clientes Personas Naturales ({natContracts.length})
+                </span>
+                <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">
+                  Bs. {natVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                </span>
+              </div>
+              <div className="divide-y divide-slate-200 font-mono text-xs max-h-60 overflow-y-auto">
+                {natContracts.map((c, i) => (
+                  <div key={c.id} className="py-2 flex items-center justify-between gap-2">
+                    <div>
+                      <span className="font-bold text-slate-800 block">{i + 1}. {c.companyName}</span>
+                      <span className="text-[10px] text-slate-500 font-sans block">{c.contractCode} &middot; C.I. {c.repId}</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="font-bold text-slate-900 block">Bs. {c.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</span>
+                      <span className="text-[10px] text-emerald-700 block">${c.amountUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : activeTab === 'BATCH_MATRIX' ? (
         /* Batch Contracts Matrix Tab */
         <div className="space-y-4">
           {/* Summary KPIs */}
@@ -1022,10 +1255,10 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
             <div className="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
               <span className="text-xs text-slate-600 block">Total Contratos de Mandato</span>
               <span className="text-xl font-bold text-amber-700 mt-1 block">
-                6 Empresas Jurídicas
+                {pjContracts.length + natContracts.length} Contratos
               </span>
               <span className="text-[10px] text-slate-500 mt-0.5 block">
-                100% con RIF y Rep. Legal registrado
+                6 Jurídicos + 15 Naturales
               </span>
             </div>
 
@@ -1082,7 +1315,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
               }`}
             >
-              🏢 Jurídicas ({LEGAL_ENTITY_BATCH_CONTRACTS.length})
+              🏢 Jurídicas ({pjContracts.length})
             </button>
             <button
               type="button"
@@ -1093,7 +1326,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
               }`}
             >
-              👤 Naturales (3)
+              👤 Naturales ({natContracts.length})
             </button>
             <button
               type="button"
@@ -1104,7 +1337,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
               }`}
             >
-              👔 Presidente & Socio (2)
+              👔 Presidente & Socio ({socContracts.length})
             </button>
             <button
               type="button"
@@ -1115,7 +1348,7 @@ export const LegalShieldContractsView: React.FC<Props> = ({ company }) => {
                   : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
               }`}
             >
-              🤝 Mutuo & Procura (2)
+              🤝 Mutuo & Procura ({mutContracts.length})
             </button>
           </div>
 

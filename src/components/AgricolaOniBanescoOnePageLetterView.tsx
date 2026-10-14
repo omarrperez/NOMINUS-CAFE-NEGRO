@@ -166,7 +166,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             </div>
             <div className="flex items-start gap-1.5 bg-emerald-50 p-1.5 rounded border border-emerald-200">
               <span className="font-bold text-emerald-900">6.</span>
-              <span><strong>Sustento Legal Constitutivo (Acta 2021) y Accionista Único:</strong> Inscrita en el Registro Mercantil el 16/09/2021 (Tomo 31-A, N° 18, RIF J-50145638-0). Su Objeto Social de 2021 autoriza plenamente la intermediación comercial y compra de café. El 100% de las acciones pertenecen exclusivamente al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-18.492.301)</strong>, garantizando legitimidad y transparencia.</span>
+              <span><strong>Sustento Legal Constitutivo (Acta 2021) y Accionista Único:</strong> Inscrita en el Registro Mercantil el 16/09/2021 (Tomo 31-A, N° 18, RIF J-50145638-0). Su Objeto Social de 2021 autoriza plenamente la intermediación comercial y compra de café. El 100% de las acciones pertenecen exclusivamente al <strong>Sr. ELÍAS RAFAEL TRÍAS ABREU (C.I. V-23.997.829)</strong>, garantizando legitimidad y transparencia.</span>
             </div>
           </div>
 
@@ -212,13 +212,13 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             </div>
             <p className="font-bold text-stone-900 text-[11px] mt-1">Licdo. Omar Pérez Castillo</p>
             <p className="text-[10px] text-stone-600">Contador Público C.P.C. 16.336</p>
-            <p className="text-[10px] font-semibold text-stone-800">Auditor Financiero Externo</p>
+            <p className="text-[10px] font-semibold text-stone-800">Contador Público Independiente, Ven-Nif</p>
           </div>
         </div>
 
         <div className="mt-6 pt-2 border-t border-stone-200 text-[9px] text-stone-400 text-center flex justify-between font-mono">
           <span>EXPEDIENTE: AUD-BAN-2026-ONI-094</span>
-          <span>VALIDEZ SUDEBAN / BANESCO BANCO UNIVERSAL</span>
+          <span>VALIDEZ NORMAS VEN-NIF / BANESCO BANCO UNIVERSAL</span>
         </div>
       </div>
     </div>
