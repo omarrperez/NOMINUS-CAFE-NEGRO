@@ -42,6 +42,7 @@ import { LegalShieldContractsView } from './components/LegalShieldContractsView'
 import { ReceiptGeneratorView } from './components/ReceiptGeneratorView';
 import { SecurityDatabaseCenterView } from './components/SecurityDatabaseCenterView';
 import { DeepResearchAndUxReportView } from './components/DeepResearchAndUxReportView';
+import { AccountingBanescoJustificationSuiteView } from './components/AccountingBanescoJustificationSuiteView';
 import { FinancialStatementsAndBecerraSuiteView } from './components/FinancialStatementsAndBecerraSuiteView';
 import { LayoutGrid } from 'lucide-react';
 import { DashboardOverviewView } from './components/DashboardOverviewView';
@@ -102,7 +103,7 @@ function MainAppContent() {
     { id: 'LEGAL_CONTRACTS', label: 'Blindaje Legal & Contratos', icon: Scale },
     { id: 'RECEIPT_GENERATOR', label: 'Recibos & Pesaje Café', icon: Receipt },
     { id: 'SECURITY_CENTER', label: 'Base de Datos & Carga Real', icon: Database, badge: 'Cargar' },
-    { id: 'RESEARCH_REPORT', label: 'Informe Ejecutivo & Costos', icon: BookOpenCheck }
+    { id: 'RESEARCH_REPORT', label: 'Contabilidad', icon: BookOpenCheck, badge: 'Asientos & Banesco' }
   ];
 
   const handleRefreshRate = () => {
@@ -416,7 +417,10 @@ function MainAppContent() {
             )}
 
             {activeModule === 'RESEARCH_REPORT' && (
-              <DeepResearchAndUxReportView company={selectedCompany} />
+              <AccountingBanescoJustificationSuiteView
+                company={selectedCompany}
+                currentRate={currentRate}
+              />
             )}
           </main>
         </div>

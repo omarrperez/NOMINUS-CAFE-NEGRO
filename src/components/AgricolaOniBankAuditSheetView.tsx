@@ -512,7 +512,7 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-[11px] text-stone-400 mt-1">
-                    <span>${totalNaturalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD &middot; Accionista Omar Pérez y Extractos Banesco</span>
+                    <span>${totalNaturalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD &middot; Accionista Único Elias Rafael Trías Abreu y Extractos Banesco</span>
                     <span className="text-amber-400 font-mono font-semibold">
                       {totalCredits > 0 ? ((totalNaturalVES / totalCredits) * 100).toFixed(2) : 0}%
                     </span>
@@ -793,8 +793,8 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
             </div>
 
             <div className="text-right shrink-0">
-              <span className="text-[11px] text-stone-400 block font-mono">Auditoría Colegiada</span>
-              <span className="text-xs font-bold text-white block">Licdo. Omar Pérez Castillo (C.P.C. 16.336)</span>
+              <span className="text-[11px] text-stone-400 block font-mono">Contabilidad Colegiada</span>
+              <span className="text-xs font-bold text-white block">Lic. Omar Pérez Castillo (C.P.C. 16336)</span>
             </div>
           </div>
         </div>

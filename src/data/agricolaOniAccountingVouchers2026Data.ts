@@ -167,7 +167,7 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
   },
   {
     accountCode: '2.1.01.03',
-    accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 / Omar Pérez)',
+    accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 )',
     nature: 'PASIVO',
     totalDebitVES: 0,
     totalCreditVES: 301053109.62,
@@ -285,7 +285,7 @@ export const TRIAL_BALANCE_SUMMARY = {
   totalCreditsUSD: 1019065.80,
   asOfDate: '31/08/2026',
   standard: 'VEN-NIF',
-  auditor: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+  auditor: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
   companyName: 'AGRÍCOLA ONI, C.A.',
   companyRif: 'J-50145638-0'
 };
@@ -305,7 +305,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Ref. #00033005568 BFC 0151',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -348,7 +348,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Ref. #00058529036 y Lotes Banesco Jun',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -391,7 +391,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Ref. #00005995465 SBLBTR 0108 y Lotes Jul',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -434,7 +434,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: '14 Refs. #00016671975 BDV 0102',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -477,7 +477,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Refs. #0000000198, #0000000295 y Lotes 05-06 Ago',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -520,7 +520,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: '14 Refs. #00030445172 Bancamiga 0172',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -563,7 +563,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Refs. #000041945646, #000042467191 y #000042432420 BDV',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -606,7 +606,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Ene-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -649,7 +649,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Feb-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -692,7 +692,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Mar-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -735,7 +735,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Abr-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -778,7 +778,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco May-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -821,7 +821,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Jun-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -864,7 +864,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Jul-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -907,7 +907,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Extracto Banesco Ago-2026 TRANS.CTAS',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -945,12 +945,12 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     date: '31/07/2026',
     bcvRate: 748.79,
     concept: 'Aportes de Liquidez de Accionista Propietario (Cuentas por Pagar Socios)',
-    beneficiaryOrThirdParty: 'ACCIONISTA PROPIETARIO (ING. OMAR PÉREZ C.I. V-14.892.301)',
-    rifThirdParty: 'V-14.892.301',
+    beneficiaryOrThirdParty: 'ACCIONISTA PROPIETARIO (ELIAS RAFAEL TRÍAS ABREU C.I. V-23.997.829)',
+    rifThirdParty: 'V-23.997.829',
     documentRef: '21 Abonos TRF CR INMV Accionista Propietario (Ene-Ago)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -965,7 +965,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
       },
       {
         accountCode: '2.1.01.01',
-        accountName: 'Cuentas por Pagar Socios (Aportes del Accionista Propietario Ing. Omar Pérez C.I. V-14.892.301)',
+        accountName: 'Cuentas por Pagar Socios (Aportes del Accionista Propietario Elias Rafael Trías Abreu C.I. V-23.997.829)',
         reference: 'Auxiliar V-14.892.301 (Ene: Bs. 3,4M a Ago: Bs. 4,24M)',
         debitVES: 0,
         creditVES: 7649975,
@@ -993,7 +993,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: '15 Abonos TRF CR INM Personas Naturales V-',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1036,7 +1036,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Ref. #00093845477 J501456380 AGR',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1079,7 +1079,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Traspasos Recibidos Feb-2026 J501456380',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1122,7 +1122,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Ref. #00041240208 y Lotes Mar-2026 J501456380',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1165,7 +1165,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Traspasos Cta. Propia Abr-May 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1208,7 +1208,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'SGBLTR 0138 #00003344419 y Lotes Jun J501456380',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1251,7 +1251,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Traspasos propios Jul-2026 J501456380',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1294,7 +1294,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Traspasos Propios Ago-2026 J501456380',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1337,7 +1337,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Salidas TRF. MB Ene-May 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1380,7 +1380,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Salidas TRF. MB Jun-2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1423,7 +1423,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Salidas TRF. MB Jul-2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1466,7 +1466,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Salidas TRF. MB Ago-2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1509,7 +1509,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mesa de Cambio Ene-2026 (USD 5.402,25)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1552,7 +1552,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mesa de Cambio Feb-2026 (USD 7.720,49)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1595,7 +1595,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mar: Bs. 450k + Abr: Bs. 980k',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1638,7 +1638,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mesa de Cambio May-2026 (USD 6.236,24)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1681,7 +1681,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mesa de Cambio Jun-2026 (USD 134.272,94)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1724,7 +1724,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mesa de Cambio Jul-2026 (USD 198.231,39)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1767,7 +1767,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Pactos Mesa de Cambio Ago-2026 (USD 201.920,34)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1810,7 +1810,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Contrato de Línea de Crédito Rotativa Becerra 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1853,7 +1853,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Contrato de Línea de Crédito Rotativa Becerra 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1896,7 +1896,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Salidas Banesco Amortización Línea Becerra May-Jun',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1939,7 +1939,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Salidas Banesco Amortización Línea Becerra Jul-Ago',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -1982,7 +1982,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Liquidaciones de Cosecha Ene-May 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -2025,7 +2025,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Liquidación Lotes Cafetaleros Jun-2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -2068,7 +2068,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Liquidación Lotes Cafetaleros Jul-2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -2111,7 +2111,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Liquidación Lotes Cafetaleros Ago-2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -2154,7 +2154,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Facturas de Transporte Ene-Ago 2026 (Sujetas a Ret. ISLR 3%)',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -2197,7 +2197,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Relaciones de Pago Móvil CCE y Nómina Ene-Ago 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [
@@ -2240,7 +2240,7 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     documentRef: 'Débitos Automáticos Banesco Ene-Ago 2026',
     bankAccountRef: '0134-0342-18-3421089912',
     approvedBy: 'Elias Rafael Trías Abreu (Presidente)',
-    reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
     preparedBy: 'Administración Contable',
     status: 'CONFIRMADO',
     lines: [

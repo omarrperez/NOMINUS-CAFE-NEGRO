@@ -99,16 +99,16 @@ export const DashboardOverviewView: React.FC<DashboardOverviewViewProps> = ({
         },
         {
           id: 'BANESCO_LETTER_FULL' as ActiveModule,
-          title: 'Carta Respuesta Banesco Completa',
-          subtitle: 'Alegatos legales y bancarios completos firmados',
+          title: 'Carta 2: Carta Larga Explicativa con Cuadros',
+          subtitle: 'Carta detallada exhaustiva con cuadros por categoría y desglose mensual',
           icon: FileCheck,
-          badge: 'Oficial',
+          badge: 'Carta 2',
           pastelBg: 'bg-indigo-50/80 hover:bg-indigo-100/80 border-indigo-200/80 text-indigo-950',
           iconBg: 'bg-indigo-200/70 text-indigo-800'
         },
         {
           id: 'BANESCO_LETTER_ONE_PAGE' as ActiveModule,
-          title: 'Carta 1 Página Banesco',
+          title: 'Carta Corta: 1 Hoja para Banesco',
           subtitle: 'Resumen ejecutivo de 1 hoja listo para entregar al banco',
           icon: FileText,
           badge: '1 Hoja',

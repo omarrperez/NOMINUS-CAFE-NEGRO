@@ -95,13 +95,13 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
                 <strong>1. Anticipos de Clientes Jurídicos en Bolívares (78,41% — Bs. 1.542.017.092,63 / $2.270.486,23 USD):</strong><br>
-                Fondos recibidos de compradores bajo Contrato Marco de Intermediación. Registrados como <em>Pasivos Corrientes Exigibles en Café</em> bajo NIIF 15 / Sección 23. Se sustituyen por factura fiscal SENIAT en Octubre 2026 con la entrega del café.
+                Fondos recibidos de compradores bajo Contrato Marco de Intermediación. Registrados como <em>Pasivos Corrientes Exigibles en Café</em> bajo NIIF 15. Movilización Bruta Banesco: Bs. 1.542.017.092,63 menos Compras Ejecutadas de Café verde en origen: Bs. 1.240.788.342,46 = Saldo Neto Pendiente en Balance General (Cta. 2.1.01): <strong>Bs. 301.228.750,17</strong> ($378.908,85 USD). Se sustituyen por factura fiscal SENIAT en Octubre 2026.
               </td>
             </tr>
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
                 <strong>2. Reintegros Capital Mutuo Manuel Becerra (9,48% — Bs. 186.376.000,00 / $286.228,93 USD):</strong><br>
-                Amortización de Activo Financiero de la Línea de Crédito Rotativa suscrita con el socio Manuel Becerra. Disminuyen la Cuenta por Cobrar en balance. No constituye venta ni ingreso.
+                Amortización de Activo Financiero de la Línea de Crédito Rotativa suscrita con el Sr. Manuel Becerra (Prestamista / Socio en otras empresas del grupo). Disminuyen la Cuenta por Cobrar en balance. No constituye venta ni ingreso.
               </td>
             </tr>
             <tr>
@@ -113,7 +113,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
                 <strong>4. Aportes Operativos Accionista / Personas Naturales (1,50% — Bs. 29.495.954,99 / $47.335,99 USD):</strong><br>
-                Inyecciones de liquidez Presidente Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.
+                Inyecciones de liquidez del Presidente y Único Accionista Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.
               </td>
             </tr>
             <tr>
@@ -148,20 +148,34 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             Constatamos la autenticidad de los soportes anexos (facturas, guías y conciliación) adjuntos a la presente comunicación.
           </p>
 
-          <!-- FIRMA CENTRADA Y CUADRADA DEL PRESIDENTE -->
-          <table style="width: 100%; border-collapse: collapse; margin-top: 25px;">
+          <!-- FIRMA CENTRADA Y CUADRADA DEL PRESIDENTE Y CONTADOR CPC -->
+          <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
             <tr>
-              <td style="text-align: center;">
-                <p style="margin: 0 0 35px 0; font-size: 9.5pt; color: #334155;">Atentamente,</p>
-                <div style="display: inline-block; border-top: 1.5pt solid #0f172a; width: 300px; padding-top: 6px;">
-                  <p style="margin: 0; font-weight: bold; font-size: 10.5pt; color: #0f172a;">
+              <td style="text-align: center; width: 50%; vertical-align: top;">
+                <p style="margin: 0 0 25px 0; font-size: 9pt; color: #334155;">Atentamente,</p>
+                <div style="display: inline-block; border-top: 1.5pt solid #0f172a; width: 220px; padding-top: 4px;">
+                  <p style="margin: 0; font-weight: bold; font-size: 9.5pt; color: #0f172a;">
                     SR. ELÍAS RAFAEL TRÍAS ABREU
                   </p>
-                  <p style="margin: 2px 0 0 0; font-size: 9pt; color: #475569;">
+                  <p style="margin: 1px 0 0 0; font-size: 8.5pt; color: #475569;">
                     Presidente y Representante Legal &middot; C.I. V-23.997.829
                   </p>
-                  <p style="margin: 2px 0 0 0; font-size: 9pt; font-weight: bold; color: #0f766e;">
+                  <p style="margin: 1px 0 0 0; font-size: 8.5pt; font-weight: bold; color: #0f766e;">
                     ${company.name} &middot; R.I.F. ${company.rif}
+                  </p>
+                </div>
+              </td>
+              <td style="text-align: center; width: 50%; vertical-align: top;">
+                <p style="margin: 0 0 25px 0; font-size: 9pt; color: #334155;">Certificado por:</p>
+                <div style="display: inline-block; border-top: 1.5pt solid #0f172a; width: 220px; padding-top: 4px;">
+                  <p style="margin: 0; font-weight: bold; font-size: 9.5pt; color: #0f172a;">
+                    LICDO. OMAR PÉREZ
+                  </p>
+                  <p style="margin: 1px 0 0 0; font-size: 8.5pt; color: #475569;">
+                    Contador Público Colegiado (CPC N° 16336)
+                  </p>
+                  <p style="margin: 1px 0 0 0; font-size: 8.5pt; font-weight: bold; color: #0f766e;">
+                    Auditor Contable Bancario Independiente
                   </p>
                 </div>
               </td>
@@ -210,62 +224,23 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
           <button
             onClick={onBackToFullLetter}
             className="p-1.5 bg-stone-800 hover:bg-stone-700 text-stone-300 rounded-md transition-colors"
-            title="Volver a la carta extendida"
+            title="Volver a Carta 2 Explicativa Larga"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              Carta Banesco Formato Ejecutivo (1 Página Exacta)
+              Carta Corta: Formato Resumen Ejecutivo (1 Página Exacta para Banesco)
             </h3>
             <p className="text-[11px] text-stone-400">
-              Calibrada para impresión y descarga oficial en Word (.doc/.docx) y PDF con diseño cuadrado institucional
+              Sintética y lista para entregar directamente en taquilla o gerencia bancaria
             </p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {/* CARTA 2 DOWNLOADS */}
-          <button
-            onClick={async () => {
-              try {
-                setDownloadingPdf(true);
-                await exportCarta2Pdf(company, currentRate);
-              } catch (err) {
-                console.error(err);
-              } finally {
-                setDownloadingPdf(false);
-              }
-            }}
-            disabled={downloadingPdf}
-            className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
-            title="Descargar Carta 2 (1 Página) en PDF (.pdf)"
-          >
-            {downloadingPdf ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
-            Descargar Carta 2 (PDF)
-          </button>
-
-          <button
-            onClick={async () => {
-              try {
-                setDownloadingWord(true);
-                await exportCarta2Word(company, currentRate);
-              } catch (err) {
-                console.error(err);
-              } finally {
-                setDownloadingWord(false);
-              }
-            }}
-            disabled={downloadingWord}
-            className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
-            title="Descargar Carta 2 (1 Página) en Microsoft Word (.docx/.doc) perfectamente cuadrada"
-          >
-            {downloadingWord ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <FileDown className="w-3.5 h-3.5" />}
-            Descargar Carta 2 (Word)
-          </button>
-
-          {/* CARTA 1 DOWNLOADS */}
+          {/* CARTA CORTA DOWNLOADS */}
           <button
             onClick={async () => {
               try {
@@ -278,11 +253,11 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
               }
             }}
             disabled={downloadingPdf}
-            className="px-3 py-1.5 bg-teal-800 hover:bg-teal-700 text-teal-100 border border-teal-600 font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
-            title="Descargar Carta 1 (Extendida) en PDF (.pdf)"
+            className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+            title="Descargar Carta Corta (1 Página) en PDF (.pdf)"
           >
-            <Download className="w-3.5 h-3.5" />
-            Descargar Carta 1 (PDF)
+            {downloadingPdf ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+            Descargar Carta Corta (PDF)
           </button>
 
           <button
@@ -297,11 +272,50 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
               }
             }}
             disabled={downloadingWord}
+            className="px-3.5 py-1.5 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+            title="Descargar Carta Corta (1 Página) en Word (.docx/.doc)"
+          >
+            {downloadingWord ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <FileDown className="w-3.5 h-3.5" />}
+            Descargar Carta Corta (Word)
+          </button>
+
+          {/* CARTA 2 EXPLICATIVA DOWNLOADS */}
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingPdf(true);
+                await exportCarta2Pdf(company, currentRate);
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingPdf(false);
+              }
+            }}
+            disabled={downloadingPdf}
+            className="px-3 py-1.5 bg-teal-800 hover:bg-teal-700 text-teal-100 border border-teal-600 font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+            title="Descargar Carta 2 Explicativa Larga con Cuadros en PDF (.pdf)"
+          >
+            <Download className="w-3.5 h-3.5" />
+            Descargar Carta 2 Exhaustiva (PDF)
+          </button>
+
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingWord(true);
+                await exportCarta2Word(company, currentRate);
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingWord(false);
+              }
+            }}
+            disabled={downloadingWord}
             className="px-3 py-1.5 bg-indigo-800 hover:bg-indigo-700 text-indigo-100 border border-indigo-600 font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
-            title="Descargar Carta 1 (Extendida) en Word (.docx/.doc)"
+            title="Descargar Carta 2 Explicativa Larga con Cuadros en Word (.docx/.doc)"
           >
             <FileDown className="w-3.5 h-3.5" />
-            Descargar Carta 1 (Word)
+            Descargar Carta 2 Exhaustiva (Word)
           </button>
 
           {/* EXPEDIENTE COMPLETO */}
@@ -456,14 +470,25 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
           </p>
         </div>
 
-        {/* Signature Block */}
-        <div className="mt-6 pt-3 border-t border-stone-300 text-center">
-          <div className="max-w-xs mx-auto">
-            <p className="text-[9.5px] text-stone-600 mb-6">Atentamente,</p>
-            <div className="border-t-2 border-stone-900 pt-1.5">
-              <p className="font-bold text-stone-950 text-[11px] m-0">{company.legalRepresentative}</p>
-              <p className="text-[9.5px] text-stone-600 m-0">C.I.: {company.idNumber} &middot; Presidente / Propietario</p>
-              <p className="text-[9.5px] font-bold text-emerald-800 m-0">{company.name} &middot; RIF: {company.rif}</p>
+        {/* Signature Block - President and Accountant CPC */}
+        <div className="mt-5 pt-3 border-t border-stone-300">
+          <div className="grid grid-cols-2 gap-4 text-center">
+            <div>
+              <p className="text-[9px] text-stone-600 mb-4">Atentamente,</p>
+              <div className="border-t-2 border-stone-900 pt-1">
+                <p className="font-bold text-stone-950 text-[10.5px] m-0">{company.legalRepresentative}</p>
+                <p className="text-[9px] text-stone-600 m-0">C.I.: {company.idNumber} &middot; Presidente / Propietario</p>
+                <p className="text-[9px] font-bold text-emerald-800 m-0">{company.name} &middot; RIF: {company.rif}</p>
+              </div>
+            </div>
+
+            <div>
+              <p className="text-[9px] text-stone-600 mb-4">Certificado por:</p>
+              <div className="border-t-2 border-stone-900 pt-1">
+                <p className="font-bold text-stone-950 text-[10.5px] m-0">LICDO. OMAR PÉREZ CASTILLO</p>
+                <p className="text-[9px] text-stone-600 m-0">Contador Público Colegiado (C.P.C. N° 16336)</p>
+                <p className="text-[9px] font-bold text-emerald-800 m-0">Contador Público Colegiado (VEN-NIF)</p>
+              </div>
             </div>
           </div>
         </div>

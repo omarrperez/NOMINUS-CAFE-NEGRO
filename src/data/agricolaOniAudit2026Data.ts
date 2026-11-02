@@ -214,7 +214,7 @@ export interface NaturalPersonEntry {
 export const BANESCO_NATURAL_PERSONS_BREAKDOWN_2026: NaturalPersonEntry[] = [
   {
     id: 'NAT-001',
-    nameOrEntity: 'Accionista Propietario Ing. Omar Pérez (Aportes Socios)',
+    nameOrEntity: 'Accionista Propietario Elias Rafael Trías Abreu (Aportes Socios)',
     idNumber: 'V-14892301',
     operationsCount: 21,
     totalAmountVES: 7649975.00,
@@ -241,16 +241,18 @@ export const BANESCO_NATURAL_PERSONS_BREAKDOWN_2026: NaturalPersonEntry[] = [
 ];
 
 // =========================================================================
-// 3. TRANSFERENCIAS ENTRE CUENTAS INTERNAS DE AGRÍCOLA ONI C.A. (BS. 153.210.000)
+// 3. TRANSFERENCIAS ENTRE CUENTAS INTERNAS DE AGRÍCOLA ONI C.A. (BS. 208.708.057,73)
 // =========================================================================
 export interface InternalTransferItem {
   id: string;
+  month?: string;
   date: string;
   direction: 'ENTRADA' | 'SALIDA';
   counterpartBank: string;
   accountNumberMask: string;
   amountVES: number;
   countervalueUSD: number;
+  bcvRate?: number;
   reference: string;
   purpose: string;
 }
@@ -261,75 +263,100 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
   netImpactVES: number;
   items: InternalTransferItem[];
 } = {
-  totalInflowVES: 153210000.00,
-  totalOutflowVES: 153210000.00,
+  totalInflowVES: 208708057.73,
+  totalOutflowVES: 208708057.73,
   netImpactVES: 0.00,
   items: [
     {
       id: 'TI-IN-01',
-      date: '15/02/2026',
+      month: 'ENERO 2026',
+      date: '31/01/2026',
       direction: 'ENTRADA',
-      counterpartBank: 'Banco Provincial (0108)',
-      accountNumberMask: '0108-0192-**-****0412',
-      amountVES: 48500000.00,
-      countervalueUSD: 119890.00,
-      reference: 'TI-PROV-IN-001',
-      purpose: 'Concentración de fondos en Banesco para compra de divisas destinadas a insumos y maquinaria en Venezuela.'
+      counterpartBank: 'Banco Mercantil (0105)',
+      accountNumberMask: '0105-0044-**-****8821',
+      amountVES: 1110000.00,
+      countervalueUSD: 2997.97,
+      bcvRate: 370.25,
+      reference: 'Ref. #00093845477 / TI-MERC-01',
+      purpose: 'Transferencia interna de tesorería desde Banco Mercantil (Enero 2026).'
     },
     {
       id: 'TI-IN-02',
-      date: '28/04/2026',
+      month: 'FEBRERO 2026',
+      date: '28/02/2026',
       direction: 'ENTRADA',
-      counterpartBank: 'Banco Mercantil (0105)',
-      accountNumberMask: '0105-0044-**-****8821',
-      amountVES: 52410000.00,
-      countervalueUSD: 107050.00,
-      reference: 'TI-MERC-IN-002',
-      purpose: 'Traslado de fondos operativos propios desde cuenta recaudadora Mercantil.'
+      counterpartBank: 'Banco Mercantil (0105) / Banco Provincial (0108)',
+      accountNumberMask: '0105-0044-**-****8821 / 0108-0192-**-****0412',
+      amountVES: 720000.00,
+      countervalueUSD: 1714.33,
+      bcvRate: 419.99,
+      reference: 'TI-MERC-PROV-02',
+      purpose: 'Transferencia interna de tesorería desde Mercantil / Provincial (Febrero 2026).'
     },
     {
       id: 'TI-IN-03',
-      date: '10/06/2026',
+      month: 'MARZO 2026',
+      date: '31/03/2026',
       direction: 'ENTRADA',
-      counterpartBank: 'Banco Plaza (0138)',
-      accountNumberMask: '0138-0012-**-****7741',
-      amountVES: 34300000.00,
-      countervalueUSD: 54150.00,
-      reference: 'TI-PLAZ-IN-003',
-      purpose: 'Fondeo para cobertura de débitos de nómina y pago móvil rural.'
+      counterpartBank: 'Banco Mercantil (0105) / Banco Provincial (0108)',
+      accountNumberMask: '0105-0044-**-****8821 / 0108-0192-**-****0412',
+      amountVES: 1032830.57,
+      countervalueUSD: 2179.34,
+      bcvRate: 473.92,
+      reference: 'Ref. #00041240208 / TI-MERC-PROV-03',
+      purpose: 'Transferencia interna de tesorería desde Mercantil / Provincial (Marzo 2026).'
     },
     {
       id: 'TI-IN-04',
-      date: '20/07/2026',
+      month: 'ABRIL 2026',
+      date: '30/04/2026',
       direction: 'ENTRADA',
-      counterpartBank: 'Bancamiga (0172)',
-      accountNumberMask: '0172-0110-**-****5520',
-      amountVES: 18000000.00,
-      countervalueUSD: 24035.00,
-      reference: 'TI-MIGA-IN-004',
-      purpose: 'Transferencia de tesorería interna para complementar pacto de divisas.'
+      counterpartBank: 'Banco Mercantil (0105) / Banco Provincial (0108)',
+      accountNumberMask: '0105-0044-**-****8821 / 0108-0192-**-****0412',
+      amountVES: 1881224.96,
+      countervalueUSD: 3842.76,
+      bcvRate: 489.55,
+      reference: 'TI-MERC-PROV-04',
+      purpose: 'Transferencia interna de tesorería desde Mercantil / Provincial (Abril 2026).'
     },
     {
-      id: 'TI-OUT-01',
-      date: '18/05/2026',
-      direction: 'SALIDA',
-      counterpartBank: 'Banco Mercantil (0105)',
-      accountNumberMask: '0105-0044-**-****8821',
-      amountVES: 85210000.00,
-      countervalueUSD: 153680.00,
-      reference: 'TI-MERC-OUT-001',
-      purpose: 'Movilización a cuenta propia Mercantil para emisión de cheques de gerencia.'
+      id: 'TI-IN-05',
+      month: 'JUNIO 2026',
+      date: '30/06/2026',
+      direction: 'ENTRADA',
+      counterpartBank: 'Banco Plaza (0138) / Bancamiga (0172)',
+      accountNumberMask: '0138-0012-**-****7741 / 0172-0110-**-****5520',
+      amountVES: 73390000.01,
+      countervalueUSD: 115874.12,
+      bcvRate: 633.36,
+      reference: 'SGBLTR 0138 #00003344419 / TI-PLAZ-MIGA-05',
+      purpose: 'Transferencia interna de tesorería desde Banco Plaza / Bancamiga (Junio 2026).'
     },
     {
-      id: 'TI-OUT-02',
-      date: '15/08/2026',
-      direction: 'SALIDA',
-      counterpartBank: 'Banco Plaza (0138)',
-      accountNumberMask: '0138-0012-**-****7741',
-      amountVES: 68000000.00,
-      countervalueUSD: 85180.00,
-      reference: 'TI-PLAZ-OUT-002',
-      purpose: 'Transferencia a cuenta recaudadora Plaza para liquidación de compromisos agrícolas.'
+      id: 'TI-IN-06',
+      month: 'JULIO 2026',
+      date: '31/07/2026',
+      direction: 'ENTRADA',
+      counterpartBank: 'Banco Mercantil (0105) / Banco Plaza (0138)',
+      accountNumberMask: '0105-0044-**-****8821 / 0138-0012-**-****7741',
+      amountVES: 47240540.00,
+      countervalueUSD: 63089.18,
+      bcvRate: 748.79,
+      reference: 'TI-MERC-PLAZ-06',
+      purpose: 'Transferencia interna de tesorería desde Mercantil / Banco Plaza (Julio 2026).'
+    },
+    {
+      id: 'TI-IN-07',
+      month: 'AGOSTO 2026',
+      date: '31/08/2026',
+      direction: 'ENTRADA',
+      counterpartBank: 'Banco Mercantil (0105) / Banco Plaza (0138)',
+      accountNumberMask: '0105-0044-**-****8821 / 0138-0012-**-****7741',
+      amountVES: 83333462.19,
+      countervalueUSD: 104384.75,
+      bcvRate: 798.33,
+      reference: 'TI-MERC-PLAZ-07',
+      purpose: 'Transferencia interna de tesorería desde Mercantil / Banco Plaza (Agosto 2026).'
     }
   ]
 };
@@ -827,8 +854,8 @@ export const BANESCO_RECONCILIATION_2026: BankReconciliation = {
   bookBalance: 9936991.40,
   adjustedBookBalance: 9936991.40,
   difference: 0.00,
-  auditedBy: 'Licdo. Omar Pérez Castillo',
-  cpcAuditor: 'Contador Público Independiente, Ven-Nif (C.P.C. 16.336)'
+  auditedBy: 'Licdo. Omar Pérez (C.P.C. 16336)',
+  cpcAuditor: 'Contador Público Colegiado, Ven-Nif (C.P.C. 16336)'
 };
 
 export const BANESCO_AUDIT_POINTS = [
@@ -857,7 +884,7 @@ export const BANESCO_AUDIT_POINTS = [
     id: 4,
     title: 'Clasificación y Sustento de Personas Naturales (Cuentas Socios y Anticipos Clientes)',
     request: 'Revisión y reclasificación contable-bancaria de operaciones con personas naturales.',
-    response: '1) Accionista Propietario / Director (Ing. Omar Pérez C.I. V-14.892.301): Todos los ingresos de dinero recibidos en Banesco procedentes de sus cuentas personales se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e inyecciones de liquidez a la empresa) y todas las salidas de Banesco hacia sus cuentas personales como CUENTAS POR COBRAR SOCIOS (préstamos o adelantos de la empresa al socio). 2) Personas Naturales identificadas en extracto bancario Banesco: Justificados y clasificados como ANTICIPOS EN BOLÍVARES DE CLIENTES PERSONAS NATURALES para reserva de quintales de café verde de origen nacional valorados a tasa oficial BCV, respetando la descripción original emitida por Banesco.',
+    response: '1) Accionista Propietario / Director (Elias Rafael Trías Abreu C.I. V-23.997.829): Todos los ingresos de dinero recibidos en Banesco procedentes de sus cuentas personales se clasifican como CUENTAS POR PAGAR SOCIOS (aportes e inyecciones de liquidez a la empresa) y todas las salidas de Banesco hacia sus cuentas personales como CUENTAS POR COBRAR SOCIOS (préstamos o adelantos de la empresa al socio). 2) Personas Naturales identificadas en extracto bancario Banesco: Justificados y clasificados como ANTICIPOS EN BOLÍVARES DE CLIENTES PERSONAS NATURALES para reserva de quintales de café verde de origen nacional valorados a tasa oficial BCV, respetando la descripción original emitida por Banesco.',
     status: 'CONFORME_DOCUMENTADO'
   },
   {

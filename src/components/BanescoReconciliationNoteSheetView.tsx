@@ -190,7 +190,7 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
         },
         signers: [
           { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario', idNumber: 'C.I. V-23.997.829' },
-          { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. N° 16.336' }
+          { name: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. N° 16336' }
         ]
       });
     } catch (err) {
@@ -652,11 +652,11 @@ export const BanescoReconciliationNoteSheetView: React.FC<Props> = ({
               {/* Signer 2: Certified Public Accountant */}
               <div className="flex flex-col items-center">
                 <div className="w-48 border-b-2 border-slate-900 mb-2 pb-1 text-center font-serif text-xs italic font-bold">
-                  Licdo. Omar Pérez Castillo
+                  Lic. Omar Pérez Castillo (C.P.C. N° 16336)
                 </div>
                 <p className="font-bold text-slate-900 text-xs">LICDO. OMAR PÉREZ CASTILLO</p>
                 <p className="text-[11px] text-slate-700">Contador Público Independiente, Ven-Nif</p>
-                <p className="text-[10px] text-slate-600 font-mono">C.P.C. N° 16.336</p>
+                <p className="text-[10px] text-slate-600 font-mono">C.P.C. N° 16336</p>
                 <p className="text-[10px] text-emerald-800 font-bold mt-1 flex items-center gap-1">
                   <Stamp className="w-3 h-3" /> SELLO C.P.C. VENEZUELA
                 </p>

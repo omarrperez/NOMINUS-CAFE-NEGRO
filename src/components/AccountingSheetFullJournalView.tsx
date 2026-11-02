@@ -229,7 +229,7 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
       addressee: [
         'A LA JUNTA DIRECTIVA Y DIRECCIÓN FINANCIERA',
         'AGRÍCOLA ONI, C.A.',
-        'Atención: Dpto. de Contabilidad y Auditoría Externa'
+        'Atención: Dpto. de Contabilidad y Contabilidad Independiente'
       ],
       highlightBox:
         'NOTA AUDITORÍA: Todos los asientos presentados en esta Hoja de Contabilidad cuentan con soporte documental auditado (Extractos Banesco, Planillas Mesa de Cambio, Contratos Mutuos con Intereses, Anticipos de Clientes e Facturación diferida Octubre 2026 bajo NIIF 15). Se certifica la exactitud del saldo registrado en el Estado de Resultados por Bs. 13.924.047,66 por concepto de Intereses Devengados del Contrato Manuel Becerra.',
@@ -251,7 +251,7 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
       },
       signers: [
         { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario', idNumber: 'V-14.892.301' },
-        { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. 16.336' }
+        { name: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. N° 16336' }
       ]
     });
   };
@@ -358,8 +358,8 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
           </div>
           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-300">
             <div className="text-slate-500 text-[10px] uppercase font-bold">Contador Certificador</div>
-            <div className="text-base font-black text-slate-900">Licdo. Omar Pérez Castillo</div>
-            <div className="text-[10px] text-slate-700 font-bold">Contador Público Independiente, Ven-Nif (C.P.C. 16.336)</div>
+            <div className="text-base font-black text-slate-900">Lic. Omar Pérez Castillo (C.P.C. N° 16336)</div>
+            <div className="text-[10px] text-slate-700 font-bold">Contador Público Independiente, Ven-Nif (C.P.C. N° 16336)</div>
           </div>
         </div>
       </div>
@@ -908,11 +908,11 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
 
           <div className="space-y-4 text-slate-800 text-sm leading-relaxed text-justify">
             <p>
-              Quien suscribe, <strong>Licdo. Omar Pérez Castillo</strong>, Contador Público Independiente (VEN-NIF) bajo el N° <strong>C.P.C. 16.336</strong>, hace constar que ha examinado minuciosamente el Libro Diario, el Balance de Comprobación y los Comprobantes de Diario de la entidad <strong>AGRÍCOLA ONI, C.A.</strong> correspondientes al período fiscal de ocho (8) meses comprendido entre el 01 de enero de 2026 y el 31 de agosto de 2026.
+              Quien suscribe, <strong>Lic. Omar Pérez Castillo (C.P.C. N° 16336)</strong>, Contador Público Independiente (VEN-NIF) bajo el N° <strong>C.P.C. N° 16336</strong>, hace constar que ha examinado minuciosamente el Libro Diario, el Balance de Comprobación y los Comprobantes de Diario de la entidad <strong>AGRÍCOLA ONI, C.A.</strong> correspondientes al período fiscal de ocho (8) meses comprendido entre el 01 de enero de 2026 y el 31 de agosto de 2026.
             </p>
 
             <div className="bg-slate-50 p-4 rounded-lg border-l-4 border-slate-900 text-xs font-sans space-y-2">
-              <div className="font-bold text-slate-900 uppercase">Dictamen de Auditoría y Verificación:</div>
+              <div className="font-bold text-slate-900 uppercase">Certificación Contable y Verificación:</div>
               <ul className="list-disc pl-5 space-y-1 text-slate-700">
                 <li>
                   <strong>Intereses Devengados Contrato Manuel Becerra:</strong> Se confirma el registro en el Estado de Resultados al 31/08/2026 de la cantidad de <strong>Bs. 13.924.047,66 VES</strong> (USD $17.514,75) respaldado en la cláusula de intereses del Contrato Mutuo firmado entre la empresa y el Sr. Manuel Becerra.
@@ -934,13 +934,13 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
           <div className="pt-12 grid grid-cols-2 gap-8 text-center font-sans text-xs">
             <div className="border-t border-slate-300 pt-3">
               <div className="font-bold text-slate-900">Elias Rafael Trías Abreu</div>
-              <div className="text-slate-600">Presidente / Propietario &middot; C.I. V-14.892.301</div>
+              <div className="text-slate-600">Presidente / Propietario &middot; C.I. V-23.997.829</div>
               <div className="text-slate-500">{company.name}</div>
             </div>
             <div className="border-t border-slate-300 pt-3">
-              <div className="font-bold text-slate-900">Licdo. Omar Pérez Castillo</div>
+              <div className="font-bold text-slate-900">Lic. Omar Pérez Castillo (C.P.C. N° 16336)</div>
               <div className="text-slate-600">Contador Público Independiente, Ven-Nif</div>
-              <div className="text-slate-900 font-bold font-mono">C.P.C. N° 16.336</div>
+              <div className="text-slate-900 font-bold font-mono">C.P.C. N° 16336</div>
             </div>
           </div>
         </div>

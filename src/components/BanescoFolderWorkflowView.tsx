@@ -915,7 +915,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
                 <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs space-y-2">
                   <div className="flex items-center gap-2 text-emerald-800 font-bold text-xs">
                     <ShieldCheck className="w-4 h-4" />
-                    <span>3. Dictamen de Auditoría Fiscal SENIAT/SUDEBAN</span>
+                    <span>3. Certificación Contable Fiscal SENIAT/SUDEBAN</span>
                   </div>
                   <p className="text-[11px] text-slate-600 leading-relaxed">
                     Dictamen formal emitido por Contador Público Colegiado indicando el estricto cumplimiento tributario del ISLR e IGTF, y la no existencia de ventas devengadas sin facturar.
@@ -1310,7 +1310,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
             />
             <div>
               <span className="font-bold block">1. Carta Respuesta Explicativa Firmada</span>
-              <span className="text-[10px] text-slate-400">Firmas Elias Rafael Trías Abreu y Licdo. Omar Pérez Castillo (C.P.C.)</span>
+              <span className="text-[10px] text-slate-400">Firmas Elias Rafael Trías Abreu y Lic. Omar Pérez Castillo (C.P.C. N° 16336)</span>
             </div>
           </label>
 
@@ -1340,7 +1340,7 @@ Documento generado por el Sistema Integral de Control Contable SIEVEX 2026
             />
             <div>
               <span className="font-bold block">3. Dictamen Auditor de Cumplimiento CPC</span>
-              <span className="text-[10px] text-slate-400">Sello de Actuación Profesional Licdo. Omar Pérez Castillo (C.P.C. 16.336)</span>
+              <span className="text-[10px] text-slate-400">Firma y Sello Lic. Omar Pérez Castillo (C.P.C. N° 16336)</span>
             </div>
           </label>
 

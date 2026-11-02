@@ -198,7 +198,7 @@ export const BCV_RATES_HISTORY: BcvRateItem[] = [
   { date: '20/02/2026', bidUsd: 404.338421, askUsd: 405.351800, rateUsd: 405.351800, rateEur: 433.726426, variationPct: 0.75, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
   { date: '19/02/2026', bidUsd: 401.328464, askUsd: 402.334300, rateUsd: 402.334300, rateEur: 430.497701, variationPct: 0.90, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
   { date: '18/02/2026', bidUsd: 397.748736, askUsd: 398.745600, rateUsd: 398.745600, rateEur: 426.657792, variationPct: 0.60, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
-  { date: '13/02/2026', bidUsd: 395.376482, askUsd: 396.367400, rateUsd: 396.367400, rateEur: 424.113118, variationPct: 0.80, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
+  { date: '13/02/2026', bidUsd: 395.376482, askUsd: 396.367400, rateUsd: 396.367400, rateEur: 416336118, variationPct: 0.80, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
   { date: '12/02/2026', bidUsd: 392.238546, askUsd: 393.221600, rateUsd: 393.221600, rateEur: 420.747112, variationPct: 0.75, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
   { date: '11/02/2026', bidUsd: 389.318664, askUsd: 390.294400, rateUsd: 390.294400, rateEur: 417.615008, variationPct: 0.66, source: 'Banco Central de Venezuela / Mesa Cambiaria' },
   { date: '10/02/2026', bidUsd: 387.767552, askUsd: 388.739400, rateUsd: 388.739400, rateEur: 415.951158, variationPct: 0.90, source: 'Banco Central de Venezuela / Mesa Cambiaria' },

@@ -26,7 +26,17 @@ import {
   MANUEL_BECERRA_SUMMARY_2026,
   TRIAL_BALANCE_AUGUST_2026
 } from '../data/financialStatementsData';
-import { exportFinancialStatementsDualXlsx, exportFinancialStatementsDualPdf, exportToPdfPrint, downloadNativeDocx } from '../utils/exportUtils';
+import {
+  exportFinancialStatementsDualXlsx,
+  exportFinancialStatementsDualPdf,
+  exportToPdfPrint,
+  downloadNativeDocx,
+  exportShareholderPayablesExcel,
+  exportCustomerAdvancesOfficialExcel,
+  exportReconciliationReportBanescoExcel
+} from '../utils/exportUtils';
+
+import { useAppData } from '../context/AppDataContext';
 
 interface Props {
   company: CompanyProfile;
@@ -35,6 +45,7 @@ interface Props {
 }
 
 export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ company, currentRate, onNavigateToBecerraSuite }) => {
+  const { vouchers, bankMovements } = useAppData();
   const [activeTab, setActiveTab] = useState<'BALANCE' | 'INCOME' | 'TRIAL_BALANCE' | 'NOTES' | 'BANESCO_SUMMARY'>('BALANCE');
   const [copiedNote, setCopiedNote] = useState<number | null>(null);
   const [tbSearch, setTbSearch] = useState<string>('');
@@ -202,6 +213,8 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         netIncomeUSD: netIncomeUSD
       },
       trialBalanceData: TRIAL_BALANCE_AUGUST_2026,
+      vouchers,
+      bankMovements,
       notes: notesList
     });
   };
@@ -300,10 +313,22 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       ],
       highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD promedio responde a Anticipos de Clientes para Compra e Intermediación de Café en Venezuela bajo NIIF 15 a Tasa Oficial BCV (78,4% / Bs. 1.542.017.092,63), los cuales constituyen Pasivo Corriente a ser sustituidos por facturas de venta en octubre de 2026 y no ventas gravables anticipadas.`,
       signers: [
-        { name: 'Elias Rafael Trías Abreu', title: 'Presidente / Propietario' },
-        { name: 'Licdo. Omar Pérez Castillo', title: 'Contador Público Independiente, Ven-Nif', idNumber: 'C.P.C. 16.336' }
+        { name: 'Elias Rafael Trías Abreu', title: 'Presidente y Único Accionista' },
+        { name: 'Lic. Omar Pérez Castillo', title: 'Contador Público Colegiado, VEN-NIF', idNumber: 'C.P.C. N° 16336' }
       ]
     });
+  };
+
+  const handleExportShareholderPayables = async () => {
+    await exportShareholderPayablesExcel(company.name, company.rif);
+  };
+
+  const handleExportCustomerAdvances = async () => {
+    await exportCustomerAdvancesOfficialExcel([], { name: company.name, rif: company.rif } as any);
+  };
+
+  const handleExportReconciliationReport = async () => {
+    await exportReconciliationReportBanescoExcel(company.name, company.rif);
   };
 
   const handleCopyTextNote = (text: string, idx: number) => {
@@ -342,25 +367,52 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
           <div className="flex flex-wrap items-center gap-2 no-print">
             <button
               onClick={handleExportExcel}
-              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-4 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
+              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
               title="Descargar libro Excel oficial (.xlsx) con fondo blanco y formato profesional"
             >
-              <FileSpreadsheet className="w-4 h-4 text-black" />
-              <span>Descargar Excel (.xlsx)</span>
+              <FileSpreadsheet className="w-4 h-4 text-emerald-700" />
+              <span>Descargar EEFF Excel (.xlsx)</span>
+            </button>
+
+            <button
+              onClick={handleExportReconciliationReport}
+              className="bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-amber-300"
+              title="Descargar reporte de conciliación integral de anticipos vs saldos bancarios Banesco (.xlsx)"
+            >
+              <FileSpreadsheet className="w-4 h-4 text-amber-700" />
+              <span>Excel Conciliación Anticipos-Bancos</span>
+            </button>
+
+            <button
+              onClick={handleExportShareholderPayables}
+              className="bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-emerald-300"
+              title="Descargar tabla Excel de Cuentas por Pagar Socios (Bs. 301,05M)"
+            >
+              <FileSpreadsheet className="w-4 h-4 text-emerald-800" />
+              <span>Excel Cuentas Pagar Socios (301M)</span>
+            </button>
+
+            <button
+              onClick={handleExportCustomerAdvances}
+              className="bg-blue-50 hover:bg-blue-100 text-blue-900 font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-blue-300"
+              title="Descargar tabla Excel oficial de Anticipos de Clientes (Bs. 1.542M)"
+            >
+              <FileSpreadsheet className="w-4 h-4 text-blue-800" />
+              <span>Excel Anticipos Clientes (1.542M)</span>
             </button>
 
             <button
               onClick={handleExportPdf}
-              className="bg-black hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-black"
+              className="bg-black hover:bg-slate-800 text-white font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-black"
               title="Descargar archivo PDF oficial (.pdf) directo"
             >
               <Download className="w-4 h-4 text-white" />
-              <span>Descargar PDF (.pdf)</span>
+              <span>Descargar PDF</span>
             </button>
 
             <button
               onClick={exportToPdfPrint}
-              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
+              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
               title="Imprimir documento físico (Ctrl+P)"
             >
               <Printer className="w-4 h-4 text-black" />
@@ -369,11 +421,11 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
 
             <button
               onClick={handleExportWord}
-              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
+              className="bg-white hover:bg-slate-100 text-black font-bold text-xs px-3 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-slate-300"
               title="Descargar informe en Microsoft Word (.docx)"
             >
               <FileText className="w-4 h-4 text-black" />
-              <span>Exportar Word</span>
+              <span>Word</span>
             </button>
           </div>
         </div>
@@ -729,7 +781,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                   <tr>
                     <td className="py-2 px-3 border border-slate-200 font-mono text-center text-slate-600">2.1.03</td>
                     <td className="py-2 px-3 border border-slate-200 font-medium">
-                      Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 / Omar Pérez)
+                      Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 )
                     </td>
                     <td className="py-2 px-3 border border-slate-200 text-right font-mono font-bold text-slate-900">
                       {bs.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
@@ -1260,9 +1312,9 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                 </div>
                 <div>
                   <div className="border-b border-slate-400 mb-2 pb-8"></div>
-                  <p className="font-bold text-slate-900">Licdo. Omar Pérez Castillo</p>
+                  <p className="font-bold text-slate-900">Lic. Omar Pérez Castillo (C.P.C. N° 16336)</p>
                   <p className="text-slate-600 text-[11px] font-semibold">Contador Público Independiente, Ven-Nif</p>
-                  <p className="text-slate-500 text-[10px] font-mono">C.P.C. N° 16.336</p>
+                  <p className="text-slate-500 text-[10px] font-mono">C.P.C. N° 16336</p>
                 </div>
               </div>
             </div>
@@ -1415,9 +1467,9 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
 
             <div>
               <div className="border-b border-slate-400 w-3/4 mx-auto mb-2"></div>
-              <p className="text-sm font-bold text-slate-900">Licdo. Omar Pérez Castillo</p>
+              <p className="text-sm font-bold text-slate-900">Lic. Omar Pérez Castillo (C.P.C. N° 16336)</p>
               <p className="text-xs text-slate-600 font-semibold">Contador Público Independiente, Ven-Nif</p>
-              <p className="text-xs text-slate-500 font-mono mt-0.5">C.P.C. N° 16.336</p>
+              <p className="text-xs text-slate-500 font-mono mt-0.5">C.P.C. N° 16336</p>
             </div>
           </div>
         </div>

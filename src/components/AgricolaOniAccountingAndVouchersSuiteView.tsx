@@ -81,7 +81,7 @@ export const AgricolaOniAccountingAndVouchersSuiteView: React.FC<Props> = ({ com
       documentRef: documentRef || 'Soporte Interno',
       bankAccountRef: bankRef || company.banescoAccountVES,
       approvedBy: company.legalRepresentative,
-      reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+      reviewedBy: 'Licdo. Omar Pérez (C.P.C. 16336)',
       preparedBy: 'Administración Contable',
       status: 'CONFIRMADO',
       lines: [
@@ -405,7 +405,7 @@ export const AgricolaOniAccountingAndVouchersSuiteView: React.FC<Props> = ({ com
             {/* Accounting Signature Footnote */}
             <div className="p-4 bg-stone-950 border-t border-stone-800 flex flex-col sm:flex-row justify-between items-center text-xs text-stone-400 gap-2">
               <div>
-                <span>Auditor Responsable: </span>
+                <span>Contador Público Responsable: </span>
                 <strong className="text-stone-200">{TRIAL_BALANCE_SUMMARY.auditor}</strong>
               </div>
               <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">

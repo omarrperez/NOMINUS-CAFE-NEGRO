@@ -25,7 +25,7 @@ export const COFFEE_COST_STRUCTURE_2026: CoffeeYieldMetric[] = [];
 
 export const EXECUTIVE_RESEARCH_SUMMARY = {
   title: 'INFORME EJECUTIVO DE INTELIGENCIA CONTABLE, AUDITORÍA BANESCO Y VIABILIDAD OPERATIVA 2026',
-  author: 'Gerencia de Administración y Finanzas & Auditoría Externa Agrícola Oni C.A.',
+  author: 'Gerencia de Administración y Finanzas & Contabilidad Agrícola Oni C.A.',
   period: 'Enero - Agosto 2026',
   executiveVerdict: 'SISTEMA 100% AUDITADO CON INFORMACIÓN REAL',
   keyHighlights: [

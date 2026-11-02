@@ -18,7 +18,7 @@ import {
   FileDown,
   Download
 } from 'lucide-react';
-import { exportToWord, exportToCsv, exportToPdfPrint, exportHtmlToPdf } from '../utils/exportUtils';
+import { exportToWord, exportToCsv, exportToPdfPrint, exportHtmlToPdf, exportCustomerAdvancesOfficialExcel } from '../utils/exportUtils';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import {
   useAppData,
@@ -169,7 +169,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
         documentRef: advBankRef,
         bankAccountRef: company.banescoAccountVES,
         approvedBy: company.legalRepresentative,
-        reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+        reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
         preparedBy: 'Administración Contable',
         status: 'CONFIRMADO',
         lines: [
@@ -260,7 +260,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       documentRef: fxRef || fxNumber,
       bankAccountRef: company.banescoAccountVES,
       approvedBy: company.legalRepresentative,
-      reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+      reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
       preparedBy: 'Administración Contable',
       status: 'CONFIRMADO',
       lines: [
@@ -360,7 +360,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       rifThirdParty: invRif,
       documentRef: invNumber,
       approvedBy: company.legalRepresentative,
-      reviewedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16.336)',
+      reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
       preparedBy: 'Administración Contable',
       status: 'CONFIRMADO',
       lines: [
@@ -505,26 +505,12 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
             Word (.doc)
           </button>
           <button
-            onClick={() => {
-              const headers = ['Anticipo_Nro', 'Fecha', 'Cliente', 'RIF', 'Volumen_Qtl', 'Monto_Bs', 'Monto_USD', 'Ref_Bancaria', 'Estado'];
-              const rows = customerAdvances.map(a => [
-                a.advanceNumber,
-                a.date,
-                a.clientName,
-                a.clientRif,
-                a.coffeeVolumeTargetQtl,
-                a.amountVES,
-                a.countervalueUSD,
-                a.bankReference,
-                a.status
-              ]);
-              exportToCsv('Anticipos_Clientes_Procura_Cafe.csv', headers, rows);
-            }}
-            className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-semibold transition-colors flex items-center gap-1.5 shadow"
-            title="Exportar anticipos a Excel (CSV)"
+            onClick={() => exportCustomerAdvancesOfficialExcel(customerAdvances, company)}
+            className="px-3.5 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-white rounded text-xs font-bold transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+            title="Descargar Hoja Oficial Excel Banesco de Anticipos (.xlsx)"
           >
-            <FileSpreadsheet className="w-3.5 h-3.5" />
-            Excel (CSV)
+            <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-200" />
+            <span>Excel Banesco (.xlsx)</span>
           </button>
           <button
             onClick={async () => {
@@ -694,22 +680,61 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
       {/* TAB 1: CUSTOMER SALES ADVANCES */}
       {activeTab === 'ADVANCES' && (
         <div className="space-y-4">
+          {/* BANESCO EXCEL DESCARGA OFICIAL BANNER */}
+          <div className="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 border-2 border-emerald-500/80 rounded-xl p-4 sm:p-5 shadow-md text-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="bg-emerald-400 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded uppercase tracking-wider">
+                  HOJA BANESCO EXCEL AUDITADA
+                </span>
+                <span className="text-xs text-emerald-300 font-mono font-bold">
+                  NIIF 15 / PASIVO CORRIENTE
+                </span>
+              </div>
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <span>Relación de Anticipos en Bolívares para Procura de Café Nacional</span>
+              </h3>
+              <p className="text-xs text-emerald-100/90 leading-relaxed max-w-3xl">
+                Reconciliación bancaria Banesco Cta. N° 0134-0342-18-3421089912. Total exacto en Bolívares: <strong className="text-amber-300 font-mono font-bold text-sm">Bs. 1.542.017.092,63</strong> (<strong className="text-white font-mono text-xs">$2.270.486,23 USD</strong> a Tasa Oficial BCV).
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                onClick={() => exportCustomerAdvancesOfficialExcel(customerAdvances, company)}
+                className="px-4 py-2.5 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-black rounded-lg text-xs transition-all flex items-center gap-2 shadow-lg cursor-pointer ring-2 ring-emerald-200"
+              >
+                <FileSpreadsheet className="w-4 h-4 text-slate-950" />
+                <span>📊 DESCARGAR TABLA EN EXCEL (.XLSX)</span>
+              </button>
+            </div>
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
             <div>
               <h3 className="text-sm font-bold text-slate-900">
-                Registro de Anticipos en Ventas Recibidos de Clientes
+                Registro de Anticipos en Ventas Recibidos de Clientes (Contratos Marco)
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
                 Los clientes transfieren bolívares a Banesco como anticipo para asegurar la compra y acopio de café en Venezuela a tasa oficial BCV.
               </p>
             </div>
-            <button
-              onClick={() => setShowAdvanceModal(true)}
-              className="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              Registrar Anticipo de Cliente
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => exportCustomerAdvancesOfficialExcel(customerAdvances, company)}
+                className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+              >
+                <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-200" />
+                <span>Descargar Excel</span>
+              </button>
+              <button
+                onClick={() => setShowAdvanceModal(true)}
+                className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-stone-950 font-bold rounded text-xs transition-colors flex items-center gap-1.5 shadow cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>+ Nuevo Anticipo</span>
+              </button>
+            </div>
           </div>
 
           {customerAdvances.length === 0 ? (
@@ -728,15 +753,16 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                 <table className="w-full text-xs text-left text-stone-300 font-mono-num">
                   <thead className="bg-stone-950 text-stone-400 uppercase text-[10px] tracking-wider border-b border-stone-800">
                     <tr>
-                      <th className="px-4 py-3">Código Anticipo</th>
+                      <th className="px-4 py-3">Contrato / Ref</th>
                       <th className="px-4 py-3">Fecha</th>
                       <th className="px-4 py-3 font-sans">Cliente Comprador</th>
-                      <th className="px-4 py-3">RIF</th>
+                      <th className="px-4 py-3">RIF SENIAT</th>
                       <th className="px-4 py-3 text-right">Monto Recibido (VES)</th>
+                      <th className="px-4 py-3 text-right">Tasa BCV</th>
                       <th className="px-4 py-3 text-right">Contravalor USD</th>
                       <th className="px-4 py-3 text-right">Qtl Café Asignado</th>
                       <th className="px-4 py-3">Ref. Banesco</th>
-                      <th className="px-4 py-3 text-center font-sans">Estatus</th>
+                      <th className="px-4 py-3 text-center font-sans">Estatus NIIF 15</th>
                       <th className="px-4 py-3 text-center font-sans">Acción</th>
                     </tr>
                   </thead>
@@ -750,11 +776,14 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                         <td className="px-4 py-3 text-right font-bold text-emerald-400">
                           Bs. {adv.amountVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
                         </td>
+                        <td className="px-4 py-3 text-right text-amber-300 font-mono">
+                          Bs. {(adv.bcvRate || 679.16).toFixed(2)}
+                        </td>
                         <td className="px-4 py-3 text-right font-medium text-stone-200">
                           ${adv.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                         </td>
                         <td className="px-4 py-3 text-right font-semibold text-amber-300">
-                          {adv.coffeeVolumeTargetQtl} Qtl
+                          {adv.coffeeVolumeTargetQtl.toLocaleString('es-VE')} Qtl
                         </td>
                         <td className="px-4 py-3 text-stone-400">{adv.bankReference}</td>
                         <td className="px-4 py-3 text-center">
@@ -765,7 +794,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                         <td className="px-4 py-3 text-center">
                           <button
                             onClick={() => deleteCustomerAdvance(adv.id)}
-                            className="p-1 text-stone-500 hover:text-red-400"
+                            className="p-1 text-stone-500 hover:text-red-400 cursor-pointer"
                             title="Eliminar anticipo"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -774,6 +803,28 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                       </tr>
                     ))}
                   </tbody>
+                  <tfoot className="bg-stone-950 text-white font-bold border-t-2 border-emerald-600">
+                    <tr>
+                      <td colSpan={4} className="px-4 py-3 text-right uppercase text-[11px] font-sans tracking-wider text-emerald-400">
+                        TOTAL RECONCILIADO EN BANESCO (PASIVO CORRIENTE NIIF 15):
+                      </td>
+                      <td className="px-4 py-3 text-right text-emerald-300 text-sm font-mono">
+                        Bs. {totalAdvancesVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td className="px-4 py-3 text-right text-stone-400 text-xs font-mono">
+                        Bs. {(totalAdvancesUSD > 0 ? totalAdvancesVES / totalAdvancesUSD : 679.16).toFixed(2)}
+                      </td>
+                      <td className="px-4 py-3 text-right text-sky-300 text-sm font-mono">
+                        ${totalAdvancesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                      </td>
+                      <td className="px-4 py-3 text-right text-amber-300 text-xs font-mono">
+                        {totalTargetQtl.toLocaleString('es-VE')} Qtl
+                      </td>
+                      <td colSpan={3} className="px-4 py-3 text-center text-stone-400 font-sans text-[10px] italic">
+                        Sustitución en Octubre 2026 con Factura Fiscal Definitiva
+                      </td>
+                    </tr>
+                  </tfoot>
                 </table>
               </div>
             </div>

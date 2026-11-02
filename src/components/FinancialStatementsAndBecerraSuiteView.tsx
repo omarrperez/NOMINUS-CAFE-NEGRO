@@ -94,10 +94,10 @@ En atención a su comunicación sobre la presunta disparidad entre los Ingresos 
 2. INGRESOS FISCALES REALES DEVENGADOS:
 Los ingresos operacionales por Servicios Agrícolas (Bs. 78.717.472,35) más los Ingresos por Intereses del Mutuo Becerra (Bs. 13.924.047,66) totalizan exactamente Bs. 92.641.520,01, tal como refleja fielmente el Estado de Resultados al 31/08/2026.
 
-Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos a Futuro de Café Nacional, Comprobantes de compra de divisas ($556.890,45 USD), Guías SICA/CVC y Estados Financieros auditados C.P.C. 16.336.
+Soportes Anexos: Contrato Mutuo Becerra Bs. 600M, Contratos a Futuro de Café Nacional, Comprobantes de compra de divisas ($556.890,45 USD), Guías SICA/CVC y Estados Financieros auditados C.P.C. N° 16336.
 
 Atentamente,
-Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador Público Independiente, Ven-Nif - C.P.C. 16.336)
+Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 16336) (Contador Público Independiente, Ven-Nif - C.P.C. N° 16336)
     `;
     navigator.clipboard.writeText(textContent.trim());
     setCopied(true);
@@ -180,8 +180,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
             </td>
             <td style="border:none;width:50%;text-align:center">
               _____________________________________<br>
-              <strong>Licdo. Omar Pérez Castillo</strong><br>
-              Contador Público C.P.C. 16.336<br>
+              <strong>Lic. Omar Pérez Castillo (C.P.C. N° 16336)</strong><br>
+              Contador Público C.P.C. N° 16336<br>
               Contador Público Independiente, Ven-Nif
             </td>
           </tr>
@@ -330,8 +330,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
             </td>
             <td style="border:none;width:50%;text-align:center">
               _____________________________________<br>
-              <strong>Licdo. Omar Pérez Castillo</strong><br>
-              Contador Público C.P.C. 16.336<br>
+              <strong>Lic. Omar Pérez Castillo (C.P.C. N° 16336)</strong><br>
+              Contador Público C.P.C. N° 16336<br>
               Contador Público Independiente, Ven-Nif
             </td>
           </tr>
@@ -431,7 +431,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
         <strong>Resumen Auditado de Débitos en Banesco:</strong><br>
         Total Cargos Movilizados en Banesco: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
         Procura Directa de Café / Pagos a Productores (Intermediación): <strong>Bs. 1.161.270.000,00 (59,3%)</strong>.<br>
-        Préstamos Accionista (Omar Pérez C.I. V-14.892.301): <strong>Bs. 375.630.000,00 (19,2%)</strong> &middot; Cuentas por Cobrar Socios.
+        Aportes y Retiros Accionista Único (Elias Rafael Trías Abreu C.I. V-23.997.829): <strong>Bs. 375.630.000,00 (19,2%)</strong> &middot; Cuentas por Cobrar Socios.
       </div>
       <table>
         <thead>
@@ -837,8 +837,8 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
             </td>
             <td style="border:none;width:50%;text-align:center">
               _____________________________________<br>
-              <strong>Licdo. Omar Pérez Castillo</strong><br>
-              Contador Público C.P.C. 16.336<br>
+              <strong>Lic. Omar Pérez Castillo (C.P.C. N° 16336)</strong><br>
+              Contador Público C.P.C. N° 16336<br>
               Contador Público Independiente, Ven-Nif
             </td>
           </tr>
@@ -2582,7 +2582,7 @@ Elias Rafael Trías Abreu (Presidente) & Licdo. Omar Pérez Castillo (Contador P
                     <td className="px-4 py-1.5 text-right text-slate-700 font-bold">${((BALANCE_SHEET_AUGUST_2026.liabilities.current.islrWithheldOnAdvancesPayable || 31277261.45) / BALANCE_SHEET_AUGUST_2026.exchangeRateBCV).toLocaleString('en-US', { minimumFractionDigits: 2 })}</td>
                   </tr>
                   <tr className="hover:bg-slate-50">
-                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 / Omar Pérez)</td>
+                    <td className="px-4 py-1.5 pl-8 text-slate-900 font-medium">Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 )</td>
                     <td className="px-4 py-1.5 text-right text-slate-400">—</td>
                     <td className="px-4 py-1.5 text-right text-slate-400">—</td>
                     <td className="px-4 py-1.5 text-right text-slate-900 font-bold">{BALANCE_SHEET_AUGUST_2026.liabilities.current.shareholderPayables.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</td>

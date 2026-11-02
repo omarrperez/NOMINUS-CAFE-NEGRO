@@ -53,13 +53,13 @@ NUESTRA EMPRESA NO IMPORTA NADA DE COLOMBIA NI DE NINGUNA ENTIDAD DEL EXTERIOR; 
 Certificamos que NO EXISTE OMISIÓN DE INGRESOS NI DISPARIDAD TRIBUTARIA. La movilización bancaria de créditos por USD 2.781.830,18 (Bs. 1.966.597.105,35) se concilia al 100% frente a las Ventas Declaradas en el Estado de Resultados (Bs. 92.641.520,01 / USD 116.531,68) mediante el siguiente desglose auditado:
 
 a) Anticipos en Bolívares de Clientes (78,4% - Bs. 1.542.017.092,63 / USD 2.270.486,23):
-Pasivo Corriente bajo NIIF 15 / Sección 23 NIIF PYMES. Corresponden a anticipos entregados por clientes torrefactores y distribuidores venezolanos a tasa oficial BCV para gestionar la compra y acopio de café en Anzoátegui y territorio nacional venezolano. En OCTUBRE DE 2026, con la entrega de la cosecha, estos anticipos se sustituyen por Facturas Fiscales Definitivas de Venta SENIAT contra las cuales se eliminan de la contabilidad.
+Pasivo Corriente bajo NIIF 15 / Sección 23 NIIF PYMES. Corresponden a anticipos entregados por clientes torrefactores y distribuidores venezolanos a tasa oficial BCV para gestionar la compra y acopio de café verde en Venezuela. Movilización Bruta Banesco: Bs. 1.542.017.092,63 menos Compras Ejecutadas de Café verde en origen: Bs. 1.240.788.342,46 = Saldo Neto Pendiente en Balance General (Cta. 2.1.01): Bs. 301.228.750,17 ($378.908,85 USD). En OCTUBRE DE 2026, con la entrega de la cosecha, estos anticipos se sustituyen por Facturas Fiscales Definitivas de Venta SENIAT.
 b) Reintegros Capital Mutuo Manuel Becerra (9,5% - Bs. 186.376.000,00 / USD 286.228,93):
-Amortización de Activo Financiero procedente de la Línea de Crédito Rotativa suscrita el 02/01/2026. Disminuyen la Cuenta por Cobrar Socio/Aliado (saldo en balance: Bs. 325.948.652,96). No constituye venta.
+Amortización de Activo Financiero procedente de la Línea de Crédito Rotativa suscrita el 02/01/2026 con el Sr. Manuel Becerra (Prestamista / Socio en otras empresas del grupo). Disminuyen la Cuenta por Cobrar Mutuo en balance (saldo: Bs. 325.948.652,96). No constituye venta.
 c) Transferencias entre Cuentas Propias de Agrícola Oni (10,6% - Bs. 208.708.057,73 / USD 308.317,80):
 Traspasos internos de tesorería desde Provincial, Mercantil, Plaza y Bancamiga pertenecientes al mismo titular RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
 d) Aportes Operativos del Accionista Propietario (1,5% - Bs. 29.495.954,99 / USD 47.335,99):
-Inyecciones de liquidez realizadas por el Presidente y accionista propietario Elias Rafael Trías Abreu (C.I. V-23.997.829) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
+Inyecciones de liquidez realizadas por el Presidente y único accionista propietario Elias Rafael Trías Abreu (C.I. V-23.997.829) registradas como Cuentas por Pagar Socios y anticipos de personas naturales.
 e) Ingresos Reales Devengados en el Ejercicio (Bs. 92.641.520,01 / USD 116.531,68):
 Servicios Agrícolas facturados (Bs. 78.717.472,35) e Intereses Ganados del Mutuo Becerra (Bs. 13.924.047,66), coincidiendo al 100% con los Estados Financieros Auditados.
 
@@ -124,10 +124,10 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
         <div>
           <h2 className="text-lg font-bold text-white flex items-center gap-2">
             <FileCheck className="w-5 h-5 text-amber-500" />
-            Carta Formal de Respuesta a Auditoría Banesco 2026
+            Carta 2: Carta Explicativa Larga Exhaustiva con Cuadros
           </h2>
-          <p className="text-xs text-stone-400 mt-0.5">
-            Documento jurídico-bancario con sustento probatorio ante la UPCLC/FT y SUDEBAN
+          <p className="text-xs text-stone-300 mt-0.5">
+            Contiene todos los detalles solicitados por Banesco: Cuadro 1 (Conciliación BBU), Cuadro 2 (Cuentas Propias Bs. 208,7M por mes/banco), sustento NIIF 15 y doble firma.
           </p>
         </div>
 
@@ -136,50 +136,11 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
             onClick={onSwitchToOnePage}
             className="px-3 py-1.5 bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 border border-amber-700/80 rounded-md text-xs font-semibold transition-colors flex items-center gap-1.5"
           >
-            Ver Formato 1 Página (Carta 2)
+            Ver Carta Corta (1 Página)
             <ChevronRight className="w-3.5 h-3.5" />
           </button>
 
-          {/* CARTA 1 DOWNLOADS */}
-          <button
-            onClick={async () => {
-              try {
-                setDownloadingPdf(true);
-                await exportCarta1Pdf(company);
-              } catch (err) {
-                console.error(err);
-              } finally {
-                setDownloadingPdf(false);
-              }
-            }}
-            disabled={downloadingPdf}
-            className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Descargar Carta 1 (Extendida) en PDF (.pdf)"
-          >
-            {downloadingPdf ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
-            Descargar Carta 1 (PDF)
-          </button>
-
-          <button
-            onClick={async () => {
-              try {
-                setDownloadingWord(true);
-                await exportCarta1Word(company);
-              } catch (err) {
-                console.error(err);
-              } finally {
-                setDownloadingWord(false);
-              }
-            }}
-            disabled={downloadingWord}
-            className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Descargar Carta 1 (Extendida) en Word (.docx/.doc)"
-          >
-            {downloadingWord ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <FileDown className="w-3.5 h-3.5" />}
-            Descargar Carta 1 (Word)
-          </button>
-
-          {/* CARTA 2 DOWNLOADS */}
+          {/* CARTA 2 DOWNLOADS (Carta Larga Exhaustiva) */}
           <button
             onClick={async () => {
               try {
@@ -192,11 +153,30 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               }
             }}
             disabled={downloadingPdf}
-            className="px-3 py-1.5 bg-teal-800 hover:bg-teal-700 text-teal-100 border border-teal-600 font-semibold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
-            title="Descargar Carta 2 (1 Página) en PDF (.pdf)"
+            className="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar Carta 2 Explicativa Exhaustiva con Cuadros en PDF (.pdf)"
           >
-            <Download className="w-3.5 h-3.5" />
-            Descargar Carta 2 (PDF)
+            {downloadingPdf ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+            Descargar Carta 2 Exhaustiva (PDF)
+          </button>
+
+          <button
+            onClick={async () => {
+              try {
+                setDownloadingWord(true);
+                await exportCarta2Word(company, { date: '2026-08-31', rateUsd: 798.33, rateEur: 870.0, variationPct: 0, source: 'BCV' });
+              } catch (err) {
+                console.error(err);
+              } finally {
+                setDownloadingWord(false);
+              }
+            }}
+            disabled={downloadingWord}
+            className="px-3 py-1.5 bg-blue-700 hover:bg-blue-600 disabled:opacity-50 text-white font-bold rounded-md text-xs transition-colors flex items-center gap-1.5 shadow"
+            title="Descargar Carta 2 Explicativa Exhaustiva con Cuadros en Word (.docx/.doc)"
+          >
+            {downloadingWord ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <FileDown className="w-3.5 h-3.5" />}
+            Descargar Carta 2 Exhaustiva (Word)
           </button>
 
           <button
@@ -378,41 +358,87 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
             </p>
           </div>
 
-          {/* ACLARATORIA TÉCNICA Y CUADRE MATEMÁTICO IRREFUTABLE */}
-          <div className="bg-amber-50/90 border border-amber-300 rounded-lg p-5 text-xs space-y-3 my-4">
-            <h4 className="font-bold text-amber-950 text-sm flex items-center justify-between">
-              <span>DEMOSTRACIÓN TÉCNICA DEL CUADRE: FONDOS BANCARIOS VS ESTADOS FINANCIEROS</span>
-              <span className="text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded font-mono text-xs border border-emerald-300">
-                DIFERENCIA: BS. 0,00 (CUADRE 100% AUDITADO)
+          {/* TABLA PRINCIPAL DE REQUERIMIENTO BANESCO VS EEFF Y MATRIZ DE SOPORTES CONTABLES */}
+          <div className="bg-amber-50/90 border-2 border-amber-400 rounded-xl p-5 text-xs space-y-4 my-4 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-300 pb-3">
+              <h4 className="font-bold text-amber-950 text-sm uppercase tracking-tight flex items-center gap-1.5 font-mono">
+                <span>📊 TABLA DETALLADA: INGRESOS DECLARADOS VS CRÉDITOS BANESCO Y CONCILIACIÓN</span>
+              </h4>
+              <span className="text-emerald-900 bg-emerald-100 font-bold px-2.5 py-1 rounded-md font-mono text-xs border border-emerald-400 shrink-0">
+                DIFERENCIA RECONCILIADA: BS. 0,00 (0,00%)
               </span>
-            </h4>
-            
-            <p className="text-stone-800 leading-relaxed">
-              Atendiendo a su comunicación, certificamos que <strong>NO EXISTE OMISIÓN DE INGRESOS NI DISPARIDAD TRIBUTARIA</strong>. La diferencia entre los Créditos Bancarios (Bs. 1.966.597.105,35 / USD 2.781.830,18 en promedio) y las Ventas Declaradas en el Estado de Resultados (Bs. 92.641.520,01 / USD 116.531,68 a Tasa Oficial BCV de corte 794,99) se justifica matemática, contable y jurídicamente de la siguiente manera:
+            </div>
+
+            <p className="text-stone-800 leading-relaxed text-justify">
+              Atendiendo a la solicitud de esa institución bancaria, a continuación se presenta la tabla comparativa oficial que contrasta los <strong>Ingresos Declarados en Estados Financieros</strong> frente al <strong>Total de Créditos Movilizados en Banesco Banco Universal</strong>, demostrando que el 100% de la diferencia está plenamente justificada y respaldada en los soportes de contabilidad existentes en el sistema:
             </p>
 
-            {/* TABLA COMPARATIVA DE CUADRE */}
-            <div className="overflow-x-auto border border-amber-300 rounded-lg bg-white">
+            {/* TABLA COMPARATIVA DIRECTA INGRESOS VS BANCO */}
+            <div className="overflow-x-auto border border-amber-300 rounded-lg bg-white shadow-xs">
+              <table className="w-full text-[11px] font-mono-num text-left">
+                <thead className="bg-stone-900 text-white font-sans uppercase font-bold text-[10px]">
+                  <tr>
+                    <th className="px-3 py-2.5">Concepto Financiero</th>
+                    <th className="px-3 py-2.5 text-right text-emerald-400">Monto en Bolívares (Bs.)</th>
+                    <th className="px-3 py-2.5 text-right text-amber-300">Equivalente en USD ($)</th>
+                    <th className="px-3 py-2.5">Origen y Naturaleza Contable / Fiscal</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-200 text-stone-800">
+                  <tr className="bg-emerald-50/80 font-bold">
+                    <td className="px-3 py-2 font-sans text-emerald-950">A) INGRESOS DECLARADOS EN EEFF (ENERO - AGOSTO 2026)</td>
+                    <td className="px-3 py-2 text-right text-emerald-900 text-sm">Bs. 92.641.520,01</td>
+                    <td className="px-3 py-2 text-right text-emerald-900 text-sm">$116.531,68</td>
+                    <td className="px-3 py-2 font-sans text-emerald-950 text-[10.5px]">
+                      Estado de Resultados Auditado (Servicios Agrícolas Bs. 78,72M + Intereses Ganados Mutuo Becerra Bs. 13,92M).
+                    </td>
+                  </tr>
+                  <tr className="bg-amber-50/80 font-bold">
+                    <td className="px-3 py-2 font-sans text-amber-950">B) CRÉDITOS MOVILIZADOS EN BANESCO BANCO UNIVERSAL</td>
+                    <td className="px-3 py-2 text-right text-amber-950 text-sm">Bs. 1.966.597.105,35</td>
+                    <td className="px-3 py-2 text-right text-amber-950 text-sm">$2.781.830,18</td>
+                    <td className="px-3 py-2 font-sans text-amber-950 text-[10.5px]">
+                      Abonos brutos acumulados en Cta. Corriente BBU N° 0134-0342-18-3421089912 (Corte al 31/08/2026).
+                    </td>
+                  </tr>
+                  <tr className="bg-red-50/80 font-bold border-t-2 border-red-300">
+                    <td className="px-3 py-2 font-sans text-red-950">C) DIFERENCIA BRUTA OBJETO DEL REQUERIMIENTO DEL BANCO (B - A)</td>
+                    <td className="px-3 py-2 text-right text-red-900 text-sm">Bs. 1.873.955.585,34</td>
+                    <td className="px-3 py-2 text-right text-red-900 text-sm">$2.665.298,50</td>
+                    <td className="px-3 py-2 font-sans text-red-950 text-[10.5px]">
+                      Diferencia explicada al 100% mediante pasivos corrientes NIIF 15, amortización de activos y traspasos internos.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* MATRIZ DE JUSTIFICACIÓN DE LA DIFERENCIA CON SOPORTES EN SISTEMA */}
+            <div className="overflow-x-auto border border-amber-300 rounded-lg bg-white shadow-xs">
+              <div className="bg-stone-800 text-white font-bold text-xs uppercase px-3 py-2 font-sans flex justify-between items-center">
+                <span>MATRIZ EXHAUSTIVA DE JUSTIFICACIÓN DE LA DIFERENCIA Y SOPORTES EN SISTEMA</span>
+                <span className="font-mono text-emerald-400">100% JUSTIFICADO CON COMPROBANTES DE DIARIO Y CONTRATOS</span>
+              </div>
               <table className="w-full text-[11px] font-mono-num text-left">
                 <thead className="bg-stone-100 text-stone-700 font-sans uppercase font-bold text-[10px] border-b border-stone-200">
                   <tr>
-                    <th className="px-3 py-2">Concepto / Partida Contable</th>
+                    <th className="px-3 py-2">Renglón / Concepto de Justificación</th>
                     <th className="px-3 py-2 text-right">Monto Banesco (Bs.)</th>
                     <th className="px-3 py-2 text-right">Equivalente USD</th>
-                    <th className="px-3 py-2 text-center">% del Banco</th>
-                    <th className="px-3 py-2">Tratamiento Contable (NIIF) y Tributario (SENIAT)</th>
+                    <th className="px-3 py-2 text-center">% BBU</th>
+                    <th className="px-3 py-2">Soportes de Contabilidad Registrados en Sistema y Cuentas de Mayor</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-200">
                   <tr className="bg-amber-50/30">
                     <td className="px-3 py-2 font-sans font-semibold text-stone-900">
-                      1. Anticipos en Bolívares de Clientes (Procura Café Nacional a Tasa BCV)
+                      1. Anticipos de Clientes en Bolívares (Procura Café Nacional a Tasa BCV)
                     </td>
                     <td className="px-3 py-2 text-right font-bold text-amber-950">Bs. 1.542.017.092,63</td>
                     <td className="px-3 py-2 text-right text-stone-700">$2.270.486,23</td>
-                    <td className="px-3 py-2 text-center font-bold text-amber-800">78,4%</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">
-                      <strong>Pasivo Corriente (NIIF 15).</strong> Anticipos en bolívares recibidos de empresas y torrefactoras nacionales para gestionar compras de café en el mercado venezolano. Entrega física e inicio de emisión de facturas de ventas definitivas a tasa BCV en <strong>OCTUBRE 2026</strong> (eliminación total del anticipo).
+                    <td className="px-3 py-2 text-center font-bold text-amber-800">78,41%</td>
+                    <td className="px-3 py-2 font-sans text-stone-700 text-[10.5px]">
+                      <strong>Pasivo Corriente NIIF 15 / Secc. 23 (Cta. 2.1.01).</strong> Comprobantes de Diario <code>COMP-ANT-RIP-2026-001</code> al <code>012</code>; Contratos a Futuro de Café con Torrefactoras ETN, DIS, ORU y RIK; Fichas RIF SENIAT; Guías SICA/CVC de acopio en Portuguesa. Compras ejecutadas: Bs. 1.240,79M. Saldo Neto Pendiente en Balance: <strong>Bs. 301.228.750,17</strong> ($378.908,85 USD). Facturación SENIAT en <strong>OCTUBRE 2026</strong>.
                     </td>
                   </tr>
 
@@ -422,56 +448,127 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
                     </td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 186.376.000,00</td>
                     <td className="px-3 py-2 text-right text-stone-700">$286.228,93</td>
-                    <td className="px-3 py-2 text-center font-bold text-stone-700">9,5%</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">
-                      <strong>Amortización de Activo Financiero.</strong> Contrato de Préstamo con Interés y Línea de Crédito Rotativa de Bs. 600.000.000,00. 14 abonos de devolución de capital (Saldo en Balance: Bs. 325.948.652,96). NO ES VENTA.
+                    <td className="px-3 py-2 text-center font-bold text-stone-700">9,48%</td>
+                    <td className="px-3 py-2 font-sans text-stone-700 text-[10.5px]">
+                      <strong>Amortización de Activo Financiero (Cta. 1.1.02.01).</strong> Contrato Mutuo de Préstamo con Interés de Bs. 600M suscrito el 02/01/2026, Pagaré Mercantil Notariado, 14 Comprobantes de Depósito de Amortización. Saldo pendiente por cobrar en Balance General al 31/08/2026: <strong>Bs. 325.948.652,96</strong>. No constituye venta ni ingreso.
                     </td>
                   </tr>
 
                   <tr className="bg-stone-50/50">
                     <td className="px-3 py-2 font-sans font-semibold text-stone-900">
-                      3. Transferencias entre Cuentas Propias de Agrícola Oni
+                      3. Centralización de Tesorería Cuentas Propias Interbancarias
                     </td>
-                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 208.708.057,73</td>
-                    <td className="px-3 py-2 text-right text-stone-700">$308.317,80</td>
-                    <td className="px-3 py-2 text-center font-bold text-stone-700">10,6%</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">
-                      <strong>Traspasos Internos de Tesorería.</strong> Movilizaciones desde Provincial (0108), Mercantil (0105), Plaza (0138) y Bancamiga (0172). Mismo titular RIF J-50145638-0. Impacto patrimonial neto: <strong>Bs. 0,00</strong>.
+                    <td className="px-3 py-2 text-right font-bold text-blue-900">Bs. 208.708.057,73</td>
+                    <td className="px-3 py-2 text-right text-blue-900">$308.317,80</td>
+                    <td className="px-3 py-2 text-center font-bold text-blue-800">10,61%</td>
+                    <td className="px-3 py-2 font-sans text-stone-700 text-[10.5px]">
+                      <strong>Traspasos Internos de Tesorería (Cta. 1.1.01.01.001).</strong> Comprobantes de transferencia de Banco Mercantil (0105), Banco Provincial (0108), Banco Plaza (0138) y Bancamiga (0172); Extractos bancarios de origen del titular RIF J-50145638-0. Impacto patrimonial neto: <strong>Bs. 0,00</strong>.
                     </td>
                   </tr>
 
                   <tr>
                     <td className="px-3 py-2 font-sans font-semibold text-stone-900">
-                      4. Aportes Operativos y Cuentas de Socios / Personas Naturales
+                      4. Aportes Operativos Accionista y Clientes Personas Naturales
                     </td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 29.495.954,99</td>
                     <td className="px-3 py-2 text-right text-stone-700">$47.335,99</td>
-                    <td className="px-3 py-2 text-center font-bold text-stone-700">1,5%</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">
-                      Aportes e ingresos recibidos del Presidente y accionista propietario Elias Rafael Trías Abreu C.I. V-23.997.829 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M) para compra de café nacional.
+                    <td className="px-3 py-2 text-center font-bold text-stone-700">1,50%</td>
+                    <td className="px-3 py-2 font-sans text-stone-700 text-[10.5px]">
+                      <strong>Inyecciones de Liquidez (Cta. 2.1.03).</strong> Comprobante <code>COMP-ANT-NAT-2026-001</code>; Transferencias del Presidente Elías Rafael Trías Abreu C.I. V-23.997.829 (Cuentas por Pagar Socios por Bs. 7,65M) y anticipos de compradores personas naturales (Bs. 21,85M).
                     </td>
                   </tr>
 
                   <tr className="bg-emerald-50/60 font-bold">
                     <td className="px-3 py-2 font-sans text-emerald-950">
-                      5. Ingresos Reales Declarados en EEFF (Corte 31/08/2026)
+                      5. Ingresos Reales Devengados en EEFF (Corte 31/08/2026)
                     </td>
                     <td className="px-3 py-2 text-right text-emerald-900 text-sm">Bs. 92.641.520,01</td>
                     <td className="px-3 py-2 text-right text-emerald-900 text-sm">$116.531,68</td>
                     <td className="px-3 py-2 text-center text-emerald-800">—</td>
-                    <td className="px-3 py-2 font-sans text-emerald-950">
-                      <strong>Ingresos Devengados en el Ejercicio:</strong> Servicios Agrícolas facturados (Bs. 78.717.472,35) + Intereses Ganados Mutuo Becerra (Bs. 13.924.047,66). <strong>100% IDÉNTICO A LOS EEFF</strong>.
+                    <td className="px-3 py-2 font-sans text-emerald-950 text-[10.5px]">
+                      <strong>Ingresos Devengados en Ejercicio (Ctas. 4.1.01 / 4.2.01).</strong> Facturas Fiscales SENIAT de Servicios Agrícolas (Bs. 78.717.472,35) + Asiento de Intereses Ganados Mutuo Becerra (Bs. 13.924.047,66). <strong>100% IDÉNTICO A LOS EEFF</strong>.
                     </td>
                   </tr>
                 </tbody>
                 <tfoot className="bg-stone-900 text-white font-bold text-xs border-t-2 border-stone-800">
                   <tr>
-                    <td className="px-3 py-2.5 font-sans uppercase">TOTAL CRÉDITOS BANCARIOS MOVILIZADOS (BBU):</td>
-                    <td className="px-3 py-2.5 text-right text-amber-400">Bs. 1.966.597.105,35</td>
-                    <td className="px-3 py-2.5 text-right text-emerald-400">$2.781.830,18 USD</td>
+                    <td className="px-3 py-2.5 font-sans uppercase">TOTAL CRÉDITOS BANCARIOS RECONCILIADOS Y SOPORTADOS (BBU):</td>
+                    <td className="px-3 py-2.5 text-right text-amber-400 text-sm">Bs. 1.966.597.105,35</td>
+                    <td className="px-3 py-2.5 text-right text-emerald-400 text-sm">$2.781.830,18 USD</td>
                     <td className="px-3 py-2.5 text-center text-amber-400">100,0%</td>
-                    <td className="px-3 py-2.5 font-sans text-stone-300">
-                      Conciliación Matemática Absoluta. Cero Omisión.
+                    <td className="px-3 py-2.5 font-sans text-stone-200">
+                      DIFERENCIA FINAL RESTANTE POR OMISIÓN DE INGRESOS: <strong>BS. 0,00 ($0,00 USD)</strong>.
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+
+            {/* CUADRO 2: DESGLOSE DETALLADO DE TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE BANCOS VENEZOLANOS A BANESCO */}
+            <div className="overflow-x-auto border border-blue-300 rounded-lg bg-white my-4">
+              <div className="bg-blue-900 text-white font-bold text-xs uppercase px-3 py-2 flex justify-between items-center font-sans">
+                <span>CUADRO 2: DESGLOSE DETALLADO DE CENTRALIZACIÓN DE FONDOS PROPIOS (BS. 208.708.057,73)</span>
+                <span className="font-mono text-amber-300 text-[11px]">TRANSFERENCIAS DE CUENTAS PROPIAS DEL MISMO RIF</span>
+              </div>
+              <table className="w-full text-[11px] font-mono-num text-left">
+                <thead className="bg-blue-50 text-blue-950 font-sans uppercase font-bold text-[10px] border-b border-blue-200">
+                  <tr>
+                    <th className="px-3 py-2">Mes</th>
+                    <th className="px-3 py-2">Bancos Emisores de Origen</th>
+                    <th className="px-3 py-2 text-right">Monto en Bolívares (Bs.)</th>
+                    <th className="px-3 py-2">Justificación y Destino Operativo Banesco</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-stone-200 text-stone-800">
+                  <tr>
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">ENERO 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 1.110.000,00</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Centralización de liquidez para pagos operativos iniciales de acopio.</td>
+                  </tr>
+                  <tr className="bg-stone-50/50">
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">FEBRERO 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PROVINCIAL</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 720.000,00</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Traslado de saldos ordinarios entre cuentas corrientes del mismo RIF.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">MARZO 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PROVINCIAL</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 1.032.830,57</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Optimización de flujo de caja y concentración de tesorería en Banesco.</td>
+                  </tr>
+                  <tr className="bg-stone-50/50">
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">ABRIL 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PROVINCIAL</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 1.881.224,96</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Traspaso interbancario de tesorería sin impacto patrimonial neto.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">JUNIO 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO PLAZA / BANCAMIGA</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 73.390.000,01</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Movilización de fondos de cosechas y centralización en Banesco.</td>
+                  </tr>
+                  <tr className="bg-stone-50/50">
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">JULIO 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PLAZA</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 47.240.540,00</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Consolidación de liquidez para compras directas a productores en origen.</td>
+                  </tr>
+                  <tr>
+                    <td className="px-3 py-2 font-bold font-sans text-stone-900">AGOSTO 2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PLAZA</td>
+                    <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 83.333.462,19</td>
+                    <td className="px-3 py-2 font-sans text-stone-600">Cierre de centralización mensual para compromisos de procura de café.</td>
+                  </tr>
+                </tbody>
+                <tfoot className="bg-blue-950 text-white font-bold text-xs border-t-2 border-blue-800">
+                  <tr>
+                    <td colSpan={2} className="px-3 py-2.5 font-sans uppercase">TOTAL CUENTAS PROPIAS INTERBANCARIAS (MERCANTIL/PROVINCIAL/PLAZA/BANCAMIGA):</td>
+                    <td className="px-3 py-2.5 text-right text-amber-300 font-mono text-xs">Bs. 208.708.057,73</td>
+                    <td className="px-3 py-2.5 font-sans text-blue-200">
+                      Impacto Patrimonio Neto: Bs. 0,00 (Fondos de la misma empresa).
                     </td>
                   </tr>
                 </tfoot>
@@ -641,9 +738,9 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
           </p>
         </div>
 
-        {/* Signatures Section - Sole Remitente / Firmante */}
-        <div className="mt-14 pt-8 border-t border-stone-300 flex justify-center">
-          <div className="text-center max-w-xs w-full">
+        {/* Signatures Section - Presidencia & Contador CPC */}
+        <div className="mt-14 pt-8 border-t border-stone-300 grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+          <div className="space-y-1">
             <div className="h-16 flex items-center justify-center">
               <div className="border border-stone-400 border-dashed rounded px-4 py-1.5 bg-stone-50 inline-block rotate-[-1deg] text-amber-900 font-serif italic text-sm shadow-xs">
                 Elias Rafael Trías Abreu &mdash; Firma Digital
@@ -653,6 +750,20 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               <p className="font-bold text-stone-950 text-sm">{company.legalRepresentative}</p>
               <p className="text-xs text-stone-700">C.I.: {company.idNumber}</p>
               <p className="text-xs font-semibold text-stone-800">{company.role}</p>
+              <p className="text-xs font-bold text-stone-900 mt-0.5">{company.name}</p>
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <div className="h-16 flex items-center justify-center">
+              <div className="border border-stone-400 border-dashed rounded px-4 py-1.5 bg-stone-50 inline-block rotate-[1deg] text-amber-900 font-serif italic text-sm shadow-xs">
+                Licdo. Omar Pérez Castillo &mdash; CPC 16336
+              </div>
+            </div>
+            <div className="border-t-2 border-stone-900 pt-2 mt-2">
+              <p className="font-bold text-stone-950 text-sm">LICDO. OMAR PÉREZ CASTILLO</p>
+              <p className="text-xs text-stone-700">Contador Público Colegiado (C.P.C. N° 16336)</p>
+              <p className="text-xs font-semibold text-stone-800">Contador Público Independiente (VEN-NIF)</p>
               <p className="text-xs font-bold text-stone-900 mt-0.5">{company.name}</p>
             </div>
           </div>

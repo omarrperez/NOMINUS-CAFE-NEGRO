@@ -175,7 +175,7 @@ export const BALANCE_SHEET_AUGUST_2026: BalanceSheetData = {
     current: {
       customerAdvances: 301228750.17, // Anticipos Recibidos de Clientes NIIF 15 (Saldo Neto Exigible por Ejecutar: Recibidos Bs. 1.563.863.072,62 menos Pagos a Productores por Cuenta de Clientes Bs. 1.262.634.322,45)
       islrWithheldOnAdvancesPayable: 31277261.45, // Retención de ISLR por Pagar (2% Decreto 1808 originado por Anticipos de Clientes)
-      shareholderPayables: 301053109.62, // Cuentas por Pagar Socios (Aportes del Accionista Elias Rafael Trías Abreu / Omar Pérez Ene-Ago 2026)
+      shareholderPayables: 301053109.62, // Cuentas por Pagar Socios (Aportes del Accionista Único Elias Rafael Trías Abreu V-23.997.829 Ene-Ago 2026)
       withholdingTaxesPayable: 0.00,
       ivaPayable: 0.00,
       islrPayable: 696202.38, // Provisiones ISLR
@@ -334,7 +334,7 @@ export const BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION = {
       nature: 'Aportes de Campo y Reserva de Quintales',
       bankAmountVES: 29495954.99,
       impactOnIncomeStatement: 0.00,
-      legalNotes: 'Aportes de socio accionista (Ing. Omar Pérez C.I. V-14.892.301) y clientes depositantes para operaciones de acopio de café.'
+      legalNotes: 'Aportes de socio accionista único (Elias Rafael Trías Abreu C.I. V-23.997.829) y clientes depositantes para operaciones de acopio de café.'
     },
     {
       concept: '5. Ingresos Devengados por Servicios Agrícolas Realizados',
@@ -449,7 +449,7 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
     },
     {
       id: 'ORIG-03',
-      origen: 'Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
+      origen: 'Accionista Único (Elias Rafael Trías Abreu C.I. V-23.997.829)',
       category: 'PERSONA_NATURAL_V023',
       ene: 14000.00,
       feb: 500000.00,
@@ -462,8 +462,8 @@ export const BANESCO_MONTHLY_ORIGIN_COMPOSITION_2026: {
       totalBs: 7649975.00,
       pctDelTotal: 0.4,
       totalUSD: 11266.93,
-      auditExplanation: '21 transferencias de abonos del socio propietario mayoritario para inyección de liquidez y operación de la empresa.',
-      legalClassification: 'Cuentas por Pagar Socios (Pasivo Corriente) / Aportes del Accionista Propietario (C.I. V-14.892.301).'
+      auditExplanation: '21 transferencias de abonos del accionista único para inyección de liquidez y operación de la empresa.',
+      legalClassification: 'Cuentas por Pagar Socios (Pasivo Corriente) / Aportes del Accionista Único (C.I. V-23.997.829).'
     },
     {
       id: 'ORIG-04',
@@ -1141,7 +1141,7 @@ export const BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026: {
     },
     {
       id: 'OUT-06',
-      concepto: 'Préstamos y Avances al Accionista Propietario (Ing. Omar Pérez C.I. V-14.892.301)',
+      concepto: 'Préstamos y Avances al Accionista Propietario (Elias Rafael Trías Abreu C.I. V-23.997.829)',
       category: 'CUENTAS_COBRAR_SOCIOS',
       ene: 3200000.00,
       feb: 7100000.00,
@@ -1154,7 +1154,7 @@ export const BANESCO_MONTHLY_DEBIT_OUTFLOW_COMPOSITION_2026: {
       totalBs: 375630000.00,
       pctDelTotal: 19.2,
       totalUSD: 556890.45,
-      auditExplanation: 'Transferencias enviadas desde Banesco a la cuenta personal del accionista mayoritario Ing. Omar Pérez por concepto de adelantos y préstamos corporativos.',
+      auditExplanation: 'Transferencias enviadas desde Banesco a la cuenta personal del accionista mayoritario Elias Rafael Trías Abreu por concepto de adelantos y préstamos corporativos.',
       legalClassification: 'Cuentas por Cobrar Socios (Activo Corriente). No constituye dividendo ni remuneración personal.'
     },
     {
@@ -1343,7 +1343,7 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
     },
     {
       code: '2.1.03',
-      accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 / Omar Pérez)',
+      accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 )',
       category: 'PASIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 0.00, creditVES: 301053109.62 },

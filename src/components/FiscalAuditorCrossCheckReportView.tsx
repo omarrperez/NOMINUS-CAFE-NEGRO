@@ -274,7 +274,7 @@ export function FiscalAuditorCrossCheckReportView() {
 
     const htmlContent = `
       <h1>${company.name}</h1>
-      <p><strong>RIF:</strong> ${company.rif} &middot; R.N.C.: 010049247 &middot; Dictamen de Auditoría Fiscal Externa</p>
+      <p><strong>RIF:</strong> ${company.rif} &middot; R.N.C.: 010049247 &middot; Certificación Contable Fiscal Externa</p>
       <h2>INFORME AUDITOR FISCAL Y FINANCIERO: CRUCE TRIANGULADO DE PROVEEDORES DE CAFÉ</h2>
       <p><strong>Metodología de Auditoría:</strong> Cruce de la Base de Datos JSON (6 Proveedores Autorizados), Contratos Comerciales Suscritos y Extractos de Operaciones Bancarias Banesco/Multibanco de los últimos 6 meses.</p>
       
