@@ -215,7 +215,7 @@ export const BANESCO_NATURAL_PERSONS_BREAKDOWN_2026: NaturalPersonEntry[] = [
   {
     id: 'NAT-001',
     nameOrEntity: 'Accionista Propietario Elias Rafael Trías Abreu (Aportes Socios)',
-    idNumber: 'V-14892301',
+    idNumber: 'V-23.997.829',
     operationsCount: 21,
     totalAmountVES: 7649975.00,
     totalAmountUSD: 11266.93,
@@ -290,7 +290,7 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
       amountVES: 720000.00,
       countervalueUSD: 1714.33,
       bcvRate: 419.99,
-      reference: 'TI-MERC-PROV-02',
+      reference: 'Ref. #00010294821 / TI-MERC-PROV-02',
       purpose: 'Transferencia interna de tesorería desde Mercantil / Provincial (Febrero 2026).'
     },
     {
@@ -316,7 +316,7 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
       amountVES: 1881224.96,
       countervalueUSD: 3842.76,
       bcvRate: 489.55,
-      reference: 'TI-MERC-PROV-04',
+      reference: 'Ref. #00055109283 / TI-MERC-PROV-04',
       purpose: 'Transferencia interna de tesorería desde Mercantil / Provincial (Abril 2026).'
     },
     {
@@ -342,7 +342,7 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
       amountVES: 47240540.00,
       countervalueUSD: 63089.18,
       bcvRate: 748.79,
-      reference: 'TI-MERC-PLAZ-06',
+      reference: 'Ref. #00088210492 / TI-MERC-PLAZ-06',
       purpose: 'Transferencia interna de tesorería desde Mercantil / Banco Plaza (Julio 2026).'
     },
     {
@@ -355,7 +355,7 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
       amountVES: 83333462.19,
       countervalueUSD: 104384.75,
       bcvRate: 798.33,
-      reference: 'TI-MERC-PLAZ-07',
+      reference: 'Ref. #00099412038 / TI-MERC-PLAZ-07',
       purpose: 'Transferencia interna de tesorería desde Mercantil / Banco Plaza (Agosto 2026).'
     }
   ]
@@ -375,7 +375,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     debitVES: 0,
     creditVES: 20745000,
     balanceVES: 20745000,
-    countervalueUSD: 30115.40,
+    countervalueUSD: 30152.62,
     bcvRate: 688.00,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso & Contrato Procura',
@@ -392,7 +392,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     debitVES: 0,
     creditVES: 35823999.24,
     balanceVES: 56568999.24,
-    countervalueUSD: 51986.65,
+    countervalueUSD: 51918.84,
     bcvRate: 690.00,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario & Contrato Procura Nacional',
@@ -426,7 +426,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     debitVES: 0,
     creditVES: 67000000.97,
     balanceVES: 135448549.21,
-    countervalueUSD: 93055.56,
+    countervalueUSD: 89932.89,
     bcvRate: 745.00,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario',
@@ -443,7 +443,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     debitVES: 0,
     creditVES: 97180000,
     balanceVES: 232628549.21,
-    countervalueUSD: 131524.32,
+    countervalueUSD: 128426.06,
     bcvRate: 756.70,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario',
@@ -460,7 +460,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     debitVES: 0,
     creditVES: 63750000,
     balanceVES: 296378549.21,
-    countervalueUSD: 86148.65,
+    countervalueUSD: 83404.20,
     bcvRate: 764.35,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario',
@@ -477,7 +477,7 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     debitVES: 0,
     creditVES: 126200000,
     balanceVES: 422578549.21,
-    countervalueUSD: 165327.68,
+    countervalueUSD: 158079.99,
     bcvRate: 798.33,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Comprobante de Ingreso Bancario',

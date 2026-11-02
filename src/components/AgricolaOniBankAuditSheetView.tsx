@@ -55,12 +55,33 @@ type AuditTabType =
   | 'OTROS_CONCEPTOS'
   | 'TODOS_MOVIMIENTOS';
 
+export function validateExchangeRateIntegrity(
+  ves: number,
+  usd: number,
+  rate: number
+): { isValid: boolean; expectedVES: number; diffVES: number; diffPct: number } {
+  if (!usd || !rate || !ves) return { isValid: true, expectedVES: ves, diffVES: 0, diffPct: 0 };
+  const expectedVES = usd * rate;
+  const diffVES = Math.abs(ves - expectedVES);
+  const diffPct = (diffVES / ves) * 100;
+  // A difference > 0.5% or > 1.00 Bs triggers a red visual alert
+  const isValid = diffPct <= 0.5 && diffVES <= 1.0;
+  return { isValid, expectedVES, diffVES, diffPct };
+}
+
 export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, currentRate }) => {
   const { bankMovements, addBankMovement, deleteBankMovement } = useAppData();
   const [activeTab, setActiveTab] = useState<AuditTabType>('CUADRO_CONCEPTOS');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('TODOS');
   const [selectedMovement, setSelectedMovement] = useState<BanescoMovementAudit | null>(null);
+
+  // Exchange rate integrity verification
+  const exchangeInconsistencies = bankMovements.filter((m) => {
+    const ves = m.creditVES || m.debitVES || 0;
+    const { isValid } = validateExchangeRateIntegrity(ves, m.countervalueUSD, m.bcvRate);
+    return !isValid;
+  });
 
   // Modal to add real bank movement
   const [showAddModal, setShowAddModal] = useState(false);
@@ -176,6 +197,40 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
 
   return (
     <div className="space-y-6">
+      {/* Control de Trazabilidad Cambiaria BCV Banner */}
+      <div className={`p-4 rounded-xl border text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md ${
+        exchangeInconsistencies.length > 0
+          ? 'bg-red-950/90 border-red-500 text-red-100 animate-pulse'
+          : 'bg-emerald-950/40 border-emerald-800/80 text-emerald-200'
+      }`}>
+        <div className="flex items-center gap-3">
+          <span className={`p-2 rounded-lg ${exchangeInconsistencies.length > 0 ? 'bg-red-900 text-red-100' : 'bg-emerald-900/60 text-emerald-300'}`}>
+            <ShieldCheck className="w-5 h-5" />
+          </span>
+          <div>
+            <h4 className="font-bold text-sm text-white flex items-center gap-2">
+              Validación Visual de Trazabilidad Cambiaria BCV
+            </h4>
+            <p className="text-[11px] text-stone-300 mt-0.5">
+              Verificación algorítmica: <code className="bg-stone-950 px-1.5 py-0.5 rounded text-amber-400 font-mono">Monto Bs. = Monto USD × Tasa BCV</code>. Detección automática en rojo para descalces cambiarios.
+            </p>
+          </div>
+        </div>
+
+        <div className="text-right shrink-0">
+          {exchangeInconsistencies.length > 0 ? (
+            <span className="px-3 py-1 bg-red-600 text-white font-bold rounded text-xs inline-flex items-center gap-1 shadow">
+              ⚠️ {exchangeInconsistencies.length} Inconsistencia(s) Detectada(s)
+            </span>
+          ) : (
+            <span className="px-3 py-1 bg-emerald-700 text-white font-bold rounded text-xs inline-flex items-center gap-1 shadow">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              100% Conforme ({bankMovements.length} Operaciones)
+            </span>
+          )}
+        </div>
+      </div>
+
       {/* Header and Summary Cards */}
       <div className="bg-stone-900 border border-stone-800 p-6 rounded-xl shadow-lg">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-800 pb-5">
@@ -843,31 +898,55 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-800 font-mono-num">
-                  {customerAdvances.map((adv) => (
-                    <tr key={adv.id} className="hover:bg-stone-800/40 transition-colors">
-                      <td className="px-3 py-2.5 text-stone-400 whitespace-nowrap">{adv.date}</td>
-                      <td className="px-3 py-2.5 font-semibold text-amber-400 whitespace-nowrap">{adv.reference}</td>
-                      <td className="px-3 py-2.5 font-sans">
-                        <span className="font-semibold text-stone-100 block">{adv.description}</span>
-                        <span className="text-[11px] text-stone-400">{adv.notes}</span>
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-emerald-400 font-bold whitespace-nowrap">
-                        +Bs. {adv.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-stone-300 whitespace-nowrap">
-                        ${adv.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-3 py-2.5 font-sans text-[11px]">
-                        <span className="text-stone-300 block">{adv.supportDocType}</span>
-                        <span className="text-amber-500 font-mono text-[10px]">{adv.supportDocRef}</span>
-                      </td>
-                      <td className="px-3 py-2.5 text-center whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800">
-                          Pasivo NIIF 15 (Factura en Octubre)
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {customerAdvances.map((adv) => {
+                    const montoBs = adv.creditVES;
+                    const { isValid, expectedVES } = validateExchangeRateIntegrity(montoBs, adv.countervalueUSD, adv.bcvRate);
+
+                    return (
+                      <tr
+                        key={adv.id}
+                        className={`transition-colors ${
+                          !isValid
+                            ? 'bg-red-950/90 text-red-100 border-l-4 border-red-500 font-bold hover:bg-red-900/90'
+                            : 'hover:bg-stone-800/40'
+                        }`}
+                      >
+                        <td className="px-3 py-2.5 text-stone-400 whitespace-nowrap">{adv.date}</td>
+                        <td className="px-3 py-2.5 font-semibold text-amber-400 whitespace-nowrap">{adv.reference}</td>
+                        <td className="px-3 py-2.5 font-sans">
+                          <span className="font-semibold text-stone-100 block">{adv.description}</span>
+                          <span className="text-[11px] text-stone-400">{adv.notes}</span>
+                          {!isValid && (
+                            <div className="text-[11px] text-red-300 font-mono mt-1 font-bold bg-red-950 p-1 rounded border border-red-500">
+                              ⚠️ INCONSISTENCIA: Registrado Bs. {montoBs.toLocaleString('es-VE')} ≠ Esperado Bs. {expectedVES.toLocaleString('es-VE')}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-3 py-2.5 text-right text-emerald-400 font-bold whitespace-nowrap">
+                          +Bs. {adv.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-3 py-2.5 text-right text-stone-300 whitespace-nowrap font-mono">
+                          ${adv.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                          <span className="block text-[10px] text-stone-500 font-sans">@ {adv.bcvRate} Bs/$</span>
+                        </td>
+                        <td className="px-3 py-2.5 font-sans text-[11px]">
+                          <span className="text-stone-300 block">{adv.supportDocType}</span>
+                          <span className="text-amber-500 font-mono text-[10px]">{adv.supportDocRef}</span>
+                        </td>
+                        <td className="px-3 py-2.5 text-center whitespace-nowrap">
+                          {!isValid ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-bold text-red-100 bg-red-900 px-2 py-0.5 rounded border border-red-500 animate-pulse">
+                              ⚠️ Error Tasa BCV
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-amber-400 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800">
+                              Pasivo NIIF 15 (Factura en Octubre)
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -938,30 +1017,54 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-800 font-mono-num">
-                  {fxPurchases.map((fx) => (
-                    <tr key={fx.id} className="hover:bg-stone-800/40 transition-colors">
-                      <td className="px-3 py-2.5 text-stone-400 whitespace-nowrap">{fx.date}</td>
-                      <td className="px-3 py-2.5 font-semibold text-amber-400 whitespace-nowrap">{fx.reference}</td>
-                      <td className="px-3 py-2.5 font-sans">
-                        <span className="font-semibold text-stone-100 block">{fx.description}</span>
-                        <span className="text-[11px] text-stone-400">{fx.notes}</span>
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-amber-400 font-bold whitespace-nowrap">
-                        -Bs. {fx.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-emerald-400 font-bold whitespace-nowrap">
-                        +${fx.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
-                      </td>
-                      <td className="px-3 py-2.5 font-mono text-[11px] text-stone-300">
-                        {company.banescoAccountUSD}
-                      </td>
-                      <td className="px-3 py-2.5 text-center whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
-                          Liquidado Banesco
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {fxPurchases.map((fx) => {
+                    const montoBs = fx.debitVES;
+                    const { isValid, expectedVES } = validateExchangeRateIntegrity(montoBs, fx.countervalueUSD, fx.bcvRate);
+
+                    return (
+                      <tr
+                        key={fx.id}
+                        className={`transition-colors ${
+                          !isValid
+                            ? 'bg-red-950/90 text-red-100 border-l-4 border-red-500 font-bold hover:bg-red-900/90'
+                            : 'hover:bg-stone-800/40'
+                        }`}
+                      >
+                        <td className="px-3 py-2.5 text-stone-400 whitespace-nowrap">{fx.date}</td>
+                        <td className="px-3 py-2.5 font-semibold text-amber-400 whitespace-nowrap">{fx.reference}</td>
+                        <td className="px-3 py-2.5 font-sans">
+                          <span className="font-semibold text-stone-100 block">{fx.description}</span>
+                          <span className="text-[11px] text-stone-400">{fx.notes}</span>
+                          {!isValid && (
+                            <div className="text-[11px] text-red-300 font-mono mt-1 font-bold bg-red-950 p-1 rounded border border-red-500">
+                              ⚠️ INCONSISTENCIA: Registrado Bs. {montoBs.toLocaleString('es-VE')} ≠ Esperado Bs. {expectedVES.toLocaleString('es-VE')}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-3 py-2.5 text-right text-amber-400 font-bold whitespace-nowrap">
+                          -Bs. {fx.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-3 py-2.5 text-right text-emerald-400 font-bold whitespace-nowrap font-mono">
+                          +${fx.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD
+                          <span className="block text-[10px] text-stone-500 font-sans">@ {fx.bcvRate} Bs/$</span>
+                        </td>
+                        <td className="px-3 py-2.5 font-mono text-[11px] text-stone-300">
+                          {company.banescoAccountUSD}
+                        </td>
+                        <td className="px-3 py-2.5 text-center whitespace-nowrap">
+                          {!isValid ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-bold text-red-100 bg-red-900 px-2 py-0.5 rounded border border-red-500 animate-pulse">
+                              ⚠️ Error Tasa BCV
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+                              Liquidado Banesco
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -1153,31 +1256,55 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-800 font-mono-num">
-                  {naturalPersons.map((mov) => (
-                    <tr key={mov.id} className="hover:bg-stone-800/40 transition-colors">
-                      <td className="px-3 py-2.5 text-stone-400 whitespace-nowrap">{mov.date}</td>
-                      <td className="px-3 py-2.5 font-semibold text-amber-400 whitespace-nowrap">{mov.reference}</td>
-                      <td className="px-3 py-2.5 font-sans">
-                        <span className="font-semibold text-stone-100 block">{mov.description}</span>
-                        <span className="text-[11px] text-stone-400">{mov.notes}</span>
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-emerald-400 font-bold whitespace-nowrap">
-                        +Bs. {mov.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-3 py-2.5 text-right text-stone-300 whitespace-nowrap">
-                        ${mov.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-3 py-2.5 font-sans text-[11px] text-stone-300">
-                        <span className="block">{mov.supportDocType}</span>
-                        <span className="text-amber-500 font-mono text-[10px]">{mov.supportDocRef}</span>
-                      </td>
-                      <td className="px-3 py-2.5 text-center whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
-                          Conforme Cédulas
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
+                  {naturalPersons.map((mov) => {
+                    const montoBs = mov.creditVES;
+                    const { isValid, expectedVES } = validateExchangeRateIntegrity(montoBs, mov.countervalueUSD, mov.bcvRate);
+
+                    return (
+                      <tr
+                        key={mov.id}
+                        className={`transition-colors ${
+                          !isValid
+                            ? 'bg-red-950/90 text-red-100 border-l-4 border-red-500 font-bold hover:bg-red-900/90'
+                            : 'hover:bg-stone-800/40'
+                        }`}
+                      >
+                        <td className="px-3 py-2.5 text-stone-400 whitespace-nowrap">{mov.date}</td>
+                        <td className="px-3 py-2.5 font-semibold text-amber-400 whitespace-nowrap">{mov.reference}</td>
+                        <td className="px-3 py-2.5 font-sans">
+                          <span className="font-semibold text-stone-100 block">{mov.description}</span>
+                          <span className="text-[11px] text-stone-400">{mov.notes}</span>
+                          {!isValid && (
+                            <div className="text-[11px] text-red-300 font-mono mt-1 font-bold bg-red-950 p-1 rounded border border-red-500">
+                              ⚠️ INCONSISTENCIA: Registrado Bs. {montoBs.toLocaleString('es-VE')} ≠ Esperado Bs. {expectedVES.toLocaleString('es-VE')}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-3 py-2.5 text-right text-emerald-400 font-bold whitespace-nowrap">
+                          +Bs. {mov.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-3 py-2.5 text-right text-stone-300 whitespace-nowrap font-mono">
+                          ${mov.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                          <span className="block text-[10px] text-stone-500 font-sans">@ {mov.bcvRate} Bs/$</span>
+                        </td>
+                        <td className="px-3 py-2.5 font-sans text-[11px] text-stone-300">
+                          <span className="block">{mov.supportDocType}</span>
+                          <span className="text-amber-500 font-mono text-[10px]">{mov.supportDocRef}</span>
+                        </td>
+                        <td className="px-3 py-2.5 text-center whitespace-nowrap">
+                          {!isValid ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-bold text-red-100 bg-red-900 px-2 py-0.5 rounded border border-red-500 animate-pulse">
+                              ⚠️ Error Tasa BCV
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800">
+                              Conforme Cédulas
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -1475,56 +1602,83 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-800 font-mono-num">
-                  {filteredMovements.map((mov) => (
-                    <tr key={mov.id} className="hover:bg-stone-800/40 transition-colors">
-                      <td className="px-4 py-3 text-stone-400 whitespace-nowrap">{mov.date}</td>
-                      <td className="px-4 py-3 font-semibold text-amber-400 whitespace-nowrap">{mov.reference}</td>
-                      <td className="px-4 py-3 font-sans text-stone-200">
-                        <div className="font-medium text-xs text-stone-100">{mov.description}</div>
-                        <div className="text-[11px] text-stone-400">{mov.notes}</div>
-                      </td>
-                      <td className="px-4 py-3 text-right text-amber-300 font-medium whitespace-nowrap">
-                        {mov.debitVES > 0 ? `-Bs. ${mov.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
-                      </td>
-                      <td className="px-4 py-3 text-right text-emerald-400 font-medium whitespace-nowrap">
-                        {mov.creditVES > 0 ? `+Bs. ${mov.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
-                      </td>
-                      <td className="px-4 py-3 text-right font-bold text-white whitespace-nowrap">
-                        Bs. {mov.balanceVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-4 py-3 text-right text-stone-400 whitespace-nowrap">
-                        ${mov.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </td>
-                      <td className="px-4 py-3 whitespace-nowrap font-sans text-[11px]">
-                        <span className="text-stone-300 block">{mov.supportDocType}</span>
-                        <span className="text-amber-500 font-mono text-[10px]">{mov.supportDocRef}</span>
-                      </td>
-                      <td className="px-4 py-3 text-center whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">
-                          <CheckCircle2 className="w-3 h-3" />
-                          Conforme
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-center whitespace-nowrap">
-                        <div className="flex items-center justify-center gap-1">
-                          <button
-                            onClick={() => setSelectedMovement(mov)}
-                            className="p-1 hover:bg-stone-700 text-stone-300 hover:text-white rounded transition-colors"
-                            title="Ver detalle"
-                          >
-                            <Eye className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            onClick={() => deleteBankMovement(mov.id)}
-                            className="p-1 hover:bg-stone-700 text-stone-500 hover:text-red-400 rounded transition-colors"
-                            title="Eliminar movimiento"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                  {filteredMovements.map((mov) => {
+                    const montoBs = mov.creditVES > 0 ? mov.creditVES : mov.debitVES;
+                    const { isValid, expectedVES } = validateExchangeRateIntegrity(montoBs, mov.countervalueUSD, mov.bcvRate);
+
+                    return (
+                      <tr
+                        key={mov.id}
+                        className={`transition-colors ${
+                          !isValid
+                            ? 'bg-red-950/90 text-red-100 border-l-4 border-red-500 font-bold hover:bg-red-900/90'
+                            : 'hover:bg-stone-800/40'
+                        }`}
+                      >
+                        <td className="px-4 py-3 text-stone-400 whitespace-nowrap">{mov.date}</td>
+                        <td className="px-4 py-3 font-semibold text-amber-400 whitespace-nowrap">{mov.reference}</td>
+                        <td className="px-4 py-3 font-sans text-stone-200">
+                          <div className="font-medium text-xs text-stone-100">{mov.description}</div>
+                          <div className="text-[11px] text-stone-400">{mov.notes}</div>
+                          {!isValid && (
+                            <div className="text-[11px] text-red-300 font-mono mt-1 font-bold bg-red-950 p-1.5 rounded border border-red-500">
+                              ⚠️ INCONSISTENCIA CAMBIARIA: Registrado Bs. {montoBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ≠ Esperado Bs. {expectedVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })} (${mov.countervalueUSD.toLocaleString('en-US')} × BCV {mov.bcvRate})
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-right text-amber-300 font-medium whitespace-nowrap">
+                          {mov.debitVES > 0 ? `-Bs. ${mov.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
+                        </td>
+                        <td className="px-4 py-3 text-right text-emerald-400 font-medium whitespace-nowrap">
+                          {mov.creditVES > 0 ? `+Bs. ${mov.creditVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}` : '—'}
+                        </td>
+                        <td className="px-4 py-3 text-right font-bold text-white whitespace-nowrap">
+                          Bs. {mov.balanceVES.toLocaleString('es-VE', { minimumFractionDigits: 2 })}
+                        </td>
+                        <td className="px-4 py-3 text-right text-stone-400 whitespace-nowrap font-mono">
+                          ${mov.countervalueUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                          <span className="block text-[10px] text-stone-500 font-sans">@ {mov.bcvRate} Bs/$</span>
+                        </td>
+                        <td className="px-4 py-3 whitespace-nowrap font-sans text-[11px]">
+                          <span className="text-stone-300 block">{mov.supportDocType}</span>
+                          <span className="text-amber-500 font-mono text-[10px]">{mov.supportDocRef}</span>
+                        </td>
+                        <td className="px-4 py-3 text-center whitespace-nowrap">
+                          {!isValid ? (
+                            <span
+                              className="inline-flex items-center gap-1 text-[10px] font-sans font-bold text-red-100 bg-red-900 px-2 py-0.5 rounded border border-red-500 animate-pulse shadow"
+                              title={`Inconsistencia Cambiaria: Registrado Bs. ${montoBs.toFixed(2)} vs Calculado Bs. ${expectedVES.toFixed(2)}`}
+                            >
+                              ⚠️ Error Tasa BCV
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-sans font-semibold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/80">
+                              <CheckCircle2 className="w-3 h-3" />
+                              Conforme
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-center whitespace-nowrap">
+                          <div className="flex items-center justify-center gap-1">
+                            <button
+                              onClick={() => setSelectedMovement(mov)}
+                              className="p-1 hover:bg-stone-700 text-stone-300 hover:text-white rounded transition-colors"
+                              title="Ver detalle"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              onClick={() => deleteBankMovement(mov.id)}
+                              className="p-1 hover:bg-stone-700 text-stone-500 hover:text-red-400 rounded transition-colors"
+                              title="Eliminar movimiento"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

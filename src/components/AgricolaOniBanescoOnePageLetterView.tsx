@@ -175,7 +175,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
                     Contador Público Colegiado (CPC N° 16336)
                   </p>
                   <p style="margin: 1px 0 0 0; font-size: 8.5pt; font-weight: bold; color: #0f766e;">
-                    Auditor Contable Bancario Independiente
+                    Contador Público Colegiado (VEN-NIF)
                   </p>
                 </div>
               </td>

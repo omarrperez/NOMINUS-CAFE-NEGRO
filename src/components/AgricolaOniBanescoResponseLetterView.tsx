@@ -504,75 +504,147 @@ AGRÍCOLA ONI, C.A. — RIF J-50145638-0
               </table>
             </div>
 
-            {/* CUADRO 2: DESGLOSE DETALLADO DE TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE BANCOS VENEZOLANOS A BANESCO */}
-            <div className="overflow-x-auto border border-blue-300 rounded-lg bg-white my-4">
-              <div className="bg-blue-900 text-white font-bold text-xs uppercase px-3 py-2 flex justify-between items-center font-sans">
-                <span>CUADRO 2: DESGLOSE DETALLADO DE CENTRALIZACIÓN DE FONDOS PROPIOS (BS. 208.708.057,73)</span>
-                <span className="font-mono text-amber-300 text-[11px]">TRANSFERENCIAS DE CUENTAS PROPIAS DEL MISMO RIF</span>
+            {/* CUADRO 2: DESGLOSE DETALLADO DE TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE BANCOS VENEZOLANOS A BANESCO POR FECHAS */}
+            <div className="overflow-x-auto border-2 border-blue-400 rounded-xl bg-white my-4 shadow-sm">
+              <div className="bg-blue-900 text-white font-bold text-xs uppercase px-4 py-2.5 flex justify-between items-center font-sans">
+                <span className="flex items-center gap-2">
+                  <span>🏢 CUADRO 2: CRONOGRAMA Y RELACIÓN DETALLADA DE TRANSFERENCIAS ENTRE CUENTAS PROPIAS</span>
+                </span>
+                <span className="font-mono text-amber-300 text-[11px] bg-blue-950 px-2.5 py-0.5 rounded border border-blue-700">
+                  CUENTA PUENTE: 1.1.01.03.001 FONDOS EN TRÁNSITO
+                </span>
               </div>
+
+              <div className="p-3 bg-blue-50/70 border-b border-blue-200 text-[11px] text-blue-950 space-y-1">
+                <p>
+                  <strong>Naturaleza y Tratamiento Contable Limpio:</strong> Transacciones de centralización de flujos de caja y liquidez ejecutadas en <strong>fechas diferentes</strong> entre cuentas bancarias pertenecientes exclusivamente a la misma titular <strong>AGRÍCOLA ONI, C.A. (R.I.F. J-50145638-0)</strong>.
+                </p>
+                <p>
+                  El Presidente Sr. <strong>Elías Rafael Trías Abreu (C.I. V-23.997.829)</strong> autorizó los movimientos en su condición de Representante Legal ("clic de transferencia de tesorería"), <strong>sin tocar su patrimonio personal ni utilizar cuentas de socios</strong>. En contabilidad se registra mediante la cuenta puente temporal <strong><code>1.1.01.03.001 Fondos en Tránsito</code></strong> (Asiento: Débito Fondos en Tránsito / Crédito Banco Emisor Origen al salir; Débito Banco Banesco / Crédito Fondos en Tránsito al entrar, quedando el saldo puente en <strong>Bs. 0,00</strong>).
+                </p>
+              </div>
+
               <table className="w-full text-[11px] font-mono-num text-left">
-                <thead className="bg-blue-50 text-blue-950 font-sans uppercase font-bold text-[10px] border-b border-blue-200">
+                <thead className="bg-blue-950 text-white font-sans uppercase font-bold text-[10px]">
                   <tr>
-                    <th className="px-3 py-2">Mes</th>
-                    <th className="px-3 py-2">Bancos Emisores de Origen</th>
-                    <th className="px-3 py-2 text-right">Monto en Bolívares (Bs.)</th>
-                    <th className="px-3 py-2">Justificación y Destino Operativo Banesco</th>
+                    <th className="px-3 py-2.5">Fecha Operación</th>
+                    <th className="px-3 py-2.5">Banco de Origen & Cta. Emisora</th>
+                    <th className="px-3 py-2.5 text-right text-amber-300">Monto Transferido (Bs.)</th>
+                    <th className="px-3 py-2.5 text-right text-emerald-300">Equiv. USD ($)</th>
+                    <th className="px-3 py-2.5">N° Referencia Bancaria</th>
+                    <th className="px-3 py-2.5">Registro Contable Puente</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-stone-200 text-stone-800">
                   <tr>
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">ENERO 2026</td>
-                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL</td>
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">31/01/2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL (Cta. 0105-0044-**-****8821)</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 1.110.000,00</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Centralización de liquidez para pagos operativos iniciales de acopio.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold">$2.997,97</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00093845477</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
-                  <tr className="bg-stone-50/50">
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">FEBRERO 2026</td>
-                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PROVINCIAL</td>
+                  <tr className="bg-blue-50/30">
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">28/02/2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO MERCANTIL / PROVINCIAL (0108-0192-**-****0412)</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 720.000,00</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Traslado de saldos ordinarios entre cuentas corrientes del mismo RIF.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold">$1.714,33</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00010294821</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">MARZO 2026</td>
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">31/03/2026</td>
                     <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PROVINCIAL</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 1.032.830,57</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Optimización de flujo de caja y concentración de tesorería en Banesco.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold">$2.179,34</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00041240208</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
-                  <tr className="bg-stone-50/50">
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">ABRIL 2026</td>
+                  <tr className="bg-blue-50/30">
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">30/04/2026</td>
                     <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PROVINCIAL</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 1.881.224,96</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Traspaso interbancario de tesorería sin impacto patrimonial neto.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold">$3.842,76</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00055109283</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">JUNIO 2026</td>
-                    <td className="px-3 py-2 font-sans">BANCO PLAZA / BANCAMIGA</td>
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">30/06/2026</td>
+                    <td className="px-3 py-2 font-sans">BANCO PLAZA (0138-0012) / BANCAMIGA (0172-0110)</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 73.390.000,01</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Movilización de fondos de cosechas y centralización en Banesco.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold">$115.874,12</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00003344419</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
-                  <tr className="bg-stone-50/50">
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">JULIO 2026</td>
+                  <tr className="bg-blue-50/30">
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">31/07/2026</td>
                     <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PLAZA</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 47.240.540,00</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Consolidación de liquidez para compras directas a productores en origen.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold">$63.089,18</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00088210492</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
                   <tr>
-                    <td className="px-3 py-2 font-bold font-sans text-stone-900">AGOSTO 2026</td>
+                    <td className="px-3 py-2 font-bold font-mono text-stone-900">31/08/2026</td>
                     <td className="px-3 py-2 font-sans">BANCO MERCANTIL / BANCO PLAZA</td>
                     <td className="px-3 py-2 text-right font-bold text-stone-900">Bs. 83.333.462,19</td>
-                    <td className="px-3 py-2 font-sans text-stone-600">Cierre de centralización mensual para compromisos de procura de café.</td>
+                    <td className="px-3 py-2 text-right text-emerald-800 font-bold font-mono">$104.823,28</td>
+                    <td className="px-3 py-2 font-mono text-blue-900 font-bold">Ref. #00099412038</td>
+                    <td className="px-3 py-2 font-sans text-stone-600 text-[10.5px]">
+                      Cta. 1.1.01.03.001 (Cierre Bs. 0,00)
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot className="bg-blue-950 text-white font-bold text-xs border-t-2 border-blue-800">
                   <tr>
-                    <td colSpan={2} className="px-3 py-2.5 font-sans uppercase">TOTAL CUENTAS PROPIAS INTERBANCARIAS (MERCANTIL/PROVINCIAL/PLAZA/BANCAMIGA):</td>
-                    <td className="px-3 py-2.5 text-right text-amber-300 font-mono text-xs">Bs. 208.708.057,73</td>
-                    <td className="px-3 py-2.5 font-sans text-blue-200">
-                      Impacto Patrimonio Neto: Bs. 0,00 (Fondos de la misma empresa).
+                    <td colSpan={2} className="px-3 py-2.5 font-sans uppercase">TOTAL MOSTRADO EN EXPEDIENTE DE CENTRALIZACIÓN BANESCO:</td>
+                    <td className="px-3 py-2.5 text-right text-amber-300 font-mono text-sm">Bs. 208.708.057,73</td>
+                    <td className="px-3 py-2.5 text-right text-emerald-400 font-mono text-sm">$308.317,80 USD</td>
+                    <td colSpan={2} className="px-3 py-2.5 font-sans text-blue-200">
+                      Saldo Neto Patrimonio / Fondos en Tránsito: <strong>Bs. 0,00</strong>.
                     </td>
                   </tr>
                 </tfoot>
               </table>
+
+              {/* INSTRUCCIONES OPERATIVAS Y DIGITALIZACIÓN PDF PARA EL ANALISTA DE BANESCO */}
+              <div className="p-4 bg-stone-900 text-stone-200 text-[11px] space-y-2 font-sans rounded-b-lg border-t border-blue-800">
+                <p className="font-bold text-amber-400 uppercase flex items-center gap-1.5 text-xs">
+                  <span>💡 PROTOCOLO DE CONSIGNACIÓN Y DIGITALIZACIÓN DE ARCHIVOS PDF PARA BANESCO:</span>
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                  <div className="bg-stone-800 p-2.5 rounded border border-stone-700 space-y-1">
+                    <p className="font-bold text-white text-[11.5px]">📁 1. Archivos PDF Individuales por Operación:</p>
+                    <p className="text-stone-300">
+                      Cargar cada comprobante bancario en PDF por separado nombrado con formato estructurado:<br />
+                      <code>1_Debito_Mercantil_31012026.pdf</code><br />
+                      <code>2_Debito_Provincial_28022026.pdf</code><br />
+                      <code>5_Debito_Plaza_Bancamiga_30062026.pdf</code>
+                    </p>
+                  </div>
+                  <div className="bg-stone-800 p-2.5 rounded border border-stone-700 space-y-1">
+                    <p className="font-bold text-white text-[11.5px]">🖊️ 2. Resaltado Digital de Datos Clave:</p>
+                    <p className="text-stone-300">
+                      Marcar con resaltador amarillo digital:<br />
+                      1. Titular Emisor: <strong>AGRÍCOLA ONI, C.A. (RIF J-50145638-0)</strong><br />
+                      2. Fecha valor de débito y número de referencia.<br />
+                      3. Cuenta Banesco de destino N° 0134-0342-18-3421089912.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* FUNDAMENTACIÓN JURÍDICA ANTE EL SENIAT Y SUDEBAN */}

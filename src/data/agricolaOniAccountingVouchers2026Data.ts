@@ -89,6 +89,17 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 0
   },
   {
+    accountCode: '1.1.01.03.001',
+    accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
+    nature: 'ACTIVO',
+    totalDebitVES: 208708057.73,
+    totalCreditVES: 208708057.73,
+    debtorBalanceVES: 0.00,
+    creditorBalanceVES: 0.00,
+    totalDebitUSD: 308317.80,
+    totalCreditUSD: 308317.80
+  },
+  {
     accountCode: '1.1.02.04',
     accountName: 'Cuentas por Cobrar Manuel Becerra (Contrato Mutuo / Saldo Capital + Intereses)',
     nature: 'ACTIVO',
@@ -1050,8 +1061,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito (0105/0108)',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Cta. Propia (Provincial/Mercantil) J-50145638-0',
         debitVES: 0,
         creditVES: 1110000,
@@ -1093,8 +1104,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Cta. Propia Otros Bancos Feb-2026',
         debitVES: 0,
         creditVES: 720000,
@@ -1136,8 +1147,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Cta. Propia Otros Bancos Mar-2026',
         debitVES: 0,
         creditVES: 1032830.57,
@@ -1179,8 +1190,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Ctas. Propias Abr-May 2026',
         debitVES: 0,
         creditVES: 1881224.96,
@@ -1222,8 +1233,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito (0138 Plaza)',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Cta. Propia Plaza y Bancamiga Jun-2026',
         debitVES: 0,
         creditVES: 73390000.01,
@@ -1265,8 +1276,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito (0105/0138)',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Ctas. Propias Mercantil y Plaza Jul-2026',
         debitVES: 0,
         creditVES: 47240540,
@@ -1308,8 +1319,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         creditUSD: 0
       },
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Descarga Ctas. Propias Otros Bancos Ago-2026',
         debitVES: 0,
         creditVES: 83333462.19,
@@ -1342,8 +1353,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     status: 'CONFIRMADO',
     lines: [
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Cargo por Fondeo a Ctas. Propias Ene-May 2026',
         debitVES: 4210000,
         creditVES: 0,
@@ -1385,8 +1396,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     status: 'CONFIRMADO',
     lines: [
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Fondeo a Ctas. Propias Otros Bancos Jun-2026',
         debitVES: 38400000,
         creditVES: 0,
@@ -1428,8 +1439,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     status: 'CONFIRMADO',
     lines: [
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Fondeo a Ctas. Propias Otros Bancos Jul-2026',
         debitVES: 42100000,
         creditVES: 0,
@@ -1471,8 +1482,8 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     status: 'CONFIRMADO',
     lines: [
       {
-        accountCode: '1.1.01.99',
-        accountName: 'Transferencias Interbancarias entre Cuentas Propias en Tránsito',
+        accountCode: '1.1.01.03.001',
+        accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
         reference: 'Fondeo a Ctas. Propias Otros Bancos Ago-2026',
         debitVES: 68500000,
         creditVES: 0,
