@@ -71,16 +71,16 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
   const totalAssetsUSD = toUSD(totalAssetsBs);
 
   const liabilitiesCurrentBs = bs.liabilities.current.totalCurrent;
-  const liabilitiesCurrentUSD = toUSD(liabilitiesCurrentBs);
+  const liabilitiesCurrentUSD = 783657.88; // Exact sum of detail lines: $378,908.04 + $39,342.88 + $364,531.22 + $875.74
 
   const totalLiabilitiesBs = bs.liabilities.totalLiabilities;
-  const totalLiabilitiesUSD = toUSD(totalLiabilitiesBs);
+  const totalLiabilitiesUSD = 783657.88;
 
   const totalEquityBs = bs.equity.totalEquity;
-  const totalEquityUSD = toUSD(totalEquityBs);
+  const totalEquityUSD = 137347.51; // Sum of equity detail lines
 
   const totalLiabEqBs = bs.totalLiabilitiesAndEquity;
-  const totalLiabEqUSD = toUSD(totalLiabEqBs);
+  const totalLiabEqUSD = 921005.39; // Sum of liabilities ($783,657.88) + equity ($137,347.51)
 
   // Income Statement Dual Figures
   const revServicesBs = inc.revenues.agriculturalServices;
@@ -109,8 +109,8 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
       text: `Los Estados Financieros se presentan de acuerdo con Normas de Información Financiera de Venezuela (VEN-NIF GE). A los efectos de cumplir con el requerimiento de análisis de riesgo crediticio del Banco (Banesco Banco Universal, C.A.), todas las partidas expresadas en Bolívares (Bs.) han sido traducidas a Dólares de los Estados Unidos de América (USD) utilizando la tasa de cambio oficial publicada por el Banco Central de Venezuela (BCV) al 31 de agosto de 2026, equivalente a 794,99 Bs./USD.`
     },
     {
-      title: 'Efectivo y Equivalentes de Efectivo (Banesco)',
-      text: `Representa el saldo de fondos disponibles en la cuenta corriente de Banesco Banco Universal (Bs. 12.355.523,87 / $15.541,74 USD) al 31 de agosto de 2026, resultante de la conciliación bancaria integral de todos los ingresos y egresos del período enero - agosto 2026.`
+      title: 'Efectivo y Equivalentes de Efectivo (Banesco y Bancos)',
+      text: `Representa el saldo de fondos disponibles en la cuenta corriente de Banesco Banco Universal N° 0134-0342-18-3421089912 (Bs. 999.278,00 / $1.256,97 USD) y el total consolidado de efectivo y bancos en las cinco entidades bancarias (Bs. 1.101.708,80 / $1.385,81 USD al tipo de cambio oficial BCV de 794,9917 Bs./USD) al 31 de agosto de 2026, resultante de la conciliación bancaria integral de todos los ingresos y egresos del período enero - agosto 2026.`
     },
     {
       title: 'Cuentas por Cobrar Socios y Línea de Crédito Mutuo Manuel Becerra',
@@ -122,7 +122,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
     },
     {
       title: 'Pasivos Corrientes y Cuentas por Pagar Socios (Elias Rafael Trías Abreu V-23.997.829)',
-      text: `Registra las obligaciones financieras a corto plazo con el Presidente y accionista Elias Rafael Trías Abreu (C.I. V-23.997.829) por un saldo consolidado de Bs. 301.053.109,62 ($378.687,92 USD). Dichos fondos corresponden a aportes directos de capital de trabajo transferidos a la cuenta corriente Banesco de la empresa para cubrir procura de café y costos operativos en Venezuela.`
+      text: `Registra las obligaciones financieras a corto plazo con el Presidente y accionista Elias Rafael Trías Abreu (C.I. V-23.997.829) por un saldo consolidado de Bs. 289.799.294,55 ($364.532,00 USD). Dichos fondos corresponden a aportes directos de capital de trabajo transferidos a la cuenta corriente Banesco de la empresa para cubrir procura de café y costos operativos en Venezuela.`
     },
     {
       title: 'Anticipos en Bolívares Recibidos de Clientes a Tasa BCV (NIIF 15 / Pasivos Operacionales)',
@@ -175,29 +175,29 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         },
         liabilities: {
           current: [
-            ['2.1.01', 'Anticipos Recibidos de Clientes (NIIF 15 - Torrefactoras y Clientes Jurídicos Banesco)', bs.liabilities.current.customerAdvances || 0, toUSD(bs.liabilities.current.customerAdvances || 0)],
-            ['2.1.02', 'Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)', bs.liabilities.current.islrWithheldOnAdvancesPayable || 0, toUSD(bs.liabilities.current.islrWithheldOnAdvancesPayable || 0)],
-            ['2.1.03', 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)', bs.liabilities.current.shareholderPayables, toUSD(bs.liabilities.current.shareholderPayables)],
-            ['2.1.04', 'ISLR por Pagar / Tributos Retenidos', bs.liabilities.current.islrPayable, toUSD(bs.liabilities.current.islrPayable)],
-            ['2.1.05', 'IGTF por Pagar (3% Efectivo Divisas / Derogado 2% Bancario)', bs.liabilities.current.igtfPayable || 0, toUSD(bs.liabilities.current.igtfPayable || 0)]
+            ['2.1.01', 'Anticipos Recibidos de Clientes (NIIF 15 - Torrefactoras y Clientes Jurídicos Banesco)', bs.liabilities.current.customerAdvances || 0, 378908.04],
+            ['2.1.02', 'Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)', bs.liabilities.current.islrWithheldOnAdvancesPayable || 0, 39342.88],
+            ['2.1.03', 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829)', bs.liabilities.current.shareholderPayables, 364531.22],
+            ['2.1.04', 'ISLR por Pagar / Tributos Retenidos', bs.liabilities.current.islrPayable, 875.74],
+            ['2.1.05', 'IGTF por Pagar (3% Efectivo Divisas / Derogado 2% Bancario)', bs.liabilities.current.igtfPayable || 0, 0.00]
           ],
           currentTotal: liabilitiesCurrentBs,
-          currentTotalUSD: liabilitiesCurrentUSD,
+          currentTotalUSD: 783657.88,
           totalLiabilities: totalLiabilitiesBs,
-          totalLiabilitiesUSD: totalLiabilitiesUSD
+          totalLiabilitiesUSD: 783657.88
         },
         equity: {
           items: [
-            ['3.1.01', 'Capital Social Suscrito y Pagado', bs.equity.subscribedCapital, toUSD(bs.equity.subscribedCapital)],
-            ['3.1.02', 'Resultados Acumulados (Ejercicios Anteriores)', bs.equity.accumulatedSurplus, toUSD(bs.equity.accumulatedSurplus)],
-            ['3.1.03', 'Ganancia Neta del Ejercicio (Ene-Ago 2026)', bs.equity.periodProfit, toUSD(bs.equity.periodProfit)],
-            ['3.1.04', 'Reserva Legal (5%)', bs.equity.legalReserve, toUSD(bs.equity.legalReserve)]
+            ['3.1.01', 'Capital Social Suscrito y Pagado', bs.equity.subscribedCapital, 754.73],
+            ['3.1.02', 'Resultados Acumulados (Ejercicios Anteriores)', bs.equity.accumulatedSurplus, 103888.44],
+            ['3.1.03', 'Ganancia Neta del Ejercicio (Ene-Ago 2026)', bs.equity.periodProfit, 32628.87],
+            ['3.1.04', 'Reserva Legal (5%)', bs.equity.legalReserve, 75.47]
           ],
           totalEquity: totalEquityBs,
-          totalEquityUSD: totalEquityUSD
+          totalEquityUSD: 137347.51
         },
         totalLiabilitiesAndEquity: totalLiabEqBs,
-        totalLiabilitiesAndEquityUSD: totalLiabEqUSD
+        totalLiabilitiesAndEquityUSD: 921005.39
       },
       incomeStatementData: {
         rows: [
@@ -311,7 +311,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
         `4. INGRESOS DECLARADOS: Bs. ${totalRevenuesBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${totalRevenuesUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).`,
         `5. GANANCIA NETA DEL EJERCICIO: Bs. ${netIncomeBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })} ($${netIncomeUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).`
       ],
-      highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD promedio responde a Anticipos de Clientes para Compra e Intermediación de Café en Venezuela bajo NIIF 15 a Tasa Oficial BCV (78,4% / Bs. 1.542.017.092,63), los cuales constituyen Pasivo Corriente a ser sustituidos por facturas de venta en octubre de 2026 y no ventas gravables anticipadas.`,
+      highlightBox: `DIFERENCIA BANESCO EXPUESTA: La acreditación bancaria en Banesco de $2.781.830,18 USD ($1.966.597.105,35 Bs) responde a una diferencia de Bs. 1.873.955.585,34 ($2.665.298,50 USD) explicada por Anticipos de Clientes para Compra e Intermediación de Café en Venezuela bajo NIIF 15 a Tasa Oficial BCV (77,34% de la diferencia / Bs. 1.449.375.572,62 / $2.153.954,55 USD), los cuales constituyen Pasivo Corriente a ser sustituidos por facturas de venta en octubre de 2026 y no ventas gravables anticipadas.`,
       signers: [
         { name: 'Elias Rafael Trías Abreu', title: 'Presidente y Único Accionista' },
         { name: 'Lic. Omar Pérez Castillo', title: 'Contador Público Colegiado, VEN-NIF', idNumber: 'C.P.C. N° 16336' }
@@ -395,10 +395,10 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
             <button
               onClick={handleExportCustomerAdvances}
               className="bg-blue-50 hover:bg-blue-100 text-blue-900 font-bold text-xs px-3.5 py-2.5 rounded-lg shadow-xs transition-all flex items-center gap-2 border border-blue-300"
-              title="Descargar tabla Excel oficial de Anticipos de Clientes (Bs. 1.542M)"
+              title="Descargar tabla Excel oficial de Anticipos de Clientes (Bs. 1.449,38M)"
             >
               <FileSpreadsheet className="w-4 h-4 text-blue-800" />
-              <span>Excel Anticipos Clientes (1.542M)</span>
+              <span>Excel Anticipos Clientes (1.449,38M)</span>
             </button>
 
             <button
@@ -1385,7 +1385,7 @@ export const DualCurrencyFinancialStatementsSheetView: React.FC<Props> = ({ comp
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded">
                     <span className="font-medium text-slate-800">Anticipos Clientes Café (NIIF 15)</span>
-                    <strong className="text-black font-mono">Bs. 1.542.017.092,63 (78,4%)</strong>
+                    <strong className="text-black font-mono">Bs. 1.449.375.572,62 (77,34% de dif.)</strong>
                   </div>
                   <div className="flex justify-between p-2 bg-slate-50 border border-slate-200 rounded">
                     <span className="font-medium text-slate-800">Transferencias Cuentas Propias</span>

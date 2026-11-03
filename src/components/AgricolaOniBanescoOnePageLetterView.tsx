@@ -87,39 +87,39 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
 
           <!-- TEXTO DECLARATIVO DE LA EMPRESA -->
           <p style="text-align: justify; margin-bottom: 10px; font-size: 9.5pt;">
-            En representación legal de <strong>${company.name}</strong> (R.I.F. ${company.rif}), damos formal respuesta a su requerimiento informando que <strong>NO EXISTE OMISIÓN DE INGRESOS NI DIFERENCIA NO JUSTIFICADA</strong>. Nuestra empresa opera exclusivamente como <strong>INTERMEDIARIA COMERCIAL Y MANDANTE EN LA COMPRA DE CAFÉ VERDE 100% NACIONAL EN VENEZUELA</strong> para torrefactoras e industrias venezolanas. No importamos café de Colombia ni del exterior; todo el café se adquiere en el mercado nacional a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV). La movilización bancaria acumulada se justifica con total solidez técnica y contable:
+            En representación legal de <strong>${company.name}</strong> (R.I.F. ${company.rif}), damos formal respuesta a su requerimiento informando que <strong>NO EXISTE OMISIÓN DE INGRESOS NI DIFERENCIA NO JUSTIFICADA</strong>. Nuestra empresa opera exclusivamente como <strong>INTERMEDIARIA COMERCIAL Y MANDANTE EN LA COMPRA DE CAFÉ VERDE 100% NACIONAL EN VENEZUELA</strong> para torrefactoras e industrias venezolanas. No importamos café de Colombia ni del exterior; todo el café se adquiere en el mercado nacional a tipo de cambio oficial publicado por el Banco Central de Venezuela (BCV). De los créditos acumulados en Banesco (Bs. 1.966.597.105,35 / $2.781.830,18 USD), <strong>Bs. 92.641.520,01 ($116.531,68 USD)</strong> corresponden a Ingresos Declarados en EEFF y la diferencia de <strong>Bs. 1.873.955.585,34 ($2.665.298,50 USD)</strong> se justifica al 100,00% en partidas de balance:
           </p>
 
           <!-- TABLA DE DESGLOSE CUADRADA -->
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 9pt; background-color: #f8fafc; border: 1pt solid #cbd5e1;">
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
-                <strong>1. Anticipos de Clientes Jurídicos en Bolívares (78,41% — Bs. 1.542.017.092,63 / $2.270.486,23 USD):</strong><br>
-                Fondos recibidos de compradores bajo Contrato Marco de Intermediación. Registrados como <em>Pasivos Corrientes Exigibles en Café</em> bajo NIIF 15. Movilización Bruta Banesco: Bs. 1.542.017.092,63 menos Compras Ejecutadas de Café verde en origen: Bs. 1.240.788.342,46 = Saldo Neto Pendiente en Balance General (Cta. 2.1.01): <strong>Bs. 301.228.750,17</strong> ($378.908,85 USD). Se sustituyen por factura fiscal SENIAT en Octubre 2026.
+                <strong>1. Anticipos de Clientes Jurídicos en Bolívares (77,34% de la dif. — Bs. 1.449.375.572,62 / $2.153.954,55 USD):</strong><br>
+                Fondos recibidos de compradores bajo Contrato Marco de Intermediación. Registrados como <em>Pasivos Corrientes Exigibles en Café</em> bajo NIIF 15. Movilización Bruta Banesco: Bs. 1.449.375.572,62 menos Compras Ejecutadas en origen: Bs. 1.148.146.822,45 = Saldo Neto Pendiente en Balance General (Cta. 2.1.01): <strong>Bs. 301.228.750,17</strong> ($378.908,85 USD). Se sustituyen por factura fiscal SENIAT en Octubre 2026.
               </td>
             </tr>
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
-                <strong>2. Reintegros Capital Mutuo Manuel Becerra (9,48% — Bs. 186.376.000,00 / $286.228,93 USD):</strong><br>
-                Amortización de Activo Financiero de la Línea de Crédito Rotativa suscrita con el Sr. Manuel Becerra (Prestamista / Socio en otras empresas del grupo). Disminuyen la Cuenta por Cobrar en balance. No constituye venta ni ingreso.
+                <strong>2. Reintegros Capital Mutuo Manuel Becerra (9,95% de la dif. — Bs. 186.376.000,00 / $286.228,93 USD):</strong><br>
+                Amortización de Activo Financiero de la Línea de Crédito Rotativa suscrita con el Sr. Manuel Becerra (Prestamista / Socio en otras empresas del grupo). Disminuyen la Cuenta por Cobrar en balance (Cta. 1.1.02.01). No constituye venta ni ingreso.
               </td>
             </tr>
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
-                <strong>3. Transferencias Cuentas Propias Agrícola Oni (10,61% — Bs. 208.708.057,73 / $308.317,80 USD):</strong><br>
-                Traspasos de tesorería interna desde Provincial, Mercantil, Plaza y Bancamiga mismo RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.
+                <strong>3. Transferencias Cuentas Propias Agrícola Oni (11,14% de la dif. — Bs. 208.708.057,73 / $308.317,80 USD):</strong><br>
+                Traspasos de tesorería interna desde Provincial, Mercantil, Plaza y Bancamiga pertenecientes al mismo titular RIF J-50145638-0 canalizados vía cuenta puente 1.1.01.03.001 Fondos en Tránsito. Impacto patrimonial neto: <strong>Bs. 0,00</strong>.
               </td>
             </tr>
             <tr>
               <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
-                <strong>4. Aportes Operativos Accionista / Personas Naturales (1,50% — Bs. 29.495.954,99 / $47.335,99 USD):</strong><br>
-                Inyecciones de liquidez del Presidente y Único Accionista Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.
+                <strong>4. Aportes Operativos Accionista / Personas Naturales (1,57% de la dif. — Bs. 29.495.954,99 / $47.335,99 USD):</strong><br>
+                Inyecciones de liquidez del Presidente y Único Accionista Sr. Elías Rafael Trías Abreu (Cuentas por Pagar Socios) y anticipos de personas naturales. <strong>[Subtotal Diferencia Justificada 1+2+3+4 = Bs. 1.873.955.585,34 ($2.665.298,50 USD - 100,00%)]</strong>.
               </td>
             </tr>
             <tr>
-              <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0;">
-                <strong>5. Ingresos Reales Declarados en EEFF (Bs. 92.641.520,01 / $116.531,68 USD):</strong><br>
-                Servicios Agrícolas facturados ($78,72M) + Intereses Ganados Mutuo ($13,92M), 100% idéntico al Estado de Resultados al 31/08/2026.
+              <td style="padding: 7px 9px; border-bottom: 1pt solid #e2e8f0; background-color: #f0fdf4;">
+                <strong>5. Ingresos Reales Declarados en EEFF (4,71% del total BBU — Bs. 92.641.520,01 / $116.531,68 USD):</strong><br>
+                Servicios Agrícolas facturados ($78,72M) + Intereses Ganados Mutuo ($13,92M), 100% idéntico al Estado de Resultados al 31/08/2026. <strong>[TOTAL CRÉDITOS BBU = Ingresos EEFF (Bs. 92,64M) + Diferencia Balance (Bs. 1.873,96M) = Bs. 1.966.597.105,35]</strong>.
               </td>
             </tr>
             <tr>
@@ -138,7 +138,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
                   🎯 CUADRE DEFINITIVO DE AUDITORÍA BANESCO — DIFERENCIA FINAL POR OMISIÓN DE INGRESOS: BS. 0,00 ($0,00 USD)
                 </p>
                 <p style="margin: 3px 0 0 0; font-size: 8.5pt; color: #166534;">
-                  Conciliación Auditada al 100% &middot; Explicación Total del Monto Exigido de $2.912.368,95 USD (Bs. 1.966.597.105,35)
+                  Conciliación Auditada al 100% &middot; Explicación Total del Monto Exigido de $2.781.830,18 USD (Bs. 1.966.597.105,35)
                 </p>
               </td>
             </tr>
@@ -418,32 +418,32 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
             <tbody>
               <tr className="border-b border-stone-200">
                 <td className="p-2">
-                  <span className="font-bold text-amber-900">1. Anticipos en Bolívares de Clientes (78,4% &mdash; Bs. 1.542,02M / USD 2.270.486,23):</span>
-                  <span className="text-stone-800"> Son anticipos de torrefactoras venezolanas a tasa BCV. Conforme a la <strong>NIIF 15</strong> y Art. 1152 del Código Civil, son <em>Pasivo Corriente Exigible en Café</em>. En <strong>OCTUBRE 2026</strong> se sustituyen por la factura fiscal de ventas definitiva.</span>
+                  <span className="font-bold text-amber-900">1. Anticipos en Bolívares de Clientes (77,34% de la dif. &mdash; Bs. 1.449,38M / USD 2.153.954,55):</span>
+                  <span className="text-stone-800"> Anticipos de torrefactoras venezolanas a tasa BCV. Conforme a la <strong>NIIF 15</strong> y Art. 1152 del C.C., son <em>Pasivo Corriente Exigible en Café</em>. En <strong>OCTUBRE 2026</strong> se sustituyen por la factura fiscal SENIAT de ventas definitiva.</span>
                 </td>
               </tr>
               <tr className="border-b border-stone-200">
                 <td className="p-2">
-                  <span className="font-bold text-amber-900">2. Reintegros Mutuo Manuel Becerra (9,5% &mdash; Bs. 186,38M / USD 286.228,93):</span>
-                  <span className="text-stone-800"> Amortizaciones de capital de la línea de crédito rotativa suscrita con el socio Manuel Becerra. Disminuyen la cuenta de activo exigible. No es venta.</span>
+                  <span className="font-bold text-amber-900">2. Reintegros Mutuo Manuel Becerra (9,95% de la dif. &mdash; Bs. 186,38M / USD 286.228,93):</span>
+                  <span className="text-stone-800"> Amortizaciones de capital de la línea de crédito rotativa con Manuel Becerra. Disminuyen la cuenta de activo exigible (Cta. 1.1.02.01). No es venta.</span>
                 </td>
               </tr>
               <tr className="border-b border-stone-200">
                 <td className="p-2">
-                  <span className="font-bold text-amber-900">3. Transferencias entre Cuentas Propias (10,6% &mdash; Bs. 208,71M):</span>
-                  <span className="text-stone-800"> Movilizaciones internas desde Provincial, Mercantil, Plaza y Bancamiga mismo RIF J-50145638-0. Impacto patrimonial neto: Bs. 0,00.</span>
+                  <span className="font-bold text-amber-900">3. Transferencias entre Cuentas Propias (11,14% de la dif. &mdash; Bs. 208,71M / USD 308.317,80):</span>
+                  <span className="text-stone-800"> Traspasos de tesorería interna desde Provincial, Mercantil, Plaza y Bancamiga mismo RIF J-50145638-0 vía cuenta puente 1.1.01.03.001. Impacto patrimonial neto: <strong>Bs. 0,00</strong>.</span>
                 </td>
               </tr>
               <tr className="border-b border-stone-200">
                 <td className="p-2">
-                  <span className="font-bold text-amber-900">4. Aportes Operativos Accionista / Personas Naturales (1,5% &mdash; Bs. 29,50M):</span>
-                  <span className="text-stone-800"> Inyecciones de liquidez Presidente Sr. Elias Rafael Trías Abreu y anticipos de compradores personas naturales.</span>
+                  <span className="font-bold text-amber-900">4. Aportes Operativos Accionista / Personas Naturales (1,57% de la dif. &mdash; Bs. 29,50M / USD 47.335,99):</span>
+                  <span className="text-stone-800"> Inyecciones de liquidez Presidente Sr. Elías Rafael Trías Abreu y anticipos de personas naturales. <strong>[Subtotal Diferencia Justificada 1+2+3+4 = Bs. 1.873.955.585,34 ($2.665.298,50 USD - 100,00%)]</strong>.</span>
                 </td>
               </tr>
-              <tr className="border-b border-stone-200">
+              <tr className="border-b border-stone-200 bg-emerald-50/50">
                 <td className="p-2">
-                  <span className="font-bold text-emerald-900">5. Ingresos Reales Declarados en EEFF (Bs. 92.641.520,01 / USD 116.531,68):</span>
-                  <span className="text-stone-800"> Servicios Agrícolas facturados ($78,72M) + Intereses del Mutuo Becerra ($13,92M), coincidiendo al céntimo con el Estado de Resultados.</span>
+                  <span className="font-bold text-emerald-900">5. Ingresos Reales Declarados en EEFF (4,71% del total BBU &mdash; Bs. 92.641.520,01 / USD 116.531,68):</span>
+                  <span className="text-stone-800"> Servicios Agrícolas facturados ($78,72M) + Intereses Ganados Mutuo ($13,92M), 100% idéntico a EEFF. <strong>[TOTAL CRÉDITOS BBU = Ingresos EEFF (Bs. 92,64M) + Diferencia Balance (Bs. 1.873,96M) = Bs. 1.966.597.105,35]</strong>.</span>
                 </td>
               </tr>
               <tr>
@@ -461,7 +461,7 @@ export const AgricolaOniBanescoOnePageLetterView: React.FC<Props> = ({ company, 
               🎯 CUADRE DEFINITIVO DE AUDITORÍA BANESCO — DIFERENCIA FINAL POR OMISIÓN DE INGRESOS: BS. 0,00 ($0,00 USD)
             </p>
             <p className="text-[9.5px] text-emerald-850 font-sans mt-0.5 m-0">
-              Conciliación Auditada al 100% &middot; Explicación del 100% del Monto Exigido de $2.912.368,95 USD (Bs. 1.966.597.105,35)
+              Conciliación Auditada al 100% &middot; Explicación del 100% del Monto Exigido de $2.781.830,18 USD (Bs. 1.966.597.105,35)
             </p>
           </div>
 

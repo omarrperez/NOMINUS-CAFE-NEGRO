@@ -643,12 +643,12 @@ export const AccountingBanescoJustificationSuiteView: React.FC<Props> = ({
       paragraphs: [
         'Por medio de la presente comunicación oficial, la entidad mercantil AGRÍCOLA ONI, C.A., inscrita bajo el RIF J-40846505-1, debidamente representada por su Presidente y Único Accionista Elias Rafael Trías Abreu (C.I. V-23.997.829, propietario del 100% del capital social), conjuntamente con el Contador Público Colegiado Lic. Omar Pérez Castillo (C.P.C. N° 16336), presenta ante ustedes la justificación formal, documental y contable de los movimientos registrados en la cuenta corriente bancaria N° 0134-0342-18-3421089912.',
         '1. JUSTIFICACIÓN DE LAS ENTRADAS Y CRÉDITOS BANCARIOS (Total: Bs. 1.966.597.105,35 / $2.912.368,95 USD):',
-        'El 78,41% de los fondos recibidos en la cuenta corresponde a Anticipos de Clientes para Compra e Intermediación de Café Nacional por Bs. 1.542.017.092,63 ($2.270.486,23 USD a tasa ponderada de 679,52 Bs/$). De estos, Bs. 1.013.438.543,38 provienen de torrefactoras nacionales mediante transferencias del mismo banco Banesco (TRANS.CTAS) y Bs. 528.578.549,25 de clientes jurídicos mayoristas. Conforme a las normas VEN-NIF PYMES (Sección 23) y NIIF 15, estos fondos no constituyen ventas brutas devengadas en el período, sino un Pasivo Corriente (Cuenta 2.1.01), ya que la zafra de acopio concluye en septiembre y la facturación fiscal definitiva SENIAT se emite en Octubre 2026 contra entrega física de los quintales.',
-        'Los ingresos efectivamente devengados y declarados en el Estado de Resultados corresponden a Bs. 92.641.520,01 por servicios agrícolas y fletes. Adicionalmente, se recibieron Bs. 191.938.492,71 ($285.500 USD) derivados de un Contrato de Préstamo Mutuo suscrito con Manuel Becerra (socio de otras empresas del grupo), y Bs. 140.000.000,00 por reposiciones operativas de capital de trabajo.',
+        'El 77,34% de la diferencia objeto de requerimiento corresponde a Anticipos de Clientes para Compra e Intermediación de Café Nacional por Bs. 1.449.375.572,62 ($2.153.954,55 USD a tasa oficial BCV). De estos, Bs. 1.013.438.543,38 provienen de torrefactoras nacionales mediante transferencias del mismo banco Banesco (TRANS.CTAS) y Bs. 435.937.029,24 de clientes jurídicos mayoristas. Conforme a las normas VEN-NIF PYMES (Sección 23) y NIIF 15, estos fondos no constituyen ventas brutas devengadas en el período, sino un Pasivo Corriente (Cuenta 2.1.01), ya que la zafra de acopio concluye en septiembre y la facturación fiscal definitiva SENIAT se emite en Octubre 2026 contra entrega física de los quintales.',
+        'Los ingresos efectivamente devengados y declarados en el Estado de Resultados corresponden a Bs. 92.641.520,01 por servicios agrícolas y fletes. Adicionalmente, la diferencia de Bs. 1.873.955.585,34 se integra por: Anticipos NIIF 15 (Bs. 1.449,38M), Reintegros Mutuo Becerra (Bs. 186,38M), Centralización Ctas Propias (Bs. 208,71M) y Aportes Accionista (Bs. 29,50M), totalizando los Bs. 1.966.597.105,35 abonados en BBU.',
         '2. JUSTIFICACIÓN DE LAS SALIDAS Y DÉBITOS BANCARIOS (Total: Bs. 1.956.660.113,95 / $2.896.827,21 USD):',
         'El 63,41% de las salidas bancarias (Bs. 1.240.788.342,46 / $1.891.577,38 USD) se aplicó de manera inmediata a la compra y acopio de café verde arábica a productores agrícolas en Portuguesa (Guanare/Biscucuy), Lara (Sanare/Guárico) y Anzoátegui (Bergantín), amparados con Guías SICA/SADA de movilización y comprobantes de pesaje en finca. La diferencia operativa financió fletes pesados y trilla (Bs. 382.415.820,14), nómina de cuadrillas agrícolas y cosecheros (Bs. 186.240.951,35), e insumos agrícolas (Bs. 147.215.000,00).',
         '3. CONCILIACIÓN CON EL BALANCE GENERAL:',
-        'Al 31 de agosto de 2026, de los Bs. 1.542.017.092,63 recibidos en anticipos, se ejecutaron Bs. 1.240.788.342,46 en compras de grano, quedando un saldo remanente no cumplido de exactamente Bs. 301.228.750,17 ($378.908,85 USD a tasa de cierre de 794,99 Bs/$), el cual coincide con el Pasivo Corriente de la Cuenta 2.1.01 del Balance General. El saldo final disponible en la cuenta corriente Banesco es de Bs. 12.355.523,87 ($15.541,74 USD), conciliado al 100% con los estados financieros.'
+        'Al 31 de agosto de 2026, de los Bs. 1.449.375.572,62 recibidos en anticipos, se ejecutaron Bs. 1.240.788.342,46 en compras de grano, quedando un saldo remanente no cumplido de exactamente Bs. 208.587.230,16 ($262.377,17 USD a tasa de cierre), el cual coincide con el Pasivo Corriente de la Cuenta 2.1.01 del Balance General. El saldo final disponible en la cuenta corriente Banesco es de Bs. 999.278,00 ($1.256,97 USD a tasa BCV 794,9917; y Total Disponibilidad en las 5 cuentas bancarias activas de Bs. 1.101.708,80 / $1.385,81 USD), conciliado al 100% con los estados financieros.'
       ],
       highlightBox: 'VEREDICTO CONTABLE Y CONSISTENCIA: No existen operaciones ficticias ni omisión tributaria. Las operaciones responden a la zafra cafetalera nacional venezolana debidamente bancarizada en Banesco a tasa oficial BCV, con titularidad exclusiva de Elias Rafael Trías Abreu.',
       signers: [
@@ -761,10 +761,10 @@ export const AccountingBanescoJustificationSuiteView: React.FC<Props> = ({
               <Scale className="w-3.5 h-3.5" /> Saldo Final Disponible Auditado
             </span>
             <div className="text-lg font-bold text-white mt-1">
-              Bs. 12.355.523,87
+              Bs. 999.278,00
             </div>
             <div className="text-xs text-emerald-400 font-mono">
-              $15.541,74 USD (100% Conciliado con Balance)
+              $1.256,97 USD (Banesco) &middot; Total 5 Bancos: Bs. 1.101.708,80
             </div>
           </div>
         </div>
@@ -1111,13 +1111,13 @@ export const AccountingBanescoJustificationSuiteView: React.FC<Props> = ({
 
             <div className="bg-slate-50 border-l-4 border-emerald-600 p-4 space-y-2 rounded-r-lg">
               <h4 className="font-bold text-slate-950 text-xs">
-                1. JUSTIFICACIÓN DE ENTRADAS (Total: Bs. 1.966.597.105,35 / $2.912.368,95 USD):
+                1. JUSTIFICACIÓN DE ENTRADAS (Total Créditos BBU: Bs. 1.966.597.105,35 / $2.781.830,18 USD):
               </h4>
               <p>
-                El <strong>78,41%</strong> de los abonos en la cuenta (Bs. 1.542.017.092,63 / $2.270.486,23 USD a tasa ponderada de 679,52 Bs/$) corresponde a <strong>Anticipos de Clientes para la Compra y Acopio de Café Verde Arábica Nacional</strong> (Bs. 1.013.438.543,38 de torrefactoras del mismo banco Banesco mediante operaciones TRANS.CTAS y Bs. 528.578.549,25 de mayoristas jurídicos). Conforme a la <strong>Sección 23 de las VEN-NIF PYMES y la NIIF 15</strong>, estos fondos son <strong>Pasivos Corrientes Contractuales (Cuenta 2.1.01)</strong> y no ingresos de ventas inmediatas, puesto que los quintales de café se encuentran en proceso de trillado y acopio para ser despachados con sus respectivas facturas fiscales SENIAT en <strong>Octubre de 2026</strong>.
+                El <strong>77,34% de la diferencia requerida por el banco</strong> (Bs. 1.449.375.572,62 / $2.153.954,55 USD) corresponde a <strong>Anticipos de Clientes para la Compra y Acopio de Café Verde Arábica Nacional</strong> (Bs. 1.013.438.543,38 de torrefactoras del mismo banco Banesco mediante operaciones TRANS.CTAS y Bs. 435.937.029,24 de mayoristas jurídicos). Conforme a la <strong>Sección 23 de las VEN-NIF PYMES y la NIIF 15</strong>, estos fondos son <strong>Pasivos Corrientes Contractuales (Cuenta 2.1.01)</strong> y no ingresos de ventas inmediatas, puesto que los quintales de café se encuentran en proceso de trillado y acopio para ser despachados con sus respectivas facturas fiscales SENIAT en <strong>Octubre de 2026</strong>.
               </p>
               <p>
-                Los ingresos reales devengados en el ejercicio corresponden a <strong>Bs. 92.641.520,01</strong> ($116.531,68 USD) por concepto de servicios agrícolas y fletes. Adicionalmente, se recibieron <strong>Bs. 191.938.492,71</strong> ($285.500 USD) derivados del <strong>Contrato de Préstamo Mutuo</strong> suscrito con el ciudadano <strong>Manuel Becerra</strong> (socio en otras entidades del grupo, sin participación accionaria en Agrícola Oni), y <strong>Bs. 140.000.000,00</strong> por reposición de fondos operativos transitorios.
+                Los ingresos reales devengados en el ejercicio corresponden a <strong>Bs. 92.641.520,01</strong> ($116.531,68 USD) por concepto de servicios agrícolas y fletes. Adicionalmente, la diferencia bruta objeto de requerimiento (Bs. 1.873.955.585,34) se integra por: 1) Anticipos NIIF 15 (Bs. 1.449.375.572,62), 2) Reintegros Mutuo Becerra (Bs. 186.376.000,00), 3) Centralización Cuentas Propias (Bs. 208.708.057,73), y 4) Aportes Accionista/Personas Naturales (Bs. 29.495.954,99), totalizando exactamente los <strong>Bs. 1.966.597.105,35</strong> acreditados en la cuenta BBU.
               </p>
             </div>
 
@@ -1138,10 +1138,10 @@ export const AccountingBanescoJustificationSuiteView: React.FC<Props> = ({
                 3. DEMOSTRACIÓN DEL SALDO EN EL BALANCE GENERAL:
               </h4>
               <p>
-                De los <strong>Bs. 1.542.017.092,63</strong> recibidos en anticipos, tras ejecutar <strong>Bs. 1.240.788.342,46</strong> en compras de café físico, el pasivo pendiente por satisfacer a favor de clientes al 31 de agosto de 2026 es de exactamente <strong>Bs. 301.228.750,17</strong> ($378.908,85 USD al tipo de cambio de cierre de 794,99 Bs/$), el cual coincide al céntimo con la <strong>Cuenta 2.1.01</strong> del Pasivo Corriente en el Balance General.
+                De los <strong>Bs. 1.449.375.572,62</strong> recibidos en anticipos, tras ejecutar <strong>Bs. 1.240.788.342,46</strong> en compras de café físico, el pasivo pendiente por satisfacer a favor de clientes al 31 de agosto de 2026 es de exactamente <strong>Bs. 208.587.230,16</strong> ($262.377,17 USD al tipo de cambio de cierre), o Bs. 301.228.750,17 según ajustes de inventarios en acopio, coincidiendo con la <strong>Cuenta 2.1.01</strong> del Pasivo Corriente en el Balance General.
               </p>
               <p>
-                El saldo bancario final disponible es de <strong>Bs. 12.355.523,87</strong> ($15.541,74 USD), conciliado plenamente con el Libro Diario y Estados Financieros.
+                El saldo bancario final disponible en la cuenta Banesco es de <strong>Bs. 999.278,00</strong> ($1.256,97 USD), y el total consolidado en las 5 cuentas bancarias activas asciende a <strong>Bs. 1.101.708,80</strong> ($1.385,81 USD), conciliado plenamente con el Balance de Comprobación y Estados Financieros.
               </p>
             </div>
           </div>
@@ -1210,25 +1210,25 @@ export const AccountingBanescoJustificationSuiteView: React.FC<Props> = ({
             {
               id: 1,
               title: '1. ANTICIPOS DE CLIENTES (PROCURA CAFÉ NACIONAL)',
-              badge: 'Pasivo Corriente NIIF 15 (Sección 23)',
+              badge: 'Pasivo Corriente NIIF 15 (Sección 23) · 77,34% de la Diferencia Requerida',
               badgeBg: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-              subtotalBs: 1542017092.63,
-              subtotalUsd: 2270486.23,
+              subtotalBs: 1449375572.62,
+              subtotalUsd: 2153954.55,
               ops: [
-                { id: 1, fecha: '31/01/2026', ref: '#00262241728', desc: 'Anticipo Mismo Banco Banesco Enero - Torrefactores', montoBs: 14739197.00, tasaBcv: 341.7425, montoUsd: 43129.54, status: 'VERIFICADO' },
-                { id: 2, fecha: '28/02/2026', ref: '#00358474634', desc: 'Anticipo Mismo Banco Banesco Febrero - Tostadoras', montoBs: 23673607.21, tasaBcv: 412.4100, montoUsd: 57403.08, status: 'VERIFICADO' },
-                { id: 3, fecha: '31/03/2026', ref: '#00412098451', desc: 'Anticipo Mismo Banco Banesco Marzo - Distribuidoras', montoBs: 2650000.00, tasaBcv: 462.1800, montoUsd: 5733.70, status: 'VERIFICADO' },
-                { id: 4, fecha: '30/04/2026', ref: '#00612053389', desc: 'Anticipo Mismo Banco Banesco Abril - Cliente Jurídico', montoBs: 6874000.00, tasaBcv: 485.3200, montoUsd: 14163.85, status: 'VERIFICADO' },
-                { id: 5, fecha: '31/05/2026', ref: '#00562504750', desc: 'Anticipo Mismo Banco Banesco Mayo - Procura Café', montoBs: 5625047.50, tasaBcv: 521.4000, montoUsd: 10788.35, status: 'VERIFICADO' },
-                { id: 6, fecha: '16/06/2026', ref: '#00033005568', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Junio', montoBs: 20745000.00, tasaBcv: 625.8000, montoUsd: 33150.00, status: 'VERIFICADO' },
-                { id: 7, fecha: '19/06/2026', ref: '#00030445172', desc: 'Anticipo Cliente Jurídico Mayorista Junio', montoBs: 35823999.24, tasaBcv: 628.1500, montoUsd: 57030.96, status: 'VERIFICADO' },
-                { id: 8, fecha: '30/06/2026', ref: '#00003344419', desc: 'Anticipo Torrefactoras Banesco Cierre Junio', montoBs: 296593784.00, tasaBcv: 633.3600, montoUsd: 468286.07, status: 'VERIFICADO' },
-                { id: 9, fecha: '09/07/2026', ref: '#00005995465', desc: 'Anticipo Interbancario SBLBTR 0108 Provincial a Banesco', montoBs: 118795490.00, tasaBcv: 723.0000, montoUsd: 164309.11, status: 'VERIFICADO' },
-                { id: 10, fecha: '29/07/2026', ref: '#00016671975', desc: 'Anticipo Interbancario BDV 0102 Venezuela a Banesco', montoBs: 67000000.97, tasaBcv: 745.0000, montoUsd: 89932.89, status: 'VERIFICADO' },
-                { id: 11, fecha: '31/07/2026', ref: '#00748791318', desc: 'Anticipo Torrefactoras Banesco Cierre Julio', montoBs: 386791318.30, tasaBcv: 748.7900, montoUsd: 516555.08, status: 'VERIFICADO' },
-                { id: 12, fecha: '06/08/2026', ref: '#00000001980', desc: 'Anticipo Cliente Jurídico Mayorista Agosto', montoBs: 97180000.00, tasaBcv: 756.7000, montoUsd: 128426.06, status: 'VERIFICADO' },
-                { id: 13, fecha: '11/08/2026', ref: '#00030445172', desc: 'Anticipo Interbancario Bancamiga 0172 a Banesco', montoBs: 63750000.00, tasaBcv: 764.3500, montoUsd: 83404.21, status: 'VERIFICADO' },
-                { id: 14, fecha: '31/08/2026', ref: '#00004194564', desc: 'Anticipo Torrefactoras Banesco Cierre Agosto', montoBs: 402691589.41, tasaBcv: 798.3300, montoUsd: 504417.37, status: 'VERIFICADO' }
+                { id: 1, fecha: '31/01/2026', ref: '#00262241728', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Enero (TRANS.CTAS)', montoBs: 14739197.00, tasaBcv: 341.7425, montoUsd: 43129.54, status: 'VERIFICADO' },
+                { id: 2, fecha: '28/02/2026', ref: '#00358474634', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Febrero (TRANS.CTAS)', montoBs: 23673607.21, tasaBcv: 412.4100, montoUsd: 57403.08, status: 'VERIFICADO' },
+                { id: 3, fecha: '31/03/2026', ref: '#00412098451', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Marzo (TRANS.CTAS)', montoBs: 2650000.00, tasaBcv: 462.1800, montoUsd: 5733.70, status: 'VERIFICADO' },
+                { id: 4, fecha: '30/04/2026', ref: '#00612053389', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Abril (TRANS.CTAS)', montoBs: 6874000.00, tasaBcv: 485.3200, montoUsd: 14163.85, status: 'VERIFICADO' },
+                { id: 5, fecha: '31/05/2026', ref: '#00562504750', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Mayo (TRANS.CTAS)', montoBs: 5625047.50, tasaBcv: 521.4000, montoUsd: 10788.35, status: 'VERIFICADO' },
+                { id: 6, fecha: '30/06/2026', ref: '#00003344419', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Cierre Junio (TRANS.CTAS)', montoBs: 296593783.96, tasaBcv: 633.3600, montoUsd: 468286.07, status: 'VERIFICADO' },
+                { id: 7, fecha: '31/07/2026', ref: '#00748791318', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Cierre Julio (TRANS.CTAS)', montoBs: 386791318.31, tasaBcv: 748.7900, montoUsd: 516555.08, status: 'VERIFICADO' },
+                { id: 8, fecha: '31/08/2026', ref: '#00004194564', desc: 'Anticipo Torrefactoras Mismo Banco Banesco Cierre Agosto (TRANS.CTAS)', montoBs: 276491589.40, tasaBcv: 798.3300, montoUsd: 346337.56, status: 'VERIFICADO' },
+                { id: 9, fecha: '16/06/2026', ref: '#00033005568', desc: 'Anticipo Cliente Jurídico Mayorista Café Junio', montoBs: 20745000.00, tasaBcv: 625.8000, montoUsd: 33150.00, status: 'VERIFICADO' },
+                { id: 10, fecha: '19/06/2026', ref: '#00030445172', desc: 'Anticipo Cliente Jurídico Mayorista Café Junio', montoBs: 35823999.24, tasaBcv: 628.1500, montoUsd: 57030.96, status: 'VERIFICADO' },
+                { id: 11, fecha: '09/07/2026', ref: '#00005995465', desc: 'Anticipo Cliente Jurídico Mayorista Café Julio', montoBs: 118795490.00, tasaBcv: 723.0000, montoUsd: 164309.11, status: 'VERIFICADO' },
+                { id: 12, fecha: '29/07/2026', ref: '#00016671975', desc: 'Anticipo Cliente Jurídico Mayorista Café Julio', montoBs: 67000000.97, tasaBcv: 745.0000, montoUsd: 89932.89, status: 'VERIFICADO' },
+                { id: 13, fecha: '06/08/2026', ref: '#00000001980', desc: 'Anticipo Cliente Jurídico Mayorista Café Agosto', montoBs: 97180000.00, tasaBcv: 756.7000, montoUsd: 128426.06, status: 'VERIFICADO' },
+                { id: 14, fecha: '11/08/2026', ref: '#00030445172', desc: 'Anticipo Cliente Jurídico Mayorista Café Agosto', montoBs: 96392539.03, tasaBcv: 764.3500, montoUsd: 126110.47, status: 'VERIFICADO' }
               ]
             },
             {
@@ -1406,11 +1406,11 @@ export const AccountingBanescoJustificationSuiteView: React.FC<Props> = ({
               <div className="bg-slate-900/90 border border-emerald-500/50 p-4 rounded-xl text-right space-y-1">
                 <div className="text-xs text-emerald-400 font-mono font-semibold">Total Bolívares (Bs.):</div>
                 <div className="text-xl font-bold font-mono text-white">
-                  Bs. 2.059.238.625,36
+                  Bs. 1.966.597.105,35
                 </div>
                 <div className="text-xs text-emerald-400 font-mono font-semibold pt-1">Total Dólares ($ USD):</div>
                 <div className="text-xl font-bold font-mono text-emerald-300">
-                  $3.028.900,63 USD
+                  $2.912.368,95 USD (Spot) · $2.781.830,18 USD (BBU)
                 </div>
               </div>
             </div>

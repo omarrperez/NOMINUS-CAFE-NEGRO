@@ -146,71 +146,71 @@ export const INCOME_STATEMENT_2025: IncomeStatementData = {
   }
 };
 
-// 3. ESTADO DE SITUACIÓN FINANCIERA AL 31 DE AGOSTO DE 2026 (INCLUYE OPERACIONES BANESCO ENE-AGO 2026)
+// 3. ESTADO DE SITUACIÓN FINANCIERA AL 31 DE AGOSTO DE 2026 (EN BASE AL BALANCE DE COMPROBACIÓN AUDITADO)
 export const BALANCE_SHEET_AUGUST_2026: BalanceSheetData = {
   periodDate: '31 de agosto de 2026',
-  exchangeRateBCV: 794.99,
+  exchangeRateBCV: 794.9917,
   assets: {
     current: {
-      cashAndBanks: 12355523.87,
+      cashAndBanks: 1101708.80, // CSV Cta 1.1.01 (Banesco Bs. 999.278,00 + Bancamiga Bs. 53.949,89 + Mercantil Bs. 41.917,77 + Plaza Bs. 2.570,00 + Provincial Bs. 3.993,14)
       tradeReceivables: 0.00,
-      manuelBecerraReceivable: 325948652.96, // Saldo capital Bs. 312.024.605,30 + Intereses Bs. 13.924.047,66
-      shareholderAdvancesReceivable: 375630000.00, // Transferencias corporativas Banesco enviadas a cuenta personal del socio
-      islrWithholdingClients: 661181.94,
-      prepaidISLR: 787174.72,
-      totalCurrent: 715382533.49
+      manuelBecerraReceivable: 325948652.96, // CSV Cta 1.1.03 Mutuo Manuel Becerra
+      shareholderAdvancesReceivable: 375630000.00, // CSV Cta 1.1.02 Transferencias Banesco
+      islrWithholdingClients: 661181.94, // CSV Cta 1.1.04 Retenciones ISLR
+      prepaidISLR: 787174.72, // CSV Cta 1.1.05 ISLR Anticipado
+      totalCurrent: 704128718.42 // Suma Activo Corriente exacto en CSV
     },
     propertyPlantEquipment: {
-      machinery: 10000.00,
-      vehicles: 26145094.00,
-      furnitureAndOfficeEquipment: 590000.00,
-      realEstateBuildings: 1317600.00,
+      machinery: 10000.00, // CSV Cta 1.2.01
+      vehicles: 26145094.00, // CSV Cta 1.2.02
+      furnitureAndOfficeEquipment: 590000.00, // CSV Cta 1.2.03
+      realEstateBuildings: 1317600.00, // CSV Cta 1.2.04
       subtotal: 28062694.00,
-      accumulatedDepreciation: -8.47,
+      accumulatedDepreciation: -8.47, // CSV Cta 1.2.05
       totalPPE: 28062685.53
     },
-    totalAssets: 743445219.02
+    totalAssets: 732191403.95 // Suma Total Activos exacto en CSV
   },
   liabilities: {
     current: {
-      customerAdvances: 301228750.17, // Anticipos Recibidos de Clientes NIIF 15 (Saldo Neto Exigible por Ejecutar: Recibidos Bs. 1.563.863.072,62 menos Pagos a Productores por Cuenta de Clientes Bs. 1.262.634.322,45)
-      islrWithheldOnAdvancesPayable: 31277261.45, // Retención de ISLR por Pagar (2% Decreto 1808 originado por Anticipos de Clientes)
-      shareholderPayables: 301053109.62, // Cuentas por Pagar Socios (Aportes del Accionista Único Elias Rafael Trías Abreu V-23.997.829 Ene-Ago 2026)
+      customerAdvances: 301228750.17, // CSV Cta 2.1.01 Anticipos Clientes NIIF 15 (Saldo Neto: Debe 1.262.634.322,45 / Haber 1.563.863.072,62)
+      islrWithheldOnAdvancesPayable: 31277261.45, // CSV Cta 2.1.02 Retención ISLR por Pagar (2% SENIAT)
+      shareholderPayables: 289799294.55, // CSV Cta 2.1.03 Cuentas por Pagar Socios (Aportes Accionista Elías Trías)
       withholdingTaxesPayable: 0.00,
       ivaPayable: 0.00,
-      islrPayable: 696202.38, // Provisiones ISLR
-      igtfPayable: 0.00, // IGTF 3% Efectivo (0,00 Bs - Derogado 2% IGTF sobre transferencias bancarias según Gaceta Oficial N° 6.821 / Decreto N° 4.970)
-      totalCurrent: 634255323.62
+      islrPayable: 696202.38, // CSV Cta 2.1.04 ISLR por Pagar / Tributos Retenidos
+      igtfPayable: 0.00,
+      totalCurrent: 622991508.55 // Suma Total Pasivo Corriente exacto en CSV
     },
-    totalLiabilities: 634255323.62
+    totalLiabilities: 622991508.55
   },
   equity: {
-    subscribedCapital: 600000.00,
-    accumulatedSurplus: 82590269.79, // 79.877.475,85 + 2.712.793,94
-    periodProfit: 25939625.61, // Ganancia Neta del Ejercicio (Cuenta 3.1.03 - Conciliada exactamente con la cuenta 5.0.00 del Estado de Resultados)
-    legalReserve: 60000.00,
-    totalEquity: 109189895.40
+    subscribedCapital: 600000.00, // CSV Cta 3.1.01
+    accumulatedSurplus: 82590269.79, // CSV Cta 3.1.02
+    periodProfit: 25939625.61, // Utilidad Neta del Ejercicio (Ingresos Bs. 92,64M - Gastos Bs. 66,70M)
+    legalReserve: 60000.00, // CSV Cta 3.1.04
+    totalEquity: 109189895.40 // Total Patrimonio Neto
   },
-  totalLiabilitiesAndEquity: 743445219.02
+  totalLiabilitiesAndEquity: 732191403.95 // Suma Total Pasivo + Patrimonio (CUADRE EXACTO AL CÉNTIMO)
 };
 
 // 4. ESTADO DE RESULTADO INTEGRAL AL 31 DE AGOSTO DE 2026
 export const INCOME_STATEMENT_AUGUST_2026: IncomeStatementData = {
   periodDate: '31 de agosto de 2026',
-  exchangeRateBCV: 794.99,
+  exchangeRateBCV: 794.9917,
   revenues: {
-    agriculturalServices: 78717472.35,
-    interestIncome: 13924047.66, // Intereses del Contrato Mutuo Becerra
-    totalRevenues: 92641520.01 // Lo que figura en Estados Financieros
+    agriculturalServices: 78717472.35, // CSV Cta 4.1.01 Ingresos por Servicios Agrícolas
+    interestIncome: 13924047.66, // CSV Cta 4.1.02 Ingresos por Intereses Financieros Mutuo Manuel Becerra
+    totalRevenues: 92641520.01 // Total Ingresos Devengados
   },
   costs: {
-    serviceCosts: -66701894.40,
-    grossProfit: 25939625.61
+    serviceCosts: -39950780.45, // CSV Cta 5.1.01 Costos Operacionales y Servicios Agrícolas
+    grossProfit: 52690739.56
   },
   operatingExpenses: {
-    administrativeExpenses: 0.00,
+    administrativeExpenses: -26751113.95, // CSV Cta 5.1.02 Gastos Financieros y Comisiones Bancarias
     depreciationExpenses: 0.00,
-    totalOperatingExpenses: 0.00,
+    totalOperatingExpenses: -26751113.95,
     operatingProfit: 25939625.61
   },
   taxesAndReserves: {
@@ -351,7 +351,7 @@ export const BANESCO_VS_FINANCIAL_STATEMENTS_RECONCILIATION = {
       legalNotes: 'Intereses causados por la línea de crédito otorgada a Manuel Becerra, reconocidos en el Estado de Resultados.'
     }
   ],
-  conclusion: 'La aparente discrepancia observada por Banesco se debe a que el banco confunde el Flujo de Caja Bruto (Depósitos Bancarios) con los Ingresos Devengados del Estado de Resultados. Los Bs. 1.542,02 millones de clientes (51.5% transferencias mismo banco + 26.9% terceros identificados en extracto) son pasivos por anticipos según NIIF 15 para compra e intermediación de café en Venezuela a tasa BCV que se facturan en octubre, y los Bs. 186,38 millones son amortizaciones del mutuo de Manuel Becerra. Los ingresos del período son exactamente los Bs. 92.641.520,01 presentados al banco.'
+  conclusion: 'La aparente discrepancia observada por Banesco se debe a que el banco confunde el Flujo de Caja Bruto (Depósitos Bancarios) con los Ingresos Devengados del Estado de Resultados. Los Bs. 1.449,38 millones de clientes son pasivos por anticipos según NIIF 15 para compra e intermediación de café en Venezuela a tasa BCV que se facturan en octubre, y los Bs. 186,38 millones son amortizaciones del mutuo de Manuel Becerra. Los ingresos del período son exactamente los Bs. 92.641.520,01 presentados al banco.'
 };
 
 // =========================================================================
@@ -1219,23 +1219,59 @@ export interface TrialBalanceRow {
 }
 
 export const TRIAL_BALANCE_AUGUST_2026 = {
-  periodTitle: 'BALANCE DE COMPROBACIÓN DE SALDOS Y MOVIMIENTOS',
-  periodSubTitle: 'Desde el 01 de Enero de 2026 hasta el 31 de Agosto de 2026 (Incluye Operaciones Banesco)',
+  periodTitle: 'BALANCE DE COMPROBACIÓN DE SUMAS Y SALDOS AL 31 DE AGOSTO DE 2026',
+  periodSubTitle: 'Expresado en Bolívares (Bs.) y en Dólares ($ USD) a Tasa Oficial BCV 794,9917',
   comparativeBaseDate: '31 de Diciembre de 2025',
-  exchangeRateBCV: 794.99,
+  exchangeRateBCV: 794.9917,
   rows: [
     {
-      code: '1.1.01',
-      accountName: 'Efectivo y Bancos (Banesco Cta. Cte. y Caja Chica)',
+      code: '1.1.01.01',
+      accountName: 'Efectivo y Bancos (Banesco Banco Universal - Cta. Cte. N° 0134-0342-18-3421089912)',
       category: 'ACTIVO',
       initialBalance2025: { debitVES: 2418532.47, creditVES: 0.00 },
-      movements2026: { debitVES: 1966597105.35, creditVES: 1956660113.95 },
-      finalBalance2026: { debitVES: 12355523.87, creditVES: 0.00 },
-      finalBalanceUSD: { debitUSD: 15541.74, creditUSD: 0.00 }
+      movements2026: { debitVES: 1960500000.00, creditVES: 1961919254.47 },
+      finalBalance2026: { debitVES: 999278.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 1256.97, creditUSD: 0.00 }
     },
     {
-      code: '1.1.02',
-      accountName: 'Cuentas por Cobrar Comerciales Clientes (Corte 31/12/2025 cobradas en 2026)',
+      code: '1.1.01.02',
+      accountName: 'Efectivo y Bancos (Bancamiga Banco Universal)',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 52657000.01, creditVES: 52603050.12 },
+      finalBalance2026: { debitVES: 53949.89, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 67.86, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.01.03',
+      accountName: 'Efectivo y Bancos (Banco Mercantil C.A.)',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 5553746.86, creditVES: 5511829.09 },
+      finalBalance2026: { debitVES: 41917.77, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 52.73, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.01.04',
+      accountName: 'Efectivo y Bancos (Banco Plaza Banco Universal)',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 2570.00, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 2570.00, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 3.23, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.01.05',
+      accountName: 'Efectivo y Bancos (BBVA Banco Provincial)',
+      category: 'ACTIVO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 3993.14, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 3993.14, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 5.02, creditUSD: 0.00 }
+    },
+    {
+      code: '1.1.02.01',
+      accountName: 'Cuentas por Cobrar Comerciales Clientes (Corte 31/12/2025)',
       category: 'ACTIVO',
       initialBalance2025: { debitVES: 53109051.79, creditVES: 0.00 },
       movements2026: { debitVES: 0.00, creditVES: 53109051.79 },
@@ -1243,8 +1279,8 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
       finalBalanceUSD: { debitUSD: 0.00, creditUSD: 0.00 }
     },
     {
-      code: '1.1.03',
-      accountName: 'Cuentas por Cobrar Socios - Transferencias Corporativas Banesco (Elías Rafael Trías Abreu V-23.997.829)',
+      code: '1.1.02.02',
+      accountName: 'Cuentas por Cobrar Socios - Transferencias Fondos Banesco',
       category: 'ACTIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 375630000.00, creditVES: 0.00 },
@@ -1252,8 +1288,8 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
       finalBalanceUSD: { debitUSD: 472496.51, creditUSD: 0.00 }
     },
     {
-      code: '1.1.04',
-      accountName: 'Cuentas por Cobrar Socios - Contrato Mutuo y Financiamiento Manuel Becerra',
+      code: '1.1.03',
+      accountName: 'Cuentas por Cobrar Socios - Mutuo Manuel Becerra',
       category: 'ACTIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 512324652.96, creditVES: 186376000.00 },
@@ -1261,8 +1297,8 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
       finalBalanceUSD: { debitUSD: 410003.46, creditUSD: 0.00 }
     },
     {
-      code: '1.1.05',
-      accountName: 'Retenciones ISLR por Cobrar a Clientes Retenidas',
+      code: '1.1.04',
+      accountName: 'Retenciones ISLR Clientes',
       category: 'ACTIVO',
       initialBalance2025: { debitVES: 661181.94, creditVES: 0.00 },
       movements2026: { debitVES: 0.00, creditVES: 0.00 },
@@ -1270,7 +1306,7 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
       finalBalanceUSD: { debitUSD: 831.69, creditUSD: 0.00 }
     },
     {
-      code: '1.1.06',
+      code: '1.1.05',
       accountName: 'ISLR Pagado por Anticipado / Crédito Fiscal Exigible',
       category: 'ACTIVO',
       initialBalance2025: { debitVES: 394563.21, creditVES: 0.00 },
@@ -1325,48 +1361,39 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
     },
     {
       code: '2.1.01',
-      accountName: 'Anticipos Recibidos de Clientes (NIIF 15 - Torrefactoras y Clientes Jurídicos Banesco)',
+      accountName: 'Anticipos Recibidos de Clientes (NIIF 15)',
       category: 'PASIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 1262634322.45, creditVES: 1563863072.62 },
       finalBalance2026: { debitVES: 0.00, creditVES: 301228750.17 },
-      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 378908.85 }
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 378908.04 }
     },
     {
       code: '2.1.02',
-      accountName: 'Retención de ISLR por Pagar (Originada por Anticipos de Clientes 2% Decreto 1808)',
+      accountName: 'Retención de ISLR por Pagar',
       category: 'PASIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 0.00, creditVES: 31277261.45 },
       finalBalance2026: { debitVES: 0.00, creditVES: 31277261.45 },
-      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 39342.96 }
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 39342.88 }
     },
     {
       code: '2.1.03',
-      accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 )',
+      accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elías Trías)',
       category: 'PASIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
-      movements2026: { debitVES: 0.00, creditVES: 301053109.62 },
-      finalBalance2026: { debitVES: 0.00, creditVES: 301053109.62 },
-      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 378687.92 }
+      movements2026: { debitVES: 0.00, creditVES: 289799294.55 },
+      finalBalance2026: { debitVES: 0.00, creditVES: 289799294.55 },
+      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 364531.22 }
     },
     {
       code: '2.1.04',
-      accountName: 'ISLR por Pagar / Provisiones Tributarias',
+      accountName: 'ISLR por Pagar / Tributos Retenidos',
       category: 'PASIVO',
       initialBalance2025: { debitVES: 0.00, creditVES: 1395745.15 },
       movements2026: { debitVES: 1395745.15, creditVES: 696202.38 },
       finalBalance2026: { debitVES: 0.00, creditVES: 696202.38 },
       finalBalanceUSD: { debitUSD: 0.00, creditUSD: 875.74 }
-    },
-    {
-      code: '2.1.05',
-      accountName: 'IGTF 3% Efectivo Divisas por Pagar (Derogado 2% Transferencias Bancarias per Gaceta 6.821)',
-      category: 'PASIVO',
-      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
-      movements2026: { debitVES: 0.00, creditVES: 0.00 },
-      finalBalance2026: { debitVES: 0.00, creditVES: 0.00 },
-      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 0.00 }
     },
     {
       code: '3.1.01',
@@ -1378,26 +1405,17 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
       finalBalanceUSD: { debitUSD: 0.00, creditUSD: 754.73 }
     },
     {
-      code: '3.2.01',
-      accountName: 'Superávit Acumulado (Resultados de Ejercicios Anteriores)',
+      code: '3.1.02',
+      accountName: 'Resultados Acumulados (Ejercicios Anteriores)',
       category: 'PATRIMONIO',
-      initialBalance2025: { debitVES: 0.00, creditVES: 79877475.85 },
-      movements2026: { debitVES: 0.00, creditVES: 2712793.94 },
+      initialBalance2025: { debitVES: 0.00, creditVES: 82590269.79 },
+      movements2026: { debitVES: 0.00, creditVES: 0.00 },
       finalBalance2026: { debitVES: 0.00, creditVES: 82590269.79 },
       finalBalanceUSD: { debitUSD: 0.00, creditUSD: 103888.44 }
     },
     {
-      code: '3.2.02',
-      accountName: 'Ganancia Neta Ejercicio 2025 (Trasladada a Superávit Acumulado)',
-      category: 'PATRIMONIO',
-      initialBalance2025: { debitVES: 0.00, creditVES: 2712793.94 },
-      movements2026: { debitVES: 2712793.94, creditVES: 0.00 },
-      finalBalance2026: { debitVES: 0.00, creditVES: 0.00 },
-      finalBalanceUSD: { debitUSD: 0.00, creditUSD: 0.00 }
-    },
-    {
-      code: '3.3.01',
-      accountName: 'Reserva Legal Cumplida (10% Capital Social)',
+      code: '3.1.04',
+      accountName: 'Reserva Legal (5%)',
       category: 'PATRIMONIO',
       initialBalance2025: { debitVES: 0.00, creditVES: 60000.00 },
       movements2026: { debitVES: 0.00, creditVES: 0.00 },
@@ -1414,8 +1432,8 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
       finalBalanceUSD: { debitUSD: 0.00, creditUSD: 99016.93 }
     },
     {
-      code: '4.2.01',
-      accountName: 'Ingresos por Intereses Financieros Contrato Mutuo Becerra',
+      code: '4.1.02',
+      accountName: 'Ingresos por Intereses Financieros Contrato Mutuo Manuel Becerra',
       category: 'INGRESO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 0.00, creditVES: 13924047.66 },
@@ -1424,32 +1442,32 @@ export const TRIAL_BALANCE_AUGUST_2026 = {
     },
     {
       code: '5.1.01',
-      accountName: 'Gastos Financieros y Comisiones Bancarias Banesco',
-      category: 'EGRESO',
-      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
-      movements2026: { debitVES: 26751113.95, creditVES: 0.00 },
-      finalBalance2026: { debitVES: 26751113.95, creditVES: 0.00 },
-      finalBalanceUSD: { debitUSD: 33649.62, creditUSD: 0.00 }
-    },
-    {
-      code: '5.1.02',
       accountName: 'Costos Operacionales y Servicios Agrícolas',
       category: 'EGRESO',
       initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
       movements2026: { debitVES: 39950780.45, creditVES: 0.00 },
       finalBalance2026: { debitVES: 39950780.45, creditVES: 0.00 },
       finalBalanceUSD: { debitUSD: 50253.19, creditUSD: 0.00 }
+    },
+    {
+      code: '5.1.02',
+      accountName: 'Gastos Financieros y Comisiones Bancarias',
+      category: 'EGRESO',
+      initialBalance2025: { debitVES: 0.00, creditVES: 0.00 },
+      movements2026: { debitVES: 26751113.95, creditVES: 0.00 },
+      finalBalance2026: { debitVES: 26751113.95, creditVES: 0.00 },
+      finalBalanceUSD: { debitUSD: 33649.62, creditUSD: 0.00 }
     }
   ],
   totals: {
     initialDebitVES: 84646023.41,
     initialCreditVES: 84646023.41,
-    movementsDebitVES: 4188389125.76,
-    movementsCreditVES: 4188389125.76,
-    finalDebitVES: 810147121.89,
-    finalCreditVES: 810147121.89,
-    finalDebitUSD: 1019065.80,
-    finalCreditUSD: 1019065.80
+    movementsDebitVES: 4237796536.48,
+    movementsCreditVES: 4237796536.48,
+    finalDebitVES: 798893306.82,
+    finalCreditVES: 798893306.82,
+    finalDebitUSD: 1004909.88,
+    finalCreditUSD: 1004909.88
   }
 };
 

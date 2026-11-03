@@ -33,6 +33,7 @@ import { MultiCompanyManagerBar } from './components/MultiCompanyManagerBar';
 import { CoffeeImportAndAdvancesManagerView } from './components/CoffeeImportAndAdvancesManagerView';
 import { AgricolaOniBanescoResponseLetterView } from './components/AgricolaOniBanescoResponseLetterView';
 import { AgricolaOniBanescoOnePageLetterView } from './components/AgricolaOniBanescoOnePageLetterView';
+import { AgricolaOniSpecialLetterView } from './components/AgricolaOniSpecialLetterView';
 import { AgricolaOniBankAuditSheetView } from './components/AgricolaOniBankAuditSheetView';
 import { BanescoLedgerAndCashTrailView } from './components/BanescoLedgerAndCashTrailView';
 import { AgricolaOniAccountingAndVouchersSuiteView } from './components/AgricolaOniAccountingAndVouchersSuiteView';
@@ -55,6 +56,7 @@ import { BanescoFolderWorkflowView } from './components/BanescoFolderWorkflowVie
 
 export type ActiveModule =
   | 'DASHBOARD'
+  | 'BANESCO_LETTER_SPECIAL'
   | 'BANESCO_FOLDER_WORKFLOW'
   | 'IMPORT_AND_ADVANCES'
   | 'FINANCIAL_STATEMENTS_DUAL_SHEET'
@@ -78,12 +80,13 @@ export type ActiveModule =
 function MainAppContent() {
   const [selectedCompany, setSelectedCompany] = useState<CompanyProfile>(COMPANIES[0]);
   const [currentRate, setCurrentRate] = useState<BcvRateItem>(CURRENT_BCV_RATE);
-  const [activeModule, setActiveModule] = useState<ActiveModule>('DASHBOARD');
+  const [activeModule, setActiveModule] = useState<ActiveModule>('BANESCO_LETTER_SPECIAL');
   const { vouchers, bankMovements, customerAdvances, fxPurchases, importShipments } = useAppData();
 
   const totalLoaded = customerAdvances.length + fxPurchases.length + importShipments.length + vouchers.length + bankMovements.length;
 
   const navItems: { id: ActiveModule; label: string; icon: React.ElementType; badge?: string }[] = [
+    { id: 'BANESCO_LETTER_SPECIAL', label: '📜 Carta ONI Especial', icon: Sparkles, badge: 'NUEVA' },
     { id: 'DASHBOARD', label: 'Inicio Dashboard', icon: LayoutGrid, badge: 'Inicio' },
     { id: 'BANESCO_FOLDER_WORKFLOW', label: 'Flujo & Carpeta Exp. Banesco', icon: FolderArchive, badge: 'Carpeta Bank' },
     { id: 'IMPORT_AND_ADVANCES', label: 'Anticipos & Café Nacional (Venezuela)', icon: Globe, badge: 'Principal' },
@@ -340,6 +343,13 @@ function MainAppContent() {
               <FinancialStatementsAndBecerraSuiteView
                 company={selectedCompany}
                 currentRate={currentRate}
+              />
+            )}
+
+            {activeModule === 'BANESCO_LETTER_SPECIAL' && (
+              <AgricolaOniSpecialLetterView
+                company={selectedCompany}
+                onBackToMainLetter={() => setActiveModule('BANESCO_LETTER_FULL')}
               />
             )}
 

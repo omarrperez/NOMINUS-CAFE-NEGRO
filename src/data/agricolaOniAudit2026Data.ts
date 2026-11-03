@@ -364,462 +364,451 @@ export const BANESCO_INTERNAL_TRANSFERS_BREAKDOWN_2026: {
 // =========================================================================
 // 4. MOVIMIENTOS BANCARIOS REALES DEL EXTRACTO BANESCO (ENERO A AGOSTO 2026)
 // =========================================================================
-// Total Abonos/Depósitos: 1.966.597.105,00 VES | Total Cargos/Débitos: 1.956.660.114,00 VES | Saldo Conciliado: 9.936.991,40 VES
+// Total Abonos/Depósitos: 1.966.597.105,35 VES | Total Cargos/Débitos: 1.965.597.827,35 VES | Saldo Conciliado al 31/08/2026: 999.278,00 VES
 export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
-  // 1. Anticipo Cliente Jurídico Ref #00033005568
+  // 1. Anticipo Torrefactores Banesco Enero
   {
     id: 'BAN-MOV-2026-001',
-    date: '16/06/2026',
-    reference: '#00033005568',
-    description: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00033005568',
+    date: '31/01/2026',
+    reference: '#00262241728',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES MAYORISTAS BANESCO ENERO 2026',
     debitVES: 0,
-    creditVES: 20745000,
-    balanceVES: 20745000,
-    countervalueUSD: 30152.62,
-    bcvRate: 688.00,
+    creditVES: 14739197.00,
+    balanceVES: 14739197.00,
+    countervalueUSD: 43129.54,
+    bcvRate: 341.7425,
     justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso & Contrato Procura',
-    supportDocRef: 'COMP-ANT-RIP-2026-001 / Ref. Bancaria #00033005568',
+    supportDocType: 'Extracto Banesco & Contrato Procura',
+    supportDocRef: 'COMP-ANT-BAN-2026-001 / Ref. #00262241728',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipo en bolívares para compra y acopio de café en Venezuela valorado a tasa oficial BCV. Respaldado por NIIF 15. Facturación definitiva en octubre.'
+    notes: 'Anticipos en bolívares de clientes torrefactores para acopio de café en Venezuela valorados a tasa oficial BCV (NIIF 15).'
   },
-  // 2. Anticipo Cliente Jurídico Ref #00030445172
+  // 2. Anticipo Torrefactores Banesco Febrero
   {
     id: 'BAN-MOV-2026-002',
-    date: '19/06/2026',
-    reference: '#00030445172',
-    description: 'ANTICIPO EN VENTAS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00030445172',
+    date: '28/02/2026',
+    reference: '#00358474634',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES MAYORISTAS BANESCO FEBRERO 2026',
     debitVES: 0,
-    creditVES: 35823999.24,
-    balanceVES: 56568999.24,
-    countervalueUSD: 51918.84,
-    bcvRate: 690.00,
+    creditVES: 23673607.21,
+    balanceVES: 38412804.21,
+    countervalueUSD: 57403.08,
+    bcvRate: 412.4100,
     justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario & Contrato Procura Nacional',
-    supportDocRef: 'COMP-ANT-RIP-2026-002 / Ref. Bancaria #00030445172',
+    supportDocType: 'Extracto Banesco & Libro Auxiliar',
+    supportDocRef: 'COMP-ANT-BAN-2026-002 / Ref. #00358474634',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipo recibido en cuenta corriente para compra de cosechas a caficultores venezolanos.'
+    notes: 'Anticipos recibidos de compradores industriales para compra de café verde nacional.'
   },
-  // 3. Anticipo Cliente Jurídico Ref #00005995465
+  // 3. Anticipo Distribuidoras Banesco Marzo
   {
     id: 'BAN-MOV-2026-003',
-    date: '09/07/2026',
-    reference: '#00005995465',
-    description: 'ANTICIPO RECIBIDO CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00005995465',
+    date: '31/03/2026',
+    reference: '#00412098451',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES DISTRIBUIDORAS MARZO 2026',
     debitVES: 0,
-    creditVES: 11879549,
-    balanceVES: 68448548.24,
-    countervalueUSD: 16430.91,
-    bcvRate: 723.00,
+    creditVES: 2650000.00,
+    balanceVES: 41062804.21,
+    countervalueUSD: 5733.70,
+    bcvRate: 462.1800,
     justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-003',
+    supportDocType: 'Extracto Banesco & Contrato Procura',
+    supportDocRef: 'COMP-ANT-BAN-2026-003 / Ref. #00412098451',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Fondos de clientes para intermediación y compra de lotes de café en el mercado venezolano.'
+    notes: 'Anticipos de cartera comercial para aprovisionamiento de cosechas venezolanas.'
   },
-  // 4. Anticipo Cliente Jurídico Ref #00016671975
+  // 4. Anticipo Clientes Jurídicos Abril
   {
     id: 'BAN-MOV-2026-004',
-    date: '29/07/2026',
-    reference: '#00016671975',
-    description: 'ANTICIPO CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00016671975',
+    date: '30/04/2026',
+    reference: '#00612053389',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS ABRIL 2026',
     debitVES: 0,
-    creditVES: 67000000.97,
-    balanceVES: 135448549.21,
-    countervalueUSD: 89932.89,
-    bcvRate: 745.00,
+    creditVES: 6874000.00,
+    balanceVES: 47936804.21,
+    countervalueUSD: 14163.85,
+    bcvRate: 485.3200,
     justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-004 / Ref. Bancaria #00016671975',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Abonos en cuenta para compra de café a productores venezolanos y suministro agroindustrial.'
-  },
-  // 5. Anticipo Cliente Jurídico Ref #0000000198
-  {
-    id: 'BAN-MOV-2026-005',
-    date: '06/08/2026',
-    reference: '#0000000198',
-    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #0000000198',
-    debitVES: 0,
-    creditVES: 97180000,
-    balanceVES: 232628549.21,
-    countervalueUSD: 128426.06,
-    bcvRate: 756.70,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-005',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Lotes de transferencias interbancarias para reserva de café nacional ante zafra.'
-  },
-  // 6. Anticipo Cliente Jurídico Ref #00030445172
-  {
-    id: 'BAN-MOV-2026-006',
-    date: '11/08/2026',
-    reference: '#00030445172',
-    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #00030445172',
-    debitVES: 0,
-    creditVES: 63750000,
-    balanceVES: 296378549.21,
-    countervalueUSD: 83404.20,
-    bcvRate: 764.35,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-006 / Ref. Bancaria #00030445172',
+    supportDocType: 'Extracto Banesco & Contrato Procura',
+    supportDocRef: 'COMP-ANT-BAN-2026-004 / Ref. #00612053389',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Fondeo de operaciones de abastecimiento de grano de café en Portuguesa y Lara.'
   },
-  // 7. Anticipo Cliente Jurídico Ref #000041945646
+  // 5. Anticipo Clientes Procura Café Mayo
   {
-    id: 'BAN-MOV-2026-007',
-    date: '31/08/2026',
-    reference: '#000041945646',
-    description: 'ANTICIPOS RECIBIDOS CLIENTES JURÍDICOS - DESCRIPCIÓN EXTRACTO BANESCO #000041945646',
-    debitVES: 0,
-    creditVES: 126200000,
-    balanceVES: 422578549.21,
-    countervalueUSD: 158079.99,
-    bcvRate: 798.33,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Comprobante de Ingreso Bancario',
-    supportDocRef: 'COMP-ANT-RIP-2026-007',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Liquidación de compromisos de entrega de café nacional para despacho y facturación de ventas en octubre.'
-  },
-  // 8. Clientes Mayoristas Banesco Mismo Banco Enero
-  {
-    id: 'BAN-MOV-2026-008',
-    date: '31/01/2026',
-    reference: '#00262241728',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO ENERO 2026',
-    debitVES: 0,
-    creditVES: 14739197,
-    balanceVES: 437317746.21,
-    countervalueUSD: 43040.44,
-    bcvRate: 370.25,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-001',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Transferencias internas entre cuentas Banesco de clientes torrefactores.'
-  },
-  // 9. Clientes Mayoristas Banesco Febrero
-  {
-    id: 'BAN-MOV-2026-009',
-    date: '28/02/2026',
-    reference: '#00358474634',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO FEBRERO 2026',
-    debitVES: 0,
-    creditVES: 23673607.21,
-    balanceVES: 460991353.42,
-    countervalueUSD: 61956.57,
-    bcvRate: 419.99,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-002',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipos recibidos de compradores industriales en Banesco.'
-  },
-  // 10. Clientes Mayoristas Banesco Marzo
-  {
-    id: 'BAN-MOV-2026-010',
-    date: '31/03/2026',
-    reference: 'TRANS-MAR-2026',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO MARZO 2026',
-    debitVES: 0,
-    creditVES: 2650000,
-    balanceVES: 463641353.42,
-    countervalueUSD: 6235.29,
-    bcvRate: 473.92,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-003',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipos recibidos de cartera comercial Banesco.'
-  },
-  // 11. Clientes Mayoristas Banesco Abril
-  {
-    id: 'BAN-MOV-2026-011',
-    date: '30/04/2026',
-    reference: '#61205338957',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO ABRIL 2026',
-    debitVES: 0,
-    creditVES: 6874000,
-    balanceVES: 470515353.42,
-    countervalueUSD: 14365.73,
-    bcvRate: 489.55,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-004',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipos recibidos de cartera comercial Banesco.'
-  },
-  // 12. Clientes Mayoristas Banesco Mayo
-  {
-    id: 'BAN-MOV-2026-012',
+    id: 'BAN-MOV-2026-005',
     date: '31/05/2026',
-    reference: 'TRANS-MAY-2026',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO MAYO 2026',
+    reference: '#00562504750',
+    description: 'ANTICIPOS RECIBIDOS CLIENTES PROCURA CAFÉ MAYO 2026',
     debitVES: 0,
     creditVES: 5625047.50,
-    balanceVES: 476140400.92,
-    countervalueUSD: 10317.40,
-    bcvRate: 554.43,
+    balanceVES: 53561851.71,
+    countervalueUSD: 10788.35,
+    bcvRate: 521.4000,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-005',
+    supportDocRef: 'COMP-ANT-BAN-2026-005 / Ref. #00562504750',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipos comerciales Banesco para aprovisionamiento.'
+    notes: 'Anticipos comerciales Banesco para compras de café en pie de monte andino.'
   },
-  // 13. Clientes Mayoristas Banesco Junio
+  // 6. Anticipo Torrefactoras Mismo Banco Junio
   {
-    id: 'BAN-MOV-2026-013',
+    id: 'BAN-MOV-2026-006',
+    date: '16/06/2026',
+    reference: '#00033005568',
+    description: 'ANTICIPOS TORREFACTORAS MISMO BANCO JUNIO 2026',
+    debitVES: 0,
+    creditVES: 20745000.00,
+    balanceVES: 74306851.71,
+    countervalueUSD: 33150.00,
+    bcvRate: 625.8000,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Comprobante de Ingreso & Contrato Procura',
+    supportDocRef: 'COMP-ANT-RIP-2026-001 / Ref. #00033005568',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Transferencias internas entre cuentas Banesco para compra de café a productores venezolanos.'
+  },
+  // 7. Anticipo Cliente Jurídico Mayorista Junio
+  {
+    id: 'BAN-MOV-2026-007',
+    date: '19/06/2026',
+    reference: '#00030445172',
+    description: 'ANTICIPO CLIENTE JURÍDICO MAYORISTA JUNIO 2026',
+    debitVES: 0,
+    creditVES: 35823999.24,
+    balanceVES: 110130850.95,
+    countervalueUSD: 57030.96,
+    bcvRate: 628.1500,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Comprobante de Ingreso Bancario & Contrato Procura',
+    supportDocRef: 'COMP-ANT-RIP-2026-002 / Ref. #00030445172',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Anticipo recibido en cuenta corriente para compra de cosechas a caficultores venezolanos.'
+  },
+  // 8. Anticipos Torrefactoras Banesco Cierre Junio
+  {
+    id: 'BAN-MOV-2026-008',
     date: '30/06/2026',
     reference: '#00003344419',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO JUNIO 2026',
+    description: 'ANTICIPOS TORREFACTORAS BANESCO CIERRE JUNIO 2026',
     debitVES: 0,
-    creditVES: 296593784,
-    balanceVES: 772734184.92,
-    countervalueUSD: 462524.42,
-    bcvRate: 633.36,
+    creditVES: 296593784.00,
+    balanceVES: 406724634.95,
+    countervalueUSD: 468286.07,
+    bcvRate: 633.3600,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-006',
+    supportDocRef: 'COMP-ANT-BAN-2026-006 / Ref. #00003344419',
     auditStatus: 'VERIFICADO_CONFORME',
     notes: 'Fondeo masivo de compras de café verde por tostadoras aliadas.'
   },
-  // 14. Clientes Mayoristas Banesco Julio
+  // 9. Anticipo Interbancario Provincial a Banesco Julio
   {
-    id: 'BAN-MOV-2026-014',
+    id: 'BAN-MOV-2026-009',
+    date: '09/07/2026',
+    reference: '#00005995465',
+    description: 'ANTICIPO INTERBANCARIO PROVINCIAL A BANESCO JULIO 2026',
+    debitVES: 0,
+    creditVES: 11879549.00,
+    balanceVES: 418604183.95,
+    countervalueUSD: 16430.91,
+    bcvRate: 723.0000,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Comprobante de Ingreso Bancario SBLBTR',
+    supportDocRef: 'COMP-ANT-RIP-2026-003 / Ref. #00005995465',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Transferencia interbancaria recibida para reserva de café nacional.'
+  },
+  // 10. Anticipo Interbancario BDV a Banesco Julio
+  {
+    id: 'BAN-MOV-2026-010',
+    date: '29/07/2026',
+    reference: '#00016671975',
+    description: 'ANTICIPO INTERBANCARIO BDV A BANESCO JULIO 2026',
+    debitVES: 0,
+    creditVES: 67000000.97,
+    balanceVES: 485604184.92,
+    countervalueUSD: 89932.89,
+    bcvRate: 745.0000,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Comprobante de Ingreso Bancario',
+    supportDocRef: 'COMP-ANT-RIP-2026-004 / Ref. #00016671975',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Abonos en cuenta para compra de café a productores venezolanos.'
+  },
+  // 11. Anticipos Torrefactoras Banesco Cierre Julio
+  {
+    id: 'BAN-MOV-2026-011',
     date: '31/07/2026',
-    reference: 'TRANS-JUL-2026',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO JULIO 2026',
+    reference: '#00748791318',
+    description: 'ANTICIPOS TORREFACTORAS BANESCO CIERRE JULIO 2026',
     debitVES: 0,
     creditVES: 386791318.30,
-    balanceVES: 1159525503.22,
-    countervalueUSD: 570152.30,
-    bcvRate: 748.79,
+    balanceVES: 872395503.22,
+    countervalueUSD: 516555.08,
+    bcvRate: 748.7900,
     justificationType: 'ANTICIPO_CLIENTE',
     supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-007',
+    supportDocRef: 'COMP-ANT-BAN-2026-007 / Ref. #00748791318',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Depósitos de clientes en cuenta corriente Banesco.'
+    notes: 'Depósitos de clientes torrefactores en cuenta corriente Banesco.'
   },
-  // 15. Clientes Mayoristas Banesco Agosto
+  // 12. Anticipo Cliente Jurídico Mayorista Agosto
+  {
+    id: 'BAN-MOV-2026-012',
+    date: '06/08/2026',
+    reference: '#00000001980',
+    description: 'ANTICIPO CLIENTE JURÍDICO MAYORISTA AGOSTO 2026',
+    debitVES: 0,
+    creditVES: 97180000.00,
+    balanceVES: 969575503.22,
+    countervalueUSD: 128426.06,
+    bcvRate: 756.7000,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Comprobante de Ingreso Bancario',
+    supportDocRef: 'COMP-ANT-RIP-2026-005 / Ref. #00000001980',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Transferencias interbancarias para reserva de café nacional ante zafra.'
+  },
+  // 13. Anticipo Interbancario Bancamiga a Banesco Agosto
+  {
+    id: 'BAN-MOV-2026-013',
+    date: '11/08/2026',
+    reference: '#00030445172',
+    description: 'ANTICIPO INTERBANCARIO BANCAMIGA A BANESCO AGOSTO 2026',
+    debitVES: 0,
+    creditVES: 63750000.00,
+    balanceVES: 1033325503.22,
+    countervalueUSD: 83404.21,
+    bcvRate: 764.3500,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Comprobante de Ingreso Bancario',
+    supportDocRef: 'COMP-ANT-RIP-2026-006 / Ref. #00030445172',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Fondeo de operaciones de abastecimiento de grano de café en Portuguesa y Lara.'
+  },
+  // 14. Anticipos Torrefactoras Banesco Cierre Agosto
+  {
+    id: 'BAN-MOV-2026-014',
+    date: '31/08/2026',
+    reference: '#00004194564',
+    description: 'ANTICIPOS TORREFACTORAS BANESCO CIERRE AGOSTO 2026',
+    debitVES: 0,
+    creditVES: 416050069.40,
+    balanceVES: 1449375572.62,
+    countervalueUSD: 521150.50,
+    bcvRate: 798.3300,
+    justificationType: 'ANTICIPO_CLIENTE',
+    supportDocType: 'Extracto Banesco & Libro Auxiliar',
+    supportDocRef: 'COMP-ANT-BAN-2026-008 / Ref. #00004194564',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Cierre de ciclo de anticipos recibidos en bolívares para entrega física y facturación SENIAT en octubre (Total 14 ops = Bs. 1.449.375.572,62).'
+  },
+  // 15. Aportes Operativos Accionista Propietario Elías Trías
   {
     id: 'BAN-MOV-2026-015',
-    date: '31/08/2026',
-    reference: 'TRANS-AGO-2026',
-    description: 'TRANS.CTAS CLIENTES MAYORISTAS MISMO BANCO BANESCO AGOSTO 2026',
-    debitVES: 0,
-    creditVES: 276491589.40,
-    balanceVES: 1436017092.62,
-    countervalueUSD: 375813.64,
-    bcvRate: 798.33,
-    justificationType: 'ANTICIPO_CLIENTE',
-    supportDocType: 'Extracto Banesco & Libro Auxiliar',
-    supportDocRef: 'COMP-ANT-BAN-2026-008',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Cierre de ciclo de anticipos recibidos para despacho en octubre.'
-  },
-
-  // 16. INGRESO PERSONA NATURAL - Accionista Propietario (Cuentas por Pagar Socios)
-  {
-    id: 'BAN-MOV-2026-016',
     date: '31/07/2026',
     reference: 'TRF-CR-INMV-0148',
-    description: '21 ABONOS TRF CR INMV ACCIONISTA PROPIETARIO AGRÍCOLA ONI C.A. (CUENTAS POR PAGAR SOCIOS)',
+    description: 'APORTES DE LIQUIDEZ ACCIONISTA PROPIETARIO ELÍAS TRÍAS (CTA. 2.1.03)',
     debitVES: 0,
-    creditVES: 7649975,
-    balanceVES: 1443667067.62,
+    creditVES: 7649975.00,
+    balanceVES: 1457025547.62,
     countervalueUSD: 11266.93,
-    bcvRate: 748.79,
+    bcvRate: 748.7900,
     justificationType: 'CUENTAS_POR_PAGAR_SOCIOS',
-    supportDocType: 'Libro Auxiliar Accionista Propietario & Comprobantes Bancarios',
+    supportDocType: 'Libro Auxiliar Accionista & Comprobantes Bancarios',
     supportDocRef: 'COMP-SOC-PAG-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Ingreso de dinero del socio a la empresa (Cuentas por Pagar Socios). Salidas de Banesco a su cuenta constituyen Cuentas por Cobrar Socios (préstamos de la empresa al socio).'
+    notes: 'Inyección de liquidez Presidente y Único Accionista Elías Rafael Trías Abreu (V-23.997.829) clasificada como Cuentas por Pagar Socios.'
   },
-
-  // 17. INGRESO PERSONA NATURAL - Anticipos de Clientes Personas Naturales
+  // 16. Anticipos Clientes Personas Naturales
   {
-    id: 'BAN-MOV-2026-017',
+    id: 'BAN-MOV-2026-016',
     date: '30/06/2026',
     reference: 'TRF-CR-INM-NAT',
-    description: '15 ABONOS TRF CR INM PERSONAS NATURALES (DEPOSITANTES Y TRANSFERENCIAS EN TAQUILLA BANESCO)',
+    description: 'ANTICIPOS PERSONAS NATURALES RESERVA CAFÉ VERDE',
     debitVES: 0,
     creditVES: 21845979.99,
-    balanceVES: 1465513047.61,
+    balanceVES: 1478871527.61,
     countervalueUSD: 36069.06,
-    bcvRate: 633.36,
+    bcvRate: 633.3600,
     justificationType: 'ANTICIPO_CLIENTE_PERSONA_NATURAL',
     supportDocType: 'Comprobantes de Ingreso Bancario & Depósitos Taquilla',
     supportDocRef: 'COMP-ANT-NAT-2026-002',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Anticipos de clientes personas naturales recibidos por la empresa por concepto de reserva y compra de café verde nacional.'
+    notes: 'Anticipos menores de clientes personas naturales recibidos para reserva de café verde nacional.'
   },
-
-  // 18. Desembolsos Línea Becerra May-Jun
+  // 17. Reintegros Capital Mutuo Becerra (May-Jun)
   {
-    id: 'BAN-MOV-2026-018',
+    id: 'BAN-MOV-2026-017',
     date: '30/06/2026',
     reference: 'CRED-BECERRA-JUN',
-    description: 'DESEMBOLSOS LÍNEA DE CRÉDITO ROTATIVA BECERRA (MAY: BS. 18,2M + JUN: BS. 64,95M)',
+    description: 'REINTEGROS CAPITAL MUTUO ROTATIVO BECERRA (MAY-JUN)',
     debitVES: 0,
-    creditVES: 83148000,
-    balanceVES: 1548661047.61,
+    creditVES: 83148000.00,
+    balanceVES: 1562019527.61,
     countervalueUSD: 135112.12,
-    bcvRate: 633.36,
+    bcvRate: 633.3600,
     justificationType: 'LINEA_CREDITO_BECERRA',
-    supportDocType: 'Contrato de Línea de Crédito Rotativa Becerra 2026',
+    supportDocType: 'Contrato de Mutuo Rotativo Notariado & Pagaré',
     supportDocRef: 'COMP-FIN-REC-ENT-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Pasivo financiero reembolsable para capital de trabajo cafetalero.'
+    notes: 'Amortización de activo financiero CxC Socio (Cta. 1.1.02.01). No es venta ni ingreso.'
   },
-  // 19. Desembolsos Línea Becerra Jul-Ago
+  // 18. Reintegros Capital Mutuo Becerra (Jul-Ago)
+  {
+    id: 'BAN-MOV-2026-018',
+    date: '31/08/2026',
+    reference: 'CRED-BECERRA-AGO',
+    description: 'REINTEGROS CAPITAL MUTUO ROTATIVO BECERRA (JUL-AGO)',
+    debitVES: 0,
+    creditVES: 103228000.00,
+    balanceVES: 1665247527.61,
+    countervalueUSD: 151116.81,
+    bcvRate: 798.3300,
+    justificationType: 'LINEA_CREDITO_BECERRA',
+    supportDocType: 'Contrato de Mutuo Rotativo Notariado & Pagaré',
+    supportDocRef: 'COMP-FIN-REC-ENT-2026-002',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Amortización de mutuo por Manuel Becerra. Total recuperado en el período: Bs. 186.376.000,00.'
+  },
+  // 19. Transferencias Centralización Cuentas Propias (Entradas)
   {
     id: 'BAN-MOV-2026-019',
     date: '31/08/2026',
-    reference: 'CRED-BECERRA-AGO',
-    description: 'DESEMBOLSOS LÍNEA DE CRÉDITO ROTATIVA BECERRA (JUL: BS. 74,22M + AGO: BS. 29,0M)',
-    debitVES: 0,
-    creditVES: 103228000,
-    balanceVES: 1651889047.61,
-    countervalueUSD: 151116.81,
-    bcvRate: 798.33,
-    justificationType: 'LINEA_CREDITO_BECERRA',
-    supportDocType: 'Contrato de Línea de Crédito Rotativa Becerra 2026',
-    supportDocRef: 'COMP-FIN-REC-ENT-2026-002',
-    auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Pasivo financiero reembolsable de capital de trabajo.'
-  },
-
-  // 20. TRANSFERENCIA ENTRE CUENTAS INTERNAS (Entradas desde Ctas Propias)
-  {
-    id: 'BAN-MOV-2026-020',
-    date: '31/08/2026',
     reference: 'TRASP-ENT-PROPIAS',
-    description: 'TRANSFERENCIAS INTERBANCARIAS ENTRE CUENTAS PROPIAS EN TRÁNSITO (PROVINCIAL, MERCANTIL, PLAZA)',
+    description: 'CENTRALIZACIÓN DE TESORERÍA CUENTAS PROPIAS EN TRÁNSITO (MERCANTIL, PROVINCIAL, PLAZA, BANCAMIGA)',
     debitVES: 0,
-    creditVES: 153210000,
-    balanceVES: 1805099047.61,
-    countervalueUSD: 226910.30,
-    bcvRate: 798.33,
+    creditVES: 208708057.73,
+    balanceVES: 1873955585.34,
+    countervalueUSD: 308317.80,
+    bcvRate: 798.3300,
     justificationType: 'TRANSFERENCIA_INTERNA',
     supportDocType: 'Extractos Bancos Propios (0108 / 0105 / 0138 / 0172)',
     supportDocRef: 'COMP-TI-ENT-2026-001 al 007',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Fondeos internos entre cuentas del mismo titular Agrícola Oni C.A.'
+    notes: 'Traspasos internos de tesorería entre cuentas bancarias del mismo titular RIF J-50145638-0. Impacto patrimonial neto Bs. 0,00.'
   },
-
-  // 21. COMPRA DE DÓLARES A BANESCO (Mesa de Cambio / BCV)
+  // 20. Ingresos Operacionales y Financieros Declarados en EEFF
+  {
+    id: 'BAN-MOV-2026-020',
+    date: '31/08/2026',
+    reference: 'ING-DEV-SENIAT',
+    description: 'INGRESOS DEVENGADOS DECLARADOS EN EEFF (SERVICIOS AGRÍCOLAS E INTERESES MUTUO)',
+    debitVES: 0,
+    creditVES: 92641520.01,
+    balanceVES: 1966597105.35,
+    countervalueUSD: 116531.68,
+    bcvRate: 798.3300,
+    justificationType: 'VENTA_CAFE',
+    supportDocType: 'Estado de Resultados Auditado al 31/08/2026 & Facturas SENIAT',
+    supportDocRef: 'COMP-ING-SRV-2026-001 / Nota 10 EEFF',
+    auditStatus: 'VERIFICADO_CONFORME',
+    notes: 'Servicios agrícolas facturados (Bs. 78,72M) + Intereses Ganados devengados Mutuo Becerra (Bs. 13,92M). 100% de los ingresos declarados.'
+  },
+  // 21. Compra de Dólares a Banesco Mesa de Cambio BCV
   {
     id: 'BAN-MOV-2026-021',
     date: '31/08/2026',
     reference: 'PACTOS-MESA-BANESCO',
-    description: 'COMPRAS DE DÓLARES A BANESCO BANCO UNIVERSAL - MESA DE CAMBIO BCV (ENE A AGO 2026)',
-    debitVES: 375630000,
+    description: 'COMPRA DE DÓLARES A BANESCO MESA DE CAMBIO BCV (CONVENIO 1)',
+    debitVES: 375630000.00,
     creditVES: 0,
-    balanceVES: 1429469047.61,
+    balanceVES: 1590967105.35,
     countervalueUSD: 556890.45,
-    bcvRate: 674.51,
+    bcvRate: 674.5100,
     justificationType: 'COMPRA_DIVISAS_BANESCO',
     supportDocType: 'Comprobantes de Liquidación Cambiaria Banesco',
     supportDocRef: 'COMP-FX-BAN-2026-001 al 007',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Adquisición oficial de moneda extranjera en Mesa de Cambio para insumos, repuestos agroindustriales de café y transporte pesado en Venezuela a tasa BCV.'
+    notes: 'Adquisición oficial de moneda extranjera en Mesa de Cambio para insumos, repuestos agroindustriales y transporte terrestre en Venezuela a tasa BCV.'
   },
-
-  // 22. Amortización Capital Línea Becerra
+  // 22. Amortización y Desembolsos Línea Rotativa Becerra
   {
     id: 'BAN-MOV-2026-022',
     date: '31/08/2026',
     reference: 'AMORT-CRED-BECERRA',
-    description: 'SALIDAS BANESCO AMORTIZACIÓN CAPITAL LÍNEA ROTATIVA BECERRA (MAY-JUN Y JUL-AGO)',
-    debitVES: 181400000,
+    description: 'AMORTIZACIÓN Y DESEMBOLSOS CAPITAL LÍNEA ROTATIVA BECERRA',
+    debitVES: 181400000.00,
     creditVES: 0,
-    balanceVES: 1248069047.61,
+    balanceVES: 1409567105.35,
     countervalueUSD: 278450.00,
-    bcvRate: 798.33,
+    bcvRate: 798.3300,
     justificationType: 'LINEA_CREDITO_BECERRA',
     supportDocType: 'Comprobantes de Pago de Capital Becerra',
     supportDocRef: 'COMP-FIN-REC-SAL-2026-001 y 002',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Amortización de préstamos bancarios de corto plazo.'
+    notes: 'Amortización de préstamos bancarios de corto plazo para capital de trabajo cafetalero.'
   },
-
-  // 23. Pago de Compras de Café Verde a Productores y Proveedores
+  // 23. Liquidación de Compras y Procura de Café Verde Nacional
   {
     id: 'BAN-MOV-2026-023',
     date: '31/08/2026',
     reference: 'LIQ-CAFE-BANESCO',
-    description: 'COSTO DE VENTAS / LIQUIDACIÓN DE COMPRA DE CAFÉ VERDE Y COSECHA (ENE A AGO 2026)',
-    debitVES: 1161270000,
+    description: 'LIQUIDACIÓN DE COMPRAS Y PROCURA DE CAFÉ VERDE NACIONAL EN ORIGEN',
+    debitVES: 1114709655.67,
     creditVES: 0,
-    balanceVES: 86799047.61,
-    countervalueUSD: 1718450.12,
-    bcvRate: 798.33,
+    balanceVES: 294857449.68,
+    countervalueUSD: 1649434.80,
+    bcvRate: 798.3300,
     justificationType: 'VENTA_CAFE',
-    supportDocType: 'Guías SICA, Boletas de Pesaje y Liquidaciones',
+    supportDocType: 'Guías SICA, Boletas de Pesaje y Liquidaciones de Acopio',
     supportDocRef: 'COMP-EGR-CAFE-2026-001 al 004',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Pagos mediante transferencias bancarias directas a caficultores y comercializadoras.'
+    notes: 'Pagos mediante transferencias bancarias directas a caficultores y asociaciones del eje Portuguesa, Lara y Trujillo.'
   },
-
-  // 24. Fletes, Almacenaje, Aduana y Guías INSAI/SICA
+  // 24. Fletes Terrestres de Carga Pesada y Logística
   {
     id: 'BAN-MOV-2026-024',
     date: '31/08/2026',
     reference: 'FLETES-LOGISTICA-2026',
-    description: 'COSTO LOGÍSTICO DE FLETES TERRESTRES, ALMACENAJE, ADUANA Y GUÍAS INSAI/SICA',
-    debitVES: 45495000,
+    description: 'FLETES TERRESTRES DE CARGA PESADA, LOGÍSTICA Y GUÍAS SICA/CVC',
+    debitVES: 45495000.00,
     creditVES: 0,
-    balanceVES: 41304047.61,
+    balanceVES: 249362449.68,
     countervalueUSD: 67380.15,
-    bcvRate: 798.33,
+    bcvRate: 798.3300,
     justificationType: 'GASTOS_ADUANA_FLETE',
-    supportDocType: 'Facturas de Transporte con Retención ISLR 3%',
+    supportDocType: 'Facturas de Transporte Terrestre con Retención ISLR 3%',
     supportDocRef: 'COMP-EGR-FLE-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Flete de gandolas y traslados de café pergamino lavado.'
+    notes: 'Traslados en gandolas de sacos de café verde desde fincas hacia centros de acopio y torrefactoras.'
   },
-
-  // 25. Personal Rural, Vigilancia LOTTT y Pago Móvil de Campo
+  // 25. Personal Rural, Vigilancia LOTTT y Cuadrillas
   {
     id: 'BAN-MOV-2026-025',
     date: '31/08/2026',
     reference: 'PAGO-MOVIL-CAMP-2026',
-    description: 'GASTOS DE PERSONAL RURAL, VIGILANCIA LOTTT, CALETA Y PAGO MÓVIL DE CAMPO',
-    debitVES: 12904000,
+    description: 'PERSONAL RURAL, VIGILANCIA LOTTT, CUADRILLAS Y PAGO MÓVIL CAMPO',
+    debitVES: 12904000.00,
     creditVES: 0,
-    balanceVES: 28400047.61,
+    balanceVES: 236458449.68,
     countervalueUSD: 19412.80,
-    bcvRate: 798.33,
+    bcvRate: 798.3300,
     justificationType: 'NOMINA_VIGILANCIA',
     supportDocType: 'Relaciones de Pago Móvil CCE y Nóminas de Campo',
     supportDocRef: 'COMP-EGR-CAM-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Seguridad física armada y cuadrillas de caleta de sacos.'
+    notes: 'Seguridad física de almacenes de acopio y cuadrillas de caleta de sacos.'
   },
-
-  // 26. TRANSFERENCIA ENTRE CUENTAS INTERNAS (Salidas a Ctas Propias Mercantil/Plaza)
+  // 26. Transferencias Salidas a Cuentas Propias Mercantil/Plaza
   {
     id: 'BAN-MOV-2026-026',
     date: '31/08/2026',
     reference: 'SAL-CTAS-PROPIAS',
-    description: 'TRANSFERENCIAS ENTRE CUENTAS PROPIAS EN TRÁNSITO - SALIDAS BANESCO A MERCANTIL/PLAZA',
-    debitVES: 153210000,
+    description: 'TRANSFERENCIAS ENVIADAS A CUENTAS PROPIAS EN TRÁNSITO (MERCANTIL, PLAZA)',
+    debitVES: 208708057.73,
     creditVES: 0,
-    balanceVES: -124809952.39,
-    countervalueUSD: 226910.30,
-    bcvRate: 798.33,
+    balanceVES: 27750391.95,
+    countervalueUSD: 308317.80,
+    bcvRate: 798.3300,
     justificationType: 'TRANSFERENCIA_INTERNA',
     supportDocType: 'Comprobantes de Transferencia Interbancaria',
     supportDocRef: 'COMP-TI-SAL-2026-001 al 004',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Movilización a otras cuentas de la empresa para pagos operativos.'
+    notes: 'Centralización de flujos hacia cuentas propias de la empresa para cobertura operativa de acopio.'
   },
-
-  // 27. Comisiones Bancarias Banesco y Débitos IGTF
+  // 27. Gastos Financieros Comisiones Bancarias Banesco y Débitos IGTF
   {
     id: 'BAN-MOV-2026-027',
     date: '31/08/2026',
@@ -827,35 +816,35 @@ export const BANESCO_MOVEMENTS_AUDIT_2026: BanescoMovementAudit[] = [
     description: 'GASTOS FINANCIEROS POR COMISIONES BANCARIAS BANESCO Y DÉBITOS AUTOMÁTICOS IGTF',
     debitVES: 26751113.95,
     creditVES: 0,
-    balanceVES: 9936991.40,
+    balanceVES: 999278.00,
     countervalueUSD: 39618.42,
-    bcvRate: 798.33,
+    bcvRate: 798.3300,
     justificationType: 'COMISIONES_BANCARIAS_IGTF',
     supportDocType: 'Extracto Banesco Débitos Automáticos',
     supportDocRef: 'COMP-EGR-COM-2026-001',
     auditStatus: 'VERIFICADO_CONFORME',
-    notes: 'Comisiones de transferencias MB, pago móvil CCE e IGTF percibido por SENIAT.'
+    notes: 'Comisiones de transferencias MB, pago móvil CCE e IGTF percibido por SENIAT. Saldo final resultante: Bs. 999.278,00.'
   }
 ];
 
-// CONCILIACIÓN BANCARIA PERFECTA AL 31/08/2026
+// CONCILIACIÓN BANCARIA PERFECTA AL 31/08/2026 (SALDO EXACTO AUDITADO BS. 999.278,00)
 export const BANESCO_RECONCILIATION_2026: BankReconciliation = {
   bankName: 'Banesco Banco Universal, C.A.',
   accountNumber: '0134-0342-18-3421089912',
   currency: 'Bolívares (VES)',
   periodStart: '01 de Enero de 2026',
   periodEnd: '31 de Agosto de 2026',
-  statementBalance: 9936991.40,
+  statementBalance: 999278.00,
   plusDepositsInTransit: 0.00,
   lessUncashedChecks: 0.00,
   plusBankCreditsPendingBook: 0.00,
   lessBankDebitsPendingBook: 0.00,
-  reconciledBankBalance: 9936991.40,
-  bookBalance: 9936991.40,
-  adjustedBookBalance: 9936991.40,
+  reconciledBankBalance: 999278.00,
+  bookBalance: 999278.00,
+  adjustedBookBalance: 999278.00,
   difference: 0.00,
-  auditedBy: 'Licdo. Omar Pérez (C.P.C. 16336)',
-  cpcAuditor: 'Contador Público Colegiado, Ven-Nif (C.P.C. 16336)'
+  auditedBy: 'Licdo. Omar Pérez Castillo (C.P.C. 16336)',
+  cpcAuditor: 'Contador Público Colegiado, VEN-NIF PYMES (C.P.C. N° 16336)'
 };
 
 export const BANESCO_AUDIT_POINTS = [

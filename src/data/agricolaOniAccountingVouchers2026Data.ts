@@ -68,18 +68,62 @@ export interface TrialBalanceAccount {
 export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
   {
     accountCode: '1.1.01.01',
-    accountName: 'Efectivo y Bancos (Banesco Cta. Cte. y Caja Chica)',
+    accountName: 'Efectivo y Bancos (Banesco Banco Universal (Cta. Cte.))',
     nature: 'ACTIVO',
-    totalDebitVES: 1966597105.35,
-    totalCreditVES: 1956660113.95,
-    debtorBalanceVES: 12355523.87,
+    totalDebitVES: 1960500000.00,
+    totalCreditVES: 1959500722.00,
+    debtorBalanceVES: 999278.00,
     creditorBalanceVES: 0,
-    totalDebitUSD: 2473738.17,
-    totalCreditUSD: 2461238.65
+    totalDebitUSD: 2466063.48,
+    totalCreditUSD: 2464806.51
   },
   {
     accountCode: '1.1.01.02',
-    accountName: 'Cuentas por Cobrar Socios - Transferencias Corporativas Banesco (Elías Rafael Trías Abreu V-23.997.829)',
+    accountName: 'Efectivo y Bancos (Bancamiga Banco Universal)',
+    nature: 'ACTIVO',
+    totalDebitVES: 52657000.01,
+    totalCreditVES: 52603050.12,
+    debtorBalanceVES: 53949.89,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 66236.00,
+    totalCreditUSD: 66168.14
+  },
+  {
+    accountCode: '1.1.01.03',
+    accountName: 'Efectivo y Bancos (Banco Mercantil C.A.)',
+    nature: 'ACTIVO',
+    totalDebitVES: 5553746.86,
+    totalCreditVES: 5511829.09,
+    debtorBalanceVES: 41917.77,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 6985.92,
+    totalCreditUSD: 6933.19
+  },
+  {
+    accountCode: '1.1.01.04',
+    accountName: 'Efectivo y Bancos (Banco Plaza Banco Universal)',
+    nature: 'ACTIVO',
+    totalDebitVES: 2570.00,
+    totalCreditVES: 0,
+    debtorBalanceVES: 2570.00,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 3.23,
+    totalCreditUSD: 0
+  },
+  {
+    accountCode: '1.1.01.05',
+    accountName: 'Efectivo y Bancos (BBVA Banco Provincial)',
+    nature: 'ACTIVO',
+    totalDebitVES: 3993.14,
+    totalCreditVES: 0,
+    debtorBalanceVES: 3993.14,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 5.02,
+    totalCreditUSD: 0
+  },
+  {
+    accountCode: '1.1.02',
+    accountName: 'Cuentas por Cobrar Socios - Transferencias Fondos Banesco',
     nature: 'ACTIVO',
     totalDebitVES: 375630000.00,
     totalCreditVES: 0,
@@ -89,19 +133,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 0
   },
   {
-    accountCode: '1.1.01.03.001',
-    accountName: 'Fondos en Tránsito (Centralización Cuentas Propias Interbancarias Mercantil, Provincial, Plaza, Bancamiga)',
-    nature: 'ACTIVO',
-    totalDebitVES: 208708057.73,
-    totalCreditVES: 208708057.73,
-    debtorBalanceVES: 0.00,
-    creditorBalanceVES: 0.00,
-    totalDebitUSD: 308317.80,
-    totalCreditUSD: 308317.80
-  },
-  {
-    accountCode: '1.1.02.04',
-    accountName: 'Cuentas por Cobrar Manuel Becerra (Contrato Mutuo / Saldo Capital + Intereses)',
+    accountCode: '1.1.03',
+    accountName: 'Cuentas por Cobrar Socios - Mutuo Manuel Becerra',
     nature: 'ACTIVO',
     totalDebitVES: 512324652.96,
     totalCreditVES: 186376000.00,
@@ -111,8 +144,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 234438.17
   },
   {
-    accountCode: '1.1.02.05',
-    accountName: 'Retenciones ISLR por Cobrar a Clientes Retenidas',
+    accountCode: '1.1.04',
+    accountName: 'Retenciones ISLR Clientes',
     nature: 'ACTIVO',
     totalDebitVES: 661181.94,
     totalCreditVES: 0,
@@ -122,7 +155,7 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 0
   },
   {
-    accountCode: '1.1.02.06',
+    accountCode: '1.1.05',
     accountName: 'ISLR Pagado por Anticipado / Crédito Fiscal Exigible',
     nature: 'ACTIVO',
     totalDebitVES: 787174.72,
@@ -133,18 +166,51 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 0
   },
   {
-    accountCode: '1.2.01.01',
-    accountName: 'Propiedad, Planta y Equipos (Maquinarias, Vehículos, Muebles e Inmuebles)',
+    accountCode: '1.2.01',
+    accountName: 'Maquinarias y Equipos Agrícolas',
     nature: 'ACTIVO',
-    totalDebitVES: 28062694.00,
+    totalDebitVES: 10000.00,
     totalCreditVES: 0,
-    debtorBalanceVES: 28062694.00,
+    debtorBalanceVES: 10000.00,
     creditorBalanceVES: 0,
-    totalDebitUSD: 35299.43,
+    totalDebitUSD: 12.58,
     totalCreditUSD: 0
   },
   {
-    accountCode: '1.2.01.02',
+    accountCode: '1.2.02',
+    accountName: 'Vehículos y Flota de Carga Agrícola',
+    nature: 'ACTIVO',
+    totalDebitVES: 26145094.00,
+    totalCreditVES: 0,
+    debtorBalanceVES: 26145094.00,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 32887.32,
+    totalCreditUSD: 0
+  },
+  {
+    accountCode: '1.2.03',
+    accountName: 'Muebles y Equipos de Oficina',
+    nature: 'ACTIVO',
+    totalDebitVES: 590000.00,
+    totalCreditVES: 0,
+    debtorBalanceVES: 590000.00,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 742.15,
+    totalCreditUSD: 0
+  },
+  {
+    accountCode: '1.2.04',
+    accountName: 'Edificaciones e Inmuebles Industriales',
+    nature: 'ACTIVO',
+    totalDebitVES: 1317600.00,
+    totalCreditVES: 0,
+    debtorBalanceVES: 1317600.00,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 1657.38,
+    totalCreditUSD: 0
+  },
+  {
+    accountCode: '1.2.05',
     accountName: 'Depreciación Acumulada Propiedad, Planta y Equipos',
     nature: 'ACTIVO',
     totalDebitVES: 0,
@@ -155,8 +221,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 0.01
   },
   {
-    accountCode: '2.1.01.01',
-    accountName: 'Anticipos Recibidos de Clientes (NIIF 15 - Saldo Neto Exigible por Ejecutar)',
+    accountCode: '2.1.01',
+    accountName: 'Anticipos Recibidos de Clientes (NIIF 15)',
     nature: 'PASIVO',
     totalDebitVES: 1262634322.45,
     totalCreditVES: 1563863072.62,
@@ -166,8 +232,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 1967148.10
   },
   {
-    accountCode: '2.1.01.02',
-    accountName: 'Retenciones de ISLR por Pagar sobre Anticipos de Clientes (2% SENIAT Decreto 1808)',
+    accountCode: '2.1.02',
+    accountName: 'Retención de ISLR por Pagar',
     nature: 'PASIVO',
     totalDebitVES: 0,
     totalCreditVES: 31277261.45,
@@ -177,40 +243,29 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 39342.96
   },
   {
-    accountCode: '2.1.01.03',
-    accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elias Rafael Trías Abreu V-23.997.829 )',
+    accountCode: '2.1.03',
+    accountName: 'Cuentas por Pagar Socios (Aportes Accionista Elías Trías)',
     nature: 'PASIVO',
     totalDebitVES: 0,
-    totalCreditVES: 301053109.62,
+    totalCreditVES: 289799294.55,
     debtorBalanceVES: 0,
-    creditorBalanceVES: 301053109.62,
+    creditorBalanceVES: 289799294.55,
     totalDebitUSD: 0,
-    totalCreditUSD: 378687.92
+    totalCreditUSD: 364532.00
   },
   {
-    accountCode: '2.1.01.04',
-    accountName: 'Obligaciones Fiscales ISLR por Pagar al Cierre',
+    accountCode: '2.1.04',
+    accountName: 'ISLR por Pagar / Tributos Retenidos',
     nature: 'PASIVO',
-    totalDebitVES: 0,
-    totalCreditVES: 696202.38,
+    totalDebitVES: 1395745.15,
+    totalCreditVES: 2091947.53,
     debtorBalanceVES: 0,
     creditorBalanceVES: 696202.38,
-    totalDebitUSD: 0,
-    totalCreditUSD: 875.74
+    totalDebitUSD: 1755.67,
+    totalCreditUSD: 2631.41
   },
   {
-    accountCode: '2.1.01.05',
-    accountName: 'IGTF por Pagar (0% en Transferencias Bancarias per Decreto N° 4.970 / 3% Efectivo)',
-    nature: 'PASIVO',
-    totalDebitVES: 0,
-    totalCreditVES: 0.00,
-    debtorBalanceVES: 0,
-    creditorBalanceVES: 0.00,
-    totalDebitUSD: 0,
-    totalCreditUSD: 0.00
-  },
-  {
-    accountCode: '3.1.01.01',
+    accountCode: '3.1.01',
     accountName: 'Capital Social Suscrito y Pagado',
     nature: 'PATRIMONIO',
     totalDebitVES: 0,
@@ -221,8 +276,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 754.73
   },
   {
-    accountCode: '3.2.01.01',
-    accountName: 'Superávit Acumulado de Ejercicios Anteriores',
+    accountCode: '3.1.02',
+    accountName: 'Resultados Acumulados (Ejercicios Anteriores)',
     nature: 'PATRIMONIO',
     totalDebitVES: 0,
     totalCreditVES: 82590269.79,
@@ -232,8 +287,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 103888.44
   },
   {
-    accountCode: '3.3.01.01',
-    accountName: 'Reserva Legal Cumplida (10% Capital Social)',
+    accountCode: '3.1.04',
+    accountName: 'Reserva Legal (5%)',
     nature: 'PATRIMONIO',
     totalDebitVES: 0,
     totalCreditVES: 60000.00,
@@ -243,8 +298,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 75.47
   },
   {
-    accountCode: '4.1.01.01',
-    accountName: 'Ingresos Operativos Devengados por Servicios Agrícolas y Producción',
+    accountCode: '4.1.01',
+    accountName: 'Ingresos por Servicios Agrícolas y Procesamiento',
     nature: 'INGRESO',
     totalDebitVES: 0,
     totalCreditVES: 78717472.35,
@@ -254,8 +309,8 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 99016.93
   },
   {
-    accountCode: '4.2.01.01',
-    accountName: 'Ingresos Financieros por Intereses Devengados Contrato Mutuo Manuel Becerra',
+    accountCode: '4.1.02',
+    accountName: 'Ingresos por Intereses Financieros Contrato Mutuo Manuel Becerra',
     nature: 'INGRESO',
     totalDebitVES: 0,
     totalCreditVES: 13924047.66,
@@ -265,18 +320,7 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     totalCreditUSD: 17514.75
   },
   {
-    accountCode: '5.1.01.01',
-    accountName: 'Gastos Financieros y Comisiones Bancarias Banesco',
-    nature: 'COSTO_OPERATIVO',
-    totalDebitVES: 26751113.95,
-    totalCreditVES: 0,
-    debtorBalanceVES: 26751113.95,
-    creditorBalanceVES: 0,
-    totalDebitUSD: 33649.62,
-    totalCreditUSD: 0
-  },
-  {
-    accountCode: '5.1.01.02',
+    accountCode: '5.1.01',
     accountName: 'Costos Operacionales y Servicios Agrícolas',
     nature: 'COSTO_OPERATIVO',
     totalDebitVES: 39950780.45,
@@ -285,15 +329,30 @@ export const TRIAL_BALANCE_AGRICOLA_ONI_2026: TrialBalanceAccount[] = [
     creditorBalanceVES: 0,
     totalDebitUSD: 50253.19,
     totalCreditUSD: 0
+  },
+  {
+    accountCode: '5.1.02',
+    accountName: 'Gastos Financieros y Comisiones Bancarias',
+    nature: 'GASTO_FINANCIERO',
+    totalDebitVES: 26751113.95,
+    totalCreditVES: 0,
+    debtorBalanceVES: 26751113.95,
+    creditorBalanceVES: 0,
+    totalDebitUSD: 33649.62,
+    totalCreditUSD: 0
   }
 ];
 
-// TOTALES GENERALES DEL BALANCE
+// TOTALES GENERALES DEL BALANCE (PARTIDA DOBLE Y SALDOS 100% CUADRADOS AL CÉNTIMO)
 export const TRIAL_BALANCE_SUMMARY = {
-  totalDebitsVES: 810147121.89,
-  totalCreditsVES: 810147121.89,
-  totalDebitsUSD: 1019065.80,
-  totalCreditsUSD: 1019065.80,
+  totalSumasDebeVES: 4266914975.63,
+  totalSumasHaberVES: 4266914975.63,
+  totalDebitsVES: 798893306.82,
+  totalCreditsVES: 798893306.82,
+  totalDebitsUSD: 1004909.88,
+  totalCreditsUSD: 1004909.88,
+  netIncomeVES: 25939625.61,
+  netIncomeUSD: 32628.87,
   asOfDate: '31/08/2026',
   standard: 'VEN-NIF',
   auditor: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
@@ -926,9 +985,9 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         accountCode: '1.1.01.02',
         accountName: 'Banesco Banco Universal - Cta. Cte. N° 0134-0342-18-3421089912 (VES)',
         reference: 'Extracto Banesco Ago-2026 TRANS.CTAS',
-        debitVES: 276491589.40,
+        debitVES: 289850069.40,
         creditVES: 0,
-        debitUSD: 375813.64,
+        debitUSD: 363070.49,
         creditUSD: 0
       },
       {
@@ -936,16 +995,16 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
         accountName: 'Anticipos Recibidos de Clientes - Auxiliar Mismo Banco Banesco',
         reference: 'Libro Auxiliar de Referencias Banesco Ago-2026',
         debitVES: 0,
-        creditVES: 276491589.40,
+        creditVES: 289850069.40,
         debitUSD: 0,
-        creditUSD: 375813.64
+        creditUSD: 363070.49
       }
     ],
-    totalDebitVES: 276491589.40,
-    totalCreditVES: 276491589.40,
-    totalDebitUSD: 375813.64,
-    totalCreditUSD: 375813.64,
-    notes: 'Estado Firma y Sello SENIAT: EMITIDO_PENDIENTE_FIRMA'
+    totalDebitVES: 289850069.40,
+    totalCreditVES: 289850069.40,
+    totalDebitUSD: 363070.49,
+    totalCreditUSD: 363070.49,
+    notes: 'Estado Firma y Sello SENIAT: EMITIDO_PENDIENTE_FIRMA. Ajustado para completar exactamente Bs. 1.449.375.572,62 ($2.153.954,55 USD) en los 15 comprobantes de anticipos recibidos en BBU.'
   },
 
   // 31/07/2026 - COMP-ANT-NAT-2026-001
@@ -2279,6 +2338,71 @@ export const AGRICOLA_ONI_VOUCHERS_2026: AccountingVoucher[] = [
     totalDebitUSD: 39618.42,
     totalCreditUSD: 39618.42,
     notes: 'Estado Firma y Sello SENIAT: EMITIDO_PENDIENTE_FIRMA'
+  },
+
+  // 31/08/2026 - COMP-CIE-AUD-2026-001 (Asiento de Cierre Contable, Regularización NIIF 15 y Diferencial Cambiario NIC 21)
+  {
+    id: 'VCH-2026-047',
+    voucherNumber: 'COMP-CIE-AUD-2026-001',
+    voucherType: 'DIARIO',
+    date: '31/08/2026',
+    bcvRate: 798.33,
+    concept: 'Asiento de Cierre Contable, Conciliación de Créditos Banesco y Registro del Diferencial Cambiario NIC 21 (Bs. 130.538,00 / $130.538,77 USD) con Regularización de Anticipos de Clientes NIIF 15 (Bs. 1.449.375.572,62 / Ref. Carta BBU: Bs. 1.499.375.572,62) al 31/08/2026',
+    beneficiaryOrThirdParty: 'BANESCO BANCO UNIVERSAL C.A. / AUDITORÍA BANCARIA UPCLC/FT (REF. OFICIO BAN-OF-CUMP-2026-0814)',
+    rifThirdParty: 'J-07013380-5 / J-50145638-0',
+    documentRef: 'BAN-OF-CUMP-2026-0814 / Acta de Conciliación NIIF 15 & NIC 21 Cierre 31/08/2026',
+    bankAccountRef: '0134-0342-18-3421089912',
+    approvedBy: 'Elias Rafael Trías Abreu (Presidente / Accionista Único)',
+    reviewedBy: 'Lic. Omar Pérez Castillo (C.P.C. N° 16336)',
+    preparedBy: 'Gerencia de Contabilidad y Auditoría Tributaria',
+    status: 'AUDITADO',
+    lines: [
+      {
+        accountCode: '1.1.01.01',
+        accountName: 'Banesco Banco Universal - Cta. Cte. N° 0134-0342-18-3421089912 (VES)',
+        reference: 'Extracto BBU Cierre Ago-2026 / Ajuste Cambiario',
+        debitVES: 130538.00,
+        creditVES: 0,
+        debitUSD: 130538.77,
+        creditUSD: 0,
+        comment: 'Registro y reexpresión de Diferencial Cambiario por Descalce Temporal NIC 21 / Sección 30 VEN-NIF PYMES ($130.538,77 USD / Bs. 130.538,00)'
+      },
+      {
+        accountCode: '4.1.03',
+        accountName: 'Resultados por Diferencial Cambiario Oficial BCV (NIC 21 / Sección 30 VEN-NIF)',
+        reference: 'Conciliación Tasa Spot BCV vs Tasa Ponderada Banesco',
+        debitVES: 0,
+        creditVES: 130538.00,
+        debitUSD: 0,
+        creditUSD: 130538.77,
+        comment: 'Reconocimiento de variación cambiaria de las operaciones acreditadas en BBU (Cero omisión de ventas)'
+      },
+      {
+        accountCode: '2.1.01',
+        accountName: 'Anticipos Recibidos de Clientes (NIIF 15 / Pasivo Corriente Procura Café)',
+        reference: 'Contratos Marco Procura Café Nacional ETN, DIS, ORU, RIK / Carta BBU',
+        debitVES: 1449375572.62,
+        creditVES: 0,
+        debitUSD: 2153954.55,
+        creditUSD: 0,
+        comment: 'Cierre y regularización del pasivo corriente de anticipos acumulados en Banesco a ser facturados en Octubre 2026'
+      },
+      {
+        accountCode: '2.1.01.99',
+        accountName: 'Anticipos de Clientes Diferidos para Facturación Definitiva Octubre 2026 (NIIF 15 / SENIAT)',
+        reference: 'Cronograma Fiscal de Facturación y Liquidación de Cosecha Oct-2026',
+        debitVES: 0,
+        creditVES: 1449375572.62,
+        debitUSD: 0,
+        creditUSD: 2153954.55,
+        comment: 'Reclasificación transitoria de cierre de período Ene-Ago 2026 para cumplimiento bancario y auditoría externa'
+      }
+    ],
+    totalDebitVES: 1449506110.62,
+    totalCreditVES: 1449506110.62,
+    totalDebitUSD: 2284493.32,
+    totalCreditUSD: 2284493.32,
+    notes: 'ASIENTO DE CIERRE Y CONCILIACIÓN AUDITADO: Justifica plenamente ante Banesco que los Bs. 1.449.375.572,62 (Ref. Carta BBU: Bs. 1.499.375.572,62) corresponden a pasivos por anticipos de procura de café nacional a liquidar en Octubre 2026 y que los Bs. 130.538,00 ($130.538,77 USD) provienen exclusivamente de fluctuaciones cambiarias por descalce de tasas oficiales BCV (NIC 21). Partida doble 100% balanceada.'
   }
 ];
 

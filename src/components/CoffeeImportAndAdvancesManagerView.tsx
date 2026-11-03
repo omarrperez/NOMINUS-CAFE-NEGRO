@@ -695,7 +695,7 @@ export const CoffeeImportAndAdvancesManagerView: React.FC<Props> = ({ company, c
                 <span>Relación de Anticipos en Bolívares para Procura de Café Nacional</span>
               </h3>
               <p className="text-xs text-emerald-100/90 leading-relaxed max-w-3xl">
-                Reconciliación bancaria Banesco Cta. N° 0134-0342-18-3421089912. Total exacto en Bolívares: <strong className="text-amber-300 font-mono font-bold text-sm">Bs. 1.542.017.092,63</strong> (<strong className="text-white font-mono text-xs">$2.270.486,23 USD</strong> a Tasa Oficial BCV).
+                Reconciliación bancaria Banesco Cta. N° 0134-0342-18-3421089912. Total exacto en Bolívares: <strong className="text-amber-300 font-mono font-bold text-sm">Bs. 1.449.375.572,62</strong> (<strong className="text-white font-mono text-xs">$2.153.954,55 USD</strong> a Tasa Oficial BCV).
               </p>
             </div>
 

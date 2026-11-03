@@ -271,13 +271,13 @@ export const DEFAULT_CUSTOMER_ADVANCES_2026: CustomerAdvance[] = [
     date: '2026-08-31',
     clientName: 'Consorcio Torrefactor Banesco, C.A.',
     clientRif: 'J-50120729-0',
-    amountVES: 530626466.68,
-    countervalueUSD: 664674.65,
+    amountVES: 437984946.67,
+    countervalueUSD: 548583.57,
     bcvRate: 798.3260,
     coffeeVolumeTargetQtl: 8000,
     bankReference: 'BANESCO-TRF-00819204',
     status: 'CAFE_ACOPIADO_VE',
-    notes: 'Abonos de anticipos de Agosto a Tasa Oficial BCV (Bs. 798,33/$). Totaliza exactamente Bs. 1.542.017.092,63.'
+    notes: 'Abonos de anticipos acumulados a Tasa Oficial BCV. Totaliza exactamente Bs. 1.449.375.572,62 ($2.153.954,55 USD).'
   }
 ];
 
@@ -495,10 +495,10 @@ export const AppDataProvider: React.FC<{ children: React.ReactNode }> = ({ child
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_customerAdvances`);
       const parsed = saved ? JSON.parse(saved) : null;
-      if (parsed && Array.isArray(parsed) && parsed.length > 0) {
+      if (parsed && Array.isArray(parsed) && parsed.length === 7) {
         const firstRate = Number(parsed[0].bcvRate) || 0;
-        // Check if parsed already has the progressive rates (Item 0 rate for Enero is ~341.74)
-        if (firstRate > 300 && firstRate < 400 && parsed.length === 7) {
+        const totalAdv = parsed.reduce((s: number, a: CustomerAdvance) => s + (Number(a.amountVES) || 0), 0);
+        if (firstRate > 300 && firstRate < 400 && Math.abs(totalAdv - 1449375572.62) < 1) {
           return parsed;
         }
       }
@@ -544,7 +544,13 @@ export const AppDataProvider: React.FC<{ children: React.ReactNode }> = ({ child
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_vouchers`);
       const parsed = saved ? JSON.parse(saved) : null;
-      return parsed && parsed.length > 0 ? parsed : AGRICOLA_ONI_VOUCHERS_2026;
+      if (parsed && parsed.length > 0) {
+        const hasClosingVoucher = parsed.some((v: AccountingVoucher) => v.id === 'VCH-2026-047' || v.voucherNumber === 'COMP-CIE-AUD-2026-001');
+        if (hasClosingVoucher) {
+          return parsed;
+        }
+      }
+      return AGRICOLA_ONI_VOUCHERS_2026;
     } catch {
       return AGRICOLA_ONI_VOUCHERS_2026;
     }
@@ -564,7 +570,15 @@ export const AppDataProvider: React.FC<{ children: React.ReactNode }> = ({ child
     try {
       const saved = localStorage.getItem(`${STORAGE_KEY}_bankMovements`);
       const parsed = saved ? JSON.parse(saved) : null;
-      return parsed && parsed.length > 0 ? parsed : BANESCO_MOVEMENTS_AUDIT_2026;
+      if (parsed && Array.isArray(parsed) && parsed.length === BANESCO_MOVEMENTS_AUDIT_2026.length) {
+        const totalCred = parsed.reduce((s: number, m: BanescoMovementAudit) => s + (m.creditVES || 0), 0);
+        const totalDeb = parsed.reduce((s: number, m: BanescoMovementAudit) => s + (m.debitVES || 0), 0);
+        const finalBal = Math.round((totalCred - totalDeb) * 100) / 100;
+        if (Math.abs(finalBal - 999278.00) < 0.1) {
+          return parsed;
+        }
+      }
+      return BANESCO_MOVEMENTS_AUDIT_2026;
     } catch {
       return BANESCO_MOVEMENTS_AUDIT_2026;
     }

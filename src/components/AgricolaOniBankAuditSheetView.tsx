@@ -840,15 +840,15 @@ export const AgricolaOniBankAuditSheetView: React.FC<Props> = ({ company, curren
                 <CheckCircle2 className="w-5 h-5" />
               </span>
               <div>
-                <h4 className="text-sm font-bold text-white">Conciliación Bancaria y Contable Cuadrada</h4>
+                <h4 className="text-sm font-bold text-white">Conciliación Bancaria y Contable Cuadrada al Céntimo</h4>
                 <p className="text-xs text-stone-300 mt-0.5">
-                  Saldo en Extracto Banesco al 31/08/2026: <strong className="text-emerald-400 font-mono">Bs. 9.936.991,40</strong> &middot; Saldo en Libros Mayores: <strong className="text-emerald-400 font-mono">Bs. 9.936.991,40</strong> (Diferencia: Bs. 0,00).
+                  Saldo en Extracto Banesco al 31/08/2026: <strong className="text-emerald-400 font-mono">Bs. 999.278,00</strong> ($1.256,97 USD) &middot; Saldo en Libros Mayores: <strong className="text-emerald-400 font-mono">Bs. 999.278,00</strong> (Diferencia: Bs. 0,00). Total Efectivo y Bancos (5 Cuentas Activas): <strong className="text-emerald-400 font-mono">Bs. 1.101.708,80</strong> ($1.385,81 USD).
                 </p>
               </div>
             </div>
 
             <div className="text-right shrink-0">
-              <span className="text-[11px] text-stone-400 block font-mono">Contabilidad Colegiada</span>
+              <span className="text-[11px] text-stone-400 block font-mono">Contabilidad Colegiada VEN-NIF</span>
               <span className="text-xs font-bold text-white block">Lic. Omar Pérez Castillo (C.P.C. 16336)</span>
             </div>
           </div>

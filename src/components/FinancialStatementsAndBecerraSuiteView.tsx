@@ -85,8 +85,8 @@ Estimados señores:
 
 En atención a su comunicación sobre la presunta disparidad entre los Ingresos Declarados en Estados Financieros (Bs. 92.641.520,01 / USD 116.531,68) y los Créditos Bancarios Movilizados en BBU (Promedio USD 2.781.830,18 / Total Bs. 1.966.597.105,35), dejamos formal y categórica constancia de lo siguiente:
 
-1. JUSTIFICACIÓN DE LA DIFERENCIA:
-- Bs. 1.542.017.092,63 (78,4%): ANTICIPOS EN VENTAS DE CLIENTES JURÍDICOS (NIIF 15) para la intermediación y compra de café en Venezuela a tasa oficial BCV. Bajo NIIF 15 constituyen Pasivo Corriente, no ventas gravadas. Se facturan formalmente a partir de OCTUBRE DE 2026 sustituyendo el anticipo contra facturas de venta.
+1. JUSTIFICACIÓN DE LA DIFERENCIA (Bs. 1.873.955.585,34):
+- Bs. 1.449.375.572,62 (77,34% de la diferencia): ANTICIPOS EN VENTAS DE CLIENTES JURÍDICOS (NIIF 15) para la intermediación y compra de café en Venezuela a tasa oficial BCV. Bajo NIIF 15 constituyen Pasivo Corriente, no ventas gravadas. Se facturan formalmente a partir de OCTUBRE DE 2026 sustituyendo el anticipo contra facturas de venta.
 - Bs. 186.376.000,00 (9,5%): REINTEGROS DE CAPITAL DEL CONTRATO DE PRÉSTAMO MUTUO Y LÍNEA DE CRÉDITO suscrito con el socio Manuel Becerra (Límite Bs. 600.000.000,00). Reducen la cuenta de activo "Cuentas por Cobrar Manuel Becerra" (saldo en balance Bs. 325.948.652,96).
 - Bs. 208.708.057,73 (10,6%): TRANSFERENCIAS ENTRE CUENTAS PROPIAS DE AGRÍCOLA ONI C.A. (Banco Provincial, Mercantil, Plaza, Bancamiga). Impacto patrimonial neto de Bs. 0,00.
 - Bs. 29.495.954,99 (1,5%): APORTES DE PRESIDENTE Y ACCIONISTA PROPIETARIO ELIAS RAFAEL TRÍAS ABREU Y RESERVAS DE PERSONAS NATURALES.
@@ -132,7 +132,7 @@ Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 1
         <strong>Cuadre Oficial del Estado de Cuenta Banesco vs Estados Financieros:</strong><br>
         Total Créditos Movilizados: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
         Ventas e Ingresos Fiscales Declarados: <strong>Bs. 92.641.520,01</strong> ($116.531,68 USD).<br>
-        Anticipos Recibidos para Compra de Café en Venezuela (NIIF 15): <strong>Bs. 1.542.017.092,63 (78,4%)</strong> &mdash; Se facturan a partir de Octubre 2026.
+        Anticipos Recibidos para Compra de Café en Venezuela (NIIF 15): <strong>Bs. 1.449.375.572,62 ($2.153.954,55 USD - 77,34% de la diferencia)</strong> &mdash; Se facturan a partir de Octubre 2026.
       </div>
       <table>
         <thead>
@@ -282,7 +282,7 @@ Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 1
         <strong>Resumen de Conciliación de Débitos / Egresos Bancarios:</strong><br>
         Total Cargos Movilizados en Banesco: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
         Principal Destino (59,3%): <strong>Bs. 1.161.270.000,00</strong> en Costo de Ventas y Liquidación de Compra de Café Verde a Productores.<br>
-        Saldo Final Conciliado en Banesco al 31/08/2026: <strong>Bs. 9.936.991,40</strong>.
+        Saldo Final Conciliado en Banesco al 31/08/2026: <strong>Bs. 999.278,00</strong> ($1.256,97 USD; Total 5 Bancos: Bs. 1.101.708,80).
       </div>
       <table>
         <thead>
@@ -789,7 +789,7 @@ Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 1
         <strong>Cuadre Oficial del Estado de Cuenta Banesco vs Estados Financieros:</strong><br>
         Total Créditos Movilizados: <strong>Bs. ${totals.totalBs.toLocaleString('es-VE', { minimumFractionDigits: 2 })}</strong> ($${totals.totalUSD.toLocaleString('en-US', { minimumFractionDigits: 2 })} USD).<br>
         Ventas e Ingresos Fiscales Declarados: <strong>Bs. 92.641.520,01</strong> ($116.531,68 USD).<br>
-        Anticipos Recibidos para Compra de Café en Venezuela (NIIF 15): <strong>Bs. 1.542.017.092,63 (78,4%)</strong> &mdash; Se facturan a partir de Octubre 2026.
+        Anticipos Recibidos para Compra de Café en Venezuela (NIIF 15): <strong>Bs. 1.449.375.572,62 ($2.153.954,55 USD - 77,34% de la diferencia)</strong> &mdash; Se facturan a partir de Octubre 2026.
       </div>
       <table>
         <thead>
@@ -1461,7 +1461,7 @@ Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 1
                 <span>Actualización Clave: Identificación Total del Renglón Amarillo (51.5%)</span>
               </div>
               <p className="text-amber-950 leading-relaxed font-medium">
-                El renglón que anteriormente figuraba como <strong className="text-amber-900 font-mono">«Banesco sin identificar (TRANS,CTAS)»</strong> por <strong>Bs. 1.013.438.543,38 (51.5% del total)</strong> ha sido completamente verificado y clasificado: corresponde a <strong>ANTICIPOS EN VENTAS DE CLIENTES TORREFACTORES INDUSTRIALES</strong> mediante transferencias internas entre cuentas Banesco. Junto al renglón de Terceros con RIF (Bs. 528,58M &middot; 26.9%), suman <strong>Bs. 1.542,02 millones (78.4%)</strong> de anticipos para compra e intermediación de café en Venezuela a tasa BCV bajo la norma <strong>NIIF 15</strong>, cuyo café se entrega y factura en <strong>Octubre de 2026</strong>.
+                El renglón que anteriormente figuraba como <strong className="text-amber-900 font-mono">«Banesco sin identificar (TRANS,CTAS)»</strong> por <strong>Bs. 920.795.572,62 (46,8% del total)</strong> ha sido completamente verificado y clasificado: corresponde a <strong>ANTICIPOS EN VENTAS DE CLIENTES TORREFACTORES INDUSTRIALES</strong> mediante transferencias internas entre cuentas Banesco. Junto al renglón de Terceros con RIF (Bs. 528,58M &middot; 26,9%), suman <strong>Bs. 1.449,38 millones (77,34%)</strong> de anticipos para compra e intermediación de café en Venezuela a tasa BCV bajo la norma <strong>NIIF 15</strong>, cuyo café se entrega y factura en <strong>Octubre de 2026</strong>.
               </p>
             </div>
 
@@ -1842,7 +1842,7 @@ Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 1
               <p className="text-slate-800 leading-relaxed font-medium">
                 (+) Total Abonos / Entradas Banesco (Ene-Ago 2026): <strong className="text-emerald-800 font-bold">Bs. 1.966.597.105,35</strong> ($2.912.368,95 USD) <br />
                 (-) Total Cargos / Salidas Banesco (Ene-Ago 2026): <strong className="text-red-700 font-bold">Bs. 1.956.660.113,95</strong> ($2.897.684,28 USD) <br />
-                (=) Saldo Conciliado en Banesco al 31/08/2026: <strong className="text-amber-900 font-bold">Bs. 9.936.991,40</strong> ($14.684,67 USD Tasa BCV 676.70 / BBU). El 59.3% de las salidas corresponde al Costo de Ventas para acopio de café verde, y el 19.2% a préstamos corporativos al accionista registrados como Cuentas por Cobrar Socios.
+                (=) Saldo Conciliado en Banesco al 31/08/2026: <strong className="text-amber-900 font-bold">Bs. 999.278,00</strong> ($1.256,97 USD Tasa Oficial BCV 794,9917; y Total Disponibilidad en las 5 Cuentas Bancarias: Bs. 1.101.708,80 / $1.385,81 USD). El 59.3% de las salidas corresponde al Costo de Ventas para acopio de café verde, y el 19.2% a préstamos corporativos al accionista registrados como Cuentas por Cobrar Socios.
               </p>
             </div>
 
@@ -2071,7 +2071,7 @@ Elias Rafael Trías Abreu (Presidente) & Lic. Omar Pérez Castillo (C.P.C. N° 1
 
                 <div className="space-y-1.5 pl-2 text-[11px]">
                   <div>
-                    <strong>1. Anticipos en Ventas de Clientes (NIIF 15) &mdash; Bs. 1.542.017.092,63 (78,4%):</strong>
+                    <strong>1. Anticipos en Ventas de Clientes (NIIF 15) &mdash; Bs. 1.449.375.572,62 (77,34% de la diferencia / $2.153.954,55 USD):</strong>
                     <br />
                     Corresponde a la suma de <em>Terceros con RIF</em> (Bs. 528.578.549,25) y <em>Transferencias entre cuentas de clientes torrefactores en Banesco</em> (Bs. 1.013.438.543,38). Bajo la norma internacional VEN-NIF (NIIF 15), estos recursos constituyen <strong>PASIVO CORRIENTE (Anticipos Recibidos)</strong> y NO son ingresos devengados del período. La entrega física del grano importado y la emisión de facturas definitivas con IVA se ejecuta formalmente a partir de <strong>OCTUBRE DE 2026</strong>.
                   </div>

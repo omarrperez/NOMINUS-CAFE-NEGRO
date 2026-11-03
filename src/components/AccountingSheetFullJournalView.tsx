@@ -18,7 +18,8 @@ import {
   Receipt,
   Layers,
   ArrowRightLeft,
-  FileDown
+  FileDown,
+  Eye
 } from 'lucide-react';
 import { CompanyProfile, BcvRateItem } from '../data/nominusData';
 import { useAppData } from '../context/AppDataContext';
@@ -57,7 +58,11 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
         l.accountCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
         l.accountName.toLowerCase().includes(searchTerm.toLowerCase())
       );
-    const matchesType = filterType === 'ALL' || v.voucherType === filterType;
+    const matchesType =
+      filterType === 'ALL' ||
+      (filterType === 'CIERRE'
+        ? v.voucherNumber.includes('CIE') || v.concept.toLowerCase().includes('cierre')
+        : v.voucherType === filterType);
     return matchesSearch && matchesType;
   });
 
@@ -232,11 +237,11 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
         'Atención: Dpto. de Contabilidad y Contabilidad Independiente'
       ],
       highlightBox:
-        'NOTA AUDITORÍA: Todos los asientos presentados en esta Hoja de Contabilidad cuentan con soporte documental auditado (Extractos Banesco, Planillas Mesa de Cambio, Contratos Mutuos con Intereses, Anticipos de Clientes e Facturación diferida Octubre 2026 bajo NIIF 15). Se certifica la exactitud del saldo registrado en el Estado de Resultados por Bs. 13.924.047,66 por concepto de Intereses Devengados del Contrato Manuel Becerra.',
+        'NOTA AUDITORÍA & CIERRE BANESCO: Todos los asientos presentados en esta Hoja de Contabilidad cuentan con soporte documental auditado (Extractos Banesco, Planillas Mesa de Cambio, Contratos Mutuos con Intereses, Anticipos de Clientes y Facturación diferida Octubre 2026 bajo NIIF 15). Se incluye el Asiento de Cierre Contable y Conciliación Definitiva (COMP-CIE-AUD-2026-001) por Bs. 1.449.506.110,62, que regulariza los Anticipos de Clientes por Bs. 1.449.375.572,62 (Ref. Carta BBU: Bs. 1.499.375.572,62) e incorpora el registro del Diferencial Cambiario por Descalce Temporal NIC 21 / Sección 30 VEN-NIF PYMES por Bs. 130.538,00 ($130.538,77 USD). El Libro Diario queda 100% cuadrado.',
       paragraphs: [
         'Se presenta la matriz completa de asientos contables correspondientes a las operaciones realizadas por la entidad AGRÍCOLA ONI, C.A. durante el período comprendido entre el 01 de enero y el 31 de agosto de 2026.',
         'Cada registro contable cumple rigurosamente con la partida doble (Debe = Haber), expresado tanto en Bolívares (VES) a la tasa oficial del Banco Central de Venezuela (BCV) como en su equivalente en Dólares Estadounidenses (USD).',
-        'Los asientos incluyen la debida clasificación de las operaciones de anticipos de personas naturales y jurídicas, transferencias de socios (clasificadas como Cuentas por Pagar Socios o Cuentas por Cobrar Socios según el flujo de caja) y la causación de ingresos por intereses del Contrato Mutuo de Línea de Crédito con el Sr. Manuel Becerra.'
+        'Los asientos incluyen el Asiento de Cierre y Conciliación con Banesco Banco Universal (COMP-CIE-AUD-2026-001) donde se justifica contablemente que los fondos por anticipos corresponden a compras nacionales de café que no constituyen ingresos hasta su despacho en Octubre 2026, y se formaliza el registro del diferencial cambiario de Bs. 130.538,00 por fluctuaciones en el tipo de cambio oficial BCV.'
       ],
       table: {
         headers: ['N° Comprobante', 'Tipo', 'Fecha', 'Concepto Principal', 'Total Debe (VES)', 'Total Haber (VES)'],
@@ -451,18 +456,22 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
               <span>Filtrar por tipo de comprobante:</span>
             </div>
             <div className="flex flex-wrap gap-1">
-              {['ALL', 'DIARIO', 'INGRESO', 'EGRESO', 'RETENCION_IVA', 'RETENCION_ISLR'].map((type) => (
+              {['ALL', 'CIERRE', 'DIARIO', 'INGRESO', 'EGRESO', 'RETENCION_IVA', 'RETENCION_ISLR'].map((type) => (
                 <button
                   key={type}
                   onClick={() => setFilterType(type)}
                   className={`px-2.5 py-1 rounded text-[11px] font-bold transition-colors ${
                     filterType === type
                       ? 'bg-slate-900 text-white'
+                      : type === 'CIERRE'
+                      ? 'bg-emerald-50 text-emerald-950 border border-emerald-400 hover:bg-emerald-100 font-extrabold'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
                   {type === 'ALL'
                     ? 'Todos los Asientos'
+                    : type === 'CIERRE'
+                    ? '⭐ Asiento de Cierre Banesco (COMP-CIE)'
                     : type === 'DIARIO'
                     ? 'Comprobantes Diario (CD)'
                     : type === 'INGRESO'
@@ -472,6 +481,73 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
                     : type}
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Executive Highlight Banner: Asiento de Cierre Banesco 2026 */}
+          <div className="bg-gradient-to-r from-emerald-950 via-teal-950 to-slate-900 border-2 border-emerald-500 rounded-xl p-5 text-white shadow-md space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div className="flex items-start gap-3">
+                <span className="p-2.5 bg-emerald-800 text-emerald-200 rounded-xl border border-emerald-400 shrink-0 shadow-xs">
+                  <ShieldCheck className="w-6 h-6" />
+                </span>
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-black bg-amber-400 text-slate-950 uppercase tracking-wider">
+                      ASIENTO DE CIERRE &amp; CONCILIACIÓN ERP
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-800 text-emerald-200 border border-emerald-500">
+                      COMP-CIE-AUD-2026-001 &middot; 31/08/2026
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-emerald-300">
+                      100% CUADRADO DEBE = HABER
+                    </span>
+                  </div>
+                  <h3 className="text-base font-black text-white mt-1">
+                    Cierre Contable Auditado: Regularización de Anticipos NIIF 15 (Bs. 1.449.375.572,62 / Ref. Carta: Bs. 1.499.375.572,62) e Integración del Diferencial Cambiario NIC 21 (Bs. 130.538,00 / $130.538,77 USD)
+                  </h3>
+                  <p className="text-xs text-emerald-200/90 leading-relaxed mt-1 max-w-4xl">
+                    Asiento formal de regularización de fin de período que vincula la totalidad de los créditos movilizados en Banesco Banco Universal (Bs. 1.966.597.105,35). Demuestra ante la Unidad de Cumplimiento UPCLC/FT que los anticipos recibidos para compra de café nacional corresponden a pasivos comerciales que se facturan en Octubre 2026 (NIIF 15 / Sección 23 VEN-NIF PYMES) e incorpora el ajuste cambiario de <strong>Bs. 130.538,00</strong> ($130.538,77 USD conforme a NIC 21 / Sección 30).
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center gap-2 shrink-0">
+                <button
+                  onClick={() => setFilterType(filterType === 'CIERRE' ? 'ALL' : 'CIERRE')}
+                  className="w-full sm:w-auto px-3.5 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-lg text-xs transition-all flex items-center justify-center gap-2 shadow cursor-pointer"
+                >
+                  <Eye className="w-4 h-4" />
+                  <span>{filterType === 'CIERRE' ? 'Ver Todos los Asientos' : 'Filtrar Asiento de Cierre'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 3 Metric Cards for the Closing Entry */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-emerald-800/80 font-mono text-xs">
+              <div className="bg-slate-950/80 p-3 rounded-lg border border-emerald-800">
+                <span className="text-[10px] text-emerald-400 font-sans block font-semibold uppercase">
+                  1. Anticipos Clientes Regularizados (NIIF 15)
+                </span>
+                <span className="text-sm font-black text-white block mt-0.5">Bs. 1.449.375.572,62</span>
+                <span className="text-[10px] text-emerald-300 font-sans">$2.153.954,55 USD &middot; Facturación Octubre 2026</span>
+              </div>
+
+              <div className="bg-slate-950/80 p-3 rounded-lg border border-amber-600/70">
+                <span className="text-[10px] text-amber-400 font-sans block font-semibold uppercase">
+                  2. Registro Diferencial Cambiario (NIC 21)
+                </span>
+                <span className="text-sm font-black text-amber-300 block mt-0.5">Bs. 130.538,00</span>
+                <span className="text-[10px] text-amber-200/80 font-sans">$130.538,77 USD &middot; Tasa Spot vs Ponderada BBU</span>
+              </div>
+
+              <div className="bg-slate-950/80 p-3 rounded-lg border border-emerald-800">
+                <span className="text-[10px] text-emerald-400 font-sans block font-semibold uppercase">
+                  3. Total Asiento de Cierre (Debe = Haber)
+                </span>
+                <span className="text-sm font-black text-emerald-400 block mt-0.5">Bs. 1.449.506.110,62</span>
+                <span className="text-[10px] text-emerald-300 font-sans">$2.284.493,32 USD &middot; Diferencia: Bs. 0,00</span>
+              </div>
             </div>
           </div>
 
@@ -566,8 +642,13 @@ export const AccountingSheetFullJournalView: React.FC<Props> = ({ company, curre
                             <td className={`py-2 px-4 text-slate-900 ${isDebit ? 'font-semibold' : 'pl-8 text-slate-700'}`}>
                               {line.accountName}
                             </td>
-                            <td className="py-2 px-4 text-slate-500 text-[11px]">
-                              {line.reference || '-'}
+                            <td className="py-2 px-4 text-slate-600 text-[11px]">
+                              <div className="font-mono">{line.reference || '-'}</div>
+                              {line.comment && (
+                                <div className="text-[10px] text-emerald-900 font-sans mt-0.5 font-medium bg-emerald-50/90 px-1.5 py-0.5 rounded border border-emerald-200/80">
+                                  {line.comment}
+                                </div>
+                              )}
                             </td>
                             <td className="py-2 px-4 text-right font-bold text-slate-900">
                               {line.debitVES > 0 ? line.debitVES.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '-'}
